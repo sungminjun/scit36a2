@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.scit36a2.minnano.vo.Board_comments" alias="cmt" />
+		<typeAlias type="com.scit36a2.minnano.vo.Board" alias="bo" />
+		<typeAlias type="com.scit36a2.minnano.vo.Cashonhand" alias="coh" />
+		<typeAlias type="com.scit36a2.minnano.vo.Company" alias="com" />
+		<typeAlias type="com.scit36a2.minnano.vo.Employee" alias="emp" />
+		<typeAlias type="com.scit36a2.minnano.vo.Expense" alias="exp" />
+		<typeAlias type="com.scit36a2.minnano.vo.Menu" alias="me" />
+		<typeAlias type="com.scit36a2.minnano.vo.Payment" alias="pmt" />
+		<typeAlias type="com.scit36a2.minnano.vo.Sales_detail" alias="sad" />
+		<typeAlias type="com.scit36a2.minnano.vo.Sales_state" alias="sas" />
+		<typeAlias type="com.scit36a2.minnano.vo.Seat" alias="sea" />
+ 	</typeAliases>
+	<mappers>
+<!--
+ 		<mapper resource="mappers/customerMapper.xml" />
+ -->
+ 	</mappers>
+</configuration>

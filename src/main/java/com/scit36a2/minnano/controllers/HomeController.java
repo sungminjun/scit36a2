@@ -17,11 +17,15 @@ public class HomeController {
 		return "devhome";
 	}
 	
+
+	@RequestMapping(value = "/kyk", method = RequestMethod.GET)
+	public String kyk() {
+		
+		return "kyk";
+
 	@RequestMapping(value = "/lyc_main", method = RequestMethod.GET)
 	public String lyc_main() {
 		logger.info("welcome home.");
-		
-		
 		return "lyc_main";
 	}
 

@@ -330,24 +330,24 @@ create SEQUENCE cashonhand_seqs start with 1 increment by 1 nocache;
 create SEQUENCE payment_seqs start with 1 increment by 1 nocache;
 
 /* insert sample datas */
-insert into company values(member_comp_seqs.nextval, '204-81-67238', '유진헬스케어', '02-2236-6966', '서울시 성동구 성수동');
-insert into company values(member_comp_seqs.nextval, '204-00-00000', 'SESOCGLOBAL', '02-555-5555', '서울시 강남구 삼성동');
-insert into company values(member_comp_seqs.nextval, '123-45-00000', '호정이네이남장', '043-222-2222', '충청남도 천안');
+insert into company values(comp_seqs.nextval, '2048167238', '유진헬스케어', '02-2236-6966', '서울시 성동구 성수동', '지역2');
+insert into company values(comp_seqs.nextval, '2040000000', 'SESOCGLOBAL', '02-555-5555', '서울시 강남구 삼성동', '지역2');
+insert into company values(comp_seqs.nextval, '1234500000', '호정이네이남장', '043-222-2222', '충청남도 천안', '지역2');
 
-insert into employee values(member_user_seqs.nextval, 1, 'qwe', '123', 9, '전성민', '010-6545-5825');
-insert into employee values(member_user_seqs.nextval, 2, 'asd', '123', 9, '웃기는놈들', '02-555-5555');
-insert into employee values(member_user_seqs.nextval, 3, 'zxc', '123', 9, '이호정', '010-2222-2222');
+insert into employee values(emp_seqs.nextval, 1, 'qwe', '123', 9, '전성민', '010-6545-5825');
+insert into employee values(emp_seqs.nextval, 2, 'asd', '123', 9, '웃기는놈들', '02-555-5555');
+insert into employee values(emp_seqs.nextval, 3, 'zxc', '123', 9, '이호정', '010-2222-2222');
 
-insert into seat values(member_table_seqs.nextval, 1, '매');
-insert into seat values(member_table_seqs.nextval, 2, '룸1');
-insert into seat values(member_table_seqs.nextval, 3, '가가');
-insert into seat values(member_table_seqs.nextval, 1, '난');
-insert into seat values(member_table_seqs.nextval, 2, '룸2');
-insert into seat values(member_table_seqs.nextval, 3, '나나');
-insert into seat values(member_table_seqs.nextval, 1, '국');
-insert into seat values(member_table_seqs.nextval, 2, '룸3');
-insert into seat values(member_table_seqs.nextval, 3, '다다');
-insert into seat values(member_table_seqs.nextval, 1, '죽');
+insert into seat values(seat_seqs.nextval, 1, '매');
+insert into seat values(seat_seqs.nextval, 2, '룸1');
+insert into seat values(seat_seqs.nextval, 3, '가가');
+insert into seat values(seat_seqs.nextval, 1, '난');
+insert into seat values(seat_seqs.nextval, 2, '룸2');
+insert into seat values(seat_seqs.nextval, 3, '나나');
+insert into seat values(seat_seqs.nextval, 1, '국');
+insert into seat values(seat_seqs.nextval, 2, '룸3');
+insert into seat values(seat_seqs.nextval, 3, '다다');
+insert into seat values(seat_seqs.nextval, 1, '죽');
 
 insert into menu values(menu_seqs.nextval, 1, 1, '판매중1', 1000, '카테1');
 insert into menu values(menu_seqs.nextval, 2, 1, '짜장면', 2000, '식사');

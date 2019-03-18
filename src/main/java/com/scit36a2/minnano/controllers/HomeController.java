@@ -21,6 +21,7 @@ public class HomeController {
 	public String lyc_main() {
 		logger.info("welcome home.");
 		
+		
 		return "lyc_main";
 	}
 

@@ -16,5 +16,11 @@ public class HomeController {
 		logger.info("welcome home.");
 		return "devhome";
 	}
+	@RequestMapping(value = "/choi", method = RequestMethod.GET)
+	public String choi() {
+		logger.info("welcome home.");
+		return "choi";
+	}
+
 
 }

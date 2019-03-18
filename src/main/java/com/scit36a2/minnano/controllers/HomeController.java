@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-// 홈으로 이동
+// �솃�쑝濡� �씠�룞
 @Controller
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -16,11 +16,30 @@ public class HomeController {
 		logger.info("welcome home.");
 		return "devhome";
 	}
-	@RequestMapping(value = "/choi", method = RequestMethod.GET)
+
+  @RequestMapping(value = "/choi", method = RequestMethod.GET)
 	public String choi() {
-		logger.info("welcome home.");
 		return "choi";
 	}
 
+  @RequestMapping(value = "/kyk", method = RequestMethod.GET)
+	public String kyk() {
+		return "kyk";
 
+	@RequestMapping(value = "/lyc_main", method = RequestMethod.GET)
+	public String lyc_main() {
+		return "lyc_main";
+	}
+
+	@RequestMapping(value = "/jsm", method = RequestMethod.GET)
+	public String jsm() {
+		return "jsm";
+	}
+
+	
+	@RequestMapping(value = "/leehojung", method = RequestMethod.GET)
+	public String leehojung() {
+		System.out.println("test");
+		return "leehojung";
+	}
 }

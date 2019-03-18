@@ -17,7 +17,7 @@ public class HomeController {
 		return "devhome";
 	}
 	
-	@RequestMapping(value="/kyk",method=RequestMethod.GET)
+	@RequestMapping(value = "/kyk", method = RequestMethod.GET)
 	public String kyk() {
 		
 		return "kyk";

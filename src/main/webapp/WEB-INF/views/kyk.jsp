@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>kyk test home 입니다.</h1>
+<h1>kyk test home.</h1>
 </body>
 </html>

@@ -16,30 +16,4 @@ public class HomeController {
 		logger.info("welcome home.");
 		return "devhome";
 	}
-
-  @RequestMapping(value = "/choi", method = RequestMethod.GET)
-	public String choi() {
-		return "choi";
-	}
-
-  @RequestMapping(value = "/kyk", method = RequestMethod.GET)
-	public String kyk() {
-		return "kyk";
-
-	@RequestMapping(value = "/lyc_main", method = RequestMethod.GET)
-	public String lyc_main() {
-		return "lyc_main";
-	}
-
-	@RequestMapping(value = "/jsm", method = RequestMethod.GET)
-	public String jsm() {
-		return "jsm";
-	}
-
-	
-	@RequestMapping(value = "/leehojung", method = RequestMethod.GET)
-	public String leehojung() {
-		System.out.println("test");
-		return "leehojung";
-	}
 }

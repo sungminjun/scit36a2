@@ -16,6 +16,14 @@ public class HomeController {
 		logger.info("welcome home.");
 		return "devhome";
 	}
+	
+	@RequestMapping(value = "/lyc_main", method = RequestMethod.GET)
+	public String lyc_main() {
+		logger.info("welcome home.");
+		
+		
+		return "lyc_main";
+	}
 
 	@RequestMapping(value = "/jsm", method = RequestMethod.GET)
 	public String jsm() {

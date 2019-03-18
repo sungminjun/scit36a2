@@ -1,52 +1,70 @@
-# Prerequisites
-*.d
+src/test/*      # ignore everything in the directory
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# Created by https://www.gitignore.io/api/maven
+# Edit at https://www.gitignore.io/?templates=maven
 
-# Linker output
-*.ilk
-*.map
-*.exp
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
 
-# Precompiled Headers
-*.gch
-*.pch
+# End of https://www.gitignore.io/api/maven
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Created by https://www.gitignore.io/api/test
+# Edit at https://www.gitignore.io/?templates=test
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+### Test ###
+### Ignore all files that could be used to test your code and
+### you wouldn't want to push
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# Reference https://en.wikipedia.org/wiki/Metasyntactic_variable
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Most common
+*foo
+*bar
+*fubar
+*foobar
+*baz
+
+# Japanese
+*hoge
+*piyo
+*fuga
+*hogera
+*hogehoge
+
+# Other names that would make sense
+*tests
+*testsdir
+*testsfile
+*testsfiles
+*test
+*testdir
+*testfile
+*testfiles
+*testing
+*testingdir
+*testingfile
+*testingfiles
+*temp
+*tempdir
+*tempfile
+*tempfiles
+*tmp
+*tmpdir
+*tmpfile
+*tmpfiles
+*lol
+
+# End of https://www.gitignore.io/api/test
+
+#Subversion files
+.svn

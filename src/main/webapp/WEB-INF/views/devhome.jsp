@@ -22,6 +22,6 @@
 	<br>
 	test: input text by kyk
 	<br>
-	<a href="leehojung">이호정</a>
+	<a href="leehojung">이호정테스트</a>
 </body>
 </html>

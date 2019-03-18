@@ -19,6 +19,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/leehojung", method = RequestMethod.GET)
 	public String leehojung() {
+		System.out.println("test");
 		return "leehojung";
 	}
 }

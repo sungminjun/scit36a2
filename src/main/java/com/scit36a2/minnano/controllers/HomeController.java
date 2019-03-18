@@ -17,4 +17,10 @@ public class HomeController {
 		return "devhome";
 	}
 
+	@RequestMapping(value = "/jsm", method = RequestMethod.GET)
+	public String jsm() {
+		return "jsm";
+	}
+
+	
 }

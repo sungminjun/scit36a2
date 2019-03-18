@@ -21,6 +21,8 @@
 	test: input text by lhj
 	<br>
 	test: input text by kyk
-
+	<br>
+	<a href="jsm">test: input link by jsm</a>
+	
 </body>
 </html>

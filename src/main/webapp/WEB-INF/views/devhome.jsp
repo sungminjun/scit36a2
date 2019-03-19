@@ -15,7 +15,7 @@
 	<a href="https://docs.google.com/spreadsheets/d/186B7XnuGiBXcFaPVpChtV514L4NsYMdBy9Jgeeu2oGU/edit#gid=0">개발진도관리표</a>
 	<br>
 	test: input text by choi
-	<a href="choi">최철규</a>
+	<a href="choi">최철규123</a>
 	<br>
 	test: input text by lyc
 	<br>

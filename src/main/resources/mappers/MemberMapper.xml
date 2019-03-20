@@ -3,4 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.MemberDAO">
+<select id="selectOne" parameterType="emp" resultType="emp">
+	SELECT *
+	FROM EMPLOYEE
+	WHERE emp_id=#{emp_id}
+</select>
+<insert id="insert" parameterType="emp">
+	INSERT ALL into employee values(
+		emp_seqence.nextval
+		,#{comp_sequence}
+		,#{emp_id}
+		,#{emp_pw}
+		<if test="auth_level eq '사장'">,9=#{auth_level}</if>
+		<if test="auth_level neq '사장'">,1=#{auth_level}</if>
+		,#{emp_name}
+		,#{emp_tel}
+		,#{emp_quiz}
+		,#{emp_quiz_answer}
+	)
+</insert>
 </mapper>

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.SalesDAO">
-<insert id="insertseat" parameterType="Employee">
+<insert id="insertseat" parameterType="emp">
 		insert into SEAT	(
 		seat_seq,
 		comp_seq,
@@ -14,7 +14,7 @@
 		#{seat_id}
 	)
 	</insert>
-	<select id="selectseat" resultType="List" parameterType="Seat">
+	<select id="selectseat" resultType="sea" parameterType="sea">
 		select b.seat_id from employee a,seat b where a.comp_seq = b.comp_seq
 		
 	</select>
@@ -38,7 +38,7 @@
 	
 	
 	
-	<insert id="insertMenu" parameterType="Menu">
+	<insert id="insertMenu" parameterType="me">
 		insert into MENU	(
 		menu_seq,
 		comp_seq,
@@ -55,7 +55,7 @@
 		#{menu_category}
 		)	
 	</insert>
-	<select id="selectMenu" parameterType="int" resultType="Menu">
+	<select id="selectMenu" parameterType="int" resultType="me">
 		select 
 			menu_seq,
 			comp_seq,
@@ -88,7 +88,7 @@
 
 
 
-	<insert id="insertExpense" parameterType="Expense">
+	<insert id="insertExpense" parameterType="exp">
 		insert into EXPENSE	(
 		expense_seq,
 		comp_seq,
@@ -105,7 +105,7 @@
 		expense_amount = #{expense_amount}
 		)
 	</insert>
-	<select id="selectExpense" parameterType="int" resultType="Expense">
+	<select id="selectExpense" parameterType="int" resultType="exp">
 		select 
 			expense_seq,
 			comp_seq,

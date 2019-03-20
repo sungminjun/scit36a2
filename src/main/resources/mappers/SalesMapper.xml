@@ -2,5 +2,139 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.scit36a2.minnano.SalesDAO">
+<mapper namespace="com.scit36a2.minnano.dao.SalesDAO">
+<insert id="insertseat" parameterType="Employee">
+		insert into SEAT	(
+		seat_seq,
+		comp_seq,
+		seat_id
+	)	values	(
+		seat_seq.nextval,
+		#{comp_seq},
+		#{seat_id}
+	)
+	</insert>
+	<select id="selectseat" resultType="List" parameterType="Seat">
+		select b.seat_id from employee a,seat b where a.comp_seq = b.comp_seq
+		
+	</select>
+	<delete id="deleteseat" parameterType="String">
+		delete from 
+			SEAT
+		where 
+			seat_id = #{seat_id}
+	
+	</delete>
+	<update id="updateseat" parameterType="String">
+		update
+			SEAT
+		set
+			seat_id = #{seat_id}	
+		where
+			seat_id = #{seat_id}
+	</update>
+	
+	
+	
+	
+	
+	<insert id="insertMenu" parameterType="Menu">
+		insert into MENU	(
+		menu_seq,
+		comp_seq,
+		menu_sellFlag,
+		menu_name,
+		menu_price,
+		menu_category
+		)	values	(
+		menu_seq.nextval,
+		#{comp_seq},
+		#{menu_sellFlag},
+		#{menu_name},
+		#{menu_price},
+		#{menu_category}
+		)	
+	</insert>
+	<select id="selectMenu" parameterType="int" resultType="Menu">
+		select 
+			menu_seq,
+			comp_seq,
+			menu_sellFlag,
+			menu_name,
+			menu_price,
+			menu_category
+		from 
+			MENU
+		where
+			menu_seq = #{menu_seq}
+	</select>
+	<delete id="deleteMenu" parameterType="int">
+		delete from MENU
+		where menu_seq = #{menu_seq}
+	</delete>
+	<update id="updateMenu" parameterType="int">
+		update
+			MENU
+		set
+			comp_seq = #{comp_seq},
+			menu_sellFlag = #{menu_sellFlag},
+			menu_name = #{menu_name},
+			menu_price = #{menu_price},
+			menu_category = #{menu_category}
+		where
+			menu_seq = #{menu_seq}
+	</update>
+
+
+
+
+	<insert id="insertExpense" parameterType="Expense">
+		insert into EXPENSE	(
+		expense_seq,
+		comp_seq,
+		expense_type,
+		expense_date,
+		expense_description,
+		expense_amount
+		)	values	(
+		expense_seq.nextval,
+		#{comp_seq},
+		expense_type = #{expense_type},
+		expense_date = #{expense_date},
+		expense_description = #{expense_description},
+		expense_amount = #{expense_amount}
+		)
+	</insert>
+	<select id="selectExpense" parameterType="int" resultType="Expense">
+		select 
+			expense_seq,
+			comp_seq,
+			expense_type,
+			expense_date,
+			expense_description,
+			expense_amount
+		from 
+			EXPENSE
+		where
+			expense_seq = #{expense_seq}
+	</select>
+	<delete id="deleteExpense" parameterType="int">
+		delete from EXPENSE
+		where
+			expense_seq = #{expense_seq}
+	
+	</delete>
+	<update id="updateExpense" parameterType="int">
+		update
+			EXPENSE
+		set
+			comp_seq = #{comp_seq},
+			expense_type = #{expense_type},
+			expense_date = #{expense_date},
+			expense_description = #{expense_description},
+			expense_amount = #{expense_amount}
+		where
+			expense_seq = #{expense_seq}
+	</update>
 </mapper>
+

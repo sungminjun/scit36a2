@@ -1,4 +1,4 @@
-/** SCIT36-A-2, team minnanoPOS, 2019.03.12. v4. **/
+﻿/** SCIT36-A-2, team minnanoPOS, 2019.03.12. v4. **/
 
 /* Drop Tables */
 DROP TABLE board_comments CASCADE CONSTRAINTS;
@@ -334,9 +334,9 @@ insert into company values(comp_seqs.nextval, '2048167238', '유진헬스케어'
 insert into company values(comp_seqs.nextval, '2040000000', 'SESOCGLOBAL', '02-555-5555', '서울시 강남구 삼성동', '지역2');
 insert into company values(comp_seqs.nextval, '1234500000', '호정이네이남장', '043-222-2222', '충청남도 천안', '지역2');
 
-insert into employee values(emp_seqs.nextval, 1, 'qwe', '123', 9, '전성민', '010-6545-5825');
-insert into employee values(emp_seqs.nextval, 2, 'asd', '123', 9, '웃기는놈들', '02-555-5555');
-insert into employee values(emp_seqs.nextval, 3, 'zxc', '123', 9, '이호정', '010-2222-2222');
+insert into employee values(emp_seqs.nextval, 1, 'qwe', '123', 9, '전성민', '010-6545-5825','quiz1','ans1');
+insert into employee values(emp_seqs.nextval, 2, 'asd', '123', 9, '웃기는놈들', '02-555-5555','quiz1','ans1');
+insert into employee values(emp_seqs.nextval, 3, 'zxc', '123', 9, '이호정', '010-2222-2222','quiz1','ans1');
 
 insert into seat values(seat_seqs.nextval, 1, '매');
 insert into seat values(seat_seqs.nextval, 2, '룸1');

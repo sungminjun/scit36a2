@@ -18,4 +18,13 @@ public class ReportsController {
 		return "reports";
 	}
 
+	//보고서 첫화면 리스트 불러오기(request param, default 값 설정)
+	
+	//손님based 통계
+	
+	//메뉴별 통계
+	
+	//카드/현금 수금확인
+	
+	//수지 보고서
 }

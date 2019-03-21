@@ -22,4 +22,32 @@
 		,#{emp_quiz_answer}
 	)
 </insert>
+
+<select id="reqCompSeq" resultType="int">
+	select comp_seqs.nextval from dual
+</select>
+
+<insert id="join" parameterType="hashmap">
+	insert all 
+		into company values(
+			#{comp_seq}
+			, #{comp_id}
+			, #{comp_name}
+			, #{comp_tel}
+			, #{comp_address}
+			, #{comp_address2}
+		)
+		into employee values(
+			emp_seqence.nextval
+			,#{comp_seq}
+			,#{emp_id}
+			,#{emp_pw}
+			,#{auth_level}
+			,#{emp_name}
+			,#{emp_tel}
+			,#{emp_quiz}
+			,#{emp_quiz_answer}
+		)
+		select * from dual
+</insert>
 </mapper>

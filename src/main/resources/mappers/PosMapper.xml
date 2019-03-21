@@ -23,7 +23,37 @@ insert all
 	)	
 		select * from dual
 	</insert>
-	
-	
+	<select id="selectSas" parameterType="int" resultType="Sas">
+		select
+			sales_state_seq,
+	  		comp_seq,
+	  		seat_seq,
+	  		sales_start,
+	  		sales_end,
+	  		sales_visitors,
+	  		sales_memo
+		from 
+  			Sales_state
+  		where 	
+			sales_state_seq = #{sales_state_seq}
+	</select>
+	<select id="selectSad" parameterType="int" resultType="Sad">
+		select
+			sales_detail_seq
+	  		sales_state_seq
+	 		 menu_seq
+	  		sales_order
+	  		sales_discount
+		from 
+			Sales_detail
+		where
+			sales_detail_seq = #{sales_detail_seq}
+	</select>
+
+
+
+
+
+
 </mapper>
 	

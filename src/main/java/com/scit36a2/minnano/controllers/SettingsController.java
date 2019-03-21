@@ -56,7 +56,7 @@ public class SettingsController {
 		
 	}
 	
-/*	@RequestMapping(value="selectseat", method=RequestMethod.GET)
+/*@RequestMapping(value="selectseat", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Seat> selectseat(HttpSession session)	{
 		String loginId = (String)session.getAttribute("loginId");

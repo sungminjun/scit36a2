@@ -2,6 +2,7 @@ package com.scit36a2.minnano.controllers;
 
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit36a2.minnano.dao.PosRepo;
 import com.scit36a2.minnano.vo.Sales_detail;
@@ -66,7 +68,19 @@ public class PosController {
 		return null;	//주문전표화면?
 	}
 	
+	@RequestMapping(value="selectSas")
+	@ResponseBody
+	public List<Sales_state> selectSas(int sales_state_seq)	{
+		List<Sales_state> select_Sales_stateList = repo.selectSas(sales_state_seq);
+		return select_Sales_stateList;
+	}
 	
+	@RequestMapping(value="selectSad")
+	@ResponseBody
+	public List<Sales_detail> selectSad(int sales_detail_seq)	{
+		List<Sales_detail> select_Sales_detailList = repo.selectSad(sales_detail_seq);
+		return select_Sales_detailList;
+	}
 	
 	
 }

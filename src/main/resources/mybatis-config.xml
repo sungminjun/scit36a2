@@ -23,6 +23,6 @@
  	<mapper resource="mappers/BoardMapper.xml"/>
  	<mapper resource="mappers/MemberMapper.xml"/>
  	<mapper resource="mappers/SalesMapper.xml"/>
- 
+ 	<mapper resource="mappers/PosMapper.xml"/>
  	</mappers>
 </configuration>

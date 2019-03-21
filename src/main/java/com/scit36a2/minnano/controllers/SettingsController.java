@@ -34,7 +34,7 @@ public class SettingsController {
 	//테이블화면이동
 	@RequestMapping(value="insertseat", method=RequestMethod.GET)
 	public String insertseat()	{
-		return "seat";
+		return "mgr/seat";
 	}
 		
 	//테이블등록
@@ -154,7 +154,7 @@ public class SettingsController {
 	public String insertExpense()	{
 			
 		
-		return "Expense";
+		return "Expense";//지출화면 jsp 확인
 	}
 	
 	
@@ -167,8 +167,7 @@ public class SettingsController {
 	}
 	@RequestMapping(value="selectExpense", method=RequestMethod.POST)
 	public List<Expense> selectExpense(HttpSession session,int expense_seq)	{
-		//int expense_seq = expense.getExpense_seq();
-		
+			
 		List<Expense> expenseList = repo.selectExpense(expense_seq);
 		return expenseList;
 	}

@@ -9,7 +9,7 @@
 		comp_seq,
 		seat_id
 	)	values	(
-		seat_seq.nextval,
+		seat_seqs.nextval,
 		#{comp_seq},
 		#{seat_id}
 	)
@@ -47,7 +47,7 @@
 		menu_price,
 		menu_category
 		)	values	(
-		menu_seq.nextval,
+		menu_seqs.nextval,
 		#{comp_seq},
 		#{menu_sellFlag},
 		#{menu_name},
@@ -76,7 +76,6 @@
 		update
 			MENU
 		set
-			comp_seq = #{comp_seq},
 			menu_sellFlag = #{menu_sellFlag},
 			menu_name = #{menu_name},
 			menu_price = #{menu_price},
@@ -97,12 +96,14 @@
 		expense_description,
 		expense_amount
 		)	values	(
-		expense_seq.nextval,
+		expense_seqs.nextval,
 		#{comp_seq},
-		expense_type = #{expense_type},
-		expense_date = #{expense_date},
-		expense_description = #{expense_description},
-		expense_amount = #{expense_amount}
+		<if test="expense_type=='고정'">,#{expense_type}=1</if>
+		<if test="expense_type=='변동'">,#{expense_type}=2</if>
+		<if test="expense_type=='기타'">,#{expense_type}=3</if>
+		sysdate,
+		#{expense_description},
+		#{expense_amount}
 		)
 	</insert>
 	<select id="selectExpense" parameterType="int" resultType="exp">
@@ -122,15 +123,12 @@
 		delete from EXPENSE
 		where
 			expense_seq = #{expense_seq}
-	
 	</delete>
 	<update id="updateExpense" parameterType="int">
 		update
 			EXPENSE
 		set
-			comp_seq = #{comp_seq},
 			expense_type = #{expense_type},
-			expense_date = #{expense_date},
 			expense_description = #{expense_description},
 			expense_amount = #{expense_amount}
 		where

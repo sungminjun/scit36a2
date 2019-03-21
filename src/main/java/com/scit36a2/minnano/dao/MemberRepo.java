@@ -18,46 +18,15 @@ public class MemberRepo {
 	SqlSession session;
 
 	/*
-	 * 회원가입 처리
-	 */
-	public int insertMember(Employee employee) {
-		MemberDAO dao=session.getMapper(MemberDAO.class);
-		
-		int result=0;
-		
-		try {
-		result=dao.insertMember(employee);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-		
-	}
-	/*
-	 * 사업자 등록번호 중복체크
+	 * 회원 아이디로 회원 검색
+	 * 사업자 등록번호로 중복체크 등등
 	 */
 	public Employee selectOne(Employee employee) {
-		MemberDAO dao=session.getMapper(MemberDAO.class);
-		Employee e=dao.selectOne(employee);
+		MemberDAO dao = session.getMapper(MemberDAO.class);
+		Employee e = dao.selectOne(employee);
 		return e;
 	}
-	public int insertCompany(Company company) {
-		
-		MemberDAO dao=session.getMapper(MemberDAO.class);
-		
-		int result=0;
-		
-		try {
-		result=dao.insertCompany(company);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-		
-	}
-	
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 	/*
 	 * 알바생 등록 리스트 현황 불러오기
 	 */

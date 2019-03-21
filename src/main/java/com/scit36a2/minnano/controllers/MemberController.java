@@ -30,17 +30,17 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	// 로그인 페이지로 이동
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login_k", method = RequestMethod.GET)
 	public String login() {
 		logger.info("welcome login.");
-		return "member/login";
+		return "member/login_k";
 	}
 
 	// 회원가입 페이지로 이동
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	@RequestMapping(value = "/join_k", method = RequestMethod.GET)
 	public String join() {
 
-		return "member/join";
+		return "member/join_k";
 	}
 
 	// 회원가입 처리 요청(가게+employee 테이블에 다중 insert->vo를 이용하지 않고 map에 담아서 다중 파라미터)
@@ -110,19 +110,19 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Employee employee, Model model, HttpSession session) {
 		Employee e = repo.selectOne(employee);
-
+		System.out.println(e);
 		String message = "";
 		int comp_seq = employee.getComp_seq();
-		String loginId = employee.getEmp_id();
-		String loginPw = employee.getEmp_pw();
+		String emp_id = employee.getEmp_id();
+		String emp_pw = employee.getEmp_pw();
 
 		if (e != null) {
-			if (loginPw.equals(e.getEmp_pw())) {
+			if (emp_id.equals(e.getEmp_id())&&emp_pw.equals(e.getEmp_pw())) {
 
-				session.setAttribute("loginId", loginId);
+				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
 
-				return "redirect:/";
+				return "redirect:/kyk";
 			} else {
 				message = "로그인에 실패하셨습니다.";
 			}
@@ -131,7 +131,7 @@ public class MemberController {
 
 		}
 		model.addAttribute("message", message);
-		return "member/login";
+		return "member/login_k";
 	}
 
 	// 로그아웃 처리

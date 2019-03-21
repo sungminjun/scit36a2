@@ -5,9 +5,10 @@
 <mapper namespace="com.scit36a2.minnano.dao.MemberDAO">
 <select id="selectOne" parameterType="emp" resultType="emp">
 	SELECT *
-	FROM EMPLOYEE
+	FROM employee
 	WHERE emp_id=#{emp_id}
 </select>
+
 <insert id="insert" parameterType="emp">
 	INSERT ALL into employee values(
 		emp_seqence.nextval

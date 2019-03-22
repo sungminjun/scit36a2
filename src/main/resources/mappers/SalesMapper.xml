@@ -69,9 +69,9 @@
 		from 
 			MENU
 		where
-			menu_seq = #{menu_seq}
+			comp_seq = #{comp_seq}
 	</select>
-	<delete id="deleteMenu" parameterType="int">
+	<delete id="deleteMenu" parameterType="me">
 		delete from MENU
 		where menu_seq = #{menu_seq}
 	</delete>

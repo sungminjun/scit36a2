@@ -13,20 +13,6 @@
 	FROM company
 	WHERE comp_id=#{comp_id}
 </select>
-<insert id="insert" parameterType="emp">
-	INSERT ALL into employee values(
-		emp_seqence.nextval
-		,#{comp_sequence}
-		,#{emp_id}
-		,#{emp_pw}
-		<if test="auth_level eq '사장'">,9=#{auth_level}</if>
-		<if test="auth_level neq '사장'">,1=#{auth_level}</if>
-		,#{emp_name}
-		,#{emp_tel}
-		,#{emp_quiz}
-		,#{emp_quiz_answer}
-	)
-</insert>
 
 <select id="reqCompSeq" resultType="int">
 	select comp_seqs.nextval from dual
@@ -54,5 +40,58 @@
 			,#{emp_quiz_answer}
 		)
 		select * from dual
+</insert>
+<update id="updateCompany" parameterType="com">
+	UPDATE 
+		company
+	SET
+		comp_id=#{comp_id}
+		,comp_name=#{comp_name}
+		,comp_tel=#{comp_tel}
+		,comp_address=#{comp_address}
+		,comp_address=#{comp_address2}
+	WHERE
+		comp_seq=#{comp_seq}
+</update>
+<update id="updateMember" parameterType="emp">
+	UPDATE
+		employee
+	SET
+		emp_id=#{emp_id}
+		emp_pw=#{emp_pw}
+		,emp_name=#{emp_name}
+		,emp_tel=#{emp_tel}
+	WHERE
+		comp_seq=#{comp_seq} and emp_seq=#{emp_seq}
+</update>
+<select id="selectMemberAll" parameterType="emp" resultType="emp">
+	SELECT
+		emp_seq
+		,emp_id
+		,emp_pw
+		,emp_auth_level
+		,emp_name
+		,emp_tel
+		,emp_quiz
+		,emp_quiz_answer
+	FROM
+		employee
+	WHERE
+		comp_seq=#{comp_seq}
+	ORDER BY
+		emp_seq
+</select>
+<insert id="joinMember" parameterType="emp">
+	INSERT INTO employee values(
+		emp_seq.nextval
+		,#{comp_seq}
+		,#{emp_id}
+		,#{emp_pw}
+		<if test="emp_auth_level eq null || emp_auth_level eq ''">,1</if>
+		,#{emp_name}
+		,#{emp_tel}
+		,#{emp_quiz}
+		,#{emp_quiz_answer}
+	)
 </insert>
 </mapper>

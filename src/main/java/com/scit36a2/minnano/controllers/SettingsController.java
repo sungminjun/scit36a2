@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,10 +27,10 @@ public class SettingsController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SettingsController.class);
 
-	@RequestMapping(value = "choiTest", method = RequestMethod.GET)
-	public String insertseat(HttpSession session) {
-		System.out.println((Integer) session.getAttribute("comp_seq"));
-		return "choiTest";
+	@RequestMapping(value = "mgr", method = RequestMethod.GET)
+	public String mgr(HttpSession session) {
+		logger.info("welcome home");
+		return "mgr/mgr";
 	}
 
 	@RequestMapping(value = "addtable", method = RequestMethod.POST)
@@ -99,7 +98,7 @@ public class SettingsController {
 	// 메뉴화면이동
 	@RequestMapping(value = "choitestmenu", method = RequestMethod.GET)
 	public String choitestmenu() {
-		return "choitestmenu";
+		return "backside/choitestmenu";
 	}
 
 	// 메뉴등록

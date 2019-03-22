@@ -83,7 +83,7 @@
 </select>
 <insert id="joinMember" parameterType="emp">
 	INSERT INTO employee values(
-		emp_seq.nextval
+		emp_seqs.nextval
 		,#{comp_seq}
 		,#{emp_id}
 		,#{emp_pw}

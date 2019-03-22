@@ -12,10 +12,10 @@ public class ReportsController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ReportsController.class);
 
-	@RequestMapping(value = "/reports", method = RequestMethod.GET)
-	public String reports() {
-		logger.info("welcome reports.");
-		return "reports";
+	@RequestMapping(value = "/report", method = RequestMethod.GET)
+	public String report() {
+		logger.info("welcome report.");
+		return "report/report";
 	}
 
 	//보고서 첫화면 리스트 불러오기(request param, default 값 설정)

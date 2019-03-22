@@ -1,7 +1,5 @@
 package com.scit36a2.minnano.controllers;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,25 +28,29 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	// 로그인 페이지로 이동
-	@RequestMapping(value = "/login_k", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		logger.info("welcome login.");
-		return "member/login_k";
+		return "member/login";
 	}
 
 	// 회원가입 페이지로 이동
-	@RequestMapping(value = "/join_k", method = RequestMethod.GET)
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {
+		return "member/join";
+	}
 
-		return "member/join_k";
+	// id,pw찾기 페이지로 이동
+	@RequestMapping(value = "/find", method = RequestMethod.GET)
+	public String find() {
+		return "member/find";
 	}
 
 	// 회원가입 처리 요청(가게+employee 테이블에 다중 insert->vo를 이용하지 않고 map에 담아서 다중 파라미터)
-	@RequestMapping(value="/regist",method=RequestMethod.POST)
-	public String joinMain(Model model,Employee employee,Company company){
+	@RequestMapping(value = "/regist", method = RequestMethod.POST)
+	public String joinMain(Model model, Employee employee, Company company) {
 		HashMap<String, Object> map = new HashMap<>();
-		
-		
+
 //		Class c = Employee.class;
 //		Method[] m = c.getMethods();
 //		for(int i=0; i<m.length; i++) {
@@ -63,18 +65,18 @@ public class MemberController {
 //		    }
 //		}
 //		
-		
+
 		int seq = 0;
 		seq = repo.reqCompSeq();
 		if (seq != 0) {
-			map.put("comp_seqs",seq);
+			map.put("comp_seqs", seq);
 		}
-		map.put("comp_id",company.getComp_id());
-		map.put("comp_name",company.getComp_name());
-		map.put("comp_tel",company.getComp_tel());
-		map.put("comp_address",company.getComp_address());
-		map.put("comp_address2",company.getComp_address2());
-		
+		map.put("comp_id", company.getComp_id());
+		map.put("comp_name", company.getComp_name());
+		map.put("comp_tel", company.getComp_tel());
+		map.put("comp_address", company.getComp_address());
+		map.put("comp_address2", company.getComp_address2());
+
 		map.put("emp_seq", employee.getEmp_seq());
 		map.put("emp_id", employee.getEmp_id());
 		map.put("emp_pw", employee.getEmp_pw());
@@ -84,30 +86,30 @@ public class MemberController {
 		map.put("emp_tel", employee.getEmp_tel());
 		map.put("emp_quiz", employee.getEmp_quiz());
 		map.put("emp_quiz_answer", employee.getEmp_quiz_answer());
-		
+
 		int result = repo.join(map);
 		if (result == 2) {
 			System.out.println("성공");
 		} else {
 			System.out.println("실패");
 		}
-		
+
 		return "member/login_k";
 	}
-	//사업자 
+
+	// 사업자
 	// 사업자 등록번호 중복 체크
 	@RequestMapping(value = "/checkComp_id", method = RequestMethod.POST)
 	public @ResponseBody String checkComp_id(Company company) {
-		
-		
+
 		String id = company.getComp_id();
-		
-		if(id.length() < 3 || id.length() >10) {
+
+		if (id.length() < 3 || id.length() > 10) {
 			return "lengthFail";
 		}
-		
-		Company c =  repo.selectCompanyOne(company);
-		
+
+		Company c = repo.selectCompanyOne(company);
+
 		if (c != null)
 			return "fail";
 		else
@@ -118,14 +120,14 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Employee employee, Model model, HttpSession session) {
 		Employee e = repo.selectOne(employee);
-		
+
 		String message = "";
 		int comp_seq = e.getComp_seq();
 		String emp_id = employee.getEmp_id();
 		String emp_pw = employee.getEmp_pw();
 
 		if (e != null) {
-			if (emp_id.equals(e.getEmp_id())&&emp_pw.equals(e.getEmp_pw())) {
+			if (emp_id.equals(e.getEmp_id()) && emp_pw.equals(e.getEmp_pw())) {
 
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
@@ -134,10 +136,12 @@ public class MemberController {
 			} else {
 				message = "로그인에 실패하셨습니다.";
 			}
-		} else {
-			message = "로그인에 실패하셨습니다";
-			
 		}
+//		** dead code ** 
+//		else {
+//			message = "로그인에 실패하셨습니다";
+//
+//		}
 		model.addAttribute("message", message);
 		return "member/login_k";
 	}
@@ -182,10 +186,10 @@ public class MemberController {
 
 	// 가게 정보 수정 요청
 	@RequestMapping(value = "selectCompanyOne", method = RequestMethod.POST)
-	public @ResponseBody Company selectCompanyOne(Company company,HttpSession session) {
-		
-		Company companyList=repo.selectCompanyOne(company);
-		
+	public @ResponseBody Company selectCompanyOne(Company company, HttpSession session) {
+
+		Company companyList = repo.selectCompanyOne(company);
+
 		return companyList;
 	}
 
@@ -193,11 +197,11 @@ public class MemberController {
 	@RequestMapping(value = "updateCompany", method = RequestMethod.POST)
 	public @ResponseBody String updateCompany(Company company, HttpSession session) {
 
-		String CompId=(String) session.getAttribute("CompId");
+		String CompId = (String) session.getAttribute("CompId");
 		company.setComp_id(CompId);
-		int result=repo.updateCompany(company);
-		
-		if(result==1)
+		int result = repo.updateCompany(company);
+
+		if (result == 1)
 			return "success";
 		else
 			return "fail";
@@ -212,36 +216,34 @@ public class MemberController {
 	}
 
 	// 멤버 추가 요청 처리(employee)
-	//예시 ui단에 비밀번호 찾는 질문 입력란이 없는데....어떻게 하실것인지!
-	@RequestMapping(value="registMember",method=RequestMethod.POST)
-	public @ResponseBody String registMember(Model model,Employee employee,HttpSession session) {
-		//employee.setEmp_auth_level(1); mapper에서 처리할까..
-		int result=repo.joinMember(employee);
-		
-		if(result==1) return "success";
-		else return "fail";
+	// 예시 ui단에 비밀번호 찾는 질문 입력란이 없는데....어떻게 하실것인지!
+	@RequestMapping(value = "registMember", method = RequestMethod.POST)
+	public @ResponseBody String registMember(Model model, Employee employee, HttpSession session) {
+		// employee.setEmp_auth_level(1); mapper에서 처리할까..
+		int result = repo.joinMember(employee);
+
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
 	// 직원 회원정보 수정 처리
 	@RequestMapping(value = "updateEmployee", method = RequestMethod.POST)
 	public @ResponseBody String updateEmployee(Employee employee, HttpSession session) {
-		
-		String MemberId=(String) session.getAttribute("MemberId");
-		employee.setEmp_id(MemberId);
-		int result=repo.updateMember(employee);
-		if(result==1)return "success";
-		else return "fail";
-	}
 
-	// 아이디/패스워드 찾기 화면
-	@RequestMapping(value = "findLogin", method = RequestMethod.GET)
-	public String findLogin() {
-		return "member/find";
+		String MemberId = (String) session.getAttribute("MemberId");
+		employee.setEmp_id(MemberId);
+		int result = repo.updateMember(employee);
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
 	// 아이디/패스워드찾기
 	@RequestMapping(value = "findLogin", method = RequestMethod.POST)
-	public String find() {
+	public String find(Employee emp, Company com) {
 
 		return "";
 	}

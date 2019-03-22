@@ -9,7 +9,7 @@ import com.scit36a2.minnano.vo.Employee;
 public interface MemberDAO {
 
 	
-	//사업자등록번호 확인,로그인
+	//로그인
 	public Employee selectOne(Employee employee);
 	//현재 등록된 전체 직원 목록 불러오기
 	public List<Employee> selectAll(Employee employee);
@@ -19,5 +19,7 @@ public interface MemberDAO {
 	public int reqCompSeq();
 	// 회원가입
 	public int join(HashMap<String, Object> map);
+	//사업자등록번호 중복확인
+	public Company selectCompanyOne(Company company);
 	
 }

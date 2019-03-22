@@ -61,7 +61,7 @@ public class SettingsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		List<Seat> seatList = new ArrayList<Seat>(); 
 		seatList = repo.selectseat(comp_seq);
-		System.out.println(seatList);
+		System.out.println("seatList : " + seatList);
 		return seatList;
 	}
 
@@ -97,59 +97,65 @@ public class SettingsController {
 	}
 
 	// 메뉴화면이동
-	@RequestMapping(value = "insertMenu", method = RequestMethod.GET)
-	public String insertMenu() {
-		return "menu";
+	@RequestMapping(value = "choitestmenu", method = RequestMethod.GET)
+	public String choitestmenu() {
+		return "choitestmenu";
 	}
 
 	// 메뉴등록
-	@RequestMapping(value = "insertMenu", method = RequestMethod.POST)
+	@RequestMapping(value="insertMenu", method=RequestMethod.POST)
 	@ResponseBody
-	public String insertMenu(Menu menu, HttpSession session, Employee employee, Model model) {
-		String msg = "메뉴등록불가";
-		String loginId = (String) session.getAttribute("loginId");
-		employee.setEmp_id(loginId);
-		int emp_auth_level = employee.getEmp_auth_level();
-		if (emp_auth_level == 9) { // 사장일경우
-			int result = repo.insertMenu(menu);
+	public String insertMenu(HttpSession session,int menu_sellFlag,String menu_name,int menu_price,String menu_category) {
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		Menu menu = new Menu();
+		System.out.println("컨트롤러 comp_seq : " + comp_seq);
+		menu.setComp_seq(comp_seq);
+		menu.setMenu_sellFlag(menu_sellFlag);
+		menu.setMenu_name(menu_name);
+		menu.setMenu_price(menu_price);
+		menu.setMenu_category(menu_category);
+		int result = repo.insertMenu(menu);
+		System.out.println("컨트롤러 result : " + result);
+	
 			return "success";
-		} else {
-			model.addAttribute("msg", msg);
-			return "seat";
-		}
-
+	
 	}
 
 	@RequestMapping(value = "selectMenu", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Menu> selectMenu(Menu menu, int menu_seq) {
-		List<Menu> menuList = repo.selectMenu(menu_seq);
+	public List<Menu> selectMenu(HttpSession session) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		List<Menu> menuList = new ArrayList<Menu>(); 
+		menuList = repo.selectMenu(comp_seq);
+		System.out.println("menuList : " + menuList);
 		return menuList;
 	}
-
+	
 	@RequestMapping(value = "deleteMenu", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteMenu(int menu_seq, HttpSession session, Employee employee) {
-		int Emp_auth_level = employee.getEmp_auth_level();
-		if (Emp_auth_level == 9) {
-			int result = repo.deleteMenu(menu_seq);
-			return "success";
-		} else {
-			return "false";
-		}
+		Menu menu = new Menu();
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		menu.setComp_seq(comp_seq);
+		menu.setMenu_seq(menu_seq);
+		int result = repo.deleteMenu(menu);
+		
+		return "success";
 	}
 
 	@RequestMapping(value = "updateMenu", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateMenu(HttpSession session, int menu_seq, Employee employee) {
-		int Emp_auth_level = employee.getEmp_auth_level();
+		session.getAttribute("");
+		
+		/*	int Emp_auth_level = employee.getEmp_auth_level();
 		if (Emp_auth_level == 9) {
 			int result = repo.updateMenu(menu_seq);
 			return "success";
 		} else {
 			return "false";
-		}
-
+		}*/
+		return null;
 	}
 
 	// 지출화면이동

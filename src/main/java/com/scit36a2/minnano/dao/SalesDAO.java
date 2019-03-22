@@ -14,8 +14,8 @@ public interface SalesDAO {
 	public int updateseat(Seat seat);
 	
 	public int insertMenu(Menu menu);//메뉴등록
-	public List<Menu> selectMenu(int menu_seq);//메뉴조회
-	public int deleteMenu(int menu_seq);//메뉴삭제
+	public List<Menu> selectMenu(int comp_seq);//메뉴조회
+	public int deleteMenu(Menu menu);//메뉴삭제
 	public int updateMenu(int menu_seq);//메뉴수정
 	
 

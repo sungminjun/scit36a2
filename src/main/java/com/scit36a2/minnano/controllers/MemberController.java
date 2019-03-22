@@ -116,7 +116,7 @@ public class MemberController {
 
 	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public @ResponseBody String login(Employee employee, Model model, HttpSession session) {
+	public String login(Employee employee, Model model, HttpSession session) {
 		Employee e = repo.selectOne(employee);
 		System.out.println(e);
 		String message = "";

@@ -32,7 +32,7 @@ public class MemberRepo {
 	 */
 	public List<Employee> employeeList() {
 		MemberDAO dao = session.getMapper(MemberDAO.class);
-		List<Employee> employeeList = dao.selectAll(null);
+		List<Employee> employeeList = dao.selectMemberAll(null);
 		return employeeList;
 		
 	}
@@ -41,9 +41,9 @@ public class MemberRepo {
 	 * @param employee
 	 * @return
 	 */
-	public int updateOwner(Employee employee) {
+	public int updateMember(Employee employee) {
 		MemberDAO dao = session.getMapper(MemberDAO.class);
-		int result = dao.updateOwner(employee);
+		int result = dao.updateMember(employee);
 		return result;
 		
 	}
@@ -67,6 +67,20 @@ public class MemberRepo {
 		Company c = dao.selectCompanyOne(company);
 		return c;
 	}
+
+	public int updateCompany(Company company) {
+		MemberDAO dao=session.getMapper(MemberDAO.class);
+		int result=dao.updateCompany(company);
+		return result;
+	}
+
+	public int joinMember(Employee employee) {
+		MemberDAO dao = session.getMapper(MemberDAO.class);
+		int result = dao.joinMember(employee);
+		return result;
+	}
+
+	
 	
 
 }

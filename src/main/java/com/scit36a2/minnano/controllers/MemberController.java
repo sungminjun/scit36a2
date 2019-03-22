@@ -118,7 +118,7 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Employee employee, Model model, HttpSession session) {
 		Employee e = repo.selectOne(employee);
-		System.out.println(e);
+		
 		String message = "";
 		int comp_seq = e.getComp_seq();
 		String emp_id = employee.getEmp_id();
@@ -172,7 +172,7 @@ public class MemberController {
 
 		String ownerId = (String) session.getAttribute("ownerId");
 		employee.setEmp_id(ownerId);
-		int result = repo.updateOwner(employee);
+		int result = repo.updateMember(employee);
 
 		if (result == 1)
 			return "success";
@@ -182,16 +182,25 @@ public class MemberController {
 
 	// 가게 정보 수정 요청
 	@RequestMapping(value = "selectCompanyOne", method = RequestMethod.POST)
-	public @ResponseBody String selectCompanyOne(HttpSession session) {
-
-		return null;
+	public @ResponseBody Company selectCompanyOne(Company company,HttpSession session) {
+		
+		Company companyList=repo.selectCompanyOne(company);
+		
+		return companyList;
 	}
 
 	// 가게 정보 수정 처리
 	@RequestMapping(value = "updateCompany", method = RequestMethod.POST)
 	public @ResponseBody String updateCompany(Company company, HttpSession session) {
 
-		return "success";
+		String CompId=(String) session.getAttribute("CompId");
+		company.setComp_id(CompId);
+		int result=repo.updateCompany(company);
+		
+		if(result==1)
+			return "success";
+		else
+			return "fail";
 	}
 
 	// 등록된 employee 조회 요청
@@ -202,13 +211,26 @@ public class MemberController {
 		return employeeList;
 	}
 
-	// 멤버 추가 요청(employee)
+	// 멤버 추가 요청 처리(employee)
+	//예시 ui단에 비밀번호 찾는 질문 입력란이 없는데....어떻게 하실것인지!
+	@RequestMapping(value="registMember",method=RequestMethod.POST)
+	public @ResponseBody String registMember(Model model,Employee employee,HttpSession session) {
+		//employee.setEmp_auth_level(1); mapper에서 처리할까..
+		int result=repo.joinMember(employee);
+		
+		if(result==1) return "success";
+		else return "fail";
+	}
 
 	// 직원 회원정보 수정 처리
 	@RequestMapping(value = "updateEmployee", method = RequestMethod.POST)
 	public @ResponseBody String updateEmployee(Employee employee, HttpSession session) {
-
-		return "success";
+		
+		String MemberId=(String) session.getAttribute("MemberId");
+		employee.setEmp_id(MemberId);
+		int result=repo.updateMember(employee);
+		if(result==1)return "success";
+		else return "fail";
 	}
 
 	// 아이디/패스워드 찾기 화면

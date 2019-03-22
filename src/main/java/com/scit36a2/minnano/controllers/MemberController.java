@@ -44,7 +44,7 @@ public class MemberController {
 	}
 
 	// 회원가입 처리 요청(가게+employee 테이블에 다중 insert->vo를 이용하지 않고 map에 담아서 다중 파라미터)
-	@RequestMapping(value="/joinMain",method=RequestMethod.POST)
+	@RequestMapping(value="/regist",method=RequestMethod.POST)
 	public String joinMain(Model model,Employee employee,Company company){
 		HashMap<String, Object> map = new HashMap<>();
 		
@@ -67,7 +67,7 @@ public class MemberController {
 		int seq = 0;
 		seq = repo.reqCompSeq();
 		if (seq != 0) {
-			map.put("comp_seq",seq);
+			map.put("comp_seqs",seq);
 		}
 		map.put("comp_id",company.getComp_id());
 		map.put("comp_name",company.getComp_name());
@@ -86,29 +86,37 @@ public class MemberController {
 		map.put("emp_quiz_answer", employee.getEmp_quiz_answer());
 		
 		int result = repo.join(map);
-		if (result == 1) {
+		if (result == 2) {
 			System.out.println("성공");
 		} else {
 			System.out.println("실패");
 		}
 		
-		return "member/join";
+		return "member/login_k";
 	}
-
+	//사업자 
 	// 사업자 등록번호 중복 체크
 	@RequestMapping(value = "/checkComp_id", method = RequestMethod.POST)
-	public @ResponseBody Integer checkComp_id(Employee employee) {
-		Employee e = repo.selectOne(employee);
-
-		if (e != null)
-			return 1;
+	public @ResponseBody String checkComp_id(Company company) {
+		
+		
+		String id = company.getComp_id();
+		
+		if(id.length() < 3 || id.length() >10) {
+			return "lengthFail";
+		}
+		
+		Company c =  repo.selectCompanyOne(company);
+		
+		if (c != null)
+			return "fail";
 		else
-			return 0;
+			return "success";
 	}
 
 	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Employee employee, Model model, HttpSession session) {
+	public @ResponseBody String login(Employee employee, Model model, HttpSession session) {
 		Employee e = repo.selectOne(employee);
 		System.out.println(e);
 		String message = "";
@@ -128,7 +136,7 @@ public class MemberController {
 			}
 		} else {
 			message = "로그인에 실패하셨습니다";
-
+			
 		}
 		model.addAttribute("message", message);
 		return "member/login_k";

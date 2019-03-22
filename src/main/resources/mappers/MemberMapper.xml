@@ -8,7 +8,11 @@
 	FROM employee
 	WHERE emp_id=#{emp_id}
 </select>
-
+<select id="selectCompanyOne" parameterType="com" resultType="com">
+	SELECT *
+	FROM company
+	WHERE comp_id=#{comp_id}
+</select>
 <insert id="insert" parameterType="emp">
 	INSERT ALL into employee values(
 		emp_seqence.nextval
@@ -31,7 +35,7 @@
 <insert id="join" parameterType="hashmap">
 	insert all 
 		into company values(
-			#{comp_seq}
+			#{comp_seqs}
 			, #{comp_id}
 			, #{comp_name}
 			, #{comp_tel}
@@ -39,11 +43,11 @@
 			, #{comp_address2}
 		)
 		into employee values(
-			emp_seqence.nextval
-			,#{comp_seq}
+			emp_seqs.nextval
+			,#{comp_seqs}
 			,#{emp_id}
 			,#{emp_pw}
-			,#{auth_level}
+			,#{emp_auth_level}
 			,#{emp_name}
 			,#{emp_tel}
 			,#{emp_quiz}

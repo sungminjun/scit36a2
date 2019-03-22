@@ -19,7 +19,7 @@ public class MemberRepo {
 
 	/*
 	 * 회원 아이디로 회원 검색
-	 * 사업자 등록번호로 중복체크 등등
+	 * 
 	 */
 	public Employee selectOne(Employee employee) {
 		MemberDAO dao = session.getMapper(MemberDAO.class);
@@ -56,6 +56,16 @@ public class MemberRepo {
 		MemberDAO dao = session.getMapper(MemberDAO.class);
 		int result = dao.reqCompSeq();
 		return result;
+	}
+	
+	/*
+	 * 사업자 등록번호 중복체크
+	 */
+	
+	public Company selectCompanyOne(Company company) {
+		MemberDAO dao = session.getMapper(MemberDAO.class);
+		Company c = dao.selectCompanyOne(company);
+		return c;
 	}
 	
 

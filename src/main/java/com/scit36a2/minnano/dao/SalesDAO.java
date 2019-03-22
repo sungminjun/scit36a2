@@ -8,10 +8,10 @@ import com.scit36a2.minnano.vo.Menu;
 import com.scit36a2.minnano.vo.Seat;
 
 public interface SalesDAO {
-	public int insertseat(Employee employee);
-	public List<Seat> selectseat(Seat seat);
-	public int deleteseat(String seat_id);
-	public int updateseat(String seat_id);
+	public int insertseat(Seat seat);
+	public List<Seat> selectseat(int comp_seq);
+	public int deleteseat(Seat seat);
+	public int updateseat(Seat seat);
 	
 	public int insertMenu(Menu menu);//메뉴등록
 	public List<Menu> selectMenu(int menu_seq);//메뉴조회

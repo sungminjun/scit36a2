@@ -9,7 +9,7 @@
 	로그인 시 아이디와 비밀번호를 요구에 맞게  입력했는지 검증
 	해당 아이디나 비밀번호가 없을 경우 출력메시지
  -->
-<script src="resources/jquery-3.3.1.js"></script>
+<script src="resources/jquery-3.3.1.min.js"></script>
 <script>
 // loginbtn에 onclick 속성부여
 $(document).ready(function(){

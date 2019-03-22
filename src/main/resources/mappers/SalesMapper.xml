@@ -3,8 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.SalesDAO">
-<insert id="insertseat" parameterType="emp">
-		insert into SEAT	(
+	
+<insert id="insertseat" parameterType="sea">
+		insert into seat	(
 		seat_seq,
 		comp_seq,
 		seat_id
@@ -13,19 +14,21 @@
 		#{comp_seq},
 		#{seat_id}
 	)
-	</insert>
-	<select id="selectseat" resultType="sea" parameterType="sea">
-		select b.seat_id from employee a,seat b where a.comp_seq = b.comp_seq
+</insert>
 		
+	<select id="selectseat" resultType="sea" parameterType="int">
+		<!-- select b.seat_id from employee a,seat b where a.comp_seq = b.comp_seq -->
+		select * from seat where comp_seq = #{param}
 	</select>
-	<delete id="deleteseat" parameterType="String">
+	
+	<delete id="deleteseat" parameterType="sea">
 		delete from 
 			SEAT
 		where 
-			seat_id = #{seat_id}
+			seat_seq = #{seat_seq}
 	
 	</delete>
-	<update id="updateseat" parameterType="String">
+	<update id="updateseat" parameterType="sea">
 		update
 			SEAT
 		set

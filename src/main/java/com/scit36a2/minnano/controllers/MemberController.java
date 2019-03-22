@@ -120,7 +120,7 @@ public class MemberController {
 		Employee e = repo.selectOne(employee);
 		System.out.println(e);
 		String message = "";
-		int comp_seq = employee.getComp_seq();
+		int comp_seq = e.getComp_seq();
 		String emp_id = employee.getEmp_id();
 		String emp_pw = employee.getEmp_pw();
 

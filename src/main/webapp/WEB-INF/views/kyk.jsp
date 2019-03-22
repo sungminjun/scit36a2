@@ -20,7 +20,7 @@
 	<!-- 로그인 후 -->
 	<c:if test="${not empty sessionScope.emp_id}">
 	<a href="logout">로그아웃</a><br>
-	<a href="">철규상 테스트</a>
+	<a href="choiTest">철규상 테스트</a>
 	</c:if>
 	
 </div>

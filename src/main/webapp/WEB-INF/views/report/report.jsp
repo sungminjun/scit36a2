@@ -27,23 +27,46 @@
     <div class="sidebar" data="blue">
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-normal">
-            MP </a>
+          <a href="${pageContext.request.contextPath}" class="simple-text logo-normal">
+            MP
+          </a>
         </div>
         <ul class="nav">
-          <li><a href="#"> <i class="tim-icons icon-money-coins" title="포스 / Enter POS"></i>
-            </a> <br> <br></li>
-          <li><a href="#"> <i class="tim-icons icon-settings-gear-63" title="설정 / settings"></i>
-            </a> <br> <br></li>
-          <li><a href="#"> <i class="tim-icons icon-chat-33" title="커뮤니티 / community"></i>
-            </a> <br> <br></li>
-          <li><a href="#"> <i class="tim-icons icon-chart-pie-36" title="보고서 / reports"></i>
-            </a> <br> <br> <br> <br> <br></li>
-          <li><a href="#"> <i class="tim-icons icon-button-power" title="로그아웃 / logout" aria-label="logout"></i> <!-- <i class="material-icons">power_settings_new</i> -->
-            </a></li>
+          <li>
+            <a href="pos">
+              <i class="tim-icons icon-money-coins" title="포스기능 / Enter POS"></i>
+            </a>
+            <br><br>
+          </li>
+          <li>
+            <a href="mgr">
+              <i class="tim-icons icon-settings-gear-63" title="설정 / settings"></i>
+            </a>
+            <br><br>
+          </li>
+          <li>
+            <a href="board">
+              <i class="tim-icons icon-chat-33" title="커뮤니티 / community"></i>
+            </a>
+            <br><br>
+          </li>
+          <li>
+            <a href="report">
+              <i class="tim-icons icon-chart-pie-36" title="보고서 / report"></i>
+            </a>
+            <br><br>
+            <br><br><br>
+          </li>
+          <li>
+            <a href="logout">
+              <i class="tim-icons icon-button-power" title="로그아웃 / logout" aria-label="logout"></i>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
+    
+    
     <div class="main-panel" data="blue">
       <div class="content">
         <!--  menu1 지출관리 -->

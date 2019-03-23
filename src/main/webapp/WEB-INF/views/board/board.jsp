@@ -8,6 +8,6 @@
 	<title>MINNANO POS SAMPLE PAGE</title>
 </head>
 <body>
-<h1>	MINNANO POS SAMPLE PAGE: find	</h1>
+<h1>	MINNANO POS SAMPLE PAGE: board	</h1>
 </body>
 </html>

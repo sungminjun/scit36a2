@@ -26,7 +26,7 @@ public class TestPageController {
 	//김유경
 	@RequestMapping(value="/kyk",method=RequestMethod.GET)
 	public String kykhome() {
-		return "frontside/kyk";
+		return "backside/kyk";
 	}
 
 	// 로그인 페이지로 이동

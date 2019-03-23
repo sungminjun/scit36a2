@@ -35,7 +35,7 @@ public class PosController {
 	@RequestMapping(value = "/pos", method = RequestMethod.GET)
 	public String pos() {
 		logger.info("welcome pos.");
-		return "pos";
+		return "pos/pos";
 	}
 
 	//주문전표(+테이블할당)

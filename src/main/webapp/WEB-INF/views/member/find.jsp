@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,10 @@
         $('#' + activeTab).addClass('current');
       })
     });
+    
+    <c:if test="${findResult != null}">
+    	alert('id 찾기 결과: ' + ${findResult});
+    </c:if>
   </script>
 
 </head>
@@ -39,38 +44,38 @@
     <div class="sidebar" data="blue">
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-normal">
+          <a href="${pageContext.request.contextPath}" class="simple-text logo-normal">
             MP
           </a>
         </div>
         <ul class="nav">
           <li>
-            <a href="#">
-              <i class="tim-icons icon-money-coins" title="포스 / Enter POS"></i>
+            <a href="pos">
+              <i class="tim-icons icon-money-coins" title="포스기능 / Enter POS"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="mgr">
               <i class="tim-icons icon-settings-gear-63" title="설정 / settings"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="board">
               <i class="tim-icons icon-chat-33" title="커뮤니티 / community"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
-              <i class="tim-icons icon-chart-pie-36" title="보고서 / reports"></i>
+            <a href="report">
+              <i class="tim-icons icon-chart-pie-36" title="보고서 / report"></i>
             </a>
             <br><br>
             <br><br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="logout">
               <i class="tim-icons icon-button-power" title="로그아웃 / logout" aria-label="logout"></i>
             </a>
           </li>
@@ -91,10 +96,10 @@
             </ul>
 
             <div id="tab1" class="tabcontent current rounded-bottom rounded-right">
-              <form class="box">
+              <form class="box" id="findIdForm" action="findId" method="POST">
                 <h1>ID찾기</h1>
-                <p><input type="text" name="companyEnrollnum" placeholder="사업자 등록번호"></p>
-                <p><input type="password" name="userName" placeholder="회원이름"></p>
+                <p><input type="text" name="comp_id" placeholder="사업자 등록번호"></p>
+                <p><input type="password" name="emp_name" placeholder="회원이름"></p>
                 <p><input type="submit" name="idSearch" value="ID찾기"></p>
               </form>
             </div>

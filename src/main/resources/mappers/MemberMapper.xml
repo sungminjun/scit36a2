@@ -3,95 +3,159 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.MemberDAO">
-<select id="selectOne" parameterType="emp" resultType="emp">
-	SELECT *
-	FROM employee
-	WHERE emp_id=#{emp_id}
-</select>
-<select id="selectCompanyOne" parameterType="com" resultType="com">
-	SELECT *
-	FROM company
-	WHERE comp_id=#{comp_id}
-</select>
+	<select id="selectOne" parameterType="emp" resultType="emp">
+		SELECT 
+			*
+		FROM 
+			employee
+		WHERE 
+			emp_id=#{emp_id}
+	</select>
 
-<select id="reqCompSeq" resultType="int">
-	select comp_seqs.nextval from dual
-</select>
+	<select id="selectCompanyOne" parameterType="int"
+		resultType="com">
+		SELECT
+			 *
+		FROM
+			 company
+		WHERE
+			 comp_seq=#{comp_seq}
+	</select>
 
-<insert id="join" parameterType="hashmap">
-	insert all 
-		into company values(
-			#{comp_seqs}
-			, #{comp_id}
-			, #{comp_name}
-			, #{comp_tel}
-			, #{comp_address}
-			, #{comp_address2}
-		)
-		into employee values(
-			emp_seqs.nextval
-			,#{comp_seqs}
-			,#{emp_id}
-			,#{emp_pw}
-			,#{emp_auth_level}
-			,#{emp_name}
-			,#{emp_tel}
-			,#{emp_quiz}
-			,#{emp_quiz_answer}
-		)
-		select * from dual
-</insert>
-<update id="updateCompany" parameterType="com">
-	UPDATE 
-		company
-	SET
-		comp_id=#{comp_id}
-		,comp_name=#{comp_name}
-		,comp_tel=#{comp_tel}
-		,comp_address=#{comp_address}
-		,comp_address=#{comp_address2}
-	WHERE
-		comp_seq=#{comp_seq}
-</update>
-<update id="updateMember" parameterType="emp">
-	UPDATE
-		employee
-	SET
-		emp_id=#{emp_id}
-		emp_pw=#{emp_pw}
-		,emp_name=#{emp_name}
-		,emp_tel=#{emp_tel}
-	WHERE
-		comp_seq=#{comp_seq} and emp_seq=#{emp_seq}
-</update>
-<select id="selectMemberAll" parameterType="emp" resultType="emp">
-	SELECT
-		emp_seq
-		,emp_id
-		,emp_pw
-		,emp_auth_level
-		,emp_name
-		,emp_tel
-		,emp_quiz
-		,emp_quiz_answer
-	FROM
-		employee
-	WHERE
-		comp_seq=#{comp_seq}
-	ORDER BY
-		emp_seq
-</select>
-<insert id="joinMember" parameterType="emp">
-	INSERT INTO employee values(
-		emp_seqs.nextval
-		,#{comp_seq}
-		,#{emp_id}
-		,#{emp_pw}
-		<if test="emp_auth_level eq null || emp_auth_level eq ''">,1</if>
-		,#{emp_name}
-		,#{emp_tel}
-		,#{emp_quiz}
-		,#{emp_quiz_answer}
-	)
-</insert>
+	<select id="selectCompanyOneById" parameterType="com"
+		resultType="com">
+		SELECT
+			 *
+		FROM
+			 company
+		WHERE
+			 comp_id=#{comp_id}
+	</select>
+	
+	<select id="reqCompSeq" resultType="int">
+		SELECT
+			comp_seqs.nextval
+		FROM
+			DUAL
+	</select>
+
+	<insert id="join" parameterType="hashmap">
+		INSERT
+			ALL
+		INTO	
+			company 
+				values(
+				#{comp_seqs}
+				, #{comp_id}
+				, #{comp_name}
+				, #{comp_tel}
+				, #{comp_address}
+				, #{comp_address2}
+				)
+		INTO
+			employee 
+				values(
+				emp_seqs.nextval
+				,#{comp_seqs}
+				,#{emp_id}
+				,#{emp_pw}
+				,#{emp_auth_level}
+				,#{emp_name}
+				,#{emp_tel}
+				,#{emp_quiz}
+				,#{emp_quiz_answer}
+				)
+		SELECT
+			 *
+		FROM
+			 DUAL
+	</insert>
+
+	<update id="updateCompany" parameterType="com">
+		UPDATE
+			company
+		SET
+			comp_name = #{comp_name}
+			, comp_tel = #{comp_tel}
+			, comp_address = #{comp_address}
+			, comp_address2 = #{comp_address2}
+		WHERE
+			comp_seq=#{comp_seq}
+	</update>
+
+	<update id="updateMember" parameterType="emp">
+		UPDATE
+			employee
+		SET
+			emp_pw=#{emp_pw}
+			,emp_name=#{emp_name}
+			,emp_tel=#{emp_tel}
+		WHERE
+			comp_seq=#{comp_seq} and emp_id=#{emp_id}
+	</update>
+
+	<!-- 폐기예정 -->
+	<select id="selectMemberAll" parameterType="emp"
+		resultType="emp">
+		SELECT
+			emp_seq
+			,emp_id
+			,emp_pw
+			,emp_auth_level
+			,emp_name
+			,emp_tel
+			,emp_quiz
+			,emp_quiz_answer
+		FROM
+			employee
+		WHERE
+			comp_seq=#{comp_seq}
+		ORDER BY
+			emp_seq
+	</select>
+
+	<insert id="joinMember" parameterType="emp">
+		INSERT INTO 
+			employee 
+				values(
+					emp_seqs.nextval
+					,#{comp_seq}
+					,#{emp_id}
+					,#{emp_pw}
+					,1
+					,#{emp_name}
+					,#{emp_tel}
+					,#{emp_quiz}
+					,#{emp_quiz_answer}
+				)
+	</insert>
+
+	<select id="findId" parameterType="HashMap" resultType="emp">
+		SELECT e.emp_id 
+			FROM company c 
+				JOIN employee e ON c.comp_seq = e.comp_seq
+			WHERE c.comp_id = #{comp_id} and e.emp_name = #{emp_name}
+	</select>
+
+	<select id="employeeList" parameterType="int" resultType="emp">
+		SELECT
+			*
+		FROM
+			employee
+		WHERE
+			comp_seq = #{comp_seq} and emp_auth_level = 1
+		ORDER BY
+			emp_seq asc
+	</select>
+
+	<select id="selectEmployee" parameterType="emp" resultType="emp">
+		SELECT
+			*
+		FROM
+			employee
+		WHERE
+			comp_seq = #{comp_seq} and emp_seq = #{emp_seq}
+	</select>
+
+	
 </mapper>

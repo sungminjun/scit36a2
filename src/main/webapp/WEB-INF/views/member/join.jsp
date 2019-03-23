@@ -26,44 +26,45 @@
     <div class="sidebar" data="blue">
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-normal">
+          <a href="${pageContext.request.contextPath}" class="simple-text logo-normal">
             MP
           </a>
         </div>
         <ul class="nav">
           <li>
-            <a href="#">
-              <i class="tim-icons icon-money-coins" title="포스 / Enter POS"></i>
+            <a href="pos">
+              <i class="tim-icons icon-money-coins" title="포스기능 / Enter POS"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="mgr">
               <i class="tim-icons icon-settings-gear-63" title="설정 / settings"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="board">
               <i class="tim-icons icon-chat-33" title="커뮤니티 / community"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
-              <i class="tim-icons icon-chart-pie-36" title="보고서 / reports"></i>
+            <a href="report">
+              <i class="tim-icons icon-chart-pie-36" title="보고서 / report"></i>
             </a>
             <br><br>
             <br><br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="logout">
               <i class="tim-icons icon-button-power" title="로그아웃 / logout" aria-label="logout"></i>
             </a>
           </li>
         </ul>
       </div>
     </div>
+
 
 
     <div class="main-panel" data="blue">
@@ -74,41 +75,52 @@
               <div class="card-header">
                 <h5 class="title">ENROLL USER</h5>
               </div>
-              <form>
+              <form id="registForm" action="regist" method="POST">
                 <div class="card-body">
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="company_enrollNumber">사업자 등록번호</label>
-                        <input type="text" class="form-control">
-                        <!-- Ajax here ~ 사업자 등록번호 Auto check -->
+                        <label for="comp_id">사업자 등록번호</label>
+                        <input type="text" class="form-control" name="comp_id">
                       </div>
+                    </div>
+                    <div class="col-md-3">
+                        Ajax here ~ 사업자 등록번호 Auto check
                     </div>
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="company_name">가게 이름</label>
-                        <input type="text" class="form-control">
+                        <label for="comp_name">가게 이름</label>
+                        <input type="text" class="form-control" name="comp_name">
                       </div>
                     </div>
-
-                  </div>
-                  <div class="row justify-content-center">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="company_phoneNumber">가게 전화번호</label>
-                        <input type="text" class="form-control">
-                      </div>
+                    <div class="col-md-3">
                     </div>
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="company_address">가게 주소</label>
-                        <input type="text" class="form-control">
+                        <label for="comp_tel">가게 전화번호</label>
+                        <input type="text" class="form-control" name="comp_tel">
                       </div>
                     </div>
+                    <div class="col-md-3">
+                    </div>
+                  </div>
+                  <div class="row justify-content-center">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="comp_address">가게 주소</label>
+                        <input type="text" class="form-control" name="comp_address">
+                        <input type="hidden" class="form-control" name="comp_address2" value="testing">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      도로명주소API will be placed here.
+                      <br> also, 도로명주소에 따라 위도/경도 addr2에 입력..
+                    </div>
+                    
                   </div>
 
                   <hr>
@@ -117,72 +129,87 @@
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="id">ID</label>
-                        <input type="text" class="form-control">
-                        <!-- Ajax here ~ ID 중복  Auto check -->
+                        <label for="emp_id">ID</label>
+                        <input type="text" class="form-control" name="emp_id">
                       </div>
+                    </div>
+                    <div class="col-md-3">
+                        Ajax here ~ ID 중복  Auto check
                     </div>
                   </div>
 
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="pw1">PASSWORD</label>
-                        <input type="password" class="form-control">
-                        <!-- Ajax here ~ pw 제한조건 Auto check -->
+                        <label for="emp_pw">PASSWORD</label>
+                        <input type="password" class="form-control" name="emp_pw">
                       </div>
+                    </div>
+                    <div class="col-md-3">
+                        Ajax here ~ pw 제한조건 Auto check
                     </div>
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="pw2">PASSWORD 재확인</label>
-                        <input type="password" class="form-control">
-                        <!-- Ajax here ~ pw1과 동일한지 Auto check -->
+                        <label for="emp_pw2">PASSWORD 재확인</label>
+                        <input type="password" class="form-control" name="emp_pw">
                       </div>
+                    </div>
+                    <div class="col-md-3">
+                        Ajax here ~ pw1과 동일한지 Auto check
                     </div>
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="name">이름</label>
-                        <input type="text" class="form-control">
+                        <label for="emp_name">이름</label>
+                        <input type="text" class="form-control" name="emp_name">
                       </div>
+                    </div>
+                    <div class="col-md-3">
                     </div>
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="phoneNumber">전화번호</label>
-                        <input type="text" class="form-control">
+                        <label for="emp_tel">전화번호</label>
+                        <input type="text" class="form-control" name="emp_tel">
                       </div>
+                    </div>
+                    <div class="col-md-3">
                     </div>
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="question">비밀번호 찾기 질문</label>
-                        <input type="text" class="form-control">
+                        <label for="emp_quiz">비밀번호 찾기 질문</label>
+                        <input type="text" class="form-control" name="emp_quiz">
                       </div>
+                    </div>
+                    <div class="col-md-3">
+                        quiz는 dropdown목록에서 선택하는 것은 어떨지 생각해볼 것
                     </div>
                   </div>
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="answer">비밀번호 찾기 답</label>
-                        <input type="text" class="form-control">
+                        <label for="emp_quiz_answer">비밀번호 찾기 답</label>
+                        <input type="text" class="form-control" name="emp_quiz_answer">
                       </div>
+                    </div>
+                    <div class="col-md-3">
                     </div>
                   </div>
 
                   <div class="row justify-content-center">
                     <div class="col-md-2">
-                      <button type="reset" class="btn-default">취소</button>
+                      <input type="reset" class="btn-default" value="취소">
                     </div>
                     <div class="col-md-1">
                     </div>
                     <div class="col-md-3">
-                      <button type="submit" class="btn-default">회원 가입</button>
+                      <input type="submit" class="btn-default" value="회원가입">
                     </div>
                   </div>
                 </div>

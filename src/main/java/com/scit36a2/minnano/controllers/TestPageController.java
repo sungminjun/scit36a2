@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TestPageController {
 
-
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
 	public String basic() {
 		return "frontside/basic";
@@ -20,11 +19,9 @@ public class TestPageController {
 	public @ResponseBody String explist() {
 		return "explist by ajax from controller";
 	}
-	
-	
-	
-	//김유경
-	@RequestMapping(value="/kyk",method=RequestMethod.GET)
+
+	// 김유경
+	@RequestMapping(value = "/kyk", method = RequestMethod.GET)
 	public String kykhome() {
 		return "backside/kyk";
 	}
@@ -39,19 +36,19 @@ public class TestPageController {
 	@RequestMapping(value = "/join_k", method = RequestMethod.GET)
 	public String join_kyk() {
 		return "member/join_k";
-	}	
-	
-	
-	
+	}
+
+	// 최철규
+	// 메뉴화면이동
+	@RequestMapping(value = "choitestmenu", method = RequestMethod.GET)
+	public String choitestmenu() {
+		return "backside/choitestmenu";
+	}
+
 	@RequestMapping(value = "choiTest", method = RequestMethod.GET)
 	public String insertseat(HttpSession session) {
 		System.out.println((Integer) session.getAttribute("comp_seq"));
 		return "backside/choiTest";
 	}
-	
-	
-	
-	
 
-	
 }

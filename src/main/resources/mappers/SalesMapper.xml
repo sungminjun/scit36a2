@@ -18,7 +18,14 @@
 		
 	<select id="selectseat" resultType="sea" parameterType="int">
 		<!-- select b.seat_id from employee a,seat b where a.comp_seq = b.comp_seq -->
-		select * from seat where comp_seq = #{param}
+		select
+			 * 
+		from 
+			seat 
+		where
+			comp_seq = #{param}
+		order by
+			seat_seq 
 	</select>
 	
 	<delete id="deleteseat" parameterType="sea">
@@ -28,13 +35,14 @@
 			seat_seq = #{seat_seq}
 	
 	</delete>
+	
 	<update id="updateseat" parameterType="sea">
 		update
 			SEAT
 		set
 			seat_id = #{seat_id}	
 		where
-			seat_id = #{seat_id}
+			seat_seq = #{seat_seq}
 	</update>
 	
 	

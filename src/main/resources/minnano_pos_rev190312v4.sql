@@ -1,4 +1,4 @@
-﻿/** SCIT36-A-2, team minnanoPOS, 2019.03.12. v4. **/
+﻿/* SCIT36-A-2, team minnanoPOS, 2019.03.12. v4. */
 
 /* Drop Tables */
 DROP TABLE board_comments CASCADE CONSTRAINTS;

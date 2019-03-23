@@ -12,10 +12,10 @@ public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
-	@RequestMapping(value = "/community", method = RequestMethod.GET)
-	public String community() {
-		logger.info("welcome community.");
-		return "community";
+	@RequestMapping(value = "/board", method = RequestMethod.GET)
+	public String board() {
+		logger.info("welcome board.");
+		return "board/board";
 	}
 
 }

@@ -23,38 +23,38 @@
     <div class="sidebar" data="blue">
       <div class="sidebar-wrapper">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-normal">
+          <a href="${pageContext.request.contextPath}" class="simple-text logo-normal">
             MP
           </a>
         </div>
         <ul class="nav">
           <li>
-            <a href="#">
-              <i class="tim-icons icon-money-coins" title="포스 / Enter POS"></i>
+            <a href="pos">
+              <i class="tim-icons icon-money-coins" title="포스기능 / Enter POS"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="mgr">
               <i class="tim-icons icon-settings-gear-63" title="설정 / settings"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="board">
               <i class="tim-icons icon-chat-33" title="커뮤니티 / community"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
-              <i class="tim-icons icon-chart-pie-36" title="보고서 / reports"></i>
+            <a href="report">
+              <i class="tim-icons icon-chart-pie-36" title="보고서 / report"></i>
             </a>
             <br><br>
             <br><br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="logout">
               <i class="tim-icons icon-button-power" title="로그아웃 / logout" aria-label="logout"></i>
             </a>
           </li>
@@ -70,17 +70,17 @@
               <div class="card-header">
                 <h5 class="title">LOGIN</h5>
               </div>
-              <form>
+              <form id="loginForm" action="login" method="post">
                 <div class="card-body">
                   <div class="row justify-content-center">
                     <div class="col-md-5">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="UserID">
+                        <input type="text" class="form-control" placeholder="UserID" name="emp_id">
                       </div>
                     </div>
                     <div class="col-md-5">
                       <div class="form-group">
-                        <input type="password" class="form-control" placeholder="UserPassword">
+                        <input type="password" class="form-control" placeholder="UserPassword" name="emp_pw">
                       </div>
                     </div>
                   </div>

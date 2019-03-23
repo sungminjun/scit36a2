@@ -69,7 +69,7 @@
 
       <!-- 영역 시작 -->
       <div class="content">
-        <div class="row">
+        <div class="row" style="max-width: 850px;">
           <div class="col-md-6">
             <div class="card">
               <img class="main-junc" alt="main-pos-icon" src="imgs/main-pos.png">
@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style="max-width: 850px;">
           <div class="col-md-6">
             <div class="card">
               <img class="main-junc" alt="main-settings-icon" src="imgs/main-settings.png">
@@ -95,6 +95,9 @@
         </div>
       </div>
       <footer class="footer">
+        각 div에 onclick으로 이동하는 것 추가... 하지말고
+        <br>그냥 밀어버릴까 생각중 커뮤니티쪽 공지사항이나 보여주거나?
+        <br> 아니면 커뮤니티 쪽 기능을 좀 더 늘리던가?
       </footer>
     </div>
   </div>

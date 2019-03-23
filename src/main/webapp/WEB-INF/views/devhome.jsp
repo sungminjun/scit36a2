@@ -17,13 +17,21 @@
   <br> <a href="https://docs.google.com/spreadsheets/d/186B7XnuGiBXcFaPVpChtV514L4NsYMdBy9Jgeeu2oGU/edit#gid=0" style="text-decoration: line-through;">개발진도관리표</a>포기하고 밑에 json객체로 관리하기로 함
   <br>
   <br>
+  <c:if test="${sessionScope.emp_id != null}">
+  <span style="color: red;">${sessionScope.comp_seq}</span> 번 회사의, <span style="color: red;">${sessionScope.emp_id}</span> 로 로그인 되어있습니다.
+  </c:if>
+  <br> 작업완료: 모든페이지 사이드바 링크 연결 완료. mgr페이지 서브메뉴 선택에 따라 show/hide 처리 
+  <br> 작업중: 로그인, 회원가입, id/pw찾기 연결
+  <br> 예정사항: mgr페이지 세부기능 연결 
+  <br>
+  <br>
   <table border="1" style="border-collapse: collapse;" class="progress">
     <tr>
-      <td> side 구분 </td>
-      <td> 담당자 </td>
-      <td> 페이지이동(link) </td>
-      <td> 기능구분 </td>
-      <td> 진행률 </td>
+      <th style="width: 10%;"> side 구분 </th>
+      <th style="width: 10%;"> 담당자 </th>
+      <th style="width: 10%;"> 페이지이동(link) </th>
+      <th style="width: 30%;"> 기능구분 </th>
+      <th style="width: 10%;"> 진행률 </th>
     </tr>
     <tr>
       <td> side </td>
@@ -33,7 +41,7 @@
       <td> prog </td>
     </tr>
     <tr>
-      <td colspan="5">이하 json 객체로 채워넣기, 리더만 수정할게요.</td>
+      <th colspan="5">이하 json 객체로 채워넣기, 각자 진도 추가/수정할게요.</th>
     </tr>
 
   </table>

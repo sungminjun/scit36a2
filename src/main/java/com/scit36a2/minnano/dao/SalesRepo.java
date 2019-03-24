@@ -63,9 +63,9 @@ public class SalesRepo {
 		return result;
 	}
 
-	public int updateMenu(int menu_seq) {
+	public int updateMenu(Menu menu) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.updateMenu(menu_seq);
+		int result = mapper.updateMenu(menu);
 
 		return result;
 	}

@@ -17790,7 +17790,7 @@ Copyright (c) 2015 Daniel Eden
 
 
 /* added new */
-.box {
+.bbox {
 	position: relative;
 	max-width: 125px;
 	background-color: #00f2c3;
@@ -17800,7 +17800,7 @@ Copyright (c) 2015 Daniel Eden
 	min-width: 75px;
 	
 }
-.box:before {
+.bbox:before {
 	content: "";
 	padding-top: 100%;
 }

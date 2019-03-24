@@ -79,11 +79,13 @@
 		where
 			comp_seq = #{comp_seq}
 	</select>
+
 	<delete id="deleteMenu" parameterType="me">
 		delete from MENU
-		where menu_seq = #{menu_seq}
+		where menu_seq = #{menu_seq} and comp_seq = #{comp_seq}
 	</delete>
-	<update id="updateMenu" parameterType="int">
+
+	<update id="updateMenu" parameterType="me">
 		update
 			MENU
 		set
@@ -92,7 +94,7 @@
 			menu_price = #{menu_price},
 			menu_category = #{menu_category}
 		where
-			menu_seq = #{menu_seq}
+			menu_seq = #{menu_seq} and comp_seq = #{comp_seq}
 	</update>
 
 

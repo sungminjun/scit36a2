@@ -77,14 +77,14 @@ public class SettingsController {
 	}
 
 	/**
-	 * 테이블삭제(테이블이름입력받아서) 
+	 * 테이블삭제(테이블이름입력받아서)
 	 * 
 	 * @author 최철규
 	 */
 	@RequestMapping(value = "deleteseat", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteseat(Seat seat, HttpSession session) {
-		//수정사항) 테이블 이름이 아닌, 테이블 seq를 받아서 삭제하도록 변경
+		// 수정사항) 테이블 이름이 아닌, 테이블 seq를 받아서 삭제하도록 변경
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		seat.setComp_seq(comp_seq);
 		int result = repo.deleteseat(seat);
@@ -92,12 +92,10 @@ public class SettingsController {
 			return "success";
 		else
 			return "fail";
-
 	}
 
-
 	/**
-	 * 테이블수정  
+	 * 테이블수정
 	 * 
 	 * @author 최철규
 	 */
@@ -121,25 +119,33 @@ public class SettingsController {
 	// menu manager methods below
 
 	// 메뉴등록
+	/**
+	 * 해당 점포의 메뉴를 등록
+	 * 
+	 * @author 최철규
+	 */
 	@RequestMapping(value = "insertMenu", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertMenu(HttpSession session, int menu_sellFlag, String menu_name, int menu_price,
-			String menu_category) {
+	public String insertMenu(Menu menu, HttpSession session) {
+//		수정사항 개별 var를 string으로 받던것을 vo로 묶어서 받도록 변경
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		Menu menu = new Menu();
-		System.out.println("컨트롤러 comp_seq : " + comp_seq);
+		System.out.println(menu);
 		menu.setComp_seq(comp_seq);
-		menu.setMenu_sellFlag(menu_sellFlag);
-		menu.setMenu_name(menu_name);
-		menu.setMenu_price(menu_price);
-		menu.setMenu_category(menu_category);
 		int result = repo.insertMenu(menu);
 		System.out.println("컨트롤러 result : " + result);
 
-		return "success";
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
-	@RequestMapping(value = "selectMenu", method = RequestMethod.GET)
+	/**
+	 * 해당 점포의 메뉴 목록을 조회
+	 * 
+	 * @author 최철규
+	 */
+	@RequestMapping(value = "selectMenu", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Menu> selectMenu(HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
@@ -149,29 +155,49 @@ public class SettingsController {
 		return menuList;
 	}
 
+
+	/**
+	 * 메뉴 삭제
+	 * 
+	 * @author 최철규
+	 */
 	@RequestMapping(value = "deleteMenu", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteMenu(int menu_seq, HttpSession session, Employee employee) {
-		Menu menu = new Menu();
+	public String deleteMenu(Menu menu, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		menu.setComp_seq(comp_seq);
-		menu.setMenu_seq(menu_seq);
 		int result = repo.deleteMenu(menu);
 
-		return "success";
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
+	/**
+	 * 메뉴 업데이트
+	 * 
+	 * @author 최철규, 전성민
+	 */
 	@RequestMapping(value = "updateMenu", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateMenu(HttpSession session, int menu_seq, Employee employee) {
-		session.getAttribute("");
-
+	public String updateMenu(HttpSession session, Menu menu) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		menu.setComp_seq(comp_seq);
+		System.out.println(menu);
+		System.out.println(menu.getMenu_name());
+		System.out.println(menu.getMenu_name().getClass());
+ 
+		int result = repo.updateMenu(menu);
 		/*
 		 * int Emp_auth_level = employee.getEmp_auth_level(); if (Emp_auth_level == 9) {
 		 * int result = repo.updateMenu(menu_seq); return "success"; } else { return
 		 * "false"; }
 		 */
-		return null;
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
 	// menu manager methods above

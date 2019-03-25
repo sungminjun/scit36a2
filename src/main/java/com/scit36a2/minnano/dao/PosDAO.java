@@ -10,7 +10,7 @@ import com.scit36a2.minnano.vo.Sales_state;
 
 public interface PosDAO {
 
-	public int insertSasSad(HashMap map);
+	public int insertSasSad(HashMap<String, Object> map);
 
 	public List<Sales_state> selectSas(int sales_state_seq);
 

@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/png" href="./imgs/favicon.png">
+  <link rel="icon" type="image/png" href="imgs/favicon.png">
   <title>
     MinnanoPOS
   </title>
@@ -62,62 +62,55 @@
       </div>
     </div>
     
+    
     <div class="main-panel" data="blue">
       <div class="content">
         <div class="row">
-          <div class="col-md-8 ml-auto mr-auto">
-            <div class="card" style="top: 20%">
+          <div class="col-md-6">
+            <div class="card">
               <div class="card-header">
-                <h5 class="title">LOGIN</h5>
+                <h5 class="title">div1 (class row)</h5>
               </div>
-              <form id="loginForm" action="login" method="post">
-                <div class="card-body">
-                  <div class="row justify-content-center">
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <input type="text" class="form-control" placeholder="UserID" name="emp_id">
-                      </div>
-                    </div>
-                    <div class="col-md-5">
-                      <div class="form-group">
-                        <input type="password" class="form-control" placeholder="UserPassword" name="emp_pw">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row justify-content-center">
-                    <div class="col-md-10 pull-right justify-content-end">
-                      <button type="submit" class="btn-default pull-right justify-content-end">Login</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="row pull-right justify-content-center">
-                    <div class="col-12">
-                      <a href="#" class="simple-text">회원가입</a><br>
-                      <a href="#" class="simple-text">ID/PW 찾기</a>
-                    </div>
-                  </div>
-                </div>
-              </form>
-
+              <div class="card-body">
+                <h5 class="title">div1-body</h5>
+              </div>
+              <div class="card-footer">
+                <h5 class="title">div1-footer</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">div2 (class row)</h5>
+              </div>
+              <div class="card-body">
+                <h5 class="title">div2-body</h5>
+              </div>
+              <div class="card-footer">
+                <h5 class="title">div2-footer</h5>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <footer class="footer">
+      </footer>
     </div>
   </div>
-  
+
+
   <!--   Core JS Files   -->
-  <script src="./assets/js/core/jquery.min.js"></script>
-  <script src="./assets/js/core/popper.min.js"></script>
-  <script src="./assets/js/core/bootstrap.min.js"></script>
-  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="assets/js/core/jquery.min.js"></script>
+  <script src="assets/js/core/popper.min.js"></script>
+  <script src="assets/js/core/bootstrap.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!-- Chart JS -->
-  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <script src="assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
 </body>
 
 </html>

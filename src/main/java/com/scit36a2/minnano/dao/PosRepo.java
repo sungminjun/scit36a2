@@ -16,7 +16,7 @@ public class PosRepo {
 	@Autowired
 	SqlSession session;
 
-	public int insertSasSad(HashMap map) {
+	public int insertSasSad(HashMap<String, Object> map) {
 		PosDAO mapper = session.getMapper(PosDAO.class);
 		int result = mapper.insertSasSad(map);
 		

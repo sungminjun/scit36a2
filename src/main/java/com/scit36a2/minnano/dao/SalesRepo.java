@@ -43,14 +43,9 @@ public class SalesRepo {
 	}
 
 	public int insertMenu(Menu menu) {
-		int result =0;
-		try {
-			SalesDAO mapper = session.getMapper(SalesDAO.class);
-			result= mapper.insertMenu(menu);
+		SalesDAO mapper = session.getMapper(SalesDAO.class);
+		int result = mapper.insertMenu(menu);
 
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 		return result;
 	}
 
@@ -68,9 +63,9 @@ public class SalesRepo {
 		return result;
 	}
 
-	public int updateMenu(int menu_seq) {
+	public int updateMenu(Menu menu) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.updateMenu(menu_seq);
+		int result = mapper.updateMenu(menu);
 
 		return result;
 	}
@@ -82,23 +77,23 @@ public class SalesRepo {
 		return result;
 	}
 
-	public List<Expense> selectExpense(int comp_seq) {
+	public List<Expense> selectExpense(int expense_seq) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		List<Expense> result = mapper.selectExpense(comp_seq);
+		List<Expense> result = mapper.selectExpense(expense_seq);
 
 		return result;
 	}
 
-	public int deleteExpense(Expense expense) {
+	public int deleteExpense(int expense_seq) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.deleteExpense(expense);
+		int result = mapper.deleteExpense(expense_seq);
 
 		return result;
 	}
 
-	public int updateExpense(Expense expense) {
+	public int updateExpense(int expense_seq) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.updateExpense(expense);
+		int result = mapper.updateExpense(expense_seq);
 
 		return result;
 	}

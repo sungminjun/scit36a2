@@ -24,22 +24,22 @@
 			var menu_name = $("#menu_name").val();
 			var menu_sellFlag = 0;
 			if (menu_name.trim().length == 0) {
-				alert("¸Ş´ºÀÌ¸§µî·ÏÇÏ·Á¸é ÀÔ·ÂÇÏ¼¼¿ä");
+				alert("ë©”ë‰´ì´ë¦„ë“±ë¡í•˜ë ¤ë©´ ì…ë ¥í•˜ì„¸ìš”");
 				return;
 			}
 			
 			var menu_sellFlag = $("#menu_sellFlag option:selected").val();	
-			if (menu_sellFlag=="ÆÇ¸ÅÁß") {
+			if (menu_sellFlag=="íŒë§¤ì¤‘") {
 				menu_sellFlag = 1;
-			}	else if (menu_sellFlag=="ÆÇ¸ÅÁß¾Æ´Ô") {
+			}	else if (menu_sellFlag=="íŒë§¤ì¤‘ì•„ë‹˜") {
 				menu_sellFlag = 0;
 			}
 			var menu_price = $("#menu_price").val();
 			if (menu_price.trim().length == 0) {
-				alert("Á¦´ë·Î °¡°İÀÔ·ÂÇÒ°Í");
+				alert("ì œëŒ€ë¡œ ê°€ê²©ì…ë ¥í• ê²ƒ");
 				return;
 			}	else if (isNaN(menu_price)) {
-				alert("°¡°İÀº ¼ıÀÚ·ÎÇÒ°Í. int¶ó¼­ ¾îÂ¿¼ö ¾ø¾î¿ä");
+				alert("ê°€ê²©ì€ ìˆ«ìë¡œí• ê²ƒ. intë¼ì„œ ì–´ì©”ìˆ˜ ì—†ì–´ìš”");
 				return;
 			}
 			var menu_category = $("#menu_category option:selected").val();
@@ -60,10 +60,10 @@
 	function output(resp)	{
 		var a = "";
 			a += "<tr>";
-			a += "<th>¸Ş´ºÀÌ¸§</th>";
-			a += "<th>ÆÇ¸ÅÁßÀÎÁö¿©ºÎ</th>";
-			a += "<th>À½½Ä°¡°İ</th>";
-			a += "<th>À½½ÄÄ«Å×°í¸®</th>";
+			a += "<th>ë©”ë‰´ì´ë¦„</th>";
+			a += "<th>íŒë§¤ì¤‘ì¸ì§€ì—¬ë¶€</th>";
+			a += "<th>ìŒì‹ê°€ê²©</th>";
+			a += "<th>ìŒì‹ì¹´í…Œê³ ë¦¬</th>";
 			a += "</tr>";
 		$.each(resp,function(index,item)	{		
 			a += "<tr>";
@@ -81,7 +81,7 @@
 	function delmenu()	{
 		var menu_seq = $("#menu_seq").val();
 		if (menu_seq.trim().length==0) {
-			alert("»èÁ¦ÇÏ·Á¸é ÀÔ·ÂÇÏ¼¼¿ä");
+			alert("ì‚­ì œí•˜ë ¤ë©´ ì…ë ¥í•˜ì„¸ìš”");
 			return;
 		}
 		var menu_seq = {"menu_seq":menu_seq}
@@ -114,36 +114,35 @@
 
 </head>
 <body>
-¸Ş´º Menu.JSP		
+ë©”ë‰´ Menu.JSP		
 <br><br><br>	
 		<table id="menuRegi">
 			<tr>
 				<td>
-					<input type="text" placeholder="µî·ÏÇÒ ¸Ş´ºÀÌ¸§ ÀÔ·Â" name="menu_name" id="menu_name">
+					<input type="text" placeholder="ë“±ë¡í•  ë©”ë‰´ì´ë¦„ ì…ë ¥" name="menu_name" id="menu_name">
 						<select id="menu_sellFlag" name="menu_sellFlag">
-							<option value="ÆÇ¸ÅÁß">ÆÇ¸ÅÁß</option>
-							<option value=ÆÇ¸ÅÁß¾Æ´Ô>ÆÇ¸ÅÁß¾Æ´Ô</option>
+							<option value="íŒë§¤ì¤‘">íŒë§¤ì¤‘</option>
+							<option value=íŒë§¤ì¤‘ì•„ë‹˜>íŒë§¤ì¤‘ì•„ë‹˜</option>
 						</select>
-					<input type="text" placeholder="Ç°¸ñÆÇ¸Å°¡ ÀÔ·Â" name="menu_price" id="menu_price">
+					<input type="text" placeholder="í’ˆëª©íŒë§¤ê°€ ì…ë ¥" name="menu_price" id="menu_price">
 						<select name="menu_category" id="menu_category">
-							<option value="À½½Ä" >À½½Ä</option>
-							<option value="ÈÄ½Ä" >ÈÄ½Ä</option>
-							<option value="µğÀúÆ®" >µğÀúÆ®</option>
-							<option value="À½·á" >À½·á</option>
+							<option value="ìŒì‹" >ìŒì‹</option>
+							<option value="í›„ì‹" >í›„ì‹</option>
+							<option value="ë””ì €íŠ¸" >ë””ì €íŠ¸</option>
+							<option value="ìŒë£Œ" >ìŒë£Œ</option>
 					</select>		
 				</td>
 				<td>
-					<input type="button" value="¸Ş´º Ãß°¡ µî·ÏÈ®ÀÎ¹öÆ°" id="inbutton">
+					<input type="button" value="ë©”ë‰´ ì¶”ê°€ ë“±ë¡í™•ì¸ë²„íŠ¼" id="inbutton">
 				</td>
 			</tr>
 			<tr>
 				<td>
 		<br><br><br><br><br><br>
-		<input type="text" placeholder="¸Ş´º»èÁ¦ÇÒ ¹øÈ£ÀÔ·Â" name="menu_seq" id="menu_seq">
-					<input type="button" value="¸Ş´º »èÁ¦ ¹öÆ°" id="deletebutton">
+		<input type="text" placeholder="ë©”ë‰´ì‚­ì œí•  ë²ˆí˜¸ì…ë ¥" name="menu_seq" id="menu_seq">
+					<input type="button" value="ë©”ë‰´ ì‚­ì œ ë²„íŠ¼" id="deletebutton">
 				</td>
 			</tr>
 		</table>
-		
 </body>
 </html>

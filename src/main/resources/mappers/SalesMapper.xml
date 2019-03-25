@@ -101,9 +101,10 @@
 		)	values	(
 		expense_seqs.nextval,
 		#{comp_seq},
-		<if test="expense_type=='고정'">,#{expense_type}=1</if>
+		<!-- <if test="expense_type=='고정'">,#{expense_type}=1</if>
 		<if test="expense_type=='변동'">,#{expense_type}=2</if>
-		<if test="expense_type=='기타'">,#{expense_type}=3</if>
+		<if test="expense_type=='기타'">,#{expense_type}=3</if> -->
+		#{expense_type},
 		sysdate,
 		#{expense_description},
 		#{expense_amount}
@@ -120,20 +121,26 @@
 		from 
 			EXPENSE
 		where
-			expense_seq = #{expense_seq}
+			comp_seq = #{comp_seq}
 	</select>
-	<delete id="deleteExpense" parameterType="int">
+	<delete id="deleteExpense" parameterType="exp">
 		delete from EXPENSE
 		where
 			expense_seq = #{expense_seq}
 	</delete>
-	<update id="updateExpense" parameterType="int">
+	<update id="updateExpense" parameterType="exp">
 		update
 			EXPENSE
 		set
-			expense_type = #{expense_type},
-			expense_description = #{expense_description},
-			expense_amount = #{expense_amount}
+			expense_type =#{expense_type},
+			 <if test="expense_date == null">
+				 sysdate,
+			</if>	
+			<if test="expense_date != null">
+				expense_date = TO_CHAR(expense_date, 'YYYY-MM-DD'),
+			</if>
+			expense_description =#{expense_description},
+			expense_amount =#{expense_amount}
 		where
 			expense_seq = #{expense_seq}
 	</update>

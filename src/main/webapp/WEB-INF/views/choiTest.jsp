@@ -120,7 +120,7 @@
 
 </head>
 <body>
-	Seat  테이블좌석<br>
+	<hr>테이블 좌석 Seat.JSP</hr>
 			
 			<tr>
 				<td>

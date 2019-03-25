@@ -43,9 +43,14 @@ public class SalesRepo {
 	}
 
 	public int insertMenu(Menu menu) {
-		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.insertMenu(menu);
+		int result =0;
+		try {
+			SalesDAO mapper = session.getMapper(SalesDAO.class);
+			result= mapper.insertMenu(menu);
 
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return result;
 	}
 
@@ -77,23 +82,23 @@ public class SalesRepo {
 		return result;
 	}
 
-	public List<Expense> selectExpense(int expense_seq) {
+	public List<Expense> selectExpense(int comp_seq) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		List<Expense> result = mapper.selectExpense(expense_seq);
+		List<Expense> result = mapper.selectExpense(comp_seq);
 
 		return result;
 	}
 
-	public int deleteExpense(int expense_seq) {
+	public int deleteExpense(Expense expense) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.deleteExpense(expense_seq);
+		int result = mapper.deleteExpense(expense);
 
 		return result;
 	}
 
-	public int updateExpense(int expense_seq) {
+	public int updateExpense(Expense expense) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.updateExpense(expense_seq);
+		int result = mapper.updateExpense(expense);
 
 		return result;
 	}

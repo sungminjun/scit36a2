@@ -4,6 +4,8 @@ package com.scit36a2.minnano.controllers;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit36a2.minnano.dao.PosRepo;
+import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
 
@@ -43,8 +46,13 @@ public class PosController {
 	public String insertSasSad(Sales_state sales_state,Sales_detail sales_detail)	{
 		
 		HashMap<String,Object> map = new HashMap<>();
+		int seq = 0;
+		seq = repo.sales_state_seq();
+		if (seq != 0) {
+			map.put("sales_state_seq",seq);
+		}
 		
-		map.put("sales_state_seq",sales_state.getSales_state_seq());
+		//map.put("sales_state_seq",sales_state.getSales_state_seq());
 		map.put("comp_seq",sales_state.getComp_seq());
 		map.put("seat_seq",sales_state.getSeat_seq());
 		map.put("sales_start",sales_state.getSales_start());
@@ -80,6 +88,23 @@ public class PosController {
 	public List<Sales_detail> selectSad(int sales_detail_seq)	{
 		List<Sales_detail> select_Sales_detailList = repo.selectSad(sales_detail_seq);
 		return select_Sales_detailList;
+	}
+	
+	
+	
+	
+	@RequestMapping(value="choitestpayment",method=RequestMethod.GET)
+	public String inPayment()	{
+		return "choitestpayment";
+	}
+	@RequestMapping(value="inPay",method=RequestMethod.POST)
+	@ResponseBody
+	public String insertPayment(HttpSession session,Payment payment)	{
+		String payment_clerk = (String)session.getAttribute("emp_id");
+		payment.setPayment_clerk(payment_clerk);
+		int result = repo.insertPayment(payment);
+		
+		return "success";
 	}
 	
 	

@@ -62,6 +62,8 @@ public class SettingsController {
 		List<Seat> seatList = new ArrayList<Seat>(); 
 		seatList = repo.selectseat(comp_seq);
 		System.out.println("seatList : " + seatList);
+		//List<Seat> re = (List)session.getAttribute("seat");
+		
 		return seatList;
 	}
 
@@ -105,19 +107,15 @@ public class SettingsController {
 	// 메뉴등록
 	@RequestMapping(value="insertMenu", method=RequestMethod.POST)
 	@ResponseBody
-	public String insertMenu(HttpSession session,int menu_sellFlag,String menu_name,int menu_price,String menu_category) {
+	public String insertMenu(HttpSession session,Menu menu) {			//int menu_sellFlag,String menu_name,int menu_price,String menu_category
 		int comp_seq = (Integer)session.getAttribute("comp_seq");
-		Menu menu = new Menu();
+		//Menu menu = new Menu();
 		System.out.println("컨트롤러 comp_seq : " + comp_seq);
 		menu.setComp_seq(comp_seq);
-		menu.setMenu_sellFlag(menu_sellFlag);
-		menu.setMenu_name(menu_name);
-		menu.setMenu_price(menu_price);
-		menu.setMenu_category(menu_category);
 		int result = repo.insertMenu(menu);
 		System.out.println("컨트롤러 result : " + result);
 	
-			return "success";
+		return "success";
 	
 	}
 
@@ -133,7 +131,7 @@ public class SettingsController {
 	
 	@RequestMapping(value = "deleteMenu", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteMenu(int menu_seq, HttpSession session, Employee employee) {
+	public String deleteMenu(int menu_seq, HttpSession session) {
 		Menu menu = new Menu();
 		int comp_seq = (Integer)session.getAttribute("comp_seq");
 		menu.setComp_seq(comp_seq);
@@ -159,47 +157,55 @@ public class SettingsController {
 	}
 
 	// 지출화면이동
-	@RequestMapping(value = "insertExpense", method = RequestMethod.GET)
+	@RequestMapping(value = "choitestexpense", method = RequestMethod.GET)
 	public String insertExpense() {
 
-		return "Expense";// 지출화면 jsp 확인
+		return "choitestexpense";// 지출화면 jsp 확인
 	}
 
-	@RequestMapping(value = "insertExpense", method = RequestMethod.POST)
+	@RequestMapping(value = "inexpense", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertExpense(HttpSession session, Expense expense) {
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		expense.setComp_seq(comp_seq);
 		int result = repo.insertExpense(expense);
-		if (result == 1)
-			return "success";
-		else
-			return "fail";
+		
+		return "success";
 	}
 
-	@RequestMapping(value = "selectExpense", method = RequestMethod.POST)
-	public List<Expense> selectExpense(HttpSession session, int expense_seq) {
-
-		List<Expense> expenseList = repo.selectExpense(expense_seq);
-		return expenseList;
-	}
-
-	@RequestMapping(value = "deleteExpense", method = RequestMethod.POST)
+	@RequestMapping(value = "selexpense", method = RequestMethod.GET)
 	@ResponseBody
-	public String deleteExpense(int expense_seq) {
-		int result = repo.deleteExpense(expense_seq);
-		if (result == 1)
+	public List<Expense> selectExpense(HttpSession session) {
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		List<Expense> expenseList = new ArrayList<Expense>();
+		expenseList = repo.selectExpense(comp_seq);
+//		System.out.println("지출 목록 리스트expenseList : " + expenseList);
+		return expenseList;
+		
+	}
+
+	@RequestMapping(value = "delexpense", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteExpense(HttpSession session,int expense_seq) {
+		Expense expense = new Expense();
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		expense.setComp_seq(comp_seq);
+		expense.setExpense_seq(expense_seq);
+		int result = repo.deleteExpense(expense);
 			return "success";
-		else
-			return "fail";
 	}
 
 	@RequestMapping(value = "updateExpense", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateExpense(int expense_seq) {
-		int result = repo.updateExpense(expense_seq);
-		if (result == 1)
-			return "success";
-		else
-			return "fail";
+	public String updateExpense(HttpSession session,Expense expense) {
+		
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		expense.setComp_seq(comp_seq);
+		//expense.setExpense_seq(comp_seq);
+		System.out.println(expense);
+//		int result = repo.updateExpense(expense);
+		repo.updateExpense(expense);
+		return "success";
 	}
 
 }

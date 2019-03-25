@@ -19,8 +19,8 @@ public interface SalesDAO {
 	
 
 	public int insertExpense(Expense expense);//지출유형입력에 따른 지출내역등록
-	public List<Expense> selectExpense(int expense_seq);
-	public int deleteExpense(int expense_seq);
-	public int updateExpense(int expense_seq);
+	public List<Expense> selectExpense(int comp_seq);
+	public int deleteExpense(Expense expense);
+	public int updateExpense(Expense expense);
 
 }

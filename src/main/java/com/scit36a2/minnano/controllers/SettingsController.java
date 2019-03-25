@@ -208,9 +208,12 @@ public class SettingsController {
 	// expense manager methods below
 
 	@RequestMapping(value = "insertExpense", method = RequestMethod.POST)
-	@ResponseBody
-	public String insertExpense(HttpSession session, Expense expense) {
+	public @ResponseBody String insertExpense(HttpSession session, Expense expense) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		System.out.println(expense);
+		expense.setComp_seq(comp_seq);
 		int result = repo.insertExpense(expense);
+		
 		if (result == 1)
 			return "success";
 		else
@@ -218,9 +221,9 @@ public class SettingsController {
 	}
 
 	@RequestMapping(value = "selectExpense", method = RequestMethod.POST)
-	public List<Expense> selectExpense(HttpSession session, int expense_seq) {
-
-		List<Expense> expenseList = repo.selectExpense(expense_seq);
+	public @ResponseBody List<Expense> selectExpense(HttpSession session) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		List<Expense> expenseList = repo.selectExpense(comp_seq);
 		return expenseList;
 	}
 
@@ -250,9 +253,9 @@ public class SettingsController {
 
 	// 삭제예정 -- mgr으로 통합
 	// 지출화면이동
-	@RequestMapping(value = "insertExpense", method = RequestMethod.GET)
-	public String insertExpense() {
-		return "Expense";// 지출화면 jsp 확인
-	}
+//	@RequestMapping(value = "insertExpense", method = RequestMethod.GET)
+//	public String insertExpense() {
+//		return "Expense";// 지출화면 jsp 확인
+//	}
 
 }

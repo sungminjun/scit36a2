@@ -101,37 +101,29 @@
 
 
 	<insert id="insertExpense" parameterType="exp">
-		insert into EXPENSE	(
-		expense_seq,
-		comp_seq,
-		expense_type,
-		expense_date,
-		expense_description,
-		expense_amount
-		)	values	(
-		expense_seqs.nextval,
-		#{comp_seq},
-		<if test="expense_type=='고정'">,#{expense_type}=1</if>
-		<if test="expense_type=='변동'">,#{expense_type}=2</if>
-		<if test="expense_type=='기타'">,#{expense_type}=3</if>
-		sysdate,
-		#{expense_description},
-		#{expense_amount}
+		insert into EXPENSE
+			values(
+				expense_seqs.nextval
+				, #{comp_seq}
+				, #{expense_type}
+				<!-- <if test="expense_type=='고정'">,#{expense_type}=1</if>
+				<if test="expense_type=='변동'">,#{expense_type}=2</if>
+				<if test="expense_type=='기타'">,#{expense_type}=3</if> -->
+				, #{expense_date}
+				, #{expense_description}
+				, #{expense_amount}
 		)
 	</insert>
+	
 	<select id="selectExpense" parameterType="int" resultType="exp">
 		select 
-			expense_seq,
-			comp_seq,
-			expense_type,
-			expense_date,
-			expense_description,
-			expense_amount
+			*
 		from 
 			EXPENSE
 		where
-			expense_seq = #{expense_seq}
+			comp_seq = #{comp_seq}
 	</select>
+	
 	<delete id="deleteExpense" parameterType="int">
 		delete from EXPENSE
 		where

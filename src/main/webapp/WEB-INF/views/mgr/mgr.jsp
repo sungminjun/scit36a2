@@ -64,7 +64,7 @@
     <div class="main-panel" data="blue">
 
       <!--  content -->
-      <div class="content">
+      <div class="content" style="max-height: 70%">
 
         <div class="row">
           <div class="col-md-12">
@@ -99,33 +99,48 @@
                   <div class="col-md-6">
                     <div class="row">
 
-                      <div class="col-md-10">
+                      <div class="col-md-8">
                         <div class="form-group">
-                          <label>form1</label>
-                          <input type="text" class="form-control" placeholder="form1">
+                          <label>유형</label>
+                            <select class="form-control" id="mgr-1-1" name="expense_type" >
+                              <option value="0" selected="selected">고정지출</option>
+                              <option value="1">변동지출</option>
+                              <option value="2">기타</option>
+                            </select>
                         </div>
                       </div>
-                      <div class="col-md-10">
+                      <div class="col-md-8">
                         <div class="form-group">
-                          <label>form2</label>
-                          <input type="text" class="form-control" placeholder="form2">
+                          <label>날짜</label>
+                          <input type="date" class="form-control" id="mgr-1-2" name="expense_date">
                         </div>
                       </div>
-                      <div class="col-md-10">
+                      <div class="col-md-4">
+                          난까노 유효성검사 _js_ will be placed here.
+                      </div>
+                      <div class="col-md-8">
                         <div class="form-group">
-                          <label>form3</label>
-                          <input type="text" class="form-control" placeholder="form3">
+                          <label>설명</label>
+                          <input type="text" class="form-control" id="mgr-1-3" name="expense_description">
                         </div>
                       </div>
-                      <div class="col-md-10">
+                      <div class="col-md-4">
+                          난까노 유효성검사 _js_ will be placed here.
+                      </div>
+                      <div class="col-md-8">
                         <div class="form-group">
-                          <label>form4</label>
-                          <input type="text" class="form-control" placeholder="form4">
+                          <label>금액</label>
+                          <input type="text" class="form-control" id="mgr-1-4" name="expense_amount">
                         </div>
                       </div>
-                      <div class="col-md-10">
+                      <div class="col-md-4">
+                          난까노 유효성검사 _js_ will be placed here.
+                      </div>
+                      <div class="col-md-8">
                         <div class="form-group">
-                          <button class="btn-default pull-right justify-content-end">등록/수정/삭제</button>
+                          <button class="btn-default pull-right justify-content-end" id="mgr-btn-1-5" style="display: flex;">등록</button>
+                          <button class="btn-default pull-right justify-content-end" id="mgr-btn-1-6" style="display: none;">수정</button>
+                          <button class="btn-default pull-right justify-content-end" id="mgr-btn-1-7" style="display: none;">삭제</button>
                         </div>
                       </div>
 
@@ -133,41 +148,17 @@
                   </div>
 
                   <div class="col-md-6">
-                    <div class="card" id="explist">expense list by ajax
-                    </div>
 
                     <div class="table-responsive">
-                      <table class="table tablesorter " id="">
-                        <thead class=" text-primary">
-                          <tr>
-                            <th class="text-center">일시</th>
-                            <th class="text-center">명세</th>
-                            <th class="text-center">금액</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>예시1</td>
-                            <td>예시1 - 모든 tr에 onclick 으로 좌측 form들 내용 replace하고
-                              <br> 버튼 이름 바꿀 수 있어야한다.
-                            </td>
-                            <td>$36,738</td>
-                          </tr>
-                          <tr>
-                            <td>예시2</td>
-                            <td>예시2 - hover일때 음영지게 하는 것도 필요할 것 같다.</td>
-                            <td>$23,789</td>
-                          </tr>
-                        </tbody>
+                      <table class="table tablesorter table-hover" id="mgr-1-8">
+                        <!-- expense list by ajax will be placed here -->
                       </table>
                     </div>
 
                   </div>
 
-                  <!--  row end below /div -->
                 </div>
 
-                <!--  card-body end below /div -->
               </div>
 
               <div class="card-footer">
@@ -568,6 +559,7 @@
         <footer class="footer"> </footer>
       </div>
     </div>
+    </div>
 
     <!--   Core JS Files   -->
     <script src="./assets/js/core/jquery.min.js"></script>
@@ -588,6 +580,9 @@
         $("button[id=mgr-btn-1]").on('click', function() {
           mgrshow('1')
         });
+        $("button[id=mgr-btn-1-5]").on('click', addexps);
+        $("button[id=mgr-btn-1-6]").on('click', modifyexps);
+        $("button[id=mgr-btn-1-7]").on('click', deleteexps);
         
         $("button[id=mgr-btn-2]").on('click', function() {
           mgrshow('2')
@@ -619,8 +614,12 @@
       })
 
       function mgrshow(param) {
-        if (param == 1) $('.mgr-1').css('display', 'flex');
-        else $('.mgr-1').css('display', 'none');
+        if (param == 1) {
+        	$('.mgr-1').css('display', 'flex');
+        	loadexps()
+        } else {
+        	$('.mgr-1').css('display', 'none');
+        }
 
         if (param == 2) {
           $('.mgr-2').css('display', 'flex');
@@ -640,6 +639,69 @@
         else $('.mgr-4').css('display', 'none');
       }
 
+      function loadexps() {
+    	setdatetodaydefault();
+          $.ajax({
+            url: 'selectExpense',
+            method: 'POST',
+            success: function(resp) {
+              var output = '';
+              output += '<thead class=" text-primary"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
+              $.each(resp, function(idx, obj) {
+                $('#mgr-1-8').html('');
+                output += '<tr s-expseq="' + obj.expense_seq + '">';
+                output += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
+                output += '</tr>';
+                $('#mgr-1-8').append(output);
+                var temp = 'tr[s-expseq=' + obj.expense_seq + ']';
+                $(temp).on('click', callexps);
+              })
+            }
+          });
+        } 
+      
+      function callexps() {
+    	  
+      }
+      
+      function addexps() {
+    	  var expense_type = $('#mgr-1-1').val();
+    	  var expense_date = $('#mgr-1-2').val()
+    	  var expense_description = $('#mgr-1-3').val()
+    	  var expense_amount = $('#mgr-1-4').val()
+    	  
+    	  var senddata = { expense_type : expense_type
+    			 , expense_date : expense_date
+    			 , expense_description : expense_description
+    			 , expense_amount : expense_amount };
+    	  console.log(senddata);
+    	  
+    	  $.ajax({
+    		 url : 'insertExpense'
+    		 , method : 'POST'
+    		 , data : { expense_type : expense_type
+    			 , expense_date : expense_date
+    			 , expense_description : expense_description
+    			 , expense_amount : expense_amount }
+    		 , success : loadexps
+    	  });
+    	  
+    	  $('#mgr-2-1').val('');
+    	  $('#mgr-2-2').val('');
+    	  $('#mgr-2-3').val('');
+    	  $('#mgr-2-4').val('1');    	  
+      }
+      
+      function modifyexps() {
+    	  
+      }
+      
+      function deleteexps() {
+    	  
+      }
+      
+      
+      
       function loadmenu() {
         var cat = [];
         $.ajax({
@@ -952,7 +1014,7 @@
                 $(temp).on('click', callModifyMember);
               })
             }
-          });
+          })
         } else {
           $('.mgr-4-3').css('display', 'none');
         }
@@ -983,6 +1045,21 @@
 
       }
 
+      function setdatetodaydefault() {
+   	      var date = new Date();
+
+  	      var day = date.getDate();
+  	      var month = date.getMonth() + 1;
+  	      var year = date.getFullYear();
+
+  	      if (month < 10) month = "0" + month;
+  	      if (day < 10) day = "0" + day;
+
+  	      var today = year + "-" + month + "-" + day;   
+  	      console.log(today)
+  	      $("#mgr-1-2").attr("value", today);
+      }
+      
     </script>
 </body>
 

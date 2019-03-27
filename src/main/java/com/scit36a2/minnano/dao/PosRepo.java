@@ -2,9 +2,11 @@ package com.scit36a2.minnano.dao;
 import java.util.HashMap;
 import java.util.List;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 
 import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
@@ -36,17 +38,12 @@ public class PosRepo {
 	}
 
 	
-	public int sales_state_seq()	{
-		PosDAO mapper = session.getMapper(PosDAO.class);
-		int result = mapper.sales_state_seq();
-		return result;
-	}
-	
 	public int insertPayment(Payment payment) {
 		PosDAO mapper = session.getMapper(PosDAO.class);
 		int result = mapper.insertPayment(payment);
 		return result;
 	}
-
+	
+	
 	
 }

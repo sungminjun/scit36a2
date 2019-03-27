@@ -23,7 +23,9 @@
     <c:if test="${not empty sessionScope.emp_id}">
       <a href="logout">로그아웃</a><br>
       <a href="choiTest">철규상 테이블 테스트</a><br>
-      <a href="choitestmenu">철규상 메뉴 테스트</a>
+      <a href="choitestmenu">철규상 메뉴 테스트</a><br>
+   	  <a href="choitestexpense">철규상 지출 테스트</a><br>
+      <a href="pos">철규상 POS테스트</a><br>
     </c:if>
 
   </div>

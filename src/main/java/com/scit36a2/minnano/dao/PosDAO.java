@@ -16,8 +16,6 @@ public interface PosDAO {
 
 	public List<Sales_detail> selectSad(int sales_detail_seq);
 
-	public int sales_state_seq();//시퀀스
-	
 	public int insertPayment(Payment payment);
 
 	

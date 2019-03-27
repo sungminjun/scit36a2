@@ -66,7 +66,7 @@
 		#{menu_category}
 		)	
 	</insert>
-	<select id="selectMenu" parameterType="int" resultType="me">
+	<select id="selectMenu" parameterType="me" resultType="me">
 		select 
 			menu_seq,
 			comp_seq,

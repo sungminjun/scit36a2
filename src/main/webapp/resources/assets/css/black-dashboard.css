@@ -96,7 +96,7 @@ body {
   text-align: left;
   background-color: #1e1e2f;
   position: relative;
-  min-width: 300px;
+  min-width: 600px;
 }
 
 [tabindex="-1"]:focus {

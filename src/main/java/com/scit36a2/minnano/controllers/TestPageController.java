@@ -50,5 +50,9 @@ public class TestPageController {
 		System.out.println((Integer) session.getAttribute("comp_seq"));
 		return "backside/choiTest";
 	}
+	@RequestMapping(value="choitestexpense",method=RequestMethod.GET)
+	public String insertExpense()	{
+		return "backside/choitestexpense";
+	}
 
 }

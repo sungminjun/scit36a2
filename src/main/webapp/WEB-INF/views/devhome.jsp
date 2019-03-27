@@ -93,7 +93,7 @@
         "side": "back",
         "charge": "최철규",
         "page": "choiTest",
-        "desc": "백단테스트메뉴(최철규,테스트)",
+        "desc": "백단테스트메뉴(최철규,테이블)",
         "prog": "50%"
       }, {
         "side": "back",

@@ -19,12 +19,11 @@
         del();
         alert("삭제test2");
       })
-      $("#updtable").on('click', function() {
+     /*  $(".up_val").on('click', function() {
         upd();
-
-      })
-
-    });
+     }) */
+      
+    })
 
     function addtable() {
       var seat_id = $("#seat_id").val();
@@ -41,7 +40,7 @@
         url: "addtable",
         method: "POST",
         data: senddata,
-        success: output()
+        success: output
       });
     }
 
@@ -49,78 +48,123 @@
     function output(resp) {
 
       var a = "";
-
-
-      $.each(resp, function(index, item) {
-        a += "<tr>";
+		
+      $.each(resp, function(index,item) {
+    	a += "<tr>";
         a += "<td>" + item.seat_seq + "</td>";
         a += "<td>" + item.comp_seq + "</td>";
         a += "<td>" + item.seat_id + "</td>";
+        //a += "<td><input type='button' data-value=" + item.seat_seq + "id='update_val' value='수정'></td>";
         a += "</tr>";
-      });
+      })
       $("#addtable").html(a);
-      init();
+     
     }
 
     function init() { // 테이블 목록을 가져오는 함수
       $.ajax({
         url: "selectseat",
-        method: "GET",
+        method: "POST",
         success: function(resp) {
-          output
-          //console.log(resp.stringify());
+        	selectSeat(resp);
+          	//console.log(resp.stringify());
         }
       });
     }
-
-
+   
     function del() {
-      var seat_seq = $(".seat_seq").val();
+        var seat_seq = $("#seat_seq").val();
 
-      if (seat_seq.trim().length == 0) {
-        alert("삭제하려면 삭제할 테이블 넘버를 입력하세");
-        return;
-      }
-      var sd = {
-        "seat_seq": seat_seq
-      }
-      $.ajax({
-        url: "deleteseat",
-        method: "POST",
-        data: sd,
-        success: function(resp) {
-          output
+        if (seat_seq.trim().length == 0) {
+          alert("삭제하려면 삭제할 테이블 넘버를 입력하세");
+          return;
         }
-      })
+        var sd = {
+          "seat_seq": seat_seq
+        }
+        $.ajax({
+          url: "deleteseat",
+          method: "POST",
+          data: sd,
+          success: function(resp) {
+            output
+          }
+        });
+      }
+    
+    function selectSeat(resp)	{
+    	  var a = "";
+		  a +="<tr>";
+		  a +="<th>" + 'seat_seq' + "</th>";
+		  a +="<th>" + 'comp_seq' + "</th>";
+		  a +="<th>" + 'seat_id' + "</th>";
+		  a +="<th>" + '수정버튼' + "</th>";
+		  a +="</tr>";
+		  $.each(resp, function(index, item) {
+		    	a += "<tr>";
+		        a += "<td>" + item.seat_seq + "</td>";
+		        a += "<td>" + item.comp_seq + "</td>";
+		        a += "<td>" + item.seat_id + "</td>";
+		        a += "<td><input type='button' data-value=" + item.seat_seq + "id='up_val' value='좌석수정버튼'></td>";
+		        a += "</tr>";
+		      })
+		  $("#addtable").html(a);
+		 // $("#up_val").on('click',upd);	///////////////////////////
+		//  $(".up_val").on('click',input_update2);
     }
+      
 
     function upd() {
-      var updseat = $("#updseat").val();
-      if (updseat.trim().length == 0) {
-        alert("수정하려면 삭제할 테이블 넘버를 입력하세");
-        return;
-      }
-      var newseat = $("#newseat").val();
-      if (newseat.trim().length == 0) {
-        alert("뭐로바꿀지 제대로 입력")
-        return;
-      }
-
-      var sd = {
-        "updseat": updseat
-      }
-      $.ajax({
-        url: "updateseat",
-        method: "POST",
-        data: sd,
-        success: function(resp) {
-          output
-        }
-      });
-
-
-    }
-
+    	var upVal = $(this).attr("data-value");
+   		alert("text1"); 
+    	console.log(upVal);
+    		$.ajax({
+    			url : "selectseat",
+    			method : "POST",
+    			success : function(resp)	{
+    				 var a = "";
+    				  a +="<tr>";
+    				  a +="<th>" + 'seat_seq' + "</th>";
+    				  a +="<th>" + 'comp_seq' + "</th>";
+    				  a +="<th>" + 'seat_id' + "</th>";
+    				  a +="<th>" + '수정버튼' + "</th>";
+    				  a +="</tr>";
+    				$.each(resp,function(index,item)	{
+    					if (upVal==item.seat_seq) {
+							a += "<tr>";
+    						a += "<td>" + item.seat_seq + "</td>";
+    						a += "<td>" + item.comp_seq + "</td>";
+    						a += "<td><input type='text' id='seat_id' value='" + item.seat_id + "'/></td>";
+    						a += "<td><input type='button' data-value=" +item.seat_seq+ " id='input_update' value='변경하기'></td>";
+    						a += "</tr>";
+						}	else	{
+							a += "<tr>";
+							a +="<td>" + item.seat_seq + "</td>";
+							a +="<td>" + item.comp_seq + "</td>";
+							a += "<td>" + item.seat_id + "</td>";
+							a += "<td><input type='button' data-value=" +item.seat_seq+ " class='up_val' value='테이블 수정버튼'></td>";
+							a += "</tr>";
+						}
+       				})
+    			$("#addtable").empty();
+    			$("#addtable").html(a);
+    			//$(".up_val").on('click',input_update2);
+    			}
+    		});
+    }  
+   		 function input_update2()	{
+   			 var reseat_seq = $(this).attr("data-value");
+   			 var seat_id = $("#seat_id").val();
+   			alert("text2222");
+   		 	var d = {"reseat_seq":reseat_seq,"seat_id":seat_id};
+   		 
+   		 $.ajax({
+   			url : "updateseat",
+   			 method : "POST",
+   			 data : d,
+   			 success : init
+   		 });
+   		 }
   </script>
 
 
@@ -139,14 +183,13 @@
       <input type="button" value="테이블 추가 등록" id="insert">
     </td>
   </tr>
-  <table id="addtable">
-  </table>
-  <br><br><br><br><br><br><br><br><br><br>
+  
+  <br><br><br><br><br>
 
 
   <tr>
     <td>
-      <input type="text" class="seat_seq" placeholder="삭제할 테이블 넘버 입력">
+      <input type="text" id="seat_seq" placeholder="삭제할 테이블 넘버 입력">
     </td>
   </tr>
   <tr>
@@ -154,25 +197,8 @@
       <input type="button" value="테이블 삭제" id="delete">
     </td>
   </tr>
-
-
-  <div id="seats">
-  </div>
-
-
-  <br><br><br><br>
-  <tr>
-    <td>
-      <input type="text" id="updseat" placeholder="수정할 테이블 넘버 입력">
-      <input type="text" id="newseat" placeholder="뭐로바꿀지 입력">
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <input type="button" value="테이블수정" id="updtable">
-    </td>
-
-  </tr>
+<table id="addtable">
+</table>
 </body>
 
 </html>

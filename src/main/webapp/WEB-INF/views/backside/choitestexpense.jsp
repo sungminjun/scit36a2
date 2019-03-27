@@ -29,11 +29,14 @@ function inexpense()	{
 	var expense_amount = $("#expense_amount").val();	//int */
 	
 	if (expense_type=="고정") {
-		expense_type=1;
+		//expense_type=1;
+		return 1;
 	}	else if (expense_type=="변동") {
-		expense_type=2;
+		//expense_type=2;
+		return 2;
 	}	else	{
-		expense_type=3;
+		//expense_type=3;
+		return 3;
 	}
 	
 	
@@ -52,7 +55,7 @@ function inexpense()	{
 	
 		
 	$.ajax({
-		url : "inexpense",
+		url : "insertExpense",
 		method : "post",
 		data : d,
 		success : function(resp)	{
@@ -83,11 +86,11 @@ function inexpense()	{
 	}
 	function init()	{
 		$.ajax({
-			url : "selexpense",
-			method : "GET",
+			url : "selectExpense",
+			method : "POST",
 			success : function(resp)	{
 				selexpense(resp);
-					$("#expensebutton").val('지출목록에 추가하기');
+				$("#expensebutton").val('지출목록에 추가하기');
 			}
 			
 		});
@@ -136,7 +139,7 @@ function inexpense()	{
 			a += "</tr>";																				
 		})
 	 	$("#view").html(a);
-		$("#update_val").on('click',update);	
+		
 	}
 	
 	function update(){
@@ -147,7 +150,7 @@ function inexpense()	{
 // 		$("#expensebutton").val("지출목록 수정버튼");
 		$.ajax({
 			url : "selexpense",
-			method : "GET",
+			method : "POST",
 			success : function(resp){
 				var a ="";
 				a += "<tr>";

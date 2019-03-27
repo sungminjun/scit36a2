@@ -4,10 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.PosDAO">
 	
+	
 	<insert id="insertSasSad" parameterType="HashMap">
 insert all
 	into SALES_STATE values	(
-		#{sales_state_seq},
+		sales_state_seqs.nextval,
 		#{comp_seq},
 		#{seat_seq},
 		sysdate,
@@ -21,12 +22,22 @@ insert all
 		#{menu_seq},
 		#{sales_order},
 		#{sales_discount}
-	)	
-		select * from dual
+	)	select * from dual
 	</insert>
-	<select id="sales_state_seq" resultType="int">
-		select sales_state_seqs.nextval from dual
+	<select id="selectAll" parameterType="me">
+		select sales_state.seat_seq, sales_state.sales_visitors,sales_state.sales_start,sales_state.sales_end,sales_state.sales_memo
+    			, menu.menu_seq,menu.menu_name,menu.menu_price,menu.menu_sellFlag
+    			, sales_detail.sales_order,sales_detail.sales_discount 
+		from 
+				sales_state, menu, sales_detail
+		where 
+				menu.menu_seq = sales_detail.menu_seq
 	</select>
+	
+	
+	
+	
+	
 	<select id="selectSas" parameterType="int" resultType="Sas">
 		select
 			sales_state_seq,
@@ -74,5 +85,8 @@ insert all
 			#{payment_clerk}
 		)
 	</insert>
-
+	
+	
+	
+	
 </mapper>

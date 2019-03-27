@@ -90,6 +90,12 @@
           "desc": "포스화면",
           "prog": "1%"
       }, {
+          "side": "front",
+          "charge": "이영창",
+          "page": "posMain",
+          "desc": "포스화면",
+          "prog": "50%"
+      }, {
         "side": "back",
         "charge": "최철규",
         "page": "choiTest",
@@ -102,6 +108,12 @@
         "desc": "백단테스트메뉴(최철규,메뉴)",
         "prog": "50%"
       }, {
+          "side": "back",
+          "charge": "최철규",
+          "page": "choipos",
+          "desc": "백단테스트메뉴(최철규,pos)",
+          "prog": "50%"
+      }, {
         "side": "back",
         "charge": "김유경",
         "page": "kyk",
@@ -113,7 +125,14 @@
         "page": "report",
         "desc": "보고서 페이지",
         "prog": "50%"
-      }]
+      }, {
+          "side": "front",
+          "charge": "이호정",
+          "page": "chart",
+          "desc": "보고서 페이지 (작업용)",
+          "prog": "50%"
+        }
+      ]
     }
 
     function output() {

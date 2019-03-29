@@ -25,6 +25,7 @@ public class TestPageController {
 	public String chart() {
 		return "report/chart";
 	}
+
 	// 이영창
 	@RequestMapping(value = "/posMain", method = RequestMethod.GET)
 	public String posMain() {
@@ -48,11 +49,11 @@ public class TestPageController {
 	public String join_kyk() {
 		return "member/join_k";
 	}
-	
-	//게시판 테스트 페이지로 이동
-	@RequestMapping(value="board_k",method=RequestMethod.GET)
+
+	// 게시판 테스트 페이지로 이동
+	@RequestMapping(value = "board_k", method = RequestMethod.GET)
 	public String board_kyk() {
-		
+
 		return "board/board_k";
 	}
 
@@ -79,4 +80,26 @@ public class TestPageController {
 		return "backside/choitestexpense";
 	}
 
+	// POS기능 기본화면1 이동
+	@RequestMapping(value = "/choiTestPOS1", method = RequestMethod.GET)
+	public String pos() {
+		return "backside/choiTestPOS1";
+	}
+
+	// POS기능 기본화면2 이동
+	@RequestMapping(value = "choiTestPOS2", method = RequestMethod.GET)
+	public String pos2() {
+		return "backside/choiTestPOS2";
+	}
+
+	@RequestMapping(value = "choitestpayment", method = RequestMethod.GET)
+	public String inPayment() {
+		return "choitestpayment";
+	}
+
+
+	@RequestMapping(value = "/report_k", method = RequestMethod.GET)
+	public String report_k() {
+		return "report/report_k";
+	}
 }

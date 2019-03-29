@@ -1,10 +1,8 @@
 @charset "UTF-8";
 
-
-
 /* posMain */
-.box input[type = "button"] {
-	border:0;
+.box input[type="button"] {
+	border: 0;
 	background: none;
 	display: block;
 	margin: 10px auto;
@@ -19,36 +17,34 @@
 	position: static;
 }
 
-.box input[type="button"]:hover{
+.box input[type="button"]:hover {
 	background: #3498db;
 	text-transform: uppercase;
 	color: #ffffff;
-	
 }
 
 .box .data_table {
 	height: 30%;
 	position: static;
 }
- 
 
 /* The Modal (background) */
 .modaltest {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.1); /* Black w/ opacity */
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.1); /* Black w/ opacity */
 }
 
- /* Modal Content/Box */
-.box input[type = "button"] {
-	border:0;
+/* Modal Content/Box */
+.box input[type="button"] {
+	border: 0;
 	background: none;
 	display: block;
 	margin: 10px auto;
@@ -63,15 +59,12 @@
 	position: static;
 }
 
-
 .menu {
 	background: #ffffff !important;
 }
 
-
-
 .menuBtn {
-	border:0;
+	border: 0;
 	background: none;
 	display: block;
 	margin: 10px auto;
@@ -84,54 +77,52 @@
 	transition: 0.25s;
 	cursor: pointer;
 	position: static;
-	
 }
 
-.menuBtn :hover{
+.menuBtn :hover {
 	background: #3498db;
 	color: #ffffff;
 }
 
 /* 메뉴 선택 버튼 */
 .menu_select_button {
-	border:0;
+	border: 0;
 	background: none;
 	display: block;
 	margin: 5px 5px;
 	text-align: center;
 	border: 2px solid #3498db;
 	padding: 1px 2px;
-	width: 20%;
 	outline: none;
 	border-radius: 24px;
 	transition: 0.25s;
 	color: #3498db;
+	box-sizing: border-box;
+	width: 100%;
+	height: 90%;
 }
 
-.menu_select_button:hover{
+.menu_select_button:hover {
 	background: #3498db;
 	color: #ffffff;
 	text-transform: uppercase;
 }
 
-
-
 /* 메뉴 상단탭 버튼 */
-#mgr-2-8 {
+#pos-4-1 {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 }
-		
- #mgr-2-8 li .active {
-	display: inline-block;
 
+#pos-4-1 li .active {
+	display: inline-block;
 	text-align: center;
 	text-decoration: none;
 	padding: 14px 16px;
 	font-size: 17px;
-	transition:0.3s;
+	transition: 0.3s;
 	background-color: #FAFAFA;
 	color: #3498db;
 	border: 2px solid #3498db;
@@ -139,14 +130,80 @@
 	transition: 0.25s;
 }
 
-#mgr-2-8 li a {
+#pos-4-1 li a {
 	display: inline-block;
 	color: #000000;
 	text-align: center;
 	text-decoration: none;
 	padding: 14px 16px;
 	font-size: 17px;
-	transition:0.3s;
+	transition: 0.3s;
 	border-radius: 5px;
 	transition: 0.25s;
+}
+
+.sqbox {
+	position: relative;
+	overflow: hidden;
+	background: #4679BD;
+	text-align: center;
+	color: white;
+	display: inline-block;
+	font-weight: 600;
+	text-align: center;
+	white-space: normal;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid white;
+	padding: 4px 2px;
+	font-size: 0.875rem;
+	line-height: 1.35em;
+	border-radius: 0.25rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+		border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	color: #ffffff;
+	background-color: #5e72e4;
+	border-color: white;
+	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px
+		rgba(0, 0, 0, 0.08);
+	width: 98%
+}
+
+.sqbox:after {
+	content: "";
+	display: block;
+	padding-bottom: 40%;
+}
+
+.sqbox p {
+	text-align: right;
+}
+
+.sqbox:hover {
+	color: #ffffff;
+	background-color: #344675;
+	border-color: #243152;
+}
+
+.sqbox:focus, .sqbox.focus {
+	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px
+		rgba(0, 0, 0, 0.08), 0 0 0 0 rgba(52, 70, 117, 0.5);
+}
+
+.sqbox.disabled, .sqbox:disabled {
+	color: #ffffff;
+	background-color: #344675;
+	border-color: #344675;
+}
+
+.sqbox:not (:disabled ):not (.disabled ):active, .sqbox:not (:disabled ):not
+	(.disabled ).active, .show>.sqbox {
+	color: #ffffff;
+	background-color: #243152;
+	border-color: #202c49;
+}
+
+.sqbox:not (:disabled ):not (.disabled ):active:focus, .sqbox:not (:disabled
+	):not (.disabled ).active:focus, .show>.sqbox:focus {
+	box-shadow: none, 0 0 0 0 rgba(52, 70, 117, 0.5);
 }

@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.PosDAO">
 
+	<select id="seatsavailable" parameterType="int" resultType="sas">
+		SELECT *
+		FROM sales_state
+		WHERE comp_seq = #{comp_seq} and sales_end > sysdate
+	</select>
+
 	
 	<insert id="insertSasSad" parameterType="HashMap">
 insert all
@@ -26,7 +32,7 @@ insert all
 	</insert>
 	
 
-	
+	<!-- 
 <resultMap id="sales_state" type="sas">
 	<result property="comp_seq" column="comp_seq"></result>
 	
@@ -41,7 +47,7 @@ insert all
 	<result property="comp_seq" column="comp_seq"></result>
 	
 </resultMap>
-	
+	 -->
 	
 	<select id="selectPOStwo" parameterType="me" resultType="Map">
 		select 

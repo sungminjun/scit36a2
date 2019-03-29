@@ -97,7 +97,20 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-              <a class="buttonlike" href="#">Button Link</a>
+                <div class="row">
+                  <div class="col-md-3 sqbox rounded">
+                  <span>test<br>test<br></span>
+                  </div>
+                  <div class="col-md-3 sqbox rounded">
+                  <span>span-tag</span><br>w/o-tag<p>p-tag</p>
+                  </div>
+                  <div class="col-md-3 sqbox rounded">
+                  <span>span-tag</span><br>w/o-tag<p>p-tag</p>
+                  </div>
+                  <div class="col-md-3 sqbox rounded">
+                  <span>span-tag</span><br>w/o-tag<p>p-tag</p>
+                  </div>
+                </div>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -393,49 +406,61 @@
         url: 'selectseat',
         method: 'POST',
         success: function(resp) {
+        	$.ajax({
+        		url: 'seatsavailable'
+        		, method : 'POST'
+        		, success: function(resp2) {
+        			console.log(resp2);
           var totalSeats = Object.keys(resp).length;
+          var occupiedSeats = Object.keys(resp2).length; 
+        			
           $('#pos-1-3').val('총 ' + totalSeats + ' 석');
-
-          var devider = 2;
-          var size = '150px';
-
-          if (totalSeats <= 9) {
-            devider = 3;
-            size = '125px';
-          } else if (totalSeats <= 16) {
-            devider = 4;
-            size = '100px';
-          } else if (totalSeats <= 25) {
-            devider = 5;
-            size = '75px';
-          } else {
-            devider = 6;
-            size = '60px';
+          $('#pos-1-4').val('현재 ' + occupiedSeats + ' 석 이용중');
+          
+          var devider = 1;
+          var sizer = '';
+          if (totalSeats <= 4) {	// 4개까지는 1row당 2개씩
+        	  devider = 2;
+              size = 'col-md-5';
+            } else if (totalSeats <= 9) {	// ~9개는 1row당 3개
+              devider = 2;
+              size = 'col-md-4';
+            } else if (totalSeats <= 16) { 	// ~16개는 1row 당 4개
+              devider = 2;
+              size = 'col-md-3';
+            } else {	// 17개 넘어가면 1row당 6개
+              devider = 2;
+              size = 'col-md-2';
           }
-
+          
           var output = '';
           $.each(resp, function(idx, obj) {
-            if ((idx % devider) == 0) {
-              if (idx != 0) {
-                output += '</div>';
+        	  console.log(obj);
+              if (idx % devider == 0) {
+                output += '<div class="row">';
               }
-              output += '<div class="row">';
-            }
-            output += '<button class="btn-default seatseq" style="width: ' + size + '; height:' + size + '; margin: 5px;" s-seatseq=' + obj.seat_seq + '>' + obj.seat_id + '</button>'
+              output += '<div class="' + size + ' sqbox rounded" s-seatseq=' + obj.seat_seq + '><span>' + obj.seat_id + '</span>';
+              if (resp2 != null) {
+              $.each(resp2, function(idx, ocpd) {	// 손님이 자리에 앉아있을 때.. 메뉴까지 보여줄지는 검토할 것
+				if ( obj.seat_seq == ocpd.seat_seq ) {
+					output += '손님 ' + ocpd.sales_visitors + '명, 입점: ' + ocpd.sales_start; 
+				}
+              })
+              }
+              output += '</div>';
+              console.log(idx % devider, devider-1, idx, resp.length)
+        	  if (idx % devider === (devider-1) || idx == resp.length) {
+                   output += '</div>';
+              }
           });
-          if (output.substr(output.length - 6, 6) != '</div>') {
-            output += '</div>';
-          }
           $('#pos-1-5').html(output);
+          
           $.each(resp, function(idx, obj) {
-            var temp = 'button[s-seatseq=' + obj.seat_seq + ']';
+            var temp = 'div[s-seatseq=' + obj.seat_seq + ']';
             $(temp).on('click', function() {
-              /* alert('alert on onclick and $this selector ' + $(this).attr('s-seatseq')) 
-              온클릭에 부여된 $this 펑션만 제대로 작동한다.
-              */
               pos_selectseat($('#funcFlag').val(), $(this).attr('s-seatseq'));
-            });
-          })
+          });
+          });
         }
       });
 
@@ -448,8 +473,56 @@
           $('#pos-1-2').val('현재사용자 : ${sessionScope.emp_id}');
         }
       });
+        }
+      })
     }
 
+      
+  	/*
+    var totalSeats = Object.keys(resp).length;
+    $('#pos-1-3').val('총 ' + totalSeats + ' 석');
+
+    var devider = 2;
+    var size = '150px';
+
+    if (totalSeats <= 9) {
+      devider = 3;
+      size = '125px';
+    } else if (totalSeats <= 16) {
+      devider = 4;
+      size = '100px';
+    } else if (totalSeats <= 25) {
+      devider = 5;
+      size = '75px';
+    } else {
+      devider = 6;
+      size = '60px';
+    }
+
+    var output = '';
+    $.each(resp, function(idx, obj) {
+      if ((idx % devider) == 0) {
+        if (idx != 0) {
+          output += '</div>';
+        }
+        output += '<div class="row">';
+      }
+      output += '<button class="btn-default seatseq" style="width: ' + size + '; height:' + size + '; margin: 5px;" s-seatseq=' + obj.seat_seq + '>' + obj.seat_id + '</button>'
+    });
+    if (output.substr(output.length - 6, 6) != '</div>') {
+      output += '</div>';
+    }
+    $('#pos-1-5').html(output);
+    $.each(resp, function(idx, obj) {
+      var temp = 'button[s-seatseq=' + obj.seat_seq + ']';
+      $(temp).on('click', function() {
+        // alert('alert on onclick and $this selector ' + $(this).attr('s-seatseq')) 
+        // 온클릭에 부여된 $this 펑션만 제대로 작동한다.
+        
+        pos_selectseat($('#funcFlag').val(), $(this).attr('s-seatseq'));
+      });
+    }) */
+    
     function pos_selectseat(param1, param2) {
       /* alert("alert on rcved function and $this selector " + $(this).attr('s-seatseq') + "번 table") */
       alert('\n\nparam1: "' + param1 + '" and param2: "' + param2 + '" has selected.');

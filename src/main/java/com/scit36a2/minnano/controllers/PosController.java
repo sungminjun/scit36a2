@@ -41,7 +41,8 @@ public class PosController {
 		return "pos/pos";
 	}
 	
-	@RequestMapping(value = "/showSeatsAvailable", method = RequestMethod.POST)
+	//Order in progress list
+	@RequestMapping(value = "/seatsavailable", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<HashMap<String, Object>> show(HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		ArrayList<HashMap<String, Object>> result = repo.seatsavailable(comp_seq);

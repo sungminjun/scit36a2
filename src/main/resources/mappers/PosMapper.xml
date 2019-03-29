@@ -3,71 +3,65 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.PosDAO">
-	
+
 	
 	<insert id="insertSasSad" parameterType="HashMap">
 insert all
 	into SALES_STATE values	(
 		sales_state_seqs.nextval,
-		#{comp_seq},
-		#{seat_seq},
+		1,
+		1,
 		sysdate,
 		sysdate+1,
 		#{sales_visitors},
 		#{sales_memo}
-		)
+	)
 	into SALES_DETAIL values	(
 		sales_detail_seqs.nextval,
-		#{sales_state_seq},
+		sales_state_seqs.currval,
 		#{menu_seq},
-		#{sales_order},
-		#{sales_discount}
+		1,
+		0
 	)	select * from dual
 	</insert>
-	<select id="selectAll" parameterType="me">
-		select sales_state.seat_seq, sales_state.sales_visitors,sales_state.sales_start,sales_state.sales_end,sales_state.sales_memo
-    			, menu.menu_seq,menu.menu_name,menu.menu_price,menu.menu_sellFlag
+	
+
+	
+<resultMap id="sales_state" type="sas">
+	<result property="comp_seq" column="comp_seq"></result>
+	
+</resultMap>
+	
+<resultMap id="sales_detail" type="sad">
+	<result property="sales_state_seq" column="sales_state_seq"></result>
+	
+</resultMap>
+	
+<resultMap id="menu" type="me">
+	<result property="comp_seq" column="comp_seq"></result>
+	
+</resultMap>
+	
+	
+	<select id="selectPOStwo" parameterType="me" resultType="Map">
+		select 
+			sales_state.seat_seq, sales_state.sales_visitors, sales_state.sales_start, sales_state.sales_end, sales_state.sales_memo
+    			, menu.menu_seq, menu.menu_name, menu.menu_price, menu.menu_sellFlag, menu.menu_category
     			, sales_detail.sales_order,sales_detail.sales_discount 
 		from 
 				sales_state, menu, sales_detail
-		where 
-				menu.menu_seq = sales_detail.menu_seq
+		
+	</select>
+	<select id="selectPOS2" resultType="List" parameterType="sas">
+		select * from menu
 	</select>
 	
+	<delete id="deleteSasSadPay" parameterType="sas">
+		delete from sales_state
+		where sales_state_seq = #{sales_state_seq}
+	</delete>
 	
 	
-	
-	
-	<select id="selectSas" parameterType="int" resultType="Sas">
-		select
-			sales_state_seq,
-	  		comp_seq,
-	  		seat_seq,
-	  		sales_start,
-	  		sales_end,
-	  		sales_visitors,
-	  		sales_memo
-		from 
-  			Sales_state
-  		where 	
-			sales_state_seq = #{sales_state_seq}
-	</select>
-	<select id="selectSad" parameterType="int" resultType="Sad">
-		select
-			sales_detail_seq
-	  		sales_state_seq
-	 		 menu_seq
-	  		sales_order
-	  		sales_discount
-		from 
-			Sales_detail
-		where
-			sales_detail_seq = #{sales_detail_seq}
-	</select>
-
-
-
-
 	<insert id="insertPayment" parameterType="pmt">
 		insert into payment	(
 			payment_seq,

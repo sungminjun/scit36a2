@@ -21,6 +21,11 @@ public class TestPageController {
 	}
 
 	// 이영창
+	@RequestMapping(value = "/chart", method = RequestMethod.GET)
+	public String chart() {
+		return "report/chart";
+	}
+	// 이영창
 	@RequestMapping(value = "/posMain", method = RequestMethod.GET)
 	public String posMain() {
 		return "pos/posMain";

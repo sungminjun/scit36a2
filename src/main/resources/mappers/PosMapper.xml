@@ -26,7 +26,7 @@ insert all
 	</insert>
 	
 
-	
+	<!-- 
 <resultMap id="sales_state" type="sas">
 	<result property="comp_seq" column="comp_seq"></result>
 	
@@ -41,7 +41,7 @@ insert all
 	<result property="comp_seq" column="comp_seq"></result>
 	
 </resultMap>
-	
+	 -->
 	
 	<select id="selectPOStwo" parameterType="me" resultType="Map">
 		select 

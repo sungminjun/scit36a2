@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,53 +34,50 @@ public class PosController {
 	PosRepo repo;
 
 	private static final Logger logger = LoggerFactory.getLogger(PosController.class);
-	//POS기능 기본화면1 이동
-	@RequestMapping(value = "/choiTestPOS1", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/pos", method = RequestMethod.GET)
 	public String pos() {
 		logger.info("welcome pos.");
-		return "backside/choiTestPOS1";
+		return "pos/pos";
 	}
-	//POS기능 기본화면2 이동
-	@RequestMapping(value="choiTestPOS2",method=RequestMethod.GET)
-	public String pos2()	{
-		return "backside/choiTestPOS2";
+	
+	@RequestMapping(value = "/showSeatsAvailable", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<HashMap<String, Object>> show(HttpSession session) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		ArrayList<HashMap<String, Object>> result = repo.seatsavailable(comp_seq);
+		System.out.println(result);
+		return result;
 	}
+	
 	
 
 	// 주문전표(+테이블할당)
 	@RequestMapping(value = "insertSasSad", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertSasSad(HttpSession session, Sales_state sales_state, Sales_detail sales_detail, Menu menu) {
-				
-		
+
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("comp_seq" + comp_seq);
-		
 
-		
-		
 		menu.setComp_seq(comp_seq);
-		
-		
+
 		System.out.println("menu" + menu);
 		//////////////////////////////////
 		HashMap<String, Object> map = new HashMap<>();
-			
+
 		map.put("menu", menu);
-		map.put("sales_state_seq",sales_state);
-		map.put("sales_detail",sales_detail);
-		
-		
+		map.put("sales_state_seq", sales_state);
+		map.put("sales_detail", sales_detail);
+
 		map.put("sales_state_seq", sales_state.getSales_state_seq());
 
 		map.put("comp_seq", sales_state.getComp_seq());
 		map.put("seat_seq", sales_state.getSeat_seq());
-		map.put("sales_start",sales_state.getSales_start());
-		map.put("sales_end",sales_state.getSales_end());
+		map.put("sales_start", sales_state.getSales_start());
+		map.put("sales_end", sales_state.getSales_end());
 		map.put("sales_visitors", sales_state.getSales_visitors());
 		map.put("sales_memo", sales_state.getSales_memo());
-		
-		
+
 		map.put("sales_detail_seq", sales_detail.getSales_detail_seq());
 		map.put("sales_state_seq", sales_detail.getSales_state_seq());
 		map.put("menu_seq", sales_detail.getMenu_seq());
@@ -99,35 +95,33 @@ public class PosController {
 		System.out.println("result3 : " + result);
 		return "success";
 	}
-	
-@RequestMapping(value="selectAll", method=RequestMethod.POST)
+
+	@RequestMapping(value = "selectAll", method = RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<HashMap<String,Object>> selectPOStwo(Menu menu, HttpSession session,Sales_state sales_state,Sales_detail sales_detail)	{
-		int comp_seq = (Integer)session.getAttribute("comp_seq");
+	public ArrayList<HashMap<String, Object>> selectPOStwo(Menu menu, HttpSession session, Sales_state sales_state,
+			Sales_detail sales_detail) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		menu.setComp_seq(comp_seq);
-		ArrayList<HashMap<String,Object>> selectPOStwoMap = repo.selectPOStwo(menu);
-		
-				
+		ArrayList<HashMap<String, Object>> selectPOStwoMap = repo.selectPOStwo(menu);
+
 		System.out.println("selectPOStwo : " + selectPOStwoMap);
 		return selectPOStwoMap;
 	}
+
 	@RequestMapping(value = "selectPOS2", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Menu> selectPOS2(HttpSession session,Sales_state sales_state_seq) {
+	public List<Menu> selectPOS2(HttpSession session, Sales_state sales_state_seq) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		//List<Menu> menuList = new ArrayList<Menu>();
+		// List<Menu> menuList = new ArrayList<Menu>();
 		sales_state_seq.setComp_seq(comp_seq);
 		List<Menu> result = repo.selectPOS2(sales_state_seq);
 		System.out.println("menuList : " + result);
 		return result;
-}
+	}
 
-	
-	
-	
-	@RequestMapping(value="deleteSasSadPay",method=RequestMethod.POST)
+	@RequestMapping(value = "deleteSasSadPay", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteSasSadPay(Sales_state sales_state,HttpSession session)	{
+	public String deleteSasSadPay(Sales_state sales_state, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("삭제 컨트롤러 comp_seq : " + comp_seq);
 		sales_state.setComp_seq(comp_seq);
@@ -135,18 +129,6 @@ public class PosController {
 		int result = repo.deleteSasSadPay(sales_state);
 		System.out.println("삭제 컨트롤러 result : " + result);
 		return "success";
-	}
-	
-	
-	
-	
-	
-	
-	
-
-	@RequestMapping(value = "choitestpayment", method = RequestMethod.GET)
-	public String inPayment() {
-		return "choitestpayment";
 	}
 
 	@RequestMapping(value = "inPay", method = RequestMethod.POST)

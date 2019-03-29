@@ -84,16 +84,16 @@ public class SalesRepo {
 		return result;
 	}
 
-	public int deleteExpense(int expense_seq) {
+	public int deleteExpense(Expense expense) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.deleteExpense(expense_seq);
+		int result = mapper.deleteExpense(expense);
 
 		return result;
 	}
 
-	public int updateExpense(int expense_seq) {
+	public int updateExpense(Expense expense) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.updateExpense(expense_seq);
+		int result = mapper.updateExpense(expense);
 
 		return result;
 	}

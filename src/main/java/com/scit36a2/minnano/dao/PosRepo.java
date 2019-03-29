@@ -1,4 +1,5 @@
 package com.scit36a2.minnano.dao;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -6,9 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.scit36a2.minnano.vo.Cashonhand;
 import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
+
 
 @Repository
 public class PosRepo {
@@ -47,6 +50,15 @@ public class PosRepo {
 		int result = mapper.insertPayment(payment);
 		return result;
 	}
+	
+	public ArrayList<HashMap<String,Object>>selectPaymentList(int comp_seq){
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String,Object>> list = dao.selectPaymentList(comp_seq);
+		System.out.println(list.toString());
+	return list;
 
+	
+}
+	
 	
 }

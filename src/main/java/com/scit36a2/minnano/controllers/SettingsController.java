@@ -229,8 +229,8 @@ public class SettingsController {
 
 	@RequestMapping(value = "deleteExpense", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteExpense(int expense_seq) {
-		int result = repo.deleteExpense(expense_seq);
+	public String deleteExpense(Expense expense) {
+		int result = repo.deleteExpense(expense);
 		if (result == 1)
 			return "success";
 		else
@@ -239,8 +239,8 @@ public class SettingsController {
 
 	@RequestMapping(value = "updateExpense", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateExpense(int expense_seq) {
-		int result = repo.updateExpense(expense_seq);
+	public String updateExpense(Expense expense) {
+		int result = repo.updateExpense(expense);
 		if (result == 1)
 			return "success";
 		else

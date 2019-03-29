@@ -24,6 +24,8 @@
       <a href="logout">로그아웃</a><br>
       <a href="choiTest">철규상 테이블 테스트</a><br>
       <a href="choitestmenu">철규상 메뉴 테스트</a>
+      <a href="board_k">게시판 메뉴 테스트</a>
+      <a href="report_k"> 보고서 테스트</a>
     </c:if>
 
   </div>

@@ -307,6 +307,7 @@ ALTER TABLE payment
 ALTER TABLE sales_detail
 	ADD FOREIGN KEY (sales_state_seq)
 	REFERENCES sales_state (sales_state_seq)
+    on delete cascade
 ;
 
 

@@ -1,10 +1,16 @@
 /**	리드미	**/
+// speical thanks to : Jung 'kokoronotomo' JaeSung for fix on-delete-cascade happening.
 
 // create-pos-account-on-oracle11g
 conn system/oracle
+
 show user
 create user pos identified by pos default tablespace system
-grant connect, resource to pos
+-- 수정?할까 검토중 19.03.28. 전성민
+-- drop user pos cascade
+-- create user pos identified by pos;
+-- grant connect, resource, dba to pos;
+-- GRANT UNLIMITED TABLESPACE TO pos;
 disconn
 conn pos/pos
 

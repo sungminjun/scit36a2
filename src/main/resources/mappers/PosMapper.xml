@@ -3,60 +3,65 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.PosDAO">
+
 	
 	<insert id="insertSasSad" parameterType="HashMap">
 insert all
 	into SALES_STATE values	(
-		#{sales_state_seq},
-		#{comp_seq},
-		#{seat_seq},
+		sales_state_seqs.nextval,
+		1,
+		1,
 		sysdate,
 		sysdate+1,
 		#{sales_visitors},
 		#{sales_memo}
-		)
+	)
 	into SALES_DETAIL values	(
 		sales_detail_seqs.nextval,
-		#{sales_state_seq},
+		sales_state_seqs.currval,
 		#{menu_seq},
-		#{sales_order},
-		#{sales_discount}
-	)	
-		select * from dual
+		1,
+		0
+	)	select * from dual
 	</insert>
-	<select id="sales_state_seq" resultType="int">
-		select sales_state_seqs.nextval from dual
-	</select>
-	<select id="selectSas" parameterType="int" resultType="Sas">
-		select
-			sales_state_seq,
-	  		comp_seq,
-	  		seat_seq,
-	  		sales_start,
-	  		sales_end,
-	  		sales_visitors,
-	  		sales_memo
+	
+
+	
+<resultMap id="sales_state" type="sas">
+	<result property="comp_seq" column="comp_seq"></result>
+	
+</resultMap>
+	
+<resultMap id="sales_detail" type="sad">
+	<result property="sales_state_seq" column="sales_state_seq"></result>
+	
+</resultMap>
+	
+<resultMap id="menu" type="me">
+	<result property="comp_seq" column="comp_seq"></result>
+	
+</resultMap>
+	
+	
+	<select id="selectPOStwo" parameterType="me" resultType="Map">
+		select 
+			sales_state.seat_seq, sales_state.sales_visitors, sales_state.sales_start, sales_state.sales_end, sales_state.sales_memo
+    			, menu.menu_seq, menu.menu_name, menu.menu_price, menu.menu_sellFlag, menu.menu_category
+    			, sales_detail.sales_order,sales_detail.sales_discount 
 		from 
-  			Sales_state
-  		where 	
-			sales_state_seq = #{sales_state_seq}
+				sales_state, menu, sales_detail
+		
 	</select>
-	<select id="selectSad" parameterType="int" resultType="Sad">
-		select
-			sales_detail_seq
-	  		sales_state_seq
-	 		 menu_seq
-	  		sales_order
-	  		sales_discount
-		from 
-			Sales_detail
-		where
-			sales_detail_seq = #{sales_detail_seq}
+	<select id="selectPOS2" resultType="List" parameterType="sas">
+		select * from menu
 	</select>
-
-
-
-
+	
+	<delete id="deleteSasSadPay" parameterType="sas">
+		delete from sales_state
+		where sales_state_seq = #{sales_state_seq}
+	</delete>
+	
+	
 	<insert id="insertPayment" parameterType="pmt">
 		insert into payment	(
 			payment_seq,
@@ -74,5 +79,62 @@ insert all
 			#{payment_clerk}
 		)
 	</insert>
-
+	
+	
+	<resultMap type="hashmap" id="testresult">
+		<result property="payment_seq" column="payment_seq"/>
+  		<result property="sales_state_seq" column="sales_state_seq"/>
+  		<result property="payment_type" column="payment_type"/>
+  		<result property="payment_amount" column="payment_amount"/>
+  		<result property="payment_time" column="payment_time"></result>
+	</resultMap>
+	<select id="testtest" parameterType="int" resultMap="testresult">
+		SELECT
+	    	p.payment_seq as 'payment_seq'
+	    	, s.sales_state_seq as 'sales_state_seq'
+	    	, p.payment_type as 'payment_type'
+	    	, p.payment_amount as 'payment_amount'
+	    	, to_char(p.payment_time, 'YYYY-MM-DD HH24:mi:ss') as 'payment_time'
+    	FROM 
+    		payment p
+        	LEFT OUTER JOIN sales_detail d ON p.SALES_STATE_SEQ = d.SALES_STATE_SEQ
+        	LEFT OUTER JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+        
+        <![CDATA[
+        WHERE 
+        	payment_time <= to_date('2019-03-26 11:59:59', 'YYYY-MM-DD HH24:mi:ss') and comp_seq = #{comp_seq}
+       	]]>
+	</select>
+<!-- 	
+  	<resultMap id="sales_state" type="sas">
+  	<result property="comp_seq" column="comp_seq"></result>
+  	</resultMap>
+  	<resultMap id="Payment" type="pmt">
+  		<result property="payment_seq" column="payment_seq"/>
+  		<result property="sales_state_seq" column="sales_state_seq"/>
+  		<result property="payment_type" column="payment_type"/>
+  		<result property="payment_amount" column="payment_amount"/>
+  		<result property="payment_time" column="payment_time"></result>
+  		<collection property="sales_state" resultMap="pmt"></collection>
+  	</resultMap>
+  	<resultMap id="sales_detail" type="sad">
+  	</resultMap>
+  	
+  	<select id="selectPaymentList" resultMap="T_payment" parameterType="com">
+  	select
+    	p.payment_seq as 'payment_seq'
+    	, s.sales_state_seq as 'sales_state_seq'
+    	, p.payment_type as 'payment_type'
+    	, p.payment_amount as 'payment_amount'
+    	, to_char(p.payment_time as 'payment_time', 'YYYY-MM-DD HH24:mi:ss') payment_time
+    FROM payment p
+        LEFT OUTER JOIN sales_detail d ON p.SALES_STATE_SEQ = d.SALES_STATE_SEQ
+        LEFT OUTER JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+        <![CDATA[
+ 		WHERE payment_time <= to_date('2019-03-26 11:59:59', 'YYYY-MM-DD HH24:mi:ss') and comp_seq = #{comp_seq}
+ 		]]>  		
+  	</select>
+ -->
 </mapper>
+  
+	

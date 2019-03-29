@@ -49,9 +49,9 @@ public class SalesRepo {
 		return result;
 	}
 
-	public List<Menu> selectMenu(int comp_seq) {
+	public List<Menu> selectMenu(Menu menu) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		List<Menu> result = mapper.selectMenu(comp_seq);
+		List<Menu> result = mapper.selectMenu(menu);
 
 		return result;
 	}

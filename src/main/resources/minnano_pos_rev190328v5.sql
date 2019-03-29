@@ -1,4 +1,8 @@
-﻿/* SCIT36-A-2, team minnanoPOS, 2019.03.12. v4. */
+﻿/* SCIT36-A-2, team minnanoPOS, 2019.03.28. v5. */
+--INSERT VERSION
+DROP TABLE version; 
+CREATE TABLE version(version varchar2(50) not null);
+INSERT INTO version VALUES('190328, rev5');
 
 /* Drop Tables */
 DROP TABLE board_comments CASCADE CONSTRAINTS;
@@ -301,12 +305,14 @@ ALTER TABLE sales_detail
 ALTER TABLE payment
 	ADD FOREIGN KEY (sales_state_seq)
 	REFERENCES sales_state (sales_state_seq)
+	ON DELETE CASCADE -- 3월 28일 추가, sales_state가 삭제되면, 그에 종속된 sales_detail 도 함께 지워진다.
 ;
 
 
 ALTER TABLE sales_detail
 	ADD FOREIGN KEY (sales_state_seq)
 	REFERENCES sales_state (sales_state_seq)
+	ON DELETE CASCADE -- 3월 28일 추가, sales_state가 삭제되면, 그에 종속된 sales_detail 도 함께 지워진다.
 ;
 
 
@@ -362,12 +368,13 @@ insert into menu values(menu_seqs.nextval, 3, 1, '생선생선도시락', 9000, 
 insert into menu values(menu_seqs.nextval, 1, 1, '판매중3', 9500, '카테3');
 insert into menu values(menu_seqs.nextval, 2, 1, '빼갈', 10000, '주류');
 
-insert into sales_state values(sales_state_seqs.nextval, 1, 1, sysdate, sysdate-1, 1, '[nothing yet]'); -- 유진(1번회사) 1번테이블에 손님이 들어옴
-insert into sales_detail values(sales_detail_seqs.nextval, 1, 4, 1, 0); -- 1번째 sales_state 판매중2(4번메뉴) 1개 주문등록, 할인 0
-insert into sales_state values(sales_state_seqs.nextval, 2, 5, sysdate, sysdate-1, 1, '[nothing yet]'); -- sesoc(2번회사) 2번째테이블(5번테이블)에 손님이 들어옴
-insert into sales_detail values(sales_detail_seqs.nextval, 2, 5, 1, 0); -- 2번째 sales_state에 짬뽕(5번메뉴) 1개 주문등록, 할인 0
-insert into sales_state values(sales_state_seqs.nextval, 3, 9, sysdate, sysdate-1, 1, '[nothing yet]'); -- 호정이(3번회사) 3번째테이블(9번테이블)에 손님이 들어옴
-insert into sales_detail values(sales_detail_seqs.nextval, 3, 9, 1, 0); -- 3번째 sales_state 생선생선도시락(9번메뉴) 1개 주문, 할인 0
+-- 3월 28일 
+--insert into sales_state values(sales_state_seqs.nextval, 1, 1, sysdate, sysdate-1, 1, '[nothing yet]'); -- 유진(1번회사) 1번테이블에 손님이 들어옴
+--insert into sales_detail values(sales_detail_seqs.nextval, 1, 4, 1, 0); -- 1번째 sales_state 판매중2(4번메뉴) 1개 주문등록, 할인 0
+--insert into sales_state values(sales_state_seqs.nextval, 2, 5, sysdate, sysdate-1, 1, '[nothing yet]'); -- sesoc(2번회사) 2번째테이블(5번테이블)에 손님이 들어옴
+--insert into sales_detail values(sales_detail_seqs.nextval, 2, 5, 1, 0); -- 2번째 sales_state에 짬뽕(5번메뉴) 1개 주문등록, 할인 0
+--insert into sales_state values(sales_state_seqs.nextval, 3, 9, sysdate, sysdate-1, 1, '[nothing yet]'); -- 호정이(3번회사) 3번째테이블(9번테이블)에 손님이 들어옴
+--insert into sales_detail values(sales_detail_seqs.nextval, 3, 9, 1, 0); -- 3번째 sales_state 생선생선도시락(9번메뉴) 1개 주문, 할인 0
 
 commit;
 show user;

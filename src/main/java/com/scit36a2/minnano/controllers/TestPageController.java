@@ -20,6 +20,17 @@ public class TestPageController {
 		return "explist by ajax from controller";
 	}
 
+	// 이영창
+	@RequestMapping(value = "/chart", method = RequestMethod.GET)
+	public String chart() {
+		return "report/chart";
+	}
+	// 이영창
+	@RequestMapping(value = "/posMain", method = RequestMethod.GET)
+	public String posMain() {
+		return "pos/posMain";
+	}
+
 	// 김유경
 	@RequestMapping(value = "/kyk", method = RequestMethod.GET)
 	public String kykhome() {
@@ -52,10 +63,20 @@ public class TestPageController {
 		return "backside/choitestmenu";
 	}
 
+	@RequestMapping(value = "/choipos", method = RequestMethod.GET)
+	public String choipos() {
+		return "backside/choiTestPOS";
+	}
+
 	@RequestMapping(value = "choiTest", method = RequestMethod.GET)
 	public String insertseat(HttpSession session) {
 		System.out.println((Integer) session.getAttribute("comp_seq"));
 		return "backside/choiTest";
+	}
+
+	@RequestMapping(value = "choitestexpense", method = RequestMethod.GET)
+	public String insertExpense() {
+		return "backside/choitestexpense";
 	}
 
 }

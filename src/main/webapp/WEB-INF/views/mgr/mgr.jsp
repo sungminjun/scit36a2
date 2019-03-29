@@ -640,7 +640,6 @@
       }
 
       function loadexps() {
-    	setdatetodaydefault();
           $.ajax({
             url: 'selectExpense',
             method: 'POST',
@@ -649,19 +648,40 @@
               output += '<thead class=" text-primary"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
               $.each(resp, function(idx, obj) {
                 $('#mgr-1-8').html('');
-                output += '<tr s-expseq="' + obj.expense_seq + '">';
+                output += '<tr s-expseq="' + obj.expense_seq + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' +  obj.expense_amount + '">';
                 output += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
                 output += '</tr>';
                 $('#mgr-1-8').append(output);
                 var temp = 'tr[s-expseq=' + obj.expense_seq + ']';
                 $(temp).on('click', callexps);
+          	  
+          	  $('#mgr-1-1').val('고정지출');
+              setdatetodaydefault();
+          	  $('#mgr-1-3').val('');
+          	  $('#mgr-1-4').val('');    	  
+
               })
             }
           });
         } 
       
+      var expense_seq;
+ 	  // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
+      // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
+
       function callexps() {
-    	  
+    	  expense_seq = $(this).attr('s-expseq');
+    	  var menu = $(this).attr('s-exp-regex');
+	      var exparr = menu.split('|')
+          	 
+          $('#mgr-1-1').val(expense_seq);
+          $('#mgr-1-2').val(exparr[0]);
+          $('#mgr-1-3').val(exparr[1]);
+          $('#mgr-1-4').val(exparr[2]);
+          
+          $("button[id=mgr-btn-1-5]").css('display', 'none');
+          $("button[id=mgr-btn-1-6]").css('display', 'flex');
+          $("button[id=mgr-btn-1-7]").css('display', 'flex');
       }
       
       function addexps() {
@@ -685,19 +705,47 @@
     			 , expense_amount : expense_amount }
     		 , success : loadexps
     	  });
-    	  
-    	  $('#mgr-2-1').val('');
-    	  $('#mgr-2-2').val('');
-    	  $('#mgr-2-3').val('');
-    	  $('#mgr-2-4').val('1');    	  
       }
       
       function modifyexps() {
+    	  var expense_type = $('#mgr-1-1').val();
+    	  var expense_date = $('#mgr-1-2').val()
+    	  var expense_description = $('#mgr-1-3').val()
+    	  var expense_amount = $('#mgr-1-4').val()
     	  
+        $.ajax({
+          url: 'updateExpense'
+          , method: 'POST'
+          , data: {
+        	  'expense_seq' : expense_seq
+        	  , 'expense_type': expense_type
+              , 'expense_date' : expense_date
+              , 'expense_description': expense_description
+              , 'expense_amount' : expense_amount
+	           	}
+        	, success: function() {
+              $("button[id=mgr-btn-1-5]").css('display', 'flex');
+              $("button[id=mgr-btn-1-6]").css('display', 'none');
+              $("button[id=mgr-btn-1-7]").css('display', 'none');
+              loadexps();
+            }
+          });
       }
       
       function deleteexps() {
-    	  
+    	  $.ajax({
+              url: 'deleteExpense',
+              method: 'POST',
+              data: {
+                'expense_seq': expense_seq
+              },
+              success: function() {
+                $("button[id=mgr-btn-3-4]").css('display', 'flex');
+                $("button[id=mgr-btn-3-5]").css('display', 'none');
+                $("button[id=mgr-btn-3-6]").css('display', 'none');
+                loadexps();
+              }
+            });
       }
       
       
@@ -742,7 +790,7 @@
               // 이중포문, 여기부터 카테고리와 같은 속성일 때 목록에 올린다.
               $.each(resp, function(idx, obj2) {
             	  if (obj == obj2.menu_category) {
-                  output2 += '<button class="btn-secondary" s-menuseq="' + obj2.menu_seq + '" s-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br>' + obj2.menu_price + '<br>' + obj2.menu_sellFlag + '</button>';
+                  output2 += '<button class="btn-secondary" s-menuseq="' + obj2.menu_seq + '" s-menu-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br>' + obj2.menu_price + '<br>' + obj2.menu_sellFlag + '</button>';
             	  }
               })
               output2 += '</div>';
@@ -785,7 +833,7 @@
 
       function selectmenu() {
         menu_seq = $(this).attr('s-menuseq');
-        var menu = $(this).attr('s-regex');
+        var menu = $(this).attr('s-menu-regex');
         var menuarr = menu.split('|')
         	
         console.log(menu_seq + ', ' + menu + ', ' + menuarr[0] + ', ' + menuarr[1] + ', ' + menuarr[2] + ', ' + menuarr[3]);

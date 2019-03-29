@@ -70,24 +70,36 @@
         "charge": "이영창",
         "page": "find",
         "desc": "id/pw찾기",
-        "prog": "100%"
+        "prog": "70%<br>기능미결"
       }, {
         "side": "front",
         "charge": "전성민",
         "page": "main",
         "desc": "로그인 후 첫 분기화면",
-        "prog": "100%"
+        "prog": "100%<br>폐기예정"
       }, {
         "side": "front",
         "charge": "전성민",
         "page": "mgr",
         "desc": "관리자메뉴",
-        "prog": "50%"
+        "prog": "100%"
+      }, {
+          "side": "front",
+          "charge": "전성민",
+          "page": "pos",
+          "desc": "포스화면",
+          "prog": "1%"
+      }, {
+          "side": "front",
+          "charge": "이영창",
+          "page": "posMain",
+          "desc": "포스화면",
+          "prog": "50%"
       }, {
         "side": "back",
         "charge": "최철규",
         "page": "choiTest",
-        "desc": "백단테스트메뉴(최철규,테스트)",
+        "desc": "백단테스트메뉴(최철규,테이블)",
         "prog": "50%"
       }, {
         "side": "back",
@@ -95,6 +107,12 @@
         "page": "choitestmenu",
         "desc": "백단테스트메뉴(최철규,메뉴)",
         "prog": "50%"
+      }, {
+          "side": "back",
+          "charge": "최철규",
+          "page": "choipos",
+          "desc": "백단테스트메뉴(최철규,pos)",
+          "prog": "50%"
       }, {
         "side": "back",
         "charge": "김유경",
@@ -108,7 +126,14 @@
         "page": "report",
         "desc": "보고서 페이지",
         "prog": "50%"
-      }]
+      }, {
+          "side": "front",
+          "charge": "이호정",
+          "page": "chart",
+          "desc": "보고서 페이지 (작업용)",
+          "prog": "50%"
+        }
+      ]
     }
 
     function output() {

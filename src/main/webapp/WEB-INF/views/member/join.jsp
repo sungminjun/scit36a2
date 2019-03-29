@@ -75,7 +75,7 @@
               <div class="card-header">
                 <h5 class="title">ENROLL USER</h5>
               </div>
-              <form id="registForm" action="regist" method="POST">
+              <form id="registForm" action="join" method="POST">
                 <div class="card-body">
                   <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -153,7 +153,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="emp_pw2">PASSWORD 재확인</label>
-                        <input type="password" class="form-control" name="emp_pw">
+                        <input type="password" class="form-control" name="emp_pw2">
                       </div>
                     </div>
                     <div class="col-md-3">

@@ -9,7 +9,7 @@
 
 
 
-  <script src="resources/jquery-3.3.1.min.js"></script>
+  <script src="resources/jquery-3.3.1.js"></script>
   <script>
     $(function() {
       init();
@@ -34,17 +34,20 @@
       var menu_sellFlag = $("#menu_sellFlag option:selected").val();
       if (menu_sellFlag == "판매중") {
         return 1;
-        //menu_sellFlag=1;
+        //menu_sellFlag==1;
       } else if (menu_sellFlag == "판매중아님") {
         return 0;
-        //menu_sellFlag=0;
+        //menu_sellFlag==0;
       }
 
       var menu_price = $("#menu_price").val();
       if (menu_price.trim().length == 0) {
         alert("제대로 가격입력할것");
         return;
-      }
+      }	else if (isNaN(menu_price)) {
+		alert("가격은 숫자로입력");
+		return;
+	}
 
       var menu_category = $("#menu_category option:selected").val();
 
@@ -58,14 +61,14 @@
 
       $.ajax({
         url: "insertMenu",
-        method: "post",
+        method: "POST",
         data: menu,
-        success: output
+        success:output
       });
 
     }
 
-    function output(resp) {
+    function output() {
       var a = "";
       a += "<tr>";
       a += "<th>메뉴이름</th>";
@@ -93,13 +96,13 @@
         alert("삭제하려면 입력하세요");
         return;
       }
-      var menu_seq = {
+      var senddata = {
         "menu_seq": menu_seq
-      }
+      };
       $.ajax({
         url: "deleteMenu",
         method: "post",
-        data: menu_seq,
+        data: senddata,
         success: output
       });
 
@@ -108,8 +111,8 @@
     function init() {
       $.ajax({
         url: "selectMenu",
-        method: "GET",
-        data: function(resp) {
+        method: "POST",
+        success: function(resp) {
           output
         }
 
@@ -124,13 +127,13 @@
 </head>
 
 <body>
-  <table id="menuRegi">
+  
     <tr>
       <td>
         <input type="text" placeholder="등록할 메뉴이름 입력" id="menu_name">
         <select id="menu_sellFlag">
           <option value="판매중">판매중</option>
-          <option value=판매중아님>판매중아님</option>
+          <option value="판매중아님">판매중아님</option>
         </select>
         <input type="text" placeholder="품목판매가 입력" id="menu_price">
         <select id="menu_category">
@@ -144,11 +147,12 @@
         <input type="button" value="메뉴 추가 등록확인버튼" id="insertnewmenubutton">
       </td>
     </tr>
-  </table>
+ 
   <br><br><br><br><br><br>
   <input type="text" placeholder="메뉴삭제할 번호입력" id="menu_seq">
   <input type="button" value="메뉴 삭제 버튼" id="deletebutton">
-
+<table id="menuRegi">
+</table>
 
 
 </body>

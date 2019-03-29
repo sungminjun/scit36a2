@@ -10,11 +10,14 @@ import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
 
+
 public interface PosDAO {
 
 	public int insertSasSad(HashMap<String, Object> map);
 
 	public int insertPayment(Payment payment);
+	
+	public ArrayList<HashMap<String,Object>>selectPaymentList(int comp_seq);
 
 	public ArrayList<HashMap<String,Object>> selectPOStwo(Menu menu);
 

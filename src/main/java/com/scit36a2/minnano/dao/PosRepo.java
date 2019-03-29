@@ -8,10 +8,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.scit36a2.minnano.vo.Cashonhand;
 import com.scit36a2.minnano.vo.Menu;
 import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
+
 
 @Repository
 public class PosRepo {
@@ -56,4 +58,13 @@ public class PosRepo {
 		 List<Menu> result = mapper.selectPOS2(sales_state_seq);
 		return result;
 	}
+
+  public ArrayList<HashMap<String,Object>>selectPaymentList(int comp_seq){
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String,Object>> list = dao.selectPaymentList(comp_seq);
+		System.out.println(list.toString());
+	return list;
+  }
+	
+	
 }

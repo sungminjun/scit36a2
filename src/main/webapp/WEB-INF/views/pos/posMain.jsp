@@ -37,6 +37,7 @@
 
 
 <script src="resources/jquery-3.3.1.min.js"></script>
+
 <script>
 	$(document).ready(function() {
 		loadmenu();
@@ -187,7 +188,6 @@
 							<div class="card-header">
 								<h4 class="card-title">Simple Table</h4>
 							</div>
-
 							<div class="card-body table">
 								<table class="box col-lg-12">
 									<tr>
@@ -286,5 +286,19 @@
 
 		</div>
 	</div>
+  
+    <script>
+  $(function() {
+    $('ul.tab li').click(function() {
+      var activeTab = $(this).attr('data-tab');
+      $('ul.tab li').removeClass('current');
+      $('.tabcontent').removeClass('current');
+      $(this).addClass('current');
+      $('#' + activeTab).addClass('current');
+    })
+  });
+</script>
+  
+  
 </body>
 </html>

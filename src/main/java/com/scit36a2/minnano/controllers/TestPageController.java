@@ -21,6 +21,11 @@ public class TestPageController {
 	}
 
 	// 이영창
+	@RequestMapping(value = "/chart", method = RequestMethod.GET)
+	public String chart() {
+		return "report/chart";
+	}
+	// 이영창
 	@RequestMapping(value = "/posMain", method = RequestMethod.GET)
 	public String posMain() {
 		return "pos/posMain";
@@ -42,6 +47,13 @@ public class TestPageController {
 	@RequestMapping(value = "/join_k", method = RequestMethod.GET)
 	public String join_kyk() {
 		return "member/join_k";
+	}
+	
+	//게시판 테스트 페이지로 이동
+	@RequestMapping(value="board_k",method=RequestMethod.GET)
+	public String board_kyk() {
+		
+		return "board/board_k";
 	}
 
 	// 최철규

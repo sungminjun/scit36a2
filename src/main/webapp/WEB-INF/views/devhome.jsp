@@ -119,7 +119,8 @@
         "page": "kyk",
         "desc": "백단테스트메뉴(김유경)",
         "prog": "50%"
-      }, {
+      },
+      {
         "side": "front",
         "charge": "이호정",
         "page": "report",

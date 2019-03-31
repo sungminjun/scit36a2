@@ -410,7 +410,6 @@
         		url: 'seatsavailable'
         		, method : 'POST'
         		, success: function(resp2) {
-        			console.log(resp2);
           var totalSeats = Object.keys(resp).length;
           var occupiedSeats = Object.keys(resp2).length; 
         			
@@ -423,19 +422,18 @@
         	  devider = 2;
               size = 'col-md-5';
             } else if (totalSeats <= 9) {	// ~9개는 1row당 3개
-              devider = 2;
+              devider = 3;
               size = 'col-md-4';
             } else if (totalSeats <= 16) { 	// ~16개는 1row 당 4개
-              devider = 2;
+              devider = 4;
               size = 'col-md-3';
             } else {	// 17개 넘어가면 1row당 6개
-              devider = 2;
+              devider = 6;
               size = 'col-md-2';
           }
           
           var output = '';
           $.each(resp, function(idx, obj) {
-        	  console.log(obj);
               if (idx % devider == 0) {
                 output += '<div class="row">';
               }
@@ -448,7 +446,6 @@
               })
               }
               output += '</div>';
-              console.log(idx % devider, devider-1, idx, resp.length)
         	  if (idx % devider === (devider-1) || idx == resp.length) {
                    output += '</div>';
               }
@@ -677,44 +674,141 @@
           $.each(resp, function(idx, obj3) {
             var temp = 'button[s-menuseq=' + obj3.menu_seq + ']';
             /* $(temp).on('click', selectmenu); */
+            $(temp).on('click', pos_pickmenuforppod);
           });
         }
       })
     }
 
     function pos_ppOrderList() {
-      var temp = [];
-      temp.push({
-        "item": "짜장면",
-        "price": "6000",
-        "count": "2"
-      });
-      temp.push({
-        "item": "짬뽕",
-        "price": "6000",
-        "count": "3"
-      })
-      $('#preparedOrder').val(JSON.stringify(temp));
-      var list = JSON.parse($('#preparedOrder').val());
+      console.log($('#preparedOrder').val());
+      var ppod = $('#preparedOrder').val();
+      ppod = ppod.substr(0, ppod.length-1);
+      var ppod_arr = ppod.split('|');
+      
+      var list = [];
       var listsum = 0;
       var ppod_output = '';
       ppod_output += '<tr>';
       ppod_output += '<td style="width: 30%">품목명</td><td style="width: 20%">단가</td><td style="width: 25%">수량</td><td style="width: 25%">금액</td>'
       ppod_output += '</tr>';
-      console.log(list);
-      $.each(list, function(idx, obj) {
-        var objsum = obj.price * obj.count;
-        listsum += objsum;
-        ppod_output += '<tr>';
-        ppod_output += '<td><i class="tim-icons icon-simple-remove text-warning" title="한줄삭제"></i>  ' + obj.item + '</td><td>' + obj.price + '</td><td>' + '<i class="tim-icons icon-simple-delete text-warning" title="줄이기"></i>    ' + obj.count + '    <i class="tim-icons icon-simple-add text-warning" title="늘이기"></i>' + '</td><td>' + objsum + '</td>'
-        ppod_output += '</tr>';
-      });
+      for ( i = 0 ; i <= ppod_arr.length-4 ; i += 4 ) {
+    	  var objsum = ppod_arr[i+2] * ppod_arr[i+3];
+          listsum += objsum;
+    	  ppod_output += '<tr>';
+    	  ppod_output += '<td><i class="tim-icons icon-simple-remove text-warning" title="한줄삭제" s-menuseq="' + ppod_arr[i] + '"></i>  ' + ppod_arr[i+1] + '</td><td>' + ppod_arr[i+2] + '</td><td>' + '<i class="tim-icons icon-simple-delete text-warning" title="줄이기" s-menuseq="' + ppod_arr[i] + '"></i>    ' + ppod_arr[i+3] + '    <i class="tim-icons icon-simple-add text-warning" title="늘이기" s-menuseq="' + ppod_arr[i] + '"></i>' + '</td><td>' + objsum + '</td>'
+          ppod_output += '</tr>';
+      }
         ppod_output += '<tr><td colspan="4" class="td-total"><i class="tim-icons icon-credit-card"></i>총 금액 : ' + listsum + '</tr>'
       $('#pos-3-1').html(ppod_output);
+        
+      for ( i = 0 ; i <= ppod_arr.length-4 ; i += 4 ) {
+          var temp1 = '.icon-simple-remove[s-menuseq=' + ppod_arr[i] + ']';
+          var temp2 = '.icon-simple-delete[s-menuseq=' + ppod_arr[i] + ']';
+          var temp3 = '.icon-simple-add[s-menuseq=' + ppod_arr[i] + ']';
+          $(temp1).on('click', pos_remove_ppod);
+          $(temp2).on('click', pos_reduce_ppod);
+          $(temp3).on('click', pos_add_ppod);
+      }
     }
+
+    function pos_makeOrder() {
+    	var list = JSON.parse($('#preparedOrder').val());
+    	// ajax로 무언가를 처리할 예정임.
+    }
+    
+    function pos_pickmenuforppod() {
+    	var menu_seq = $(this).attr('s-menuseq');
+    	var menurgx = $(this).attr('s-menu-regex');
+        var menuarr = menurgx.split('|')
+        var menu_name = menuarr[1];
+        var menu_price = menuarr[2];
+        
+        var pickmenu = menu_seq + '|' + menu_name + '|' + menu_price + '|' + 1 + '|';   
+
+        var temp_ppod = $('#preparedOrder').val();
+        var temp_arr = temp_ppod.split('|')
+        var temp_arr_chk = 0;
+        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
+        	temp_arr_chk = 0;
+        	if ( temp_arr[i] == menu_seq ) {
+        		temp_arr[i+3] = parseInt(temp_arr[i+3]) + 1;
+        		temp_arr_chk = 1;
+        		break;
+        	}
+        }
+        temp_ppod = temp_arr.join('|');
+        if (temp_arr_chk == 0) {
+        	$('#preparedOrder').val($('#preparedOrder').val() + pickmenu);
+        } else {
+        	$('#preparedOrder').val(temp_ppod);
+        }
+        pos_ppOrderList();
+        // console.log($('#preparedOrder').val());
+    }
+    
+    function pos_remove_ppod() {
+    	var menu_seq = $(this).attr('s-menuseq');
+    	var temp_ppod = $('#preparedOrder').val();
+        var temp_arr = temp_ppod.split('|')
+        var temp_arr_chk = 0;
+        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
+        	if ( temp_arr[i] == menu_seq ) {
+        		temp_arr_chk = i;
+        		break;
+        	}
+        }
+        temp_arr.splice(temp_arr_chk, 4)
+        temp_ppod = temp_arr.join('|');
+        $('#preparedOrder').val(temp_ppod);
+        pos_ppOrderList();
+    }
+    
+	function pos_reduce_ppod() {
+    	var menu_seq = $(this).attr('s-menuseq');
+    	var temp_ppod = $('#preparedOrder').val();
+        var temp_arr = temp_ppod.split('|')
+        var temp_arr_chk = 0;
+
+        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
+        	temp_arr_chk = 0;
+        	if ( temp_arr[i] == menu_seq ) {
+        		if (temp_arr[i+3] >= 2) {
+        			temp_arr[i+3] = parseInt(temp_arr[i+3]) - 1;
+        		}
+        		temp_arr_chk = 1;
+        		break;
+        	}
+        }
+        temp_ppod = temp_arr.join('|');
+        if (temp_arr_chk == 0) {
+        	$('#preparedOrder').val($('#preparedOrder').val() + pickmenu);
+        } else {
+        	$('#preparedOrder').val(temp_ppod);
+        }
+        pos_ppOrderList();
+    }
+	
+	function pos_add_ppod() {
+		var menu_seq = $(this).attr('s-menuseq');
+    	var temp_ppod = $('#preparedOrder').val();
+        var temp_arr = temp_ppod.split('|')
+        var temp_arr_chk = 0;
+
+        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
+        	temp_arr_chk = 0;
+        	if ( temp_arr[i] == menu_seq ) {
+       			temp_arr[i+3] = parseInt(temp_arr[i+3]) + 1;
+        		temp_arr_chk = 1;
+        		break;
+        	}
+        }
+        temp_ppod = temp_arr.join('|');
+        $('#preparedOrder').val(temp_ppod);
+        pos_ppOrderList();
+	}
 
   </script>
 
-  <!-- </body> -->
-
+</body>
 </html>

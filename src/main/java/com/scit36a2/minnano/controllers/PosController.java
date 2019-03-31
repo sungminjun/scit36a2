@@ -41,7 +41,7 @@ public class PosController {
 		return "pos/pos";
 	}
 	
-	//Order in progress list
+	// req list for Order-in-progress
 	@RequestMapping(value = "/seatsavailable", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<HashMap<String, Object>> show(HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
@@ -50,16 +50,20 @@ public class PosController {
 		return result;
 	}
 	
-	
-
-	// 주문전표(+테이블할당)
+	// create sales_state and sub-sales_details
 	@RequestMapping(value = "insertSasSad", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertSasSad(HttpSession session, Sales_state sales_state, Sales_detail sales_detail, Menu menu) {
-
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("comp_seq" + comp_seq);
 
+		// sas 
+		// seq(자동생성), comp(session), sales_start(sysdate), sales_end(sysdate+1) 
+		// seat_seq(ajax), sales_visitors(ajax), sales_memo(ajax)
+		// sad
+		// seq(생성), sas_seq(부여)
+		// menu_seq(ajax), sales_order(ajax), sales_discount(ajax)
+		
 		menu.setComp_seq(comp_seq);
 
 		System.out.println("menu" + menu);

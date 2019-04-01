@@ -30,7 +30,7 @@ function selectPOSone(resp)	{
 				a += "<th>" + "메모" + "</th>";
 				a += "<th>" + "메뉴일련번호" + "</th>";
 				a += "<th>" + "주문수량" + "</th>";
-				a += "</tr>";
+				a += "</tr> ";
 			$.each(resp,function(index,item)	{
 				a +="<tr>";
 				a +="<td>" + item.SEAT_SEQ + "</td>";

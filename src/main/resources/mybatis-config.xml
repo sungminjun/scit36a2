@@ -17,13 +17,11 @@
 		<typeAlias type="com.scit36a2.minnano.vo.Seat" alias="sea" />
 	</typeAliases>
 	<mappers>
-<!--
- 		<mapper resource="mappers/customerMapper.xml" />
- -->
- 	<mapper resource="mappers/BoardMapper.xml"/>
- 	<mapper resource="mappers/MemberMapper.xml"/>
- 	<mapper resource="mappers/SalesMapper.xml"/>
- 	<mapper resource="mappers/PosMapper.xml"/>
+	 	<mapper resource="mappers/BoardMapper.xml"/>
+	 	<mapper resource="mappers/MemberMapper.xml"/>
+	 	<mapper resource="mappers/SalesMapper.xml"/>
+	 	<mapper resource="mappers/PosMapper.xml"/>
+	 	<mapper resource="mappers/TpaymentMapper.xml"/>
  	</mappers>
  	
 </configuration>

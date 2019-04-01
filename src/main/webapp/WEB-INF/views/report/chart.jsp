@@ -23,6 +23,8 @@
 <!-- 	
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
  -->
+<style type="text/css">
+</style>
 </head>
 
 <body class="white-content">
@@ -37,8 +39,8 @@
 						MP </a>
 				</div>
 				<ul class="nav">
-					<li><a href="#"> <i class="tim-icons icon-money-coins"
-							title="포스 / Enter POS"></i>
+					<li><a href="posMain"> <i
+							class="tim-icons icon-money-coins" title="포스 / Enter POS"></i>
 					</a> <br> <br></li>
 					<li><a href="#"> <i
 							class="tim-icons icon-settings-gear-63" title="설정 / settings"></i>
@@ -64,26 +66,40 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-body">
-							<p style="size: 20em;">민나노매점</p1>
-							<button type="submit" class="btn-default ml-auto mr-auto" id="day" >일기준</button>
-							<button type="submit" class="btn-default ml-auto mr-auto" id="week" >주기준</button>
-							<button type="submit" class="btn-default ml-auto mr-auto" id="month" >월기준</button>
-							<p1>시작</p1><input type="text" id="datepicker1" placeholder="yy-mm-dd" style="width: 100px">
-							<p1>종료</p1><input type="text" id="datepicker2" placeholder="yy-mm-dd" style="width: 100px">
-							<button type="submit" class="btn ml-auto mr-auto" id="search">검색</button>
+								<p style="size: 20em;">
+									민나노매점
+									</p1>
+									<button type="submit" class="btn-default ml-auto mr-auto"
+										id="day">일기준</button>
+									<button type="submit" class="btn-default ml-auto mr-auto"
+										id="week">주기준</button>
+									<button type="submit" class="btn-default ml-auto mr-auto"
+										id="month">월기준</button>
+									<p1>시작</p1>
+									<input type="text" id="datepicker1" placeholder="yy-mm-dd"
+										style="width: 100px">
+									<p1>종료</p1>
+									<input type="text" id="datepicker2" placeholder="yy-mm-dd"
+										style="width: 100px">
+									<button type="submit" class="btn ml-auto mr-auto" id="search">검색</button>
 							</div>
 							<div class="card-body">
 								<div class="row">
-									<button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="1" style="width: 15%;">
-										매출조회</button>
-									<button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="2" style="width: 15%;">
-										고객통계</button>
-									<button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="3" style="width: 15%;">
-										메뉴통계</button>
-									<button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="4" style="width: 15%;">현/카
-										조회</button>
-									<button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="5" style="width: 15%;">수지보고서
-									</button>
+									<button type="submit"
+										class="btn-default pull-right justify-content-end ml-auto mr-auto"
+										name="1" style="width: 15%;">매출조회</button>
+									<button type="submit"
+										class="btn-default pull-right justify-content-end ml-auto mr-auto"
+										name="2" style="width: 15%;">고객통계</button>
+									<button type="submit"
+										class="btn-default pull-right justify-content-end ml-auto mr-auto"
+										name="3" style="width: 15%;">메뉴통계</button>
+									<button type="submit"
+										class="btn-default pull-right justify-content-end ml-auto mr-auto"
+										name="4" style="width: 15%;">현/카 조회</button>
+									<button type="submit"
+										class="btn-default pull-right justify-content-end ml-auto mr-auto"
+										name="5" style="width: 15%;">수지보고서</button>
 								</div>
 							</div>
 						</div>
@@ -102,9 +118,7 @@
 					<div class="col-md-5">
 						<div class="card">
 							<div class="card-body">
-							<div class="tableTest">
-								
-							</div>
+								<div class="tableTest" style="width: auto;"></div>
 							</div>
 						</div>
 					</div>
@@ -115,8 +129,10 @@
 	</div>
 	</div>
 	<!--추가한 파일-->
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<link rel="stylesheet"
+		href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	<!--   Core JS Files   -->
 	<!--  <script src="assets/js/core/jquery.min.js"></script>-->
@@ -136,31 +152,31 @@
 		
 	</script>
 	<script>
-	var chart;
-	//날짜 찝기
-	$(function(){
-	    $( "#datepicker1, #datepicker2" ).datepicker({
-	    	dateFormat: 'yy-mm-dd',
-	    });
-	});
-	//날짜 유효성 검사
-	$(function(){
-		$("#search").on('click',function(){
-			var start = $("#datepicker1").val();
-			var end = $("#datepicker2").val();
-			if (start=='') {
-				alert("시작일을 입력해주세요!")
-				return;
-			}
-			if (end=='') {
-				alert("종료일을 입력해주세요!")
-				return;
-			}
-			if (start>end) {
-				alert("종료일은 시작일보다 작을 수 없습니다.")
-				return;
-			}
-			//날짜 검색
+		var chart;
+		//날짜 찝기
+		$(function() {
+			$("#datepicker1, #datepicker2").datepicker({
+				dateFormat : 'yy-mm-dd',
+			});
+		});
+		//날짜 유효성 검사
+		$(function() {
+			$("#search").on('click', function() {
+				var start = $("#datepicker1").val();
+				var end = $("#datepicker2").val();
+				if (start == '') {
+					alert("시작일을 입력해주세요!")
+					return;
+				}
+				if (end == '') {
+					alert("종료일을 입력해주세요!")
+					return;
+				}
+				if (start > end) {
+					alert("종료일은 시작일보다 작을 수 없습니다.")
+					return;
+				}
+				//날짜 검색
 				alert("요기요");
 				$.ajax({
 					url : 'search-date',
@@ -169,104 +185,135 @@
 						startDate : start,
 						endDate : end
 					},
-					success : function(resp){
+					success : function(resp) {
 						alert(resp);
 					}
-		})
-	});
-	});
-	//기본값 그래프 (일일매출  현재일부터 1일까지의 매출)
-		var data =[];
+				})
+			});
+		});
+		// 그래프 테스트 (일일매출  현재일부터 1일까지의 매출)
+		var data = [];
 		var labels = [];
 		var label = "매출액";
 		//map 형식 index 번호 세는용
 		var temp = 0;
-		var test={1: "100",2:"300",3:"300",4:"300",5:"300",6:"300",7:"300",8:"300",9:"300",10:"300"}
-	$(function(){
-		$.each(test, function(key, value){
-			labels[temp]=key+"일";
-			data[temp]=value;
-			newchart.update();
-			temp++;
+		$(function() {
+			$.ajax({
+				url : 'reportdefaultList',
+				type : 'GET',
+				success : function(resp) {
+					output(resp);
+				}
+			})
 		});
-	});
-	//기본값 테이블(표) 매출
-	$(function(){
-		var output='';
-		output += '<table class="table table-hover ">';
-		output += '<th>월</th><th>판매금액</th><th>비고</th>';
-		$.each(test,function(key, value){
-			output +='<tr><td>'+key+'일</td><td>'+ value +'원</td><td></td></tr>'
-		})
-		$('.tableTest').html(output);
-	});
+		//기본값 테이블(표) 매출 테스트
+		function output(resp) {
+			var output = '';
+			output += '<table class="table table-hover">';
+			output += '<thead><tr><th style="width :30%; text-align: center;">월</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+			$.each(resp, function(index, item) {
+				output += '<tr><td style="width :30%;">' + item.PAYMENT_TIME
+						+ '</td><td style=" text-align: center;, width :50%;">'
+						+ item.PAYMENT_AMOUNT + '원</td><td style="width :30%;"></td></tr>'
+			})
+			output += "</table>"
+			$('.tableTest').html(output);
+
+			$.each(resp, function(index, item) {
+				labels[temp] = index;
+				data[temp] = item.PAYMENT_AMOUNT;
+				temp++;
+			});
+			newchart.update();
+			temp = 0;
+			//data=[];
+			//labels=[];
+		}
 		//그래프 보여주기
-		var card=false;
 		$(function() {
 			$("button[name=1]").on('click', function() {
-				data = [ 23, 22, 43, 25, 122, 5, 25 ];
-				newchart.data.datasets[0].data=data;
+				newchart.data.datasets[0].data = data;
 				newchart.data.datasets[0].label = '매출액';
-				newchart.data.labels=labels;
+				newchart.data.labels = labels;
 				newchart.update();
 
-				
 			});
 			$("button[name=2]").on('click', function() {
-				data = [ 12, 32, 55, 25, 53, 33, 76 ];
-				newchart.data.datasets[0].data=data;
+				newchart.data.datasets[0].data = data;
 				newchart.data.datasets[0].label = '고객수';
-				newchart.data.labels=labels;
+				newchart.data.labels = labels;
 				newchart.update();
 			});
 			$("button[name=3]").on('click', function() {
-				data = [ 62, 73, 33, 13, 52, 31, 25 ];
-				newchart.data.datasets[0].data=data;
+				newchart.data.datasets[0].data = data;
 				newchart.data.datasets[0].label = '메뉴통계';
-				newchart.data.labels=labels;
+				newchart.data.labels = labels;
 				newchart.update();
 			});
 			$("button[name=4]").on('click', function() {
-				newchart.clear();
+				var newchart = new Chart(ctx, {
+					type : 'horizontalBar',//차트모양
+					data : {
+						labels : labels,
+						datasets : [ {
+							label : label,
+							backgroundColor : 'rgb(111, 111, 102)',
+							borderColor : 'rgb(111, 111, 102)',
+							data : data
+						} ]
+					}
+				});
 			});
 			$("button[name=5]").on('click', function() {
-				data = [ 52, 22, 4, 43, 12, 52, 25 ];
-				newchart.data.datasets[0].data=data;
+				data = [ 0, 1, 3, 4, 5, 6, 7, 8 ]
+				newchart.data.datasets[0].data = data;
 				newchart.data.datasets[0].label = '이익률 ';
-				newchart.data.labels=labels;
+				newchart.data.labels = labels;
 				newchart.update();
 			});
-			$("#day").on('click', function() {
-				labels = [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31 ];
-				newchart.data.labels=labels;
-				newchart.update();
-				
-			});
+			$("#day").on(
+					'click',
+					function() {
+						labels = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+								14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
+								26, 27, 28, 29, 30, 31 ];
+						newchart.data.labels = labels;
+						newchart.update();
+
+					});
 			$("#week").on('click', function() {
-				labels = [ "1주차","2주차","3주차","3주차","5주차" ];
-				newchart.data.labels=labels;
+				labels = [ "1주차", "2주차", "3주차", "3주차", "5주차" ];
+				newchart.data.labels = labels;
 				newchart.update();
 			});
+			var labels2 = [];
 			$("#month").on('click', function() {
-				labels = [ "1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月", ];
-				newchart.data.labels=labels;
+				data2 = [];
+				labels2 = [];
+				$.each(test2, function(key, value) {
+					data2[temp] = value;
+					labels2[temp] = key;
+					temp++
+				})
+				newchart.data.datasets[0].data = data2;
+				newchart.data.labels = labels2;
 				newchart.update();
+				temp = 0;
 			});
 		});
-			ctx = document.getElementById('myChart').getContext('2d');
-			var newchart = new Chart(ctx, {
-				type : 'bar',//차트모양
-				data : {
-					labels : labels,
-					datasets : [ {
-						label : label,
-						backgroundColor : 'rgb(111, 111, 102)',
-						borderColor : 'rgb(111, 111, 102)',
-						data : data,
-					} ]
-				}
-			});
-
+		ctx = document.getElementById('myChart').getContext('2d');
+		var newchart = new Chart(ctx, {
+			type : 'bar',//차트모양
+			data : {
+				labels : labels,
+				datasets : [ {
+					label : label,
+					backgroundColor : 'rgb(111, 111, 102)',
+					borderColor : 'rgb(111, 111, 102)',
+					data : data,
+				} ]
+			}
+		});
 	</script>
 </body>
 

@@ -1,17 +1,15 @@
 package com.scit36a2.minnano.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.scit36a2.minnano.vo.Menu;
+
 import com.scit36a2.minnano.vo.Payment;
-import com.scit36a2.minnano.vo.Sales_detail;
+
 import com.scit36a2.minnano.vo.Sales_state;
+
 
 @Repository
 public class PosRepo {
@@ -34,26 +32,31 @@ public class PosRepo {
 		return result;
 	}
 	
-	public ArrayList<HashMap<String,Object>> selectPOStwo(Menu menu)	{
+	public ArrayList<HashMap<String,Object>> selectPOSone(int comp_seq)	{
 		PosDAO mapper = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String,Object>> result = mapper.selectPOStwo(menu);
-		System.out.println("Repo result : " + result);
+		ArrayList<HashMap<String,Object>> result = mapper.selectPOSone(comp_seq);
 		return result;
+	}
+	
+	public ArrayList<HashMap<String, Object>>selectPOStwo(int comp_seq) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String,Object>> result = dao.selectPOStwo(comp_seq);
+		return result;
+	}
+	
+	public int deleteSasSadPay(int comp_seq)	{
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.deleteSasSadPay(comp_seq);
+		return result;
+	}
+	
+	public int updatePOStwo(Sales_state sales_state)	{
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.updatePOStwo(sales_state);
+		return result;
+		
 	}
 	
 
 	
-	public int deleteSasSadPay(Sales_state sales_state)	{
-		PosDAO mapper = session.getMapper(PosDAO.class);
-		int result = mapper.deleteSasSadPay(sales_state);
-		return result;
-	}
-
-
-
-	public List<Menu> selectPOS2(Sales_state sales_state_seq) {
-		PosDAO mapper = session.getMapper(PosDAO.class);
-		 List<Menu> result = mapper.selectPOS2(sales_state_seq);
-		return result;
-	}
 }

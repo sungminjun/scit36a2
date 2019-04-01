@@ -57,6 +57,19 @@ public class PosRepo {
 		return result;
 		
 	}
+
+	public ArrayList<HashMap<String, Object>> selectPaymentList(int comp_seq) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public ArrayList<HashMap<String, Object>> seatsavailable(int comp_seq) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String, Object>> result = mapper.seatsavailable(comp_seq);
+		return result;
+	}
 	
 
 	

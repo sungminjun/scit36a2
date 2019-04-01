@@ -2,7 +2,10 @@ package com.scit36a2.minnano.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.scit36a2.minnano.dao.PosRepo;
 import com.scit36a2.minnano.vo.Menu;
 import com.scit36a2.minnano.vo.Payment;
@@ -117,30 +121,6 @@ public class PosController {
 		return result;
 	}
 	
-	
-	@RequestMapping(value = "selectAll", method = RequestMethod.POST)
-	@ResponseBody
-	public ArrayList<HashMap<String, Object>> selectPOStwo(Menu menu, HttpSession session, Sales_state sales_state,
-			Sales_detail sales_detail) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		menu.setComp_seq(comp_seq);
-		ArrayList<HashMap<String, Object>> selectPOStwoMap = repo.selectPOStwo(menu);
-
-		System.out.println("selectPOStwo : " + selectPOStwoMap);
-		return selectPOStwoMap;
-	}
-
-	@RequestMapping(value = "selectPOS2", method = RequestMethod.POST)
-	@ResponseBody
-	public List<Menu> selectPOS2(HttpSession session, Sales_state sales_state_seq) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		// List<Menu> menuList = new ArrayList<Menu>();
-		sales_state_seq.setComp_seq(comp_seq);
-		List<Menu> result = repo.selectPOS2(sales_state_seq);
-		System.out.println("menuList : " + result);
-		return result;
-	}
-
 	@RequestMapping(value = "deleteSasSadPay", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteSasSadPay(Sales_state sales_state, HttpSession session) {
@@ -164,21 +144,6 @@ public class PosController {
 		int result = repo.updatePOStwo(sales_state);
 		System.out.println("result 컨트롤러 : " + result);
 		return result;
-	}
-	
-	@RequestMapping(value = "choitestpayment", method = RequestMethod.GET)
-	public String inPayment() {
-		return "choitestpayment";
-	}
-
-	@RequestMapping(value = "inPay", method = RequestMethod.POST)
-	@ResponseBody
-	public String insertPayment(HttpSession session, Payment payment) {
-		String payment_clerk = (String) session.getAttribute("emp_id");
-		payment.setPayment_clerk(payment_clerk);
-		int result = repo.insertPayment(payment);
-
-		return "success";
 	}
 
 }

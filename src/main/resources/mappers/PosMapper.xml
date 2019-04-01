@@ -30,44 +30,49 @@ insert all
 		0
 	)	select * from dual
 	</insert>
-	
+			
+<select id="selectPOSone" resultType="HashMap" parameterType="int">
+	select  sea.seat_seq, sea.seat_id, 
+       	    sas.sales_memo, 
+            sad.menu_seq, sad.sales_order
+from seat sea
+left outer join SALES_STATE sas on sea.comp_seq = sas.comp_seq
+left outer join sales_detail sad on sas.sales_state_seq = sad.sales_state_seq
+</select>
 
-	<!-- 
-<resultMap id="sales_state" type="sas">
-	<result property="comp_seq" column="comp_seq"></result>
-	
-</resultMap>
-	
-<resultMap id="sales_detail" type="sad">
-	<result property="sales_state_seq" column="sales_state_seq"></result>
-	
-</resultMap>
-	
-<resultMap id="menu" type="me">
-	<result property="comp_seq" column="comp_seq"></result>
-	
-</resultMap>
-	 -->
-	
-	<select id="selectPOStwo" parameterType="me" resultType="Map">
-		select 
-			sales_state.seat_seq, sales_state.sales_visitors, sales_state.sales_start, sales_state.sales_end, sales_state.sales_memo
-    			, menu.menu_seq, menu.menu_name, menu.menu_price, menu.menu_sellFlag, menu.menu_category
-    			, sales_detail.sales_order,sales_detail.sales_discount 
-		from 
-				sales_state, menu, sales_detail
-		
-	</select>
-	<select id="selectPOS2" resultType="List" parameterType="sas">
-		select * from menu
-	</select>
+<select id="selectPOStwo" resultType="HashMap" parameterType="int">
+select
+   sas.seat_seq, sas.sales_visitors, sas.sales_start, sas.sales_end,
+   me.menu_seq, me.menu_name, sad.sales_order, me.menu_price, me.menu_category,
+   sas.sales_memo, sad.sales_discount
+from menu me
+left outer join sales_state sas on me.comp_seq = sas.comp_seq
+left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
+
+</select>
 	
 	<delete id="deleteSasSadPay" parameterType="sas">
 		delete from sales_state
-		where sales_state_seq = #{sales_state_seq}
+		where comp_seq = #{comp_seq}
 	</delete>
 	
-	
+	<update id="updatePOStwo" parameterType="sas">
+		begin for cs in (
+			select sas.sales_memo sas_sales_memo, sas.sales_visitors sas_sales_visitors, sad.sales_discount sad_sales_discount, sad.sales_order sad_sales_order, sad.menu_seq sad_menu_seq
+			from sales_state sas, sales_detail sad
+			where sas.sales_state_seq = sad.sales_state_seq
+			) loop
+			update sales_state set sales_memo = #{sales_memo},
+                       sales_visitors = #{sales_visitors}
+        	where sales_memo = cs.sas_sales_memo and sales_visitors = cs.sas_sales_visitors
+		update sales_detail set sales_discount = #{sales_discount},
+                        sales_order = #{sales_order},
+                        menu_seq = #{menu_seq}
+              where sales_discount = cs.sad_sales_discount and sales_order = cs.sad_sales_order and menu_seq = cs.sad_menu_seq
+              end loop
+              end
+	</update>
+
 	<insert id="insertPayment" parameterType="pmt">
 		insert into payment	(
 			payment_seq,
@@ -85,7 +90,7 @@ insert all
 			#{payment_clerk}
 		)
 	</insert>
-	
+
 	
 	<resultMap type="hashmap" id="testresult">
 		<result property="payment_seq" column="payment_seq"/>
@@ -141,6 +146,7 @@ insert all
  		]]>  		
   	</select>
  -->
+
 </mapper>
   
 	

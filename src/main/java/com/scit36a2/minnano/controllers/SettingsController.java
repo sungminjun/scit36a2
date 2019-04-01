@@ -50,7 +50,7 @@ public class SettingsController {
 	public String insertseat(Seat seat, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		seat.setComp_seq(comp_seq);
-		System.out.println(seat);
+		//System.out.println(seat);
 		
 		int result = repo.insertseat(seat);
 		
@@ -72,7 +72,7 @@ public class SettingsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		List<Seat> seatList = new ArrayList<Seat>();
 		seatList = repo.selectseat(comp_seq);
-		System.out.println("seatList : " + seatList);
+		//System.out.println("seatList : " + seatList);
 		return seatList;
 	}
 
@@ -134,7 +134,7 @@ public class SettingsController {
 		System.out.println(menu);
 		menu.setComp_seq(comp_seq);
 		int result = repo.insertMenu(menu);
-		System.out.println("컨트롤러 result : " + result);
+		//System.out.println("컨트롤러 result : " + result);
 		
 		if (result == 1)	{
 			return "success";
@@ -155,7 +155,7 @@ public class SettingsController {
 		//List<Menu> menuList = new ArrayList<Menu>();
 		menu.setComp_seq(comp_seq);
 		List<Menu> result = repo.selectMenu(menu);
-		System.out.println("menuList : " + result);
+		//System.out.println("menuList : " + result);
 		return result;
 	}
 

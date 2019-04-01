@@ -8,13 +8,13 @@
 
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script>
-	$(function()	{
-		//alert("test1");
-		selectMenu();
-		//alert("test2");
+$(function()	{
+	selectPOStwo();
 	
-		//alert("test3");	
+	$(".upd").on('click',function()	{
+		updatePOStwo();
 	})
+})
 	
 
 
@@ -22,20 +22,16 @@
 		
 		var a = "";
 			a += "<tr>";
-			a += "<th>" + "seat_seq" +"</th>";
-			a += "<th>" + "sales_visitors" +"</th>";
+			a += "<th>" + "테이블일련번호" +"</th>";
+			a += "<th>" + "손님수" +"</th>";
 			a += "<th>" + "sales_start" +"</th>";
 			a += "<th>" + "sales_end" +"</th>";
-			a += "<th>" + "sales_memo" +"</th>";
-			a += "<th>" + "menu_seq" +"</th>";
-			a += "<th>" + "menu_name" +"</th>";
-			a += "<th>" + "menu_price" +"</th>";
-			a += "<th>" + "menu_sellFlag" + "</th>";
-			a += "<th>" + "menu_category" + "</th>";
-			a += "<th>" + "sales_order" +"</th>";
-			a += "<th>" + "sales_discount" +"</th>";
-			a += "<th>" + "sales_memo" + "</th>";
-			a += "<th>" + "sales_state_seq" + "</th>";
+			a += "<th>" + "메모" +"</th>";
+			a += "<th>" + "메뉴일련번호" + "</th>";
+			a += "<th>" + "메뉴번호" + "</th>";
+			a += "<th>" + "메뉴카테고리" + "</th>";
+			a += "<th>" + "주문수량" +"</th>";
+			a += "<th>" + "할인" +"</th>";
 			a += "</tr>";
 				
 		$.each(resp,function(index,item)	{
@@ -47,27 +43,20 @@
 			a +="<td>" +item.sales_memo+"</td>";
 			a +="<td>" +item.menu_seq+"</td>";
 			a +="<td>" +item.menu_name+"</td>";
-			a +="<td>" +item.menu_price+"</td>";
-			a +="<td>" +item.menu_sellFlag+"</td>";
 			a +="<td>" +item.menu_category+"</td>";
 			a +="<td>" +item.sales_order+"</td>";
 			a +="<td>" +item.sales_discount+"</td>";
-			a +="<td>" +item.sales_memo+"</td>";
-			a +="<td>" +item.sales_state_seq+"</td>";
 			a += "<td><input type='button' regi-value=" +item.menu_seq+ " class='regi' value='주문접수버튼'></td>";
-			a += "<td><input type='button' del-value=" +item.sales_state_seq+" class='del' name='sales_state_seq' value='삭제버튼'></td>";
-			a += "<td><input type='button' upd-value=" +item.menu_seq+ " class='upd' value='수정버튼'></td>";
+			a += "<td><input type='button' del-value=" +item.menu_seq+" class='del' name='menu_seq' value='삭제버튼'></td>";
+			a += "<td><input type='button' upd-value=" +item.seat_seq+ " class='upd' name='seat_seq' value='수정버튼'></td>";
 			a +="</tr>";
-			
-		});
+	});
 		$("#selectOrder").html(a);	
 		$(".regi").on('click',regi);
 		$(".del").on('click',clickDel);
-		
+		$(".upd").on('click',updatePOStwo);
+
 	} 
-		
-	
-	
 	function regi()	{
 		var m_seq = $(this).attr("regi-value");
 		var seat_seq = $("#seat_seq").val();
@@ -106,9 +95,6 @@
 				,"sales_discount":sales_discount
 				,"sales_visitors":sales_visitors
 				};
-		
-		
-		alert("text3");
 		$.ajax({
 			 url : "insertSasSad"
 			,method : "POST"
@@ -117,16 +103,12 @@
 		});
 		
 	}
-	
-	
-	
-  function selectMenu()	{
+  function selectPOStwo()	{
 	$.ajax({
-		url : "selectPOS2",
+		url : "selectPOStwo",
 		method : "POST",
-		success : function (resp) {
-			alert(JSON.stringify(resp));
-			/* output(resp); */
+		success : function(resp) {
+			output(resp);
 		}
 	});
 } 
@@ -134,22 +116,84 @@
 	
  	function clickDel()	{//리스트에 있는 삭제버튼을 클릭 했을때 삭제되는 경우
 		var d_seq = $(this).attr("del-value");
- 	alert(d_seq);
+ 		alert(d_seq);
 		var d = {"d_seq":d_seq};
 		
 		$.ajax({
 			url : "deleteSasSadPay",
 			method : "POST",
 			data : d,
-			success : function(resp)	{
-				output
-			}
+			success : output
 		});
 	}
 	
-	
-	</script>
-
+ 	function updatePOStwo()	{
+ 		//alert("수정ㄱㄱ");
+ 		var updatePOStwo = $(this).attr("upd-value");
+ 		var upd = {"updatePOStwo":updatePOStwo};
+ 		alert("수정1");
+ 		$.ajax({
+ 			url : "updatePOStwo",
+ 			method : "POST",
+ 			data : upd,
+ 			success : function(resp)	{
+ 				var a = "";
+ 				a += "<tr>";
+ 				a += "<th>" + "테이블일련번호" +"</th>";
+ 				a += "<th>" + "손님수" +"</th>";
+ 				a += "<th>" + "sales_start" +"</th>";
+ 				a += "<th>" + "sales_end" +"</th>";
+ 				a += "<th>" + "메모" +"</th>";
+ 				a += "<th>" + "메뉴일련번호" + "</th>";
+ 				a += "<th>" + "메뉴번호" + "</th>";
+ 				a += "<th>" + "메뉴카테고리" + "</th>";
+ 				a += "<th>" + "주문수량" +"</th>";
+ 				a += "<th>" + "할인" +"</th>";
+ 				a += "</tr>";
+ 			alert("수정2");
+ 			$.each(resp,function(index,item)	{
+ 				if (upd==item.sales_state_seq) {
+ 					a +="<tr>";
+ 					a +="<td>" +item.sales_memo+"</td>";
+ 					a +="<td>" +item.sales_visitors+"</td>";
+ 					a +="<td>" +item.sales_discount+"</td>";
+ 					a +="<td>" +item.sales_end+"</td>";
+ 					a +="<td>" +item.sales_order+"</td>";
+ 					a +="<td>" +item.menu_seq+"</td>";
+ 					a +="<td>" + "메뉴이름" + "</td>";
+ 					a +="<td>" + "메뉴카테고리" +"</td>";
+ 					a +="<td>" + "물품수량" +"</td>";
+ 					a +="<td>" + "할인" +"</td>";
+ 					a += "<td><input type='button' regi-value=" +item.menu_seq+ " class='regi' value='주문접수버튼'></td>";
+ 					a += "<td><input type='button' del-value=" +item.menu_seq+" class='del' name='menu_seq' value='삭제버튼'></td>";
+ 					a += "<td><input type='button' upd-value=" +item.seat_seq+ " class='upd' name='seat_seq' value='수정버튼'></td>";
+ 					a +="</tr>";
+				}else	{
+					a +="<tr>";
+					a +="<td>" +item.seat_seq+"</td>";
+					a +="<td>" +item.sales_visitors+"</td>";
+					a +="<td>" +item.sales_start+"</td>";
+					a +="<td>" +item.sales_end+"</td>";
+					a +="<td>" +item.sales_memo+"</td>";
+					a +="<td>" +item.menu_seq+"</td>";
+					a +="<td>" +item.menu_name+"</td>";
+					a +="<td>" +item.menu_category+"</td>";
+					a +="<td>" +item.sales_order+"</td>";
+					a +="<td>" +item.sales_discount+"</td>";
+					a += "<td><input type='button' regi-value=" +item.menu_seq+ " class='regi' value='주문접수버튼'></td>";
+					a += "<td><input type='button' del-value=" +item.menu_seq+" class='del' name='menu_seq' value='삭제버튼'></td>";
+					a += "<td><input type='button' upd-value=" +item.seat_seq+ " class='upd' name='seat_seq' value='수정버튼'></td>";
+					a +="</tr>";
+				}
+ 			})
+ 			$("#selectOrder").empty();
+ 			$("#selectOrder").html(a);
+ 			/* $(".upd").on('click',updatePOStwo);
+ 			alert("수정3"); */
+ 			}
+ 		})
+ 	}
+</script>
 </head>
 <body>
 	<h1>POS기능 기본화면2 ( 품목명,수량,가격 등을 입력받고 주문등록을 하는 화면 )</h1><br><br><br><br><br>

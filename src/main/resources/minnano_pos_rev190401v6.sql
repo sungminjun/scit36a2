@@ -1,8 +1,8 @@
-﻿/* SCIT36-A-2, team minnanoPOS, 2019.03.28. v5. */
+﻿/* SCIT36-A-2, team minnanoPOS, 2019.04.01. v6. */
 --INSERT VERSION
 DROP TABLE version; 
 CREATE TABLE version(version varchar2(50) not null);
-INSERT INTO version VALUES('190328, rev5');
+INSERT INTO version VALUES('190401, rev6');
 
 /* Drop Tables */
 DROP TABLE board_comments CASCADE CONSTRAINTS;
@@ -375,6 +375,11 @@ insert into menu values(menu_seqs.nextval, 2, 1, '빼갈', 10000, '주류');
 --insert into sales_detail values(sales_detail_seqs.nextval, 2, 5, 1, 0); -- 2번째 sales_state에 짬뽕(5번메뉴) 1개 주문등록, 할인 0
 --insert into sales_state values(sales_state_seqs.nextval, 3, 9, sysdate, sysdate-1, 1, '[nothing yet]'); -- 호정이(3번회사) 3번째테이블(9번테이블)에 손님이 들어옴
 --insert into sales_detail values(sales_detail_seqs.nextval, 3, 9, 1, 0); -- 3번째 sales_state 생선생선도시락(9번메뉴) 1개 주문, 할인 0
+-- 4월 1일 할인자료관리용 dummy company와 할인코드
+insert into company values(-1, '0000000000', 'dummy', '00-000-0000', 'dummy', 'dummy');
+insert into menu values(-1, -1, 1, '할인', 0, '공용');
+
+
 
 commit;
 show user;

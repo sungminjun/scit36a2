@@ -97,20 +97,6 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <div class="row">
-                  <div class="col-md-3 sqbox rounded">
-                  <span>test<br>test<br></span>
-                  </div>
-                  <div class="col-md-3 sqbox rounded">
-                  <span>span-tag</span><br>w/o-tag<p>p-tag</p>
-                  </div>
-                  <div class="col-md-3 sqbox rounded">
-                  <span>span-tag</span><br>w/o-tag<p>p-tag</p>
-                  </div>
-                  <div class="col-md-3 sqbox rounded">
-                  <span>span-tag</span><br>w/o-tag<p>p-tag</p>
-                  </div>
-                </div>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -276,20 +262,13 @@
               </div>
 
               <div class="card-body">
-                <table class="col-md-12">
-                  <tr>
-                    <td>${sessionScope.emp_id}</td>
-                    <td>test2</td>
-                    <!-- <td><input id="testBtn" type="button" value="인원수 입력"></td> -->
-                    <td>
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open
-                        modal</button>
-                    </td>
-                  </tr>
-                </table>
-                <div>
-                  n번 테이블
+                <div class="row">
+                  <input type="text" class="form-control" id="ppodseatno" value=" 번 테이블" readonly="readonly">
+                  <input type="hidden" id="ppodseatseq" value="">
                   <input type="hidden" id="preparedOrder" value="">
+                  <input type="hidden" id="preparedOrderMemo" value="">
+                  <input type="hidden" id="tempordertype" value="new">
+                  <input type="hidden" id="alodsasseq" value="">
                 </div>
 
                 <div class="col-md-12">
@@ -299,16 +278,16 @@
 
                   <div class="row box">
                     <div class="col-md-3">
-                      <input type="button" value="할인">
+                      <input type="button" id="pos-btn-3-1" value="할인">
                     </div>
                     <div class="col-md-3">
-                      <input type="button" value="서비스">
+                      <input type="button" id="pos-btn-3-2" value="서비스">
                     </div>
                     <div class="col-md-3">
-                      <input type="button" value="메모등록">
+                      <input type="button" id="pos-btn-3-3" value="메모등록">
                     </div>
                     <div class="col-md-3">
-                      <input type="button" value="주문등록">
+                      <input type="button" id="pos-btn-3-4" value="주문등록">
                     </div>
                   </div>
                 </div>
@@ -347,13 +326,69 @@
                     <hr>
                     <table class="box col-lg-12">
                       <tr>
-                        <td><input type="button" value="카드결제"></td>
-                        <td><input type="button" value="현금결제"></td>
-                        <td><input type="button" value="복합결제"></td>
-
+                        <td><input type="button" value="카드결제" data-toggle="modal" data-target="#pos_payment"></td>
+                        <td><input type="button" value="현금결제" data-toggle="modal" data-target="#pos_payment"></td>
+                        <td><input type="button" value="복합결제" data-toggle="modal" data-target="#pos_payment_complex"></td>
                       </tr>
                     </table>
 
+                  <!--  카드/현금결제용 modal -->
+                  <div class="modal modal-default" id="pos_payment_card">
+                    <div class="modal-dialog">
+                      <div class="modal-header">
+                      </div>
+                      <div class="modal-content bg-alert">
+                        <div class="row">
+                          <div class="col-md-12 text-center">
+                            <h3 class="title">[결제] 정말로 결제완료 처리 하시겠습니까? </h3>
+                          </div>
+                        </div>
+                        <div id="payment_complex">
+                          <div class="col-md-4 form-group text-primary mx-auto">
+                            <input type="button" id="pos-btn-4-3" value="카드결제">
+                          </div>
+                        
+                        </div>
+                        <div class="row box">
+                          <div class="col-md-4 form-group text-primary mx-auto">
+                            <input type="button" id="pos-btn-4-3" value="카드결제">
+                          </div>
+                          <div class="col-md-4 form-group text-primary mx-auto">
+                            <input type="button" id="pos-btn-4-4" value="현금결제">
+                          </div>
+                          <div class="col-md-4 text-primary">
+                            <input type="button" data-dismiss="modal" value="취소">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <!--  복합결제용 modal -->
+                  <div class="modal modal-default" id="pos_payment_complex">
+                    <div class="modal-dialog">
+                      <div class="modal-header">
+                      </div>
+                      <div class="modal-content bg-alert">
+                        <div class="row">
+                          <div class="col-md-12 text-center">
+                            <h3 class="title">[결제] 복합결제 처리 하시겠습니까? </h3>
+                          </div>
+                        </div>
+                        <div class="row box">
+                          <div class="col-md-4 form-group text-primary mx-auto">
+                            <input type="button" id="pos-btn-4-5" value="복합결제">
+                          </div>
+                          <div class="col-md-4 text-primary">
+                            <input type="button" data-dismiss="modal" value="취소">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
                   </div>
                 </div>
               </div>
@@ -406,76 +441,86 @@
         url: 'selectseat',
         method: 'POST',
         success: function(resp) {
-        	$.ajax({
-        		url: 'seatsavailable'
-        		, method : 'POST'
-        		, success: function(resp2) {
-          var totalSeats = Object.keys(resp).length;
-          var occupiedSeats = Object.keys(resp2).length; 
-        			
-          $('#pos-1-3').val('총 ' + totalSeats + ' 석');
-          $('#pos-1-4').val('현재 ' + occupiedSeats + ' 석 이용중');
-          
-          var devider = 1;
-          var sizer = '';
-          if (totalSeats <= 4) {	// 4개까지는 1row당 2개씩
-        	  devider = 2;
-              size = 'col-md-5';
-            } else if (totalSeats <= 9) {	// ~9개는 1row당 3개
-              devider = 3;
-              size = 'col-md-4';
-            } else if (totalSeats <= 16) { 	// ~16개는 1row 당 4개
-              devider = 4;
-              size = 'col-md-3';
-            } else {	// 17개 넘어가면 1row당 6개
-              devider = 6;
-              size = 'col-md-2';
-          }
-          
-          var output = '';
-          $.each(resp, function(idx, obj) {
-              if (idx % devider == 0) {
-                output += '<div class="row">';
+          $.ajax({
+            url: 'seatsavailable',
+            method: 'POST',
+            success: function(resp2) {
+              resp2 = JSON.parse(resp2);
+              var totalSeats = Object.keys(resp).length;
+              var occupiedSeats = Object.keys(resp2).length;
+
+              $('#pos-1-3').val('총 ' + totalSeats + '석');
+              $('#pos-1-4').val('현재 ' + occupiedSeats + '석 이용중');
+
+              var devider = 1;
+              var sizer = '';
+              if (totalSeats <= 4) { // 4개까지는 1row당 2개씩
+                devider = 2;
+                size = 'col-md-5';
+              } else if (totalSeats <= 9) { // ~9개는 1row당 3개
+                devider = 3;
+                size = 'col-md-4';
+              } else if (totalSeats <= 16) { // ~16개는 1row 당 4개
+                devider = 4;
+                size = 'col-md-3';
+              } else { // 17개 넘어가면 1row당 6개
+                devider = 6;
+                size = 'col-md-2';
               }
-              output += '<div class="' + size + ' sqbox rounded" s-seatseq=' + obj.seat_seq + '><span>' + obj.seat_id + '</span>';
-              if (resp2 != null) {
-              $.each(resp2, function(idx, ocpd) {	// 손님이 자리에 앉아있을 때.. 메뉴까지 보여줄지는 검토할 것
-				if ( obj.seat_seq == ocpd.seat_seq ) {
-					output += '손님 ' + ocpd.sales_visitors + '명, 입점: ' + ocpd.sales_start; 
-				}
-              })
-              }
-              output += '</div>';
-        	  if (idx % devider === (devider-1) || idx == resp.length) {
-                   output += '</div>';
-              }
+
+              var output = '';
+              $.each(resp, function(idx, obj) {
+                console.log(resp)
+                if (idx % devider == 0) {
+                  output += '<div class="row">';
+                }
+                var chker = 0;
+                $.each(resp2, function(idx2, ocpd) { // 손님이 자리에 앉아있을 때.. 메뉴까지 보여줄지는 검토할 것
+                  if (obj.seat_seq == ocpd.seat_seq) {
+                    output += '<div class="' + size + ' sqbox rounded" s-seatseq="' + obj.seat_seq + '" s-sasseq="' + ocpd.sales_state_seq + '" s-sasmemo="' + ocpd.sales_memo + '">';
+                    output += '<span>' + obj.seat_id + '<br>손님 ' + ocpd.sales_visitors + '명, <br>입점: ' + ocpd.sales_start + '</span>';
+                    chker = 1;
+                  }
+                })
+
+                if (chker == 0) {
+                  output += '<div class="' + size + ' sqbox rounded" s-seatseq="' + obj.seat_seq + '">';
+                  output += '<span>' + obj.seat_id + '</span>';
+                } else {
+                  chker = 0;
+                }
+
+                output += '</div>';
+                if (idx % devider === (devider - 1) || idx == resp.length) {
+                  output += '</div>';
+                }
+              });
+              $('#pos-1-5').html(output);
+
+              $.each(resp, function(idx, obj) {
+                var temp = 'div[s-seatseq=' + obj.seat_seq + ']';
+                $(temp).on('click', function() {
+                  pos_selectseat($('#funcFlag').val(), $(this).attr('s-seatseq'), $(this).children('span:eq(0)').html(), $(this).attr('s-sasseq'), $(this).attr('s-sasmemo'));
+                });
+              });
+            }
           });
-          $('#pos-1-5').html(output);
-          
-          $.each(resp, function(idx, obj) {
-            var temp = 'div[s-seatseq=' + obj.seat_seq + ']';
-            $(temp).on('click', function() {
-              pos_selectseat($('#funcFlag').val(), $(this).attr('s-seatseq'));
-          });
-          });
-        }
-      });
 
 
-      $.ajax({
-        url: 'selectCompanyOne',
-        method: 'POST',
-        success: function(resp) {
-          $('#pos-1-1').val('업체명 : ' + resp.comp_name);
-          $('#pos-1-2').val('현재사용자 : ${sessionScope.emp_id}');
-        }
-      });
+          $.ajax({
+            url: 'selectCompanyOne',
+            method: 'POST',
+            success: function(resp) {
+              $('#pos-1-1').val('업체명 : ' + resp.comp_name);
+              $('#pos-1-2').val('현재사용자 : ${sessionScope.emp_id}');
+            }
+          });
         }
       })
     }
 
-      
-  	/*
+
+    /*
     var totalSeats = Object.keys(resp).length;
     $('#pos-1-3').val('총 ' + totalSeats + ' 석');
 
@@ -519,15 +564,31 @@
         pos_selectseat($('#funcFlag').val(), $(this).attr('s-seatseq'));
       });
     }) */
-    
-    function pos_selectseat(param1, param2) {
+
+    function pos_selectseat(param1, param2, param3, param4, param5) {
       /* alert("alert on rcved function and $this selector " + $(this).attr('s-seatseq') + "번 table") */
-      alert('\n\nparam1: "' + param1 + '" and param2: "' + param2 + '" has selected.');
-      // param1 이 0이면 주문을 받는다.
-      if (param1 == 0) {
+      alert('\n\nparam1: "' + param1 + '" and param2: "' + param2 + '" and "' + param3 + '" and "' + param4 + '" has selected.');
+
+      // param4는 seat가 occupied이면 뭔가 내용이 온다. undefined는 빈 seat라는 것.
+      if (param4 == undefined) {
+        // param1 이 0이면 주문을 받는다.
+        if (param1 == 0) {
+          $('#pos-upper').css('display', 'none');
+          $('#pos-lower').css('display', 'flex');
+          $('#ppodseatseq').val(param2);
+          $('#ppodseatno').val('현재 선택한 테이블: ' + param3);
+          $('#tempordertype').val('new');
+          pos_ppOrderList();
+        }
+      } else {
+        // param이 4면 이미 주문된 내역을 불러온다.
         $('#pos-upper').css('display', 'none');
         $('#pos-lower').css('display', 'flex');
-        pos_ppOrderList();
+        $('#ppodseatseq').val(param2);
+        $('#alodsasseq').val(param4)
+        $('#preparedOrderMemo').val(param5);
+        $('#tempordertype').val('replace');
+        pos_alOrderList(param4);
       }
     }
 
@@ -559,6 +620,15 @@
       $('#pos-2-17').on('click', function() {
         pos_pmt_list();
       });
+
+      $('#pos-btn-3-1').on('click', pos_order_discount);
+      $('#pos-btn-3-2').on('click', pos_order_service);
+      $('#pos-btn-3-3').on('click', pos_order_memo);
+      $('#pos-btn-3-4').on('click', pos_order_order);
+
+      $('#pos-btn-4-3').on('click', pos_payment_card);
+      $('#pos-btn-4-4').on('click', pos_payment_cash);
+      $('#pos-btn-4-5').on('click', pos_payment_complex);
     }
 
     // 기능버튼을 클릭했을때, flag=1이 된 상태에서, 좌석버튼을 클릭한다.
@@ -683,132 +753,334 @@
     function pos_ppOrderList() {
       console.log($('#preparedOrder').val());
       var ppod = $('#preparedOrder').val();
-      ppod = ppod.substr(0, ppod.length-1);
+      ppod = ppod.substr(0, ppod.length - 1);
       var ppod_arr = ppod.split('|');
-      
+
       var list = [];
       var listsum = 0;
       var ppod_output = '';
       ppod_output += '<tr>';
       ppod_output += '<td style="width: 30%">품목명</td><td style="width: 20%">단가</td><td style="width: 25%">수량</td><td style="width: 25%">금액</td>'
       ppod_output += '</tr>';
-      for ( i = 0 ; i <= ppod_arr.length-4 ; i += 4 ) {
-    	  var objsum = ppod_arr[i+2] * ppod_arr[i+3];
-          listsum += objsum;
-    	  ppod_output += '<tr>';
-    	  ppod_output += '<td><i class="tim-icons icon-simple-remove text-warning" title="한줄삭제" s-menuseq="' + ppod_arr[i] + '"></i>  ' + ppod_arr[i+1] + '</td><td>' + ppod_arr[i+2] + '</td><td>' + '<i class="tim-icons icon-simple-delete text-warning" title="줄이기" s-menuseq="' + ppod_arr[i] + '"></i>    ' + ppod_arr[i+3] + '    <i class="tim-icons icon-simple-add text-warning" title="늘이기" s-menuseq="' + ppod_arr[i] + '"></i>' + '</td><td>' + objsum + '</td>'
-          ppod_output += '</tr>';
+      for (i = 0; i <= ppod_arr.length - 4; i += 4) {
+        var objsum = ppod_arr[i + 2] * ppod_arr[i + 3];
+        listsum += objsum;
+        ppod_output += '<tr>';
+        ppod_output += '<td><i class="tim-icons icon-simple-remove text-warning" title="한줄삭제" s-menuseq="' + ppod_arr[i] + '"></i>  ' + ppod_arr[i + 1] + '</td><td>' + ppod_arr[i + 2] + '</td><td>' + '<i class="tim-icons icon-simple-delete text-warning" title="줄이기" s-menuseq="' + ppod_arr[i] + '"></i>    ' + ppod_arr[i + 3] + '    <i class="tim-icons icon-simple-add text-warning" title="늘이기" s-menuseq="' + ppod_arr[i] + '"></i>' + '</td><td>' + objsum + '</td>'
+        ppod_output += '</tr>';
       }
-        ppod_output += '<tr><td colspan="4" class="td-total"><i class="tim-icons icon-credit-card"></i>총 금액 : ' + listsum + '</tr>'
+      ppod_output += '<tr><td colspan="4" class="td-total"><i class="tim-icons icon-credit-card"></i>총 금액 : ' + listsum + '</tr>'
       $('#pos-3-1').html(ppod_output);
-        
-      for ( i = 0 ; i <= ppod_arr.length-4 ; i += 4 ) {
-          var temp1 = '.icon-simple-remove[s-menuseq=' + ppod_arr[i] + ']';
-          var temp2 = '.icon-simple-delete[s-menuseq=' + ppod_arr[i] + ']';
-          var temp3 = '.icon-simple-add[s-menuseq=' + ppod_arr[i] + ']';
-          $(temp1).on('click', pos_remove_ppod);
-          $(temp2).on('click', pos_reduce_ppod);
-          $(temp3).on('click', pos_add_ppod);
+
+      for (i = 0; i <= ppod_arr.length - 4; i += 4) {
+        var temp1 = '.icon-simple-remove[s-menuseq=' + ppod_arr[i] + ']';
+        var temp2 = '.icon-simple-delete[s-menuseq=' + ppod_arr[i] + ']';
+        var temp3 = '.icon-simple-add[s-menuseq=' + ppod_arr[i] + ']';
+        $(temp1).on('click', pos_remove_ppod);
+        $(temp2).on('click', pos_reduce_ppod);
+        $(temp3).on('click', pos_add_ppod);
       }
     }
 
     function pos_makeOrder() {
-    	var list = JSON.parse($('#preparedOrder').val());
-    	// ajax로 무언가를 처리할 예정임.
+      var list = JSON.parse($('#preparedOrder').val());
+      // ajax로 무언가를 처리할 예정임.
     }
-    
+
     function pos_pickmenuforppod() {
-    	var menu_seq = $(this).attr('s-menuseq');
-    	var menurgx = $(this).attr('s-menu-regex');
-        var menuarr = menurgx.split('|')
-        var menu_name = menuarr[1];
-        var menu_price = menuarr[2];
-        
-        var pickmenu = menu_seq + '|' + menu_name + '|' + menu_price + '|' + 1 + '|';   
+      var menu_seq = $(this).attr('s-menuseq');
+      var menurgx = $(this).attr('s-menu-regex');
+      var menuarr = menurgx.split('|')
+      var menu_name = menuarr[1];
+      var menu_price = menuarr[2];
 
-        var temp_ppod = $('#preparedOrder').val();
-        var temp_arr = temp_ppod.split('|')
-        var temp_arr_chk = 0;
-        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
-        	temp_arr_chk = 0;
-        	if ( temp_arr[i] == menu_seq ) {
-        		temp_arr[i+3] = parseInt(temp_arr[i+3]) + 1;
-        		temp_arr_chk = 1;
-        		break;
-        	}
+      var pickmenu = menu_seq + '|' + menu_name + '|' + menu_price + '|' + 1 + '|';
+
+      var temp_ppod = $('#preparedOrder').val();
+      var temp_arr = temp_ppod.split('|')
+      var temp_arr_chk = 0;
+      for (i = 0; i <= temp_arr.length; i += 4) {
+        temp_arr_chk = 0;
+        if (temp_arr[i] == menu_seq) {
+          temp_arr[i + 3] = parseInt(temp_arr[i + 3]) + 1;
+          temp_arr_chk = 1;
+          break;
         }
-        temp_ppod = temp_arr.join('|');
-        if (temp_arr_chk == 0) {
-        	$('#preparedOrder').val($('#preparedOrder').val() + pickmenu);
-        } else {
-        	$('#preparedOrder').val(temp_ppod);
-        }
-        pos_ppOrderList();
-        // console.log($('#preparedOrder').val());
+      }
+      temp_ppod = temp_arr.join('|');
+      if (temp_arr_chk == 0) {
+        $('#preparedOrder').val($('#preparedOrder').val() + pickmenu);
+      } else {
+        $('#preparedOrder').val(temp_ppod);
+      }
+      pos_ppOrderList();
+      // console.log($('#preparedOrder').val());
     }
-    
+
     function pos_remove_ppod() {
-    	var menu_seq = $(this).attr('s-menuseq');
-    	var temp_ppod = $('#preparedOrder').val();
-        var temp_arr = temp_ppod.split('|')
-        var temp_arr_chk = 0;
-        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
-        	if ( temp_arr[i] == menu_seq ) {
-        		temp_arr_chk = i;
-        		break;
-        	}
+      var menu_seq = $(this).attr('s-menuseq');
+      var temp_ppod = $('#preparedOrder').val();
+      var temp_arr = temp_ppod.split('|')
+      var temp_arr_chk = 0;
+      for (i = 0; i <= temp_arr.length; i += 4) {
+        if (temp_arr[i] == menu_seq) {
+          temp_arr_chk = i;
+          break;
         }
-        temp_arr.splice(temp_arr_chk, 4)
-        temp_ppod = temp_arr.join('|');
+      }
+      temp_arr.splice(temp_arr_chk, 4)
+      temp_ppod = temp_arr.join('|');
+      $('#preparedOrder').val(temp_ppod);
+      pos_ppOrderList();
+    }
+
+    function pos_reduce_ppod() {
+      var menu_seq = $(this).attr('s-menuseq');
+      var temp_ppod = $('#preparedOrder').val();
+      var temp_arr = temp_ppod.split('|')
+      var temp_arr_chk = 0;
+
+      for (i = 0; i <= temp_arr.length; i += 4) {
+        temp_arr_chk = 0;
+        if (temp_arr[i] == menu_seq) {
+          if (temp_arr[i + 3] >= 2) {
+            temp_arr[i + 3] = parseInt(temp_arr[i + 3]) - 1;
+          }
+          temp_arr_chk = 1;
+          break;
+        }
+      }
+      temp_ppod = temp_arr.join('|');
+      if (temp_arr_chk == 0) {
+        $('#preparedOrder').val($('#preparedOrder').val() + pickmenu);
+      } else {
         $('#preparedOrder').val(temp_ppod);
-        pos_ppOrderList();
+      }
+      pos_ppOrderList();
+    }
+
+    function pos_add_ppod() {
+      var menu_seq = $(this).attr('s-menuseq');
+      var temp_ppod = $('#preparedOrder').val();
+      var temp_arr = temp_ppod.split('|')
+      var temp_arr_chk = 0;
+
+      for (i = 0; i <= temp_arr.length; i += 4) {
+        temp_arr_chk = 0;
+        if (temp_arr[i] == menu_seq) {
+          temp_arr[i + 3] = parseInt(temp_arr[i + 3]) + 1;
+          temp_arr_chk = 1;
+          break;
+        }
+      }
+      temp_ppod = temp_arr.join('|');
+      $('#preparedOrder').val(temp_ppod);
+      pos_ppOrderList();
+    }
+
+    function pos_order_discount() {
+      var menu_seq = -1;
+      var temp_ppod = $('#preparedOrder').val();
+      var temp_arr = temp_ppod.split('|')
+      var temp_arr_chk = 0;
+      var discount = 0;
+
+      for (i = 0; i <= temp_arr.length; i += 4) {
+        temp_arr_chk = 0;
+        if (temp_arr[i] == '-1') {
+          discount = temp_arr[i + 2];
+          temp_arr_chk = 1;
+          break;
+        }
+      }
+
+      if (temp_arr_chk == 1) {
+        discount = prompt('할인할 총 금액을 "양수"로 입력하십시오.', (-1 * discount));
+      } else {
+        discount = prompt('할인할 총 금액을 "양수"로 입력하십시오.');
+      }
+      for (i = 0; i <= temp_arr.length; i += 4) {
+        if (temp_arr[i] == '-1') {
+          temp_arr[i + 2] = discount;
+          break;
+        }
+      }
+
+      var pickmenu = menu_seq + '|' + '할인' + '|' + (-1 * discount) + '|' + 1 + '|';
+      temp_ppod = temp_arr.join('|');
+
+      if (temp_arr_chk == 0) {
+        $('#preparedOrder').val($('#preparedOrder').val() + pickmenu);
+      } else {
+        $('#preparedOrder').val(temp_ppod);
+      }
+      pos_ppOrderList();
+    }
+
+    function pos_order_service() {
+      alert('! 할인메뉴로 처리하세요')
+    }
+
+    function pos_order_memo() {
+      var ppod_memo = $('#preparedOrderMemo').val();
+      if (ppod_memo.length != 0) {
+        ppod_memo = prompt('메모를 입력하세요. 현재저장된 메모: ', ppod_memo);
+      } else {
+        ppod_memo = prompt('메모를 입력하세요.');
+      }
+      $('#preparedOrderMemo').val(ppod_memo);
+    }
+
+    function pos_order_order() {
+      var ordertype = $('#tempordertype').val();
+
+      var seat_seq = $('#ppodseatseq').val();
+      var ppod_memo = $('#preparedOrderMemo').val();
+      var sales_visitors = $('#salesvisitors').val();
+      var sales_state_seq = $('#alodsasseq').val();
+
+      var ppod = $('#preparedOrder').val();
+      ppod = ppod.substr(0, ppod.length - 1);
+      var senddata_new = {
+        "seat_seq": seat_seq,
+        "sales_memo": ppod_memo,
+        "ppod": ppod,
+      }
+      var senddata_replace = {
+        "seat_seq": seat_seq,
+        "sales_memo": ppod_memo,
+        "ppod": ppod,
+        "sales_state_seq": sales_state_seq
+      }
+
+      if (ordertype == 'replace') {
+        $.ajax({
+          url: 'replaceorder',
+          method: 'POST',
+          data: senddata_replace,
+          success: function() {
+            alert('!');
+            document.location.reload();
+          }
+        });
+
+      }
+      if (ordertype == 'new') {
+        $.ajax({
+          url: 'makeorder',
+          method: 'POST',
+          data: senddata_new,
+          success: function() {
+            alert('!');
+            document.location.reload();
+          }
+        });
+
+      }
+    }
+
+    function jobdone() {
+      $('#funcFlag').val('');
+      $('#tableSeqFirst').val('');
+      $('#tableSeqSecond').val('');
+      $('#ppodseatno').val('');
+      $('#ppodseatseq').val('');
+      $('#alodsasseq').val('');
+      $('#preparedOrder').val('');
+      $('#preparedOrderMemo').val('');
+      if ($('#pos-upper').css('display') == 'none') {
+        $('#pos-upper').css('display', 'flex');
+        $('#pos-lower').css('display', 'none');
+      } else {
+        $('#pos-upper').css('display', 'none');
+        $('#pos-lower').css('display', 'flex');
+      }
+    }
+
+    // 1카드 2현금
+    function pos_payment_card() {
+    	pos_payment(1);
+    }
+
+    function pos_payment_cash() {
+    	pos_payment(2);
+    }
+
+    function pos_payment_complex() {
+    	var payment_amount = $('td.td-total').text().substr(6,$('td.td-total').text().length);
+    	var i = 1;
+    	var pmt = window.confirm('정말 결제완료 처리 하시겠습니까?');
+    	if ( pmt == true ) {
+    		
+    	}
+    	
     }
     
-	function pos_reduce_ppod() {
-    	var menu_seq = $(this).attr('s-menuseq');
-    	var temp_ppod = $('#preparedOrder').val();
-        var temp_arr = temp_ppod.split('|')
-        var temp_arr_chk = 0;
-
-        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
-        	temp_arr_chk = 0;
-        	if ( temp_arr[i] == menu_seq ) {
-        		if (temp_arr[i+3] >= 2) {
-        			temp_arr[i+3] = parseInt(temp_arr[i+3]) - 1;
-        		}
-        		temp_arr_chk = 1;
-        		break;
-        	}
+    function pos_payment(param) {
+    	var sales_state_seq = $('#alodsasseq').val(); 
+        var payment_type = param // 1카드 2현금
+        var payment_amount = $('td.td-total').text().substr(6,$('td.td-total').text().length);
+        console.log(payment_amount);
+      	  
+        var senddata = {
+      	  sales_state_seq : sales_state_seq
+      	  , payment_type : payment_type
+      	  , payment_amount :  payment_amount
         }
-        temp_ppod = temp_arr.join('|');
-        if (temp_arr_chk == 0) {
-        	$('#preparedOrder').val($('#preparedOrder').val() + pickmenu);
-        } else {
-        	$('#preparedOrder').val(temp_ppod);
-        }
-        pos_ppOrderList();
+        
+      	  $.ajax({
+      		  url : 'makepayment'
+      		  , method : 'POST'
+      		  , data : senddata
+      		  , success : function() {
+      			  alert('결제완료!');
+      			  document.location.reload();
+      		  }
+      	  })
     }
-	
-	function pos_add_ppod() {
-		var menu_seq = $(this).attr('s-menuseq');
-    	var temp_ppod = $('#preparedOrder').val();
-        var temp_arr = temp_ppod.split('|')
-        var temp_arr_chk = 0;
 
-        for ( i = 0 ; i <= temp_arr.length ; i += 4 ) {
-        	temp_arr_chk = 0;
-        	if ( temp_arr[i] == menu_seq ) {
-       			temp_arr[i+3] = parseInt(temp_arr[i+3]) + 1;
-        		temp_arr_chk = 1;
-        		break;
-        	}
+    function pos_alOrderList(sas_seq) {
+      var menulist = '';
+      for (i = 0; i < $('button[s-menu-regex]').length; i++) {
+        menulist += $('button[s-menu-regex]').eq(i).attr('s-menuseq') + '|';
+        menulist += $('button[s-menu-regex]').eq(i).attr('s-menu-regex') + '|';
+      }
+      console.log(menulist)
+      var menuarr = menulist.split('|');
+      console.log(menuarr)
+
+      $.ajax({
+        url: 'alOrderList',
+        method: 'POST',
+        data: {
+          sas_seq: sas_seq
+        },
+        success: function(resp) {
+          console.log(resp)
+          var alod = '';
+          $.each(resp, function(idx, obj) {
+            if (obj.menu_seq == -1) {
+              // 여기에 할인관련 정보
+              alod += obj.menu_seq + '|' + '할인' + '|' + (-1 * obj.discount) + '|' + 1 + '|';
+            } else {
+              // 여기에 일반주문
+              for (i = 0; i < menuarr.length - 3; i += 5) {
+                if (obj.menu_seq == menuarr[i]) {
+                  alod += obj.menu_seq + '|' + menuarr[i + 2] + '|' + menuarr[i + 3] + '|' + obj.sales_order + '|';
+                }
+              }
+              // 메뉴네임이 없다. menu_seq + '|' + menu_name + '|' + menu_price + '|' + 1 + '|';
+            }
+          })
+          console.log(alod);
+          $('#preparedOrder').val(alod);
+          pos_ppOrderList();
         }
-        temp_ppod = temp_arr.join('|');
-        $('#preparedOrder').val(temp_ppod);
-        pos_ppOrderList();
-	}
+      })
+    }
 
   </script>
 
 </body>
+
 </html>

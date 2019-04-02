@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.scit36a2.minnano.vo.Payment;
-
+import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
 
 
@@ -68,6 +68,60 @@ public class PosRepo {
 	public ArrayList<HashMap<String, Object>> seatsavailable(int comp_seq) {
 		PosDAO mapper = session.getMapper(PosDAO.class);
 		ArrayList<HashMap<String, Object>> result = mapper.seatsavailable(comp_seq);
+		return result;
+	}
+
+	public int chksasseqs() {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.chksasseqs();
+		return result;
+	}
+
+
+
+	public int insertSas(Sales_state sas) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.insertSas(sas);
+		return result;
+	}
+
+
+
+	public int insertSad(Sales_detail sad) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.insertSad(sad);
+		return result;
+	}
+
+
+
+	public ArrayList<Sales_detail> alOrderList(int sas_seq) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		ArrayList<Sales_detail> result = mapper.alOrderList(sas_seq);
+		return result;
+	}
+
+
+
+	public int deleteoldorder(int sas_seq) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.deleteoldorder(sas_seq);
+		return result;
+	}
+
+
+
+	public int updatesasdone(int sas_seq) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.updatesasdone(sas_seq);
+		return result;
+	}
+
+
+
+	public int makepayment(Payment pmt) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.makepayment(pmt);
 		return result;
 	}
 	

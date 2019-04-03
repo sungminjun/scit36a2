@@ -219,7 +219,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "selectCompanyOne", method = RequestMethod.POST)
 	public @ResponseBody Company selectCompanyOne(HttpSession session) {
-		// 수정사항) session comp_seq를 끌어옴, 변수명 변경, param Compnay 제거
+		// 수정사항) session comp_seq를 끌어옴, 변수명 변경, param Company 제거
 		// param 변경으로 인한 repo, DAO 수정
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		Company comp = repo.selectCompanyOne(comp_seq);

@@ -132,7 +132,16 @@
           "page": "chart",
           "desc": "보고서 페이지 (작업용)",
           "prog": "50%"
+        }, {
+        	"side": "front",
+            "charge": "이영창",
+            "page": "boardList",
+            "desc": "게시판",
+            "prog": "10%"
+        	
         }
+      
+      
       ]
     }
 

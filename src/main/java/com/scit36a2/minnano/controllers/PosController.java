@@ -10,13 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit36a2.minnano.dao.PosRepo;
+import com.scit36a2.minnano.vo.Cashonhand;
 import com.scit36a2.minnano.vo.Menu;
-import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
 import com.scit36a2.minnano.vo.Seat;
@@ -145,5 +146,97 @@ public class PosController {
 		System.out.println("result 컨트롤러 : " + result);
 		return result;
 	}
+	
+	
+	
 
+	
+	@RequestMapping(value="choiTestCashonHand",method=RequestMethod.GET)
+	public String choiTestCashonHand()	{
+		
+		return "backside/choiTestCashonHand";
+	}
+	
+	@RequestMapping(value="insertCashonhand" , method=RequestMethod.POST)
+	@ResponseBody
+	public String insertCashonhand(HttpSession session,Cashonhand cashonhand)	{
+		
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		System.out.println("comp_seq 컨트롤러 : " + comp_seq);
+		cashonhand.setComp_seq(comp_seq);
+		
+		System.out.println("cashonhand 컨트롤러 : " + cashonhand);
+		int result = repo.insertCashonhand(cashonhand);
+		
+		
+		
+		System.out.println("result 컨트롤러 : " + result);
+		
+		
+		
+		
+		return "success";
+	}
+
+	@RequestMapping(value="selectCashonhand", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Cashonhand> selectCashonhand(HttpSession session, Cashonhand cashonhand)	{
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		cashonhand.setComp_seq(comp_seq);
+		List<Cashonhand> result = repo.selectCashonhand(cashonhand);
+		return result;
+	}
+	@RequestMapping(value="selectCashOne",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Cashonhand> selectCashOne(HttpSession session,Cashonhand cashonhand)	{
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		cashonhand.setComp_seq(comp_seq);
+		List<Cashonhand> result = repo.selectCashOne(cashonhand);
+		
+		
+		return result;
+	}
+	
+	
+	
+	
+	@RequestMapping(value="deleteCashonhand", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand , int cashonhand_seq)	{
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		cashonhand.setComp_seq(comp_seq);
+		cashonhand.setCashonhand_seq(cashonhand_seq);
+		System.out.println("cashonhand 컨트롤러 삭제 : " + cashonhand);
+		int result = repo.deleteCashonhand(cashonhand);
+		System.out.println("result 컨트롤러 삭제  : " + result);
+		System.out.println(cashonhand_seq);
+		return "success";
+		
+	}
+	
+	@RequestMapping(value="predicCash",method=RequestMethod.POST)
+	@ResponseBody
+	public String predicCash(HttpSession session)	{
+		// predictCash
+		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		ArrayList<Cashonhand> cohs = repo.predictCash(comp_seq);
+		int predictPmtCash = repo.predictPmtCash(comp_seq);
+				
+	    int result = 0;
+		for (Cashonhand c : cohs) {
+			if ( c.getCashonhand_type() == 1 || c.getCashonhand_type() == 3 ) {
+				result += c.getCashonhand_cash();
+			} else if (c.getCashonhand_type() == 2) {
+				result -= c.getCashonhand_cash();
+			}
+		}
+		result += predictPmtCash;
+		
+		System.out.println(result);
+				
+		
+		return "success";
+	}
+	
+	
 }

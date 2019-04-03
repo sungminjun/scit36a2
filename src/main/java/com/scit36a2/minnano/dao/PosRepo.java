@@ -2,11 +2,13 @@
 package com.scit36a2.minnano.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.scit36a2.minnano.vo.Cashonhand;
 import com.scit36a2.minnano.vo.Payment;
 
 import com.scit36a2.minnano.vo.Sales_state;
@@ -70,7 +72,49 @@ public class PosRepo {
 		ArrayList<HashMap<String, Object>> result = mapper.seatsavailable(comp_seq);
 		return result;
 	}
+
+
+
+	public int insertCashonhand(Cashonhand cashonhand) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.insertCashonhand(cashonhand);
+		return result;
+	}
+
+
+
+	public List<Cashonhand> selectCashonhand(Cashonhand cashonhand) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		List<Cashonhand> result = mapper.selectCashonhand(cashonhand);
+		return result;
+	}
+	public List<Cashonhand> selectCashOne(Cashonhand cashonhand) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		List<Cashonhand> result = mapper.selectCashOne(cashonhand);
+		return result;
+	}
 	
+	public int deleteCashonhand(Cashonhand cashonhand) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.deleteCashonhand(cashonhand);
+		return result;
+	}
+
+
+
+	public ArrayList<Cashonhand> predictCash(int comp_seq) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		ArrayList<Cashonhand> result = mapper.predictCash(comp_seq);
+		return result;
+	}
+
+
+
+	public int predictPmtCash(int comp_seq) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.predictPmtCash(comp_seq);
+		return result;
+	}
 
 	
 }

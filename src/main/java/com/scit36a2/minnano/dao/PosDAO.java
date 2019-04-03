@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.scit36a2.minnano.vo.Cashonhand;
 import com.scit36a2.minnano.vo.Payment;
+import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
 
 public interface PosDAO {
@@ -23,7 +24,21 @@ public interface PosDAO {
 
 	public ArrayList<HashMap<String, Object>> seatsavailable(int comp_seq);
 
-	public int insertCashonhand(Cashonhand cashonhand);
+	public int chksasseqs();
+
+	public int insertSas(Sales_state sas);
+
+	public int insertSad(Sales_detail sad);
+
+	public ArrayList<Sales_detail> alOrderList(int sas_seq);
+
+	public int deleteoldorder(int sas_seq);
+
+	public int updatesasdone(int sas_seq);
+
+	public int makepayment(Payment pmt);
+
+  public int insertCashonhand(Cashonhand cashonhand);
 
 	public List<Cashonhand> selectCashonhand(Cashonhand cashonhand);
 

@@ -10,25 +10,53 @@
 		WHERE comp_seq = #{comp_seq} and sales_end > sysdate
 	</select>
 
+	<select id="chksasseqs" resultType="int">
+		SELECT sales_state_seqs.nextval FROM dual
+	</select>
 	
-	<insert id="insertSasSad" parameterType="HashMap">
-insert all
-	into SALES_STATE values	(
-		sales_state_seqs.nextval,
-		1,
-		1,
-		sysdate,
-		sysdate+1,
-		#{sales_visitors},
-		#{sales_memo}
-	)
-	into SALES_DETAIL values	(
-		sales_detail_seqs.nextval,
-		sales_state_seqs.currval,
-		#{menu_seq},
-		1,
-		0
-	)	select * from dual
+	<insert id="insertSas" parameterType="sas">
+		INSERT INTO sales_state VALUES(
+			#{sales_state_seq},
+			#{comp_seq},
+			#{seat_seq},
+			sysdate,
+			sysdate+1,
+			#{sales_visitors},
+			#{sales_memo}
+		)
+	</insert>
+	
+	<insert id="insertSad" parameterType="sad">
+		INSERT INTO sales_detail VALUES(
+			sales_detail_seqs.nextval,
+			#{sales_state_seq},
+			#{menu_seq},
+			#{sales_order},
+			#{sales_discount}
+		)
+	</insert>
+	
+	<select id="alOrderList" parameterType="int" resultType="sad">
+		SELECT * FROM sales_detail WHERE sales_state_seq = #{param} 
+	</select>
+	
+	<delete id="deleteoldorder" parameterType="int">
+		DELETE FROM sales_detail WHERE sales_state_seq = #{param} 
+	</delete>
+	
+	<update id="updatesasdone" parameterType="int">
+		UPDATE sales_state SET sales_end = sysdate WHERE sales_state_seq = #{param}
+	</update>
+	
+	<insert id="makepayment" parameterType="pmt">
+		INSERT INTO payment VALUES (
+			payment_seqs.nextval
+			, #{sales_state_seq}
+			, #{payment_type}
+			, #{payment_amount}
+			, sysdate
+			, #{payment_clerk}
+		)
 	</insert>
 			
 <select id="selectPOSone" resultType="HashMap" parameterType="int">
@@ -147,6 +175,26 @@ left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
   	</select>
  -->
 
+	<insert id="insertSasSad" parameterType="HashMap">
+		insert all
+			into SALES_STATE values	(
+				#{sales_state_seq},
+				#{comp_seq},
+				#{seat_seq},
+				sysdate,
+				sysdate+1,
+				#{sales_visitors},
+				#{sales_memo}
+			)
+			into SALES_DETAIL values	(
+				sales_detail_seqs.nextval,
+				sales_state_seqs.currval,
+				#{menu_seq},
+				1,
+				0
+			)	select * from dual
+	</insert>
+	
 <insert id="insertCashonhand" parameterType="coh">
 insert into cashonhand	(
 cashonhand_seq,

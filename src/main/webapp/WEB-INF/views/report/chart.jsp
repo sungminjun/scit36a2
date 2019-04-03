@@ -179,8 +179,8 @@
 				//날짜 검색
 				alert("요기요");
 				$.ajax({
-					url : 'search-date',
-					type : 'get',
+					url : 'search_date',
+					type : 'post',
 					data : {
 						startDate : start,
 						endDate : end

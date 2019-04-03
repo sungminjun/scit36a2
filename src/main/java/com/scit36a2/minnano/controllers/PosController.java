@@ -41,7 +41,7 @@ public class PosController {
 		logger.info("welcome pos.");
 		return "pos/pos";
 	}
-	
+
 	// req list for Order-in-progress
 	@RequestMapping(value = "/seatsavailable", method = RequestMethod.POST)
 	public @ResponseBody String show(HttpSession session) {
@@ -57,11 +57,11 @@ public class PosController {
 		System.out.println(result);
 		return result;
 	}
-	
+
 	// create order 임시방편으로
 	@RequestMapping(value = "makeorder", method = RequestMethod.POST)
 	public @ResponseBody String makeorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod) {
-		System.out.println(sas + ", " + sad + ", " + ppod);
+//		System.out.println(sas + ", " + sad + ", " + ppod);
 		String result = "";
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		int seqno = repo.chksasseqs();
@@ -71,19 +71,19 @@ public class PosController {
 		int resultSad = 0;
 		String ppods[] = ppod.split("\\|");
 		int chker = 0;
-		for (int i  = 0; i  < ppods.length-3; i += 4) {
+		for (int i = 0; i < ppods.length - 3; i += 4) {
 			chker++;
-			if ( ppods[i].equals("-1") ) {
-				sad.setSales_discount(Integer.parseInt(ppods[i+2]));
+			if (ppods[i].equals("-1")) {
+				sad.setSales_discount(Integer.parseInt(ppods[i + 2]));
 				sad.setMenu_seq(-1);
 			} else {
 				sad.setMenu_seq(Integer.parseInt(ppods[i]));
-				sad.setSales_order(Integer.parseInt(ppods[i+3]));
+				sad.setSales_order(Integer.parseInt(ppods[i + 3]));
 			}
 			sad.setSales_state_seq(seqno);
 			resultSad += repo.insertSad(sad);
 		}
-		if ( resultSas == 1 && resultSad == chker ) {
+		if (resultSas == 1 && resultSad == chker) {
 			result = "success";
 		} else {
 			result = "fail";
@@ -100,115 +100,136 @@ public class PosController {
 		sas.setComp_seq(comp_seq);
 		sas.setSales_state_seq(sas_seq);
 		int deleteOld = repo.deleteoldorder(sas_seq);
-		
+
 		String ppods[] = ppod.split("\\|");
 		int newodsize = ppod.length();
-		
+
 		int resultreplaceorder = 0;
 		int chker = 0;
-		for (int i  = 0; i  < ppods.length-3; i += 4) {
+		for (int i = 0; i < ppods.length - 3; i += 4) {
 			chker++;
-			if ( ppods[i].equals("-1") ) {
-				sad.setSales_discount(Integer.parseInt(ppods[i+2]));
+			if (ppods[i].equals("-1")) {
+				sad.setSales_discount(Integer.parseInt(ppods[i + 2]));
 				sad.setMenu_seq(-1);
 			} else {
 				sad.setMenu_seq(Integer.parseInt(ppods[i]));
-				sad.setSales_order(Integer.parseInt(ppods[i+3]));
+				sad.setSales_order(Integer.parseInt(ppods[i + 3]));
 			}
 			sad.setSales_state_seq(sas_seq);
 			resultreplaceorder += repo.insertSad(sad);
 		}
-		
-		if ( resultreplaceorder == chker ) {
+
+		if (resultreplaceorder == chker) {
 			result = "success";
 		} else {
 			result = "fail";
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "alOrderList", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Sales_detail> alOrderList(HttpSession session, int sas_seq) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		ArrayList<Sales_detail> sadList = repo.alOrderList(sas_seq);
-		
+
 		return sadList;
 	}
-	
-	
+
 	@RequestMapping(value = "makepayment", method = RequestMethod.POST)
 	public @ResponseBody String makepayment(HttpSession session, Payment pmt) {
 		String result = "";
 		String emp_id = (String) session.getAttribute("emp_id");
 		pmt.setPayment_clerk(emp_id);
-		
+
 		int sas_seq = pmt.getSales_state_seq();
 		int sasupdateresult = repo.updatesasdone(sas_seq);
-		int	makepmtresult = repo.makepayment(pmt);
-		
-		
+		int makepmtresult = repo.makepayment(pmt);
+
 		return result;
 	}
-	
-	
+
+	@RequestMapping(value = "makepaymentcomplex", method = RequestMethod.POST)
+	public @ResponseBody String makepaymentcomplex(HttpSession session, String pmtcmp, Payment pmt) {
+		String result = "";
+		String emp_id = (String) session.getAttribute("emp_id");
+		System.out.println(pmtcmp);
+		String pmtcmps[] = pmtcmp.split("\\|");
+		int sas_seq = Integer.parseInt(pmtcmps[0]);
+		int chker = 0;
+
+		int sasupdateresult = repo.updatesasdone(sas_seq);
 		
-	
-	@RequestMapping(value="selectPOSone",method=RequestMethod.POST)
+		pmt.setSales_state_seq(sas_seq);
+		pmt.setPayment_clerk(emp_id);
+		
+		int makepmtresult = 0;
+		for (int i = 1; i < pmtcmps.length-1; i += 2) {
+			chker++;
+			pmt.setPayment_type(Integer.parseInt(pmtcmps[i]));
+			pmt.setPayment_amount(Integer.parseInt(pmtcmps[i+1]));
+			makepmtresult += repo.makepayment(pmt);
+			
+			pmt.setPayment_type(0);
+			pmt.setPayment_type(0);
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "selectPOSone", method = RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<HashMap<String,Object>>selectPOSone(HttpSession session,Seat seat,Sales_state sales_state, Sales_detail sales_detail) {
+	public ArrayList<HashMap<String, Object>> selectPOSone(HttpSession session, Seat seat, Sales_state sales_state,
+			Sales_detail sales_detail) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-	
-	ArrayList<HashMap<String,Object>>result = repo.selectPOSone(comp_seq);
-		
-		
+
+		ArrayList<HashMap<String, Object>> result = repo.selectPOSone(comp_seq);
+
 		System.out.println("selectPOSone1 result : " + result);
-		
+
 		return result;
 	}
-	
-	@RequestMapping(value="selectPOStwo",method=RequestMethod.POST)
+
+	@RequestMapping(value = "selectPOStwo", method = RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<HashMap<String,Object>>selectPOStwo(HttpSession session,Menu menu,Sales_state sales_state,Sales_detail sales_detail)	{
+	public ArrayList<HashMap<String, Object>> selectPOStwo(HttpSession session, Menu menu, Sales_state sales_state,
+			Sales_detail sales_detail) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		ArrayList<HashMap<String,Object>> result = repo.selectPOStwo(comp_seq);
+		ArrayList<HashMap<String, Object>> result = repo.selectPOStwo(comp_seq);
 		System.out.println("selectPOStwo2 result" + result);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "deleteSasSadPay", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteSasSadPay(Sales_state sales_state, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("삭제 컨트롤러 comp_seq : " + comp_seq);
 		sales_state.setComp_seq(comp_seq);
-				
+
 		System.out.println("삭제 컨트롤러 sales_state : " + comp_seq);
 		int result = repo.deleteSasSadPay(comp_seq);
 		System.out.println("삭제 컨트롤러 result : " + result);
 		return "success";
 	}
-	
-	@RequestMapping(value="updatePOStwo", method=RequestMethod.POST)
+
+	@RequestMapping(value = "updatePOStwo", method = RequestMethod.POST)
 	@ResponseBody
-	public int updatePOStwo(HttpSession session,int sales_state_seq,Sales_state sales_state)	{
+	public int updatePOStwo(HttpSession session, int sales_state_seq, Sales_state sales_state) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		sales_state.setComp_seq(comp_seq);
-		//sales_state.setSales_state_seq(sales_state_seq);
+		// sales_state.setSales_state_seq(sales_state_seq);
 		System.out.println("sales_state컨트롤러 : " + sales_state);
 		int result = repo.updatePOStwo(sales_state);
 		System.out.println("result 컨트롤러 : " + result);
 		return result;
 	}
 
-
-	
 	//
 	//
 	//////
 	//////
 	//
-	//	will be deleted soon below
-	
+	// will be deleted soon below
 
 	// create sales_state and sub-sales_details
 	@RequestMapping(value = "insertSasSad", method = RequestMethod.POST)
@@ -217,13 +238,13 @@ public class PosController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("comp_seq" + comp_seq);
 
-		// sas 
-		// seq(자동생성), comp(session), sales_start(sysdate), sales_end(sysdate+1) 
+		// sas
+		// seq(자동생성), comp(session), sales_start(sysdate), sales_end(sysdate+1)
 		// seat_seq(ajax), sales_visitors(ajax), sales_memo(ajax)
 		// sad
 		// seq(생성), sas_seq(부여)
 		// menu_seq(ajax), sales_order(ajax), sales_discount(ajax)
-		
+
 		menu.setComp_seq(comp_seq);
 
 		System.out.println("menu" + menu);
@@ -257,7 +278,5 @@ public class PosController {
 		System.out.println("result3 : " + result);
 		return "success";
 	}
-	
+
 }
-
-

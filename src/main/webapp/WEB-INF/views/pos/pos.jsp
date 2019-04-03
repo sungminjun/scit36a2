@@ -218,10 +218,10 @@
                 <br>
                 <div class="row">
                   <div class="col-md-4 mx-auto" id="pos-2-13">
-                    <input type="text" class="form-control text-center" id="pos2-13-1" value="현재시재" disabled="disabled">
+                    <input type="text" class="form-control text-center" id="pos-2-13-1" value="현재시재" disabled="disabled">
                   </div>
                   <div class="col-md-4 mx-auto" id="pos-2-14">
-                    <input type="text" class="form-control text-center" id="pos2-14-1" value="금일매출" disabled="disabled">
+                    <input type="text" class="form-control text-center" id="pos-2-14-1" value="금일매출" disabled="disabled">
                   </div>
                   <div class="col-md-2 mx-auto form-control" id="pos-2-15">
                     <h5 class="title">버튼15</h5>
@@ -343,13 +343,6 @@
                             <h3 class="title">[결제] 정말로 결제완료 처리 하시겠습니까? </h3>
                           </div>
                         </div>
-                        <div id="payment_complex">
-                          <div class="col-md-4 form-group text-primary mx-auto">
-                            <input type="button" id="pos-btn-4-3" value="카드결제">
-                          </div>
-                        
-                        </div>
-                        <div class="row box">
                           <div class="col-md-4 form-group text-primary mx-auto">
                             <input type="button" id="pos-btn-4-3" value="카드결제">
                           </div>
@@ -376,6 +369,44 @@
                             <h3 class="title">[결제] 복합결제 처리 하시겠습니까? </h3>
                           </div>
                         </div>
+                        <div id="payment_complex">
+                        
+                        </div>
+                        <div class="row box">
+                          <div class="col-md-2 form-group mx-auto">
+                            <select class="pmt_cmp_type">
+                              <option value="1">카드</option>
+                              <option value="2">현금</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4 form-group mx-auto">
+                            <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">
+                          </div>
+                          <div class="col-md-4 mx-auto dropdown">
+                          </div>
+                        </div>
+                        
+                        <div class="row box">
+                          <div class="col-md-2 form-group mx-auto">
+                            <select class="pmt_cmp_type">
+                              <option value="1">카드</option>
+                              <option value="2">현금</option>
+                            </select>
+                          </div>
+                          <div class="col-md-4 form-group mx-auto">
+                            <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">
+                          </div>
+                          <div class="col-md-4 form-group mx-auto">
+                            <a href="#"><i class="tim-icons icon-simple-add text-warning"></i>한줄추가</a>
+                          </div>
+                        </div>
+                        
+                        <div class="row box">
+                          <div class="col-md-12 mx-auto">
+                          총액검증관련 유효성검사 _js_ will be placed here
+                          </div>
+                        </div>
+
                         <div class="row box">
                           <div class="col-md-4 form-group text-primary mx-auto">
                             <input type="button" id="pos-btn-4-5" value="복합결제">
@@ -434,6 +465,7 @@
       pos_loadseat();
       pos_setbuttons();
       pos_loadmenu();
+      pos_loadcohexpected();
     });
 
     function pos_loadseat() {
@@ -1007,13 +1039,36 @@
     }
 
     function pos_payment_complex() {
-    	var payment_amount = $('td.td-total').text().substr(6,$('td.td-total').text().length);
-    	var i = 1;
-    	var pmt = window.confirm('정말 결제완료 처리 하시겠습니까?');
-    	if ( pmt == true ) {
-    		
-    	}
+    	var list_amount = $('td.td-total').text().substr(6,$('td.td-total').text().length);
+		var rcv_amount_arr = $('.pmt_cmp_amount');
+		var rcv_type_arr = $('.pmt_cmp_type');
+		var sales_state_seq = $('#alodsasseq').val();
+		
+		var rcv_amount = 0;
+    	$.each(rcv_amount_arr, function(idx, obj) {
+    		rcv_amount += obj.value*1;
+    	})
+		if (rcv_amount != list_amount) {
+			alert('금액이 일치하지 않습니다! \n  다시 시도하십시오.');
+			return false;
+		}     	
     	
+    	var senddata = sales_state_seq + '|';
+		// senddata 양식 sales_state_seq | pmt_type_where_i=0 | pmt_amount_where_i=0 |pmt_type_where_i=1 | pmt_amount_where_i=1 | and so on...   
+    	for ( i = 0 ; i < rcv_type_arr.length ; i++ ) {
+    		senddata += rcv_type_arr[i].value + '|' + rcv_amount_arr[i].value + '|';
+    	}
+    	console.log(senddata)
+    	senddata = { "pmtcmp" : senddata }
+    	$.ajax({
+    		  url : 'makepaymentcomplex'
+          		  , method : 'POST'
+          		  , data : senddata
+          		  , success : function() {
+          			  alert('결제완료!');
+          			  document.location.reload();
+          		  }
+          	  })
     }
     
     function pos_payment(param) {
@@ -1079,6 +1134,16 @@
       })
     }
 
+    function pos_loadcohexpected() {
+    	$.ajax({
+    		url :
+    		, method : 'POST'
+    		, success : function(resp) {
+    			$('#pos-2-13-1').val('예상시재액 : ' + resp);
+    		}
+    	})
+    }
+    
   </script>
 
 </body>

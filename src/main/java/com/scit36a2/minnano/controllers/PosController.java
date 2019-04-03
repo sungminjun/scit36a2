@@ -2,6 +2,7 @@ package com.scit36a2.minnano.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scit36a2.minnano.dao.PosRepo;
 import com.scit36a2.minnano.vo.Cashonhand;
 import com.scit36a2.minnano.vo.Menu;
+import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
 import com.scit36a2.minnano.vo.Seat;
@@ -159,17 +160,17 @@ public class PosController {
 		int chker = 0;
 
 		int sasupdateresult = repo.updatesasdone(sas_seq);
-		
+
 		pmt.setSales_state_seq(sas_seq);
 		pmt.setPayment_clerk(emp_id);
-		
+
 		int makepmtresult = 0;
-		for (int i = 1; i < pmtcmps.length-1; i += 2) {
+		for (int i = 1; i < pmtcmps.length - 1; i += 2) {
 			chker++;
 			pmt.setPayment_type(Integer.parseInt(pmtcmps[i]));
-			pmt.setPayment_amount(Integer.parseInt(pmtcmps[i+1]));
+			pmt.setPayment_amount(Integer.parseInt(pmtcmps[i + 1]));
 			makepmtresult += repo.makepayment(pmt);
-			
+
 			pmt.setPayment_type(0);
 			pmt.setPayment_type(0);
 		}
@@ -177,15 +178,12 @@ public class PosController {
 		return result;
 	}
 
-
-
-
 	//
 	//
 	//////
 	//////
 	//
-	// will be deleted soon below
+	// will be check and select soon...
 
 	// create sales_state and sub-sales_details
 	@RequestMapping(value = "insertSasSad", method = RequestMethod.POST)
@@ -234,112 +232,100 @@ public class PosController {
 		System.out.println("result3 : " + result);
 		return "success";
 	}
-	
-	
-	@RequestMapping(value="selectPOSone",method=RequestMethod.POST)
+
+	@RequestMapping(value = "selectPOSone", method = RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<HashMap<String,Object>>selectPOSone(HttpSession session,Seat seat,Sales_state sales_state, Sales_detail sales_detail) {
+	public ArrayList<HashMap<String, Object>> selectPOSone(HttpSession session, Seat seat, Sales_state sales_state,
+			Sales_detail sales_detail) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-	
-	ArrayList<HashMap<String,Object>>result = repo.selectPOSone(comp_seq);
-		
-		
+
+		ArrayList<HashMap<String, Object>> result = repo.selectPOSone(comp_seq);
+
 		System.out.println("selectPOSone1 result : " + result);
-		
+
 		return result;
 	}
-  
-  
-	
-	@RequestMapping(value="selectPOStwo",method=RequestMethod.POST)
+
+	@RequestMapping(value = "selectPOStwo", method = RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<HashMap<String,Object>>selectPOStwo(HttpSession session,Menu menu,Sales_state sales_state,Sales_detail sales_detail)	{
+	public ArrayList<HashMap<String, Object>> selectPOStwo(HttpSession session, Menu menu, Sales_state sales_state,
+			Sales_detail sales_detail) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		ArrayList<HashMap<String,Object>> result = repo.selectPOStwo(comp_seq);
+		ArrayList<HashMap<String, Object>> result = repo.selectPOStwo(comp_seq);
 		System.out.println("selectPOStwo2 result" + result);
 		return result;
 	}
-  
-	
+
 	@RequestMapping(value = "deleteSasSadPay", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteSasSadPay(Sales_state sales_state, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("삭제 컨트롤러 comp_seq : " + comp_seq);
 		sales_state.setComp_seq(comp_seq);
-				
+
 		System.out.println("삭제 컨트롤러 sales_state : " + comp_seq);
 		int result = repo.deleteSasSadPay(comp_seq);
 		System.out.println("삭제 컨트롤러 result : " + result);
 		return "success";
 	}
 
-	@RequestMapping(value="updatePOStwo", method=RequestMethod.POST)
+	@RequestMapping(value = "updatePOStwo", method = RequestMethod.POST)
 	@ResponseBody
-	public int updatePOStwo(HttpSession session,int sales_state_seq,Sales_state sales_state)	{
+	public int updatePOStwo(HttpSession session, int sales_state_seq, Sales_state sales_state) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		sales_state.setComp_seq(comp_seq);
-		//sales_state.setSales_state_seq(sales_state_seq);
+		// sales_state.setSales_state_seq(sales_state_seq);
 		System.out.println("sales_state컨트롤러 : " + sales_state);
 		int result = repo.updatePOStwo(sales_state);
 		System.out.println("result 컨트롤러 : " + result);
 		return result;
 	}
-	
-	
-	@RequestMapping(value="choiTestCashonHand",method=RequestMethod.GET)
-	public String choiTestCashonHand()	{
-		
+
+	@RequestMapping(value = "choiTestCashonHand", method = RequestMethod.GET)
+	public String choiTestCashonHand() {
+
 		return "backside/choiTestCashonHand";
 	}
-	
-	@RequestMapping(value="insertCashonhand" , method=RequestMethod.POST)
+
+	@RequestMapping(value = "insertCashonhand", method = RequestMethod.POST)
 	@ResponseBody
-	public String insertCashonhand(HttpSession session,Cashonhand cashonhand)	{
-		
+	public String insertCashonhand(HttpSession session, Cashonhand cashonhand) {
+
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("comp_seq 컨트롤러 : " + comp_seq);
 		cashonhand.setComp_seq(comp_seq);
-		
+
 		System.out.println("cashonhand 컨트롤러 : " + cashonhand);
 		int result = repo.insertCashonhand(cashonhand);
-		
-		
-		
+
 		System.out.println("result 컨트롤러 : " + result);
-		
-		
-		
-		
+
 		return "success";
 	}
 
-	@RequestMapping(value="selectCashonhand", method=RequestMethod.POST)
+	@RequestMapping(value = "selectCashonhand", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Cashonhand> selectCashonhand(HttpSession session, Cashonhand cashonhand)	{
-		int comp_seq = (Integer)session.getAttribute("comp_seq");
+	public List<Cashonhand> selectCashonhand(HttpSession session, Cashonhand cashonhand) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		cashonhand.setComp_seq(comp_seq);
 		List<Cashonhand> result = repo.selectCashonhand(cashonhand);
 		return result;
 	}
-	@RequestMapping(value="selectCashOne",method=RequestMethod.POST)
+
+	@RequestMapping(value = "selectCashOne", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Cashonhand> selectCashOne(HttpSession session,Cashonhand cashonhand)	{
-		int comp_seq = (Integer)session.getAttribute("comp_seq");
+	public List<Cashonhand> selectCashOne(HttpSession session, Cashonhand cashonhand) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		cashonhand.setComp_seq(comp_seq);
 		List<Cashonhand> result = repo.selectCashOne(cashonhand);
-		
-		
+
 		return result;
 	}
-	
-	
-	
-	
-	@RequestMapping(value="deleteCashonhand", method=RequestMethod.POST)
+
+	@RequestMapping(value = "deleteCashonhand", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand , int cashonhand_seq)	{
-		int comp_seq = (Integer)session.getAttribute("comp_seq");
+	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand, int cashonhand_seq) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		cashonhand.setComp_seq(comp_seq);
 		cashonhand.setCashonhand_seq(cashonhand_seq);
 		System.out.println("cashonhand 컨트롤러 삭제 : " + cashonhand);
@@ -347,32 +333,30 @@ public class PosController {
 		System.out.println("result 컨트롤러 삭제  : " + result);
 		System.out.println(cashonhand_seq);
 		return "success";
-		
+
 	}
-	
-	@RequestMapping(value="predicCash",method=RequestMethod.POST)
+
+	@RequestMapping(value = "predicCash", method = RequestMethod.POST)
 	@ResponseBody
-	public String predicCash(HttpSession session)	{
+	public String predicCash(HttpSession session) {
 		// predictCash
-		int comp_seq = (Integer)session.getAttribute("comp_seq");
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		ArrayList<Cashonhand> cohs = repo.predictCash(comp_seq);
 		int predictPmtCash = repo.predictPmtCash(comp_seq);
-				
-	    int result = 0;
+
+		int result = 0;
 		for (Cashonhand c : cohs) {
-			if ( c.getCashonhand_type() == 1 || c.getCashonhand_type() == 3 ) {
+			if (c.getCashonhand_type() == 1 || c.getCashonhand_type() == 3) {
 				result += c.getCashonhand_cash();
 			} else if (c.getCashonhand_type() == 2) {
 				result -= c.getCashonhand_cash();
 			}
 		}
 		result += predictPmtCash;
-		
+
 		System.out.println(result);
-				
-		
+
 		return "success";
 	}
-	
-	
+
 }

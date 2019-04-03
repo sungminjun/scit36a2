@@ -332,17 +332,17 @@
                       </tr>
                     </table>
 
-                  <!--  카드/현금결제용 modal -->
-                  <div class="modal modal-default" id="pos_payment_card">
-                    <div class="modal-dialog">
-                      <div class="modal-header">
-                      </div>
-                      <div class="modal-content bg-alert">
-                        <div class="row">
-                          <div class="col-md-12 text-center">
-                            <h3 class="title">[결제] 정말로 결제완료 처리 하시겠습니까? </h3>
-                          </div>
+                    <!--  카드/현금결제용 modal -->
+                    <div class="modal modal-default" id="pos_payment_card">
+                      <div class="modal-dialog">
+                        <div class="modal-header">
                         </div>
+                        <div class="modal-content bg-alert">
+                          <div class="row">
+                            <div class="col-md-12 text-center">
+                              <h3 class="title">[결제] 정말로 결제완료 처리 하시겠습니까? </h3>
+                            </div>
+                          </div>
                           <div class="col-md-4 form-group text-primary mx-auto">
                             <input type="button" id="pos-btn-4-3" value="카드결제">
                           </div>
@@ -356,8 +356,8 @@
                       </div>
                     </div>
                   </div>
-                  
-                  
+
+
                   <!--  복합결제용 modal -->
                   <div class="modal modal-default" id="pos_payment_complex">
                     <div class="modal-dialog">
@@ -370,7 +370,7 @@
                           </div>
                         </div>
                         <div id="payment_complex">
-                        
+
                         </div>
                         <div class="row box">
                           <div class="col-md-2 form-group mx-auto">
@@ -385,7 +385,7 @@
                           <div class="col-md-4 mx-auto dropdown">
                           </div>
                         </div>
-                        
+
                         <div class="row box">
                           <div class="col-md-2 form-group mx-auto">
                             <select class="pmt_cmp_type">
@@ -400,10 +400,10 @@
                             <a href="#"><i class="tim-icons icon-simple-add text-warning"></i>한줄추가</a>
                           </div>
                         </div>
-                        
+
                         <div class="row box">
                           <div class="col-md-12 mx-auto">
-                          총액검증관련 유효성검사 _js_ will be placed here
+                            총액검증관련 유효성검사 _js_ will be placed here
                           </div>
                         </div>
 
@@ -418,25 +418,25 @@
                       </div>
                     </div>
                   </div>
-                  
-                  
-                  </div>
+
+
                 </div>
               </div>
-              <div class="card-footer">
-                <h5 class="title">div4-footer</h5>
-              </div>
+            </div>
+            <div class="card-footer">
+              <h5 class="title">div4-footer</h5>
             </div>
           </div>
         </div>
       </div>
-
-      <footer class="footer">
-      </footer>
     </div>
-    <input type="hidden" id="funcFlag" value="0">
-    <input type="hidden" id="tableSeqFirst" value="0">
-    <input type="hidden" id="tableSeqSecond" value="0">
+
+    <footer class="footer">
+    </footer>
+  </div>
+  <input type="hidden" id="funcFlag" value="0">
+  <input type="hidden" id="tableSeqFirst" value="0">
+  <input type="hidden" id="tableSeqSecond" value="0">
   </div>
 
 
@@ -1031,67 +1031,69 @@
 
     // 1카드 2현금
     function pos_payment_card() {
-    	pos_payment(1);
+      pos_payment(1);
     }
 
     function pos_payment_cash() {
-    	pos_payment(2);
+      pos_payment(2);
     }
 
     function pos_payment_complex() {
-    	var list_amount = $('td.td-total').text().substr(6,$('td.td-total').text().length);
-		var rcv_amount_arr = $('.pmt_cmp_amount');
-		var rcv_type_arr = $('.pmt_cmp_type');
-		var sales_state_seq = $('#alodsasseq').val();
-		
-		var rcv_amount = 0;
-    	$.each(rcv_amount_arr, function(idx, obj) {
-    		rcv_amount += obj.value*1;
-    	})
-		if (rcv_amount != list_amount) {
-			alert('금액이 일치하지 않습니다! \n  다시 시도하십시오.');
-			return false;
-		}     	
-    	
-    	var senddata = sales_state_seq + '|';
-		// senddata 양식 sales_state_seq | pmt_type_where_i=0 | pmt_amount_where_i=0 |pmt_type_where_i=1 | pmt_amount_where_i=1 | and so on...   
-    	for ( i = 0 ; i < rcv_type_arr.length ; i++ ) {
-    		senddata += rcv_type_arr[i].value + '|' + rcv_amount_arr[i].value + '|';
-    	}
-    	console.log(senddata)
-    	senddata = { "pmtcmp" : senddata }
-    	$.ajax({
-    		  url : 'makepaymentcomplex'
-          		  , method : 'POST'
-          		  , data : senddata
-          		  , success : function() {
-          			  alert('결제완료!');
-          			  document.location.reload();
-          		  }
-          	  })
-    }
-    
-    function pos_payment(param) {
-    	var sales_state_seq = $('#alodsasseq').val(); 
-        var payment_type = param // 1카드 2현금
-        var payment_amount = $('td.td-total').text().substr(6,$('td.td-total').text().length);
-        console.log(payment_amount);
-      	  
-        var senddata = {
-      	  sales_state_seq : sales_state_seq
-      	  , payment_type : payment_type
-      	  , payment_amount :  payment_amount
+      var list_amount = $('td.td-total').text().substr(6, $('td.td-total').text().length);
+      var rcv_amount_arr = $('.pmt_cmp_amount');
+      var rcv_type_arr = $('.pmt_cmp_type');
+      var sales_state_seq = $('#alodsasseq').val();
+
+      var rcv_amount = 0;
+      $.each(rcv_amount_arr, function(idx, obj) {
+        rcv_amount += obj.value * 1;
+      })
+      if (rcv_amount != list_amount) {
+        alert('금액이 일치하지 않습니다! \n  다시 시도하십시오.');
+        return false;
+      }
+
+      var senddata = sales_state_seq + '|';
+      // senddata 양식 sales_state_seq | pmt_type_where_i=0 | pmt_amount_where_i=0 |pmt_type_where_i=1 | pmt_amount_where_i=1 | and so on...   
+      for (i = 0; i < rcv_type_arr.length; i++) {
+        senddata += rcv_type_arr[i].value + '|' + rcv_amount_arr[i].value + '|';
+      }
+      console.log(senddata)
+      senddata = {
+        "pmtcmp": senddata
+      }
+      $.ajax({
+        url: 'makepaymentcomplex',
+        method: 'POST',
+        data: senddata,
+        success: function() {
+          alert('결제완료!');
+          document.location.reload();
         }
-        
-      	  $.ajax({
-      		  url : 'makepayment'
-      		  , method : 'POST'
-      		  , data : senddata
-      		  , success : function() {
-      			  alert('결제완료!');
-      			  document.location.reload();
-      		  }
-      	  })
+      })
+    }
+
+    function pos_payment(param) {
+      var sales_state_seq = $('#alodsasseq').val();
+      var payment_type = param // 1카드 2현금
+      var payment_amount = $('td.td-total').text().substr(6, $('td.td-total').text().length);
+      console.log(payment_amount);
+
+      var senddata = {
+        sales_state_seq: sales_state_seq,
+        payment_type: payment_type,
+        payment_amount: payment_amount
+      }
+
+      $.ajax({
+        url: 'makepayment',
+        method: 'POST',
+        data: senddata,
+        success: function() {
+          alert('결제완료!');
+          document.location.reload();
+        }
+      })
     }
 
     function pos_alOrderList(sas_seq) {
@@ -1109,8 +1111,8 @@
         method: 'POST',
         data: {
           sas_seq: sas_seq
-        },
-        success: function(resp) {
+        }
+      , success: function(resp) {
           console.log(resp)
           var alod = '';
           $.each(resp, function(idx, obj) {
@@ -1135,15 +1137,15 @@
     }
 
     function pos_loadcohexpected() {
-    	$.ajax({
-    		url :
-    		, method : 'POST'
-    		, success : function(resp) {
-    			$('#pos-2-13-1').val('예상시재액 : ' + resp);
-    		}
-    	})
+      $.ajax({
+        url: 'loadcohexpected',
+        method: 'POST',
+        success: function(resp) {
+          $('#pos-2-13-1').val('예상시재액 : ' + resp);
+        }
+      })
     }
-    
+
   </script>
 
 </body>

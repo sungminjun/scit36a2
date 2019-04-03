@@ -56,7 +56,7 @@ left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
 		where comp_seq = #{comp_seq}
 	</delete>
 	
-	<update id="updatePOStwo" parameterType="sas">
+	<update id="updatePOStwo" parameterType="sas"><!-- 한번의 입력을 받아(sales_state_seq) 두개의 테이블에 있는 데이터를 수정(sales_memo,sales_visitors,sales_discount,sales_order,menu_seq)하는 구문입니다. 필요하지 않으실수도 있겠지만 어느것이 수정이 필요한지 몰라 수정할만한 것을 임의적으로 생각해봤습니다. -->
 		begin for cs in (
 			select sas.sales_memo sas_sales_memo, sas.sales_visitors sas_sales_visitors, sad.sales_discount sad_sales_discount, sad.sales_order sad_sales_order, sad.menu_seq sad_menu_seq
 			from sales_state sas, sales_detail sad
@@ -146,6 +146,80 @@ left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
  		]]>  		
   	</select>
  -->
+
+<insert id="insertCashonhand" parameterType="coh">
+insert into cashonhand	(
+cashonhand_seq,
+comp_seq,
+cashonhand_type,
+cashonhand_register,
+cashonhand_regdate,
+cashonhand_error,
+cashonhand_cash
+)	values	(
+cashonhand_seqs.nextval,
+#{comp_seq},
+#{cashonhand_type},
+#{cashonhand_register},
+sysdate,
+#{cashonhand_error},
+#{cashonhand_cash}
+)
+</insert>
+<select id="selectCashonhand" resultType="coh" parameterType="coh">
+	select 
+		cashonhand_seq,
+		comp_seq,
+		cashonhand_type,
+		cashonhand_register,
+		cashonhand_regdate,
+		cashonhand_error,
+		cashonhand_cash
+	from
+		cashonhand
+	where
+		comp_seq = #{comp_seq}
+</select>
+<select id="selectCashOne" resultType="coh" parameterType="coh">
+	select 
+		CASHONHAND_SEQ, 
+		COMP_SEQ, 
+		CASHONHAND_TYPE, 
+		CASHONHAND_REGISTER, 
+		CASHONHAND_REGDATE, 
+		CASHONHAND_ERROR, 
+		CASHONHAND_CASH
+from 
+	CASHONHAND 
+where 
+	CASHONHAND_TYPE = 1 
+and 
+	CASHONHAND_REGDATE like sysdate
+		
+
+</select>
+
+
+<delete id="deleteCashonhand" parameterType="coh">
+	delete from 
+			cashonhand
+		where 
+			cashonhand_seq = #{cashonhand_seq}
+</delete>
+
+<select id="predictCash" parameterType="int" resultType="hashmap">
+	SELECT * FROM CASHONHAND WHERE comp_seq = #{param} and CASHONHAND_REGDATE like sysdate
+</select>
+
+<select id="predictPmtCash" parameterType="int" resultType="int">
+select  
+	sum(payment_amount)
+from 
+	payment p
+left join SALES_STATE s on p.sales_state_seq = s.sales_state_seq
+where 
+	comp_seq = #{comp_seq}
+</select>
 
 </mapper>
   

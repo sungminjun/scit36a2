@@ -10,7 +10,7 @@
   	<result property="sales_state_seq" column="sales_state_seq"></result>
   	</resultMap>
    
-  	<select id="selectPaymentList" resultType="HashMap" parameterType="int">
+  	<select id="selectPaymentList" resultType="HashMap" parameterType="HashMap">
    	SELECT
 	    to_char(min(payment_time), 'mmdd HH24') as daytime
 	    , sum(payment_amount) as payment_amount_sum
@@ -24,7 +24,7 @@
 	        LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
 	    ORDER BY payment_time)
     WHERE
-	    comp_seq = #{comp_seq} and payment_time between to_date('2019-03-25 00:00:00', 'YYYY-MM-DD HH24:mi:ss') and to_date('2019-03-25 23:59:00','YYYY-MM-DD HH24:mi:ss')
+	    comp_seq = #{comp_seq} and payment_time between trunc(sysdate,'mm') and sysdate
 	GROUP BY 
 	    to_char(payment_time, 'mmdd HH24')
 	ORDER BY 
@@ -47,7 +47,7 @@
     </sql> 
  -->
    	
-  		<select id="selectListOne" resultType="Map" parameterType="int">
+  		<select id="selectListOne" resultType="Map" parameterType="hashmap">
   	select
     	p.payment_seq as payment_seq  
     	, s.sales_state_seq as sales_state_seq
@@ -62,5 +62,26 @@
  		and payment_time > to_date('2019-03-26 11:59:59','YYYY-MM-DD HH24:mi:ss') 
  		and comp_seq = #{comp_seq}
  		]]>  		
+  	</select>
+  	<select id="selectPosReport" resultType="HashMap" parameterType="Hashmap">
+  	 SELECT
+       to_char(payment_time, 'WW') as daytime
+       , sum(payment_amount) as payment_amount_sum
+       , sum(sales_order) as sales_order_sum
+      
+   FROM 
+      (SELECT 
+           p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+       FROM
+           payment p
+           LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+           LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+       ORDER BY payment_time) 
+    WHERE
+       comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+   GROUP BY 
+       to_char(payment_time, 'WW')
+   ORDER BY 
+        daytime
   	</select>
     </mapper>

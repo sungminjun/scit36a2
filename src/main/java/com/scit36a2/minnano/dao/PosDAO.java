@@ -20,5 +20,11 @@ public interface PosDAO {
 	public int updatePOStwo(Sales_state sales_state);
 
 	public ArrayList<HashMap<String, Object>> seatsavailable(int comp_seq);
+	
+
+	public ArrayList<HashMap<String, Object>> selectPosReport(HashMap<String, Object> map);
+
+	
+	public ArrayList<HashMap<String, Object>> selectPaymentList(int comp_seq);
 }
 

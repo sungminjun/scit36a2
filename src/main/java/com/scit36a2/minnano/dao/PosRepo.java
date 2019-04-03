@@ -61,8 +61,9 @@ public class PosRepo {
 	}
 
 	public ArrayList<HashMap<String, Object>> selectPaymentList(int comp_seq) {
-		// TODO Auto-generated method stub
-		return null;
+		PosDAO dao=session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String,Object>>list=dao.selectPaymentList(comp_seq);
+		return list;
 	}
 
 
@@ -114,6 +115,13 @@ public class PosRepo {
 		PosDAO mapper = session.getMapper(PosDAO.class);
 		int result = mapper.predictPmtCash(comp_seq);
 		return result;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> selectPosReport(HashMap<String, Object> map) {
+		PosDAO dao=session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String,Object>>list=dao.selectPosReport(map);
+		return list;
 	}
 
 	

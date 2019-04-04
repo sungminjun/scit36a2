@@ -29,10 +29,10 @@ public class BoardRepo {
 		return list;
 	}
 
-	public int boardRegist(Board board) {
+	public int insertBoard(Board board) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		
-		int result = dao.insert(board);
+		int result = dao.insertBoard(board);
 		
 		return result;
 	}

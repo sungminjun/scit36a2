@@ -16,5 +16,4 @@ public class HomeController {
 		logger.info("welcome home.");
 		return "devhome";
 	}
-
 }

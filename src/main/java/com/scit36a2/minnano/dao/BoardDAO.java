@@ -14,7 +14,7 @@ public interface BoardDAO {
 	List<Board> select(Map<String, String> map, RowBounds rb);
 
 	/** 게시글 한 개 등록하는 메서드 */
-	int insert(Board board);
+	public int insertBoard(Board board);
 
 	/** 게시글 한 개 조회 */
 	Board selectOne(int boardnum);

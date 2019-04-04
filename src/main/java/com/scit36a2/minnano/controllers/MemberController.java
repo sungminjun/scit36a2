@@ -52,13 +52,17 @@ public class MemberController {
 		int comp_seq = e.getComp_seq();
 		String emp_id = employee.getEmp_id();
 		String emp_pw = employee.getEmp_pw();
-
+		int emp_seq = e.getEmp_seq();//추가-최철규
+	
 		if (e != null) {
 			if (emp_id.equals(e.getEmp_id()) && emp_pw.equals(e.getEmp_pw())) {
 
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
-
+				session.setAttribute("emp_seq", emp_seq);//추가 최철규
+				System.out.println(session.getAttribute("emp_id"));
+				System.out.println(session.getAttribute("comp_seq"));
+				System.out.println(session.getAttribute("emp_seq"));
 				return "redirect:/";
 			} else {
 				message = "로그인에 실패하셨습니다.";

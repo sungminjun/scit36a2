@@ -10,8 +10,7 @@ public class Board {
 	private String board_savname; // board_savname varchar2(500),	
 	private String board_regdate; // board_regdate date DEFAULT sysdate NOT NULL,
 	private int board_hitcount; // board_hitcount number DEFAULT 0 NOT NULL,
-/*int emp_seq = (Integer)session.getAttribute("emp_seq");
-board.setemp_seq(emp_seq);*/
+
 	public Board() {
 	}
 

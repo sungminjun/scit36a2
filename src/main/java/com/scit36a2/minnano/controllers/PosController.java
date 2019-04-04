@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -56,7 +57,6 @@ public class PosController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
 		return result;
 	}
 
@@ -154,7 +154,7 @@ public class PosController {
 	public @ResponseBody String makepaymentcomplex(HttpSession session, String pmtcmp, Payment pmt) {
 		String result = "";
 		String emp_id = (String) session.getAttribute("emp_id");
-		System.out.println(pmtcmp);
+//		System.out.println(pmtcmp);
 		String pmtcmps[] = pmtcmp.split("\\|");
 		int sas_seq = Integer.parseInt(pmtcmps[0]);
 		int chker = 0;
@@ -178,6 +178,107 @@ public class PosController {
 		return result;
 	}
 
+	@RequestMapping(value = "predicCash", method = RequestMethod.POST)
+	@ResponseBody
+	public Integer predicCash(HttpSession session) {
+		// predictCash
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		ArrayList<Cashonhand> cohs = repo.predictCash(comp_seq);
+		Integer predictPmt = 0;
+		predictPmt = repo.predictPmtCash(comp_seq);
+
+		Integer result = 0;
+		if (cohs != null) {
+//			System.out.println(cohs);
+			for (Cashonhand c : cohs) {
+				if (c.getCashonhand_type() == 1 || c.getCashonhand_type() == 3) {
+					result += c.getCashonhand_cash();
+				} else if (c.getCashonhand_type() == 2) {
+					result -= c.getCashonhand_cash();
+				}
+			}
+		}
+		if (predictPmt != null) {
+			result += predictPmt;
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "cumulatepaymenttoday", method = RequestMethod.POST)
+	@ResponseBody
+	public Integer cumulatepaymenttoday(HttpSession session) {
+		// predictCash
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		Integer result = repo.cumulatepaymenttoday(comp_seq);
+		if (result == null) {
+			result = 0;
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "selectCashonhand", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Cashonhand> selectCashonhand(HttpSession session, Cashonhand cashonhand) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		cashonhand.setComp_seq(comp_seq);
+		List<Cashonhand> result = repo.selectCashonhand(cashonhand);
+		return result;
+	}
+
+	@RequestMapping(value = "insertCashonhand", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertCashonhand(HttpSession session, Cashonhand coh) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		String emp_id = (String) session.getAttribute("emp_id");
+		coh.setComp_seq(comp_seq);
+		coh.setCashonhand_register(emp_id);
+		int result = repo.insertCashonhand(coh);
+
+		if (result == 1)
+			return "success";
+		else 
+			return "fail";
+	}
+
+	@RequestMapping(value = "movetable", method = RequestMethod.POST)
+	@ResponseBody
+	public int movetable(HttpSession session, @RequestBody HashMap<String, Integer> map) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		int result = 0;
+		result = repo.movetable(map);
+		System.out.println(result);
+		return result;
+	}
+	
+	@RequestMapping(value = "swaptable", method = RequestMethod.POST)
+	@ResponseBody
+	public int swaptable(HttpSession session, @RequestBody HashMap<String, Integer> map) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		int result = 0;
+		result = repo.swaptable(map);
+		System.out.println(result);
+		return result;
+	}
+	
+
+	@RequestMapping(value = "mergetable", method = RequestMethod.POST)
+	@ResponseBody
+	public String mergetable(HttpSession session, @RequestBody HashMap<String, Integer> map, Sales_state sas) {
+		// detail의 from_sasseq에 해당하는 자료의 sas_seq를 to로 옮긴다
+		// from_sasseq state의 정보 중 객수와 메모는 to_sasseq로 옮겨붙인다.
+		// from_sasseq state는 삭제한다.
+		String result = "fail";
+		
+		sas.setSales_state_seq(map.get("from_sasseq"));
+		System.out.println(sas.getSales_state_seq());
+		int mergeResult = repo.mergetable(map);
+		int delResult = repo.deleteSas(sas);
+		System.out.println("merge : " + mergeResult + ", delR : " + delResult);
+
+		return result;
+	}
+	
 	//
 	//
 	//////
@@ -287,31 +388,6 @@ public class PosController {
 		return "backside/choiTestCashonHand";
 	}
 
-	@RequestMapping(value = "insertCashonhand", method = RequestMethod.POST)
-	@ResponseBody
-	public String insertCashonhand(HttpSession session, Cashonhand cashonhand) {
-
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		System.out.println("comp_seq 컨트롤러 : " + comp_seq);
-		cashonhand.setComp_seq(comp_seq);
-
-		System.out.println("cashonhand 컨트롤러 : " + cashonhand);
-		int result = repo.insertCashonhand(cashonhand);
-
-		System.out.println("result 컨트롤러 : " + result);
-
-		return "success";
-	}
-
-	@RequestMapping(value = "selectCashonhand", method = RequestMethod.POST)
-	@ResponseBody
-	public List<Cashonhand> selectCashonhand(HttpSession session, Cashonhand cashonhand) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		cashonhand.setComp_seq(comp_seq);
-		List<Cashonhand> result = repo.selectCashonhand(cashonhand);
-		return result;
-	}
-
 	@RequestMapping(value = "selectCashOne", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Cashonhand> selectCashOne(HttpSession session, Cashonhand cashonhand) {
@@ -334,29 +410,6 @@ public class PosController {
 		System.out.println(cashonhand_seq);
 		return "success";
 
-	}
-
-	@RequestMapping(value = "predicCash", method = RequestMethod.POST)
-	@ResponseBody
-	public String predicCash(HttpSession session) {
-		// predictCash
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		ArrayList<Cashonhand> cohs = repo.predictCash(comp_seq);
-		int predictPmtCash = repo.predictPmtCash(comp_seq);
-
-		int result = 0;
-		for (Cashonhand c : cohs) {
-			if (c.getCashonhand_type() == 1 || c.getCashonhand_type() == 3) {
-				result += c.getCashonhand_cash();
-			} else if (c.getCashonhand_type() == 2) {
-				result -= c.getCashonhand_cash();
-			}
-		}
-		result += predictPmtCash;
-
-		System.out.println(result);
-
-		return "success";
 	}
 
 }

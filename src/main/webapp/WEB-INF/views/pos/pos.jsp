@@ -75,19 +75,19 @@
               <!-- 현재 로그인한 회사의 이름 -->
               <div class="row box">
                 <div class="col-md-3">
-                  <input type="text" class="form-control text-center" id="pos-1-1" value="호정이네 설렁탕" disabled="disabled">
+                  <input type="text" class="form-control text-center" id="pos-1-1" value="company name" disabled="disabled">
                 </div>
                 <!-- 현재 로그인한 직원의 이름 -->
                 <div class="col-md-3">
-                  <input type="text" class="form-control text-center" id="pos-1-2" value="사용자: 이호정" disabled="disabled">
+                  <input type="text" class="form-control text-center" id="pos-1-2" value="user name" disabled="disabled">
                 </div>
                 <!-- 현재 로그인한 회사의 전체 좌석수 -->
                 <div class="col-md-3">
-                  <input type="text" class="form-control text-center" id="pos-1-3" value="총 00 석 " disabled="disabled">
+                  <input type="text" class="form-control text-center" id="pos-1-3" value="total seats" disabled="disabled">
                 </div>
                 <!-- 현재 로그인한 회사의 가용 좌석수 -->
                 <div class="col-md-3">
-                  <input type="text" class="form-control text-center" id="pos-1-4" value="현재 00 석 이용중" disabled="disabled">
+                  <input type="text" class="form-control text-center" id="pos-1-4" value="occupied seats" disabled="disabled">
                 </div>
               </div>
             </div>
@@ -106,14 +106,12 @@
                 </div>
               </div>
               <div class="card-footer">
-                <h5 class="title">div1-footer혹시 모를 용도의 새로고침 버튼을 여기 둘까?</h5>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <h5 class="title">div2 (POS기능 메인화면 기능메뉴 버튼들..)</h5>
               </div>
               <div class="card-body box">
                 <div class="row">
@@ -132,7 +130,7 @@
                 </div>
                 <br>
                 <div class="row">
-                  <div class="col-md-2 mx-auto form-control" id="pos-2-5">
+                  <!-- <div class="col-md-2 mx-auto form-control" id="pos-2-5">
                     <h5 class="title">버튼5</h5>
                   </div>
                   <div class="col-md-2 mx-auto form-control" id="pos-2-6">
@@ -143,7 +141,7 @@
                   </div>
                   <div class="col-md-2 mx-auto form-control" id="pos-2-8">
                     <h5 class="title">버튼8</h5>
-                  </div>
+                  </div> -->
                 </div>
                 <br>
                 <div class="row">
@@ -155,64 +153,58 @@
                     <div class="modal-dialog">
                       <div class="modal-header">
                       </div>
-                      <div class="modal-content bg-dark">
+                      <div class="modal-content bg-gray">
                         <div class="row">
-                          <div class="col-md-12 text-center">
-                            <h1 class="title">(영업개시) 시재를 입력하십시오.</h1>
+                          <div class="col-md-12 text-darker text-center">
+                            <h1 class="title" id="coh_title_1">[영업개시금]을 입력하십시오.</h1>
+                            <h1 class="title" id="coh_title_2" style="display: none;">[시재 회수 금액]을 입력하십시오.</h1>
+                            <h1 class="title" id="coh_title_3" style="display: none;">[시재 투입 금액]을 입력하십시오.</h1>
+                            <h1 class="title" id="coh_title_4" style="display: none;">[시재 마감 점검]을 입력하십시오.</h1>
                           </div>
                         </div>
-                        <div class="row">
+                        <div class="row text-">
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" placeholder="5만원권">
-                          </div>
-                          <div class="col-md-4 text-primary">
-                            난까노 유효성검사 _js_ will be placed here.
+                            <input type="number" class="form-control text-primary" id="coh_50k" placeholder="5만원권">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" placeholder="1만원권">
-                          </div>
-                          <div class="col-md-4 text-primary">
-                            난까노 유효성검사 _js_ will be placed here.
+                            <input type="number" class="form-control text-primary" id="coh_10k" placeholder="1만원권">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" placeholder="5천원권">
-                          </div>
-                          <div class="col-md-4 text-primary">
-                            난까노 유효성검사 _js_ will be placed here.
+                            <input type="number" class="form-control text-primary" id="coh_5k" placeholder="5천원권">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" placeholder="1천원권">
-                          </div>
-                          <div class="col-md-4 text-primary">
-                            난까노 유효성검사 _js_ will be placed here.
+                            <input type="number" class="form-control text-primary" id="coh_1k" placeholder="1천원권">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" placeholder="5백원동전">
-                          </div>
-                          <div class="col-md-4 text-primary">
-                            난까노 유효성검사 _js_ will be placed here.
+                            <input type="number" class="form-control text-primary" id="coh_5c" placeholder="5백원동전">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" placeholder="1백원동전">
+                            <input type="number" class="form-control text-primary" id="coh_1c" placeholder="1백원동전">
                           </div>
-                          <div class="col-md-4 text-primary">
-                            난까노 유효성검사 _js_ will be placed here.
+                          <div class="col-md-7 form-group text-primary mx-auto">
+                            <input type="number" class="form-control text-primary" id="coh_error" placeholder="오류금액의 총액(원단위)을 입력하세요." style="display: none;">
                           </div>
-                          <div class="col-md-5 text-primary mx-auto">
-                            <h1>총액 표시 _js_</h1>
+                          <div class="col-md-7 text-primary mx-auto">
+                            <h2 id="coh_listtotal">total: </h2>
+                          </div>
+                          <div class="col-md-5 text-primary mx-auto box">
+                            <input type="button" value="영업개시" id="pos-btn-2-9-1">
+                            <input type="button" value="시재회수" id="pos-btn-2-10-1" style="display: none;">
+                            <input type="button" value="시재투입" id="pos-btn-2-11-1" style="display: none;">
+                            <input type="button" value="영업마감" id="pos-btn-2-12-1" style="display: none;">
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-3 mx-auto">
-                    <input type="button" value="시재회수" id="pos-2-10">
+                    <input type="button" value="시재회수" id="pos-2-10" data-toggle="modal" data-target="#pos_cash_open">
                   </div>
                   <div class="col-md-3 mx-auto">
-                    <input type="button" value="시재투입" id="pos-2-11">
+                    <input type="button" value="시재투입" id="pos-2-11" data-toggle="modal" data-target="#pos_cash_open">
                   </div>
                   <div class="col-md-3 mx-auto">
-                    <input type="button" value="영업마감" id="pos-2-12">
+                    <input type="button" value="영업마감" id="pos-2-12" data-toggle="modal" data-target="#pos_cash_open">
                   </div>
                 </div>
                 <br>
@@ -220,21 +212,26 @@
                   <div class="col-md-4 mx-auto" id="pos-2-13">
                     <input type="text" class="form-control text-center" id="pos-2-13-1" value="현재시재" disabled="disabled">
                   </div>
-                  <div class="col-md-4 mx-auto" id="pos-2-14">
-                    <input type="text" class="form-control text-center" id="pos-2-14-1" value="금일매출" disabled="disabled">
-                  </div>
+                  <!-- 
                   <div class="col-md-2 mx-auto form-control" id="pos-2-15">
                     <h5 class="title">버튼15</h5>
                   </div>
+                   -->
+                  <div class="col-md-4 mx-auto" id="pos-2-14">
+                    <input type="text" class="form-control text-center" id="pos-2-14-1" value="금일매출" disabled="disabled">
+                  </div>
+                  <!-- 
                   <div class="col-md-2 mx-auto form-control" id="pos-2-16">
                     <h5 class="title">버튼16</h5>
                   </div>
+                   -->
                 </div>
                 <br>
                 <div class="row">
                   <div class="col-md-3 mx-auto">
                     <input type="button" value="결제내역조회" id="pos-2-17">
                   </div>
+                  <!-- 
                   <div class="col-md-2 mx-auto form-control" id="pos-2-18">
                     <h5 class="title">버튼18</h5>
                   </div>
@@ -244,18 +241,17 @@
                   <div class="col-md-3 mx-auto">
                     <h5 class="title">버튼20</h5>
                   </div>
+                   -->
                 </div>
               </div>
-              <br><br><br><br><br><br>
               <div class="card-footer">
-                <h5 class="title">div2-footer</h5>
               </div>
             </div>
           </div>
         </div>
 
 
-        <div class="row" id="pos-lower">
+        <div class="row" id="pos-lower" style="display: none;">
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
@@ -264,6 +260,7 @@
               <div class="card-body">
                 <div class="row">
                   <input type="text" class="form-control" id="ppodseatno" value=" 번 테이블" readonly="readonly">
+                  <input type="hidden" id="ppodvisitors" value="">
                   <input type="hidden" id="ppodseatseq" value="">
                   <input type="hidden" id="preparedOrder" value="">
                   <input type="hidden" id="preparedOrderMemo" value="">
@@ -333,7 +330,7 @@
                     </table>
 
                     <!--  카드/현금결제용 modal -->
-                    <div class="modal modal-default" id="pos_payment_card">
+                    <div class="modal modal-default" id="pos_payment">
                       <div class="modal-dialog">
                         <div class="modal-header">
                         </div>
@@ -343,6 +340,7 @@
                               <h3 class="title">[결제] 정말로 결제완료 처리 하시겠습니까? </h3>
                             </div>
                           </div>
+                          <div class="row box">
                           <div class="col-md-4 form-group text-primary mx-auto">
                             <input type="button" id="pos-btn-4-3" value="카드결제">
                           </div>
@@ -351,6 +349,7 @@
                           </div>
                           <div class="col-md-4 text-primary">
                             <input type="button" data-dismiss="modal" value="취소">
+                          </div>
                           </div>
                         </div>
                       </div>
@@ -435,8 +434,10 @@
     </footer>
   </div>
   <input type="hidden" id="funcFlag" value="0">
-  <input type="hidden" id="tableSeqFirst" value="0">
-  <input type="hidden" id="tableSeqSecond" value="0">
+  <input type="hidden" id="tableSeqFirst" value="">
+  <input type="hidden" id="sasSeqFirst" value="">
+  <input type="hidden" id="tableSeqSecond" value="">
+  <input type="hidden" id="sasSeqSecond" value="">
   </div>
 
 
@@ -453,8 +454,8 @@
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
 
   <script>
-    var funcFlag = 0;
     $(function() {
+    	pos_coh_hasstarted();
       $('ul.tab li').click(function() {
         var activeTab = $(this).attr('data-tab');
         $('ul.tab li').removeClass('current');
@@ -466,6 +467,7 @@
       pos_setbuttons();
       pos_loadmenu();
       pos_loadcohexpected();
+      pos_loadpaymenttoday();
     });
 
     function pos_loadseat() {
@@ -502,7 +504,6 @@
 
               var output = '';
               $.each(resp, function(idx, obj) {
-                console.log(resp)
                 if (idx % devider == 0) {
                   output += '<div class="row">';
                 }
@@ -601,19 +602,42 @@
       /* alert("alert on rcved function and $this selector " + $(this).attr('s-seatseq') + "번 table") */
       alert('\n\nparam1: "' + param1 + '" and param2: "' + param2 + '" and "' + param3 + '" and "' + param4 + '" has selected.');
 
+      
       // param4는 seat가 occupied이면 뭔가 내용이 온다. undefined는 빈 seat라는 것.
       if (param4 == undefined) {
         // param1 이 0이면 주문을 받는다.
         if (param1 == 0) {
+       	  var ppodvisitors = prompt('내점 인원수를 입력하세요.',1);
+          $('#ppodvisitors').val(ppodvisitors);
+            
           $('#pos-upper').css('display', 'none');
           $('#pos-lower').css('display', 'flex');
           $('#ppodseatseq').val(param2);
           $('#ppodseatno').val('현재 선택한 테이블: ' + param3);
           $('#tempordertype').val('new');
           pos_ppOrderList();
+        } else if ( param1 == 1 ) {
+        	if ($('#tableSeqFirst').val().length != 0) {
+            	$('#tableSeqSecond').val(param2)
+            	alert('table_move!');
+            	pos_table_move();
+	        } else {
+	        	$('#funcFlag').val('0');
+	            $('#tableSeqFirst').val('');
+	            $('#tableSeqSecond').val('');
+	        	alert('비어있는 자리를 이동하거나 합칠 수 없습니다. 기능을 취소합니다.')
+	        	return false;
+	        }
+        } else if ( param1 == 2 || param1 == 3) {
+        	$('#funcFlag').val('0');
+            $('#tableSeqFirst').val('');
+            $('#tableSeqSecond').val('');
+        	alert('비어있는 자리를 이동하거나 합칠 수 없습니다. 기능을 취소합니다.')
+        	return false;
         }
       } else {
-        // param이 4면 이미 주문된 내역을 불러온다.
+          if (param1 == 0) {
+        // param4가 있으면 이미 주문된 내역을 불러온다.
         $('#pos-upper').css('display', 'none');
         $('#pos-lower').css('display', 'flex');
         $('#ppodseatseq').val(param2);
@@ -621,6 +645,25 @@
         $('#preparedOrderMemo').val(param5);
         $('#tempordertype').val('replace');
         pos_alOrderList(param4);
+          }else if (param1 == 1 || param1 == 2) {
+        	if ( $('#tableSeqFirst').val().length == 0 ) {
+        		$('#tableSeqFirst').val(param2)
+        		$('#sasSeqFirst').val(param4)
+        	} else {
+        		$('#tableSeqSecond').val(param2)
+        		$('#sasSeqSecond').val(param4)
+        		pos_table_swap()
+        	}
+        } else if (param1 == 3) {
+        	if ( $('#tableSeqFirst').val().length == 0 ) {
+        		$('#tableSeqFirst').val(param2)
+        		$('#sasSeqFirst').val(param4)
+        	} else {
+        		$('#tableSeqSecond').val(param2)
+        		$('#sasSeqSecond').val(param4)
+        		pos_table_merge()
+        	}
+        }
       }
     }
 
@@ -639,15 +682,20 @@
       });
       $('#pos-2-4').on('click', function() {
         $('#funcFlag').val('0');
-        $('#tableSeqFirst').val('0');
-        $('#tableSeqSecond').val('0');
+        $('#tableSeqFirst').val('');
+        $('#tableSeqSecond').val('');
         alert('모든 기능을 취소합니다.');
       });
 
-      $('#pos-2-9').on('click', pos_cash_open);
-      $('#pos-2-10').on('click', pos_cash_withdraw);
-      $('#pos-2-11').on('click', pos_cash_deposit);
-      $('#pos-2-12').on('click', pos_cash_close);
+      $('#pos-2-9').on('click', pos_modal_1);
+      $('#pos-2-10').on('click', pos_modal_2);
+      $('#pos-2-11').on('click', pos_modal_3);
+      $('#pos-2-12').on('click', pos_modal_4);
+      
+      $('#pos-btn-2-9-1').on('click', pos_cash_open);
+      $('#pos-btn-2-10-1').on('click', pos_cash_withdraw);
+      $('#pos-btn-2-11-1').on('click', pos_cash_deposit);
+      $('#pos-btn-2-12-1').on('click', pos_cash_close);
 
       $('#pos-2-17').on('click', function() {
         pos_pmt_list();
@@ -705,17 +753,6 @@
     function pos_seat_merge_exec() {
       alert('param1, param2을 받아 합칩니다.')
     }
-
-    function pos_cash_open() {}
-
-    function pos_cash_withdraw() {}
-
-    function pos_cash_deposit() {}
-
-    function pos_cash_close() {}
-
-    function pos_pmt_list() {}
-
 
     /* 	메뉴 목록 출력 */
     function pos_loadmenu() {
@@ -787,7 +824,7 @@
       var ppod = $('#preparedOrder').val();
       ppod = ppod.substr(0, ppod.length - 1);
       var ppod_arr = ppod.split('|');
-
+      
       var list = [];
       var listsum = 0;
       var ppod_output = '';
@@ -968,7 +1005,7 @@
 
       var seat_seq = $('#ppodseatseq').val();
       var ppod_memo = $('#preparedOrderMemo').val();
-      var sales_visitors = $('#salesvisitors').val();
+      var sales_visitors = $('#ppodvisitors').val();
       var sales_state_seq = $('#alodsasseq').val();
 
       var ppod = $('#preparedOrder').val();
@@ -977,11 +1014,13 @@
         "seat_seq": seat_seq,
         "sales_memo": ppod_memo,
         "ppod": ppod,
+        "sales_visitors" : sales_visitors
       }
       var senddata_replace = {
         "seat_seq": seat_seq,
         "sales_memo": ppod_memo,
         "ppod": ppod,
+        "sales_visitors" : sales_visitors,
         "sales_state_seq": sales_state_seq
       }
 
@@ -1138,7 +1177,7 @@
 
     function pos_loadcohexpected() {
       $.ajax({
-        url: 'loadcohexpected',
+        url: 'predicCash',
         method: 'POST',
         success: function(resp) {
           $('#pos-2-13-1').val('예상시재액 : ' + resp);
@@ -1146,8 +1185,288 @@
       })
     }
 
+    function pos_loadpaymenttoday() {
+        $.ajax({
+          url: 'cumulatepaymenttoday',
+          method: 'POST',
+          success: function(resp) {
+            $('#pos-2-14-1').val('금일매출누계 : ' + resp);
+          }
+        })
+      }
+    
+    function pos_coh_hasstarted() {
+    	var start_chker = 0;
+    	var end_chker = 0;
+    	
+    	$('#coh_50k').change(pos_coh_chktotal)
+    	$('#coh_10k').change(pos_coh_chktotal)
+    	$('#coh_5k').change(pos_coh_chktotal)
+    	$('#coh_1k').change(pos_coh_chktotal)
+    	$('#coh_5c').change(pos_coh_chktotal)
+    	$('#coh_1c').change(pos_coh_chktotal)
+    	$('#coh_error').change(pos_coh_chktotal)
+    	
+    	$.ajax({
+            url: 'selectCashonhand',
+            method: 'POST',
+            success: function(resp) {
+            	console.log(resp);
+            	$.each(resp, function(idx, obj) {
+            		console.log(obj);
+            		console.log(obj.cashonhand_type);
+            		if ( obj.cashonhand_type == 1 ) {
+            			start_chker++;
+            		}
+            		if ( obj.cashonhand_type == 4 ) {
+            			end_chker++;
+            		}
+            		
+            	})
+            	if (start_chker == 0 ) {
+            		alert('영업개시 버튼을 눌러 시재를 입력하십시오.');
+            		$('#pos_cash_open').modal('show');
+            	}
+            	if (end_chker != 0 ) {
+            		alert('이미 영업을 마감하셨습니다.\n');
+            		document.location.replace('${pageContext.request.contextPath}');
+            	}
+            }
+          })
+    }
+    
+    function pos_coh_chktotal() {
+    	var k50 = $('#coh_50k').val();
+    	var k10 = $('#coh_10k').val();
+    	var k5 = $('#coh_5k').val();
+    	var k1 = $('#coh_1k').val();
+    	var c5 = $('#coh_5c').val();
+    	var c1 = $('#coh_1c').val();
+    	var err = $('#coh_error').val();
+    	
+    	var total = k50 * 50000 + k10 * 10000 + k5 * 5000 + k1 * 1000 + c5 * 500 + c1 * 100 + err * 1;
+    	
+    	$('#coh_listtotal').html("total: " + total);
+    }
+
+    function pos_cash_open() {
+    	var cashonhand_type = 1;
+    	$('#coh_error').val('');
+    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
+    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
+    	$.ajax({
+    		url : 'insertCashonhand'
+    		, method : 'POST'
+    		, data : senddata
+    		, success : function() {
+    			alert('등록성공')
+    			document.location.reload();		
+    		}
+    	})
+    }
+
+    function pos_cash_withdraw() {
+    	var cashonhand_type = 2;
+    	$('#coh_error').val('');
+    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
+    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
+    	$.ajax({
+    		url : 'insertCashonhand'
+    		, method : 'POST'
+    		, data : senddata
+    		, success : function() {
+    			alert('등록성공')
+    			document.location.reload();		
+    		}
+    	})
+    }
+
+    function pos_cash_deposit() {
+    	var cashonhand_type = 3;
+    	$('#coh_error').val('');
+    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
+    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
+    	$.ajax({
+    		url : 'insertCashonhand'
+    		, method : 'POST'
+    		, data : senddata
+    		, success : function() {
+    			alert('등록성공')
+    			document.location.reload();		
+    		}
+    	})
+    }
+
+    function pos_cash_close() {
+    	var expected_cash = $('#pos-2-13-1').val().substr(7,$('#pos-2-13-1').val().length);
+    	console.log(expected_cash);
+    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
+
+    	if ( expected_cash != cashonhand_cash ) {
+	    	alert('예상금액과 현재 시재가 일치하지 않습니다. 오류금액을 입력하십시오.')
+	    	return false;
+    	} else {
+    		var conf = confirm('마감처리하시면 오늘은 더 이상 POS기능을 사용할 수 없습니다. 정말 진행하시겠습니까?')
+    		if ( conf != true ) {
+    			return false;
+    		}
+    	}
+    	
+    	var cashonhand_type = 4;
+    	var cashonhand_error = $('#coh_error').val();
+    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
+    	$.ajax({
+    		url : 'insertCashonhand'
+    		, method : 'POST'
+    		, data : senddata
+    		, success : function() {
+    			alert('등록성공')
+    			document.location.reload();		
+    		}
+    	})
+    }
+
+    function pos_modal_1() {
+    	$('#coh_title_1').css('display', 'flex');
+    	$('#pos-btn-2-9-1').css('display', 'flex');
+    	
+    	$('#coh_title_2').css('display', 'none');
+    	$('#coh_title_3').css('display', 'none');
+    	$('#coh_title_4').css('display', 'none');
+    	
+    	$('#coh_error').css('display', 'none');
+    	
+    	$('#pos-btn-2-10-1').css('display', 'none');
+    	$('#pos-btn-2-11-1').css('display', 'none');
+    	$('#pos-btn-2-12-1').css('display', 'none');
+    }
+    
+    function pos_modal_2() {
+    	$('#coh_title_2').css('display', 'flex');
+    	$('#pos-btn-2-10-1').css('display', 'flex');
+    	
+    	$('#coh_title_1').css('display', 'none');
+    	$('#coh_title_3').css('display', 'none');
+    	$('#coh_title_4').css('display', 'none');
+    	
+    	$('#coh_error').css('display', 'none');
+    	
+    	$('#pos-btn-2-9-1').css('display', 'none');
+    	$('#pos-btn-2-11-1').css('display', 'none');
+    	$('#pos-btn-2-12-1').css('display', 'none');
+    }
+    
+    
+    function pos_modal_3() {
+    	$('#coh_title_3').css('display', 'flex');
+    	$('#pos-btn-2-11-1').css('display', 'flex');
+    	
+    	$('#coh_title_1').css('display', 'none');
+    	$('#coh_title_2').css('display', 'none');
+    	$('#coh_title_4').css('display', 'none');
+    	
+    	$('#coh_error').css('display', 'none');
+    	
+    	$('#pos-btn-2-9-1').css('display', 'none');
+    	$('#pos-btn-2-10-1').css('display', 'none');
+    	$('#pos-btn-2-12-1').css('display', 'none');
+    }
+    
+    
+    function pos_modal_4() {
+    	$('#coh_title_4').css('display', 'flex');
+    	$('#pos-btn-2-12-1').css('display', 'flex');
+    	$('#coh_error').css('display', 'flex');
+    	
+    	$('#coh_title_1').css('display', 'none');
+    	$('#coh_title_2').css('display', 'none');
+    	$('#coh_title_3').css('display', 'none');
+    	
+    	$('#pos-btn-2-9-1').css('display', 'none');
+    	$('#pos-btn-2-10-1').css('display', 'none');
+    	$('#pos-btn-2-11-1').css('display', 'none');
+    }
+    
+    
+    function pos_pmt_list() {}
+
+    function pos_table_move() {
+    	var from_sasseq = $('#sasSeqFirst').val();
+    	var to_seatseq = $('#tableSeqSecond').val();
+    	
+    	$('#tableSeqFirst').val('');
+    	$('#sasSeqFirst').val('');
+		$('#tableSeqSecond').val('');
+		$('#sasSeqSecond').val('');
+		$('#funcFlag').val('0');
+		
+		var map = { "from_sasseq" : from_sasseq , "to_seatseq" : to_seatseq };
+		$.ajax({
+			url : 'movetable'
+			, method : 'POST'
+			, data : JSON.stringify(map)
+			, dataType : 'json'
+			, contentType : 'application/json; charset=UTF-8'
+			, success : function() {
+				alert('자리를 이동하였습니다.')
+				document.location.reload();
+			}
+		})
+    }
+
+    function pos_table_swap() {
+    	var from_seatseq = $('#tableSeqFirst').val();
+    	var from_sasseq = $('#sasSeqFirst').val();
+    	var to_seatseq = $('#tableSeqSecond').val();
+    	var to_sasseq = $('#sasSeqSecond').val();
+    	
+    	$('#tableSeqFirst').val('');
+    	$('#sasSeqFirst').val('');
+		$('#tableSeqSecond').val('');
+		$('#sasSeqSecond').val('');
+		$('#funcFlag').val('0');
+		
+		var map = { "from_seatseq" : from_seatseq, "from_sasseq" : from_sasseq , "to_seatseq" : to_seatseq, "to_sasseq" : to_sasseq };
+		$.ajax({
+			url : 'swaptable'
+			, method : 'POST'
+			, data : JSON.stringify(map)
+			, dataType : 'json'
+			, contentType : 'application/json; charset=UTF-8'
+			, success : function() {
+				alert('자리를 교환하였습니다.')
+				document.location.reload();
+			}
+		})
+    }
+    
+    function pos_table_merge() {
+    	var from_seatseq = $('#tableSeqFirst').val();
+    	var from_sasseq = $('#sasSeqFirst').val();
+    	var to_seatseq = $('#tableSeqSecond').val();
+    	var to_sasseq = $('#sasSeqSecond').val();
+    	
+    	$('#tableSeqFirst').val('');
+    	$('#sasSeqFirst').val('');
+		$('#tableSeqSecond').val('');
+		$('#sasSeqSecond').val('');
+		$('#funcFlag').val('0');
+		
+		var map = { "from_seatseq" : from_seatseq, "from_sasseq" : from_sasseq , "to_seatseq" : to_seatseq, "to_sasseq" : to_sasseq };
+		$.ajax({
+			url : 'mergetable'
+			, method : 'POST'
+			, data : JSON.stringify(map)
+			, dataType : 'json'
+			, contentType : 'application/json; charset=UTF-8'
+			, success : function() {
+				alert('자리를 병합하였습니다.')
+				document.location.reload();
+			}
+		})
+    }
+    
+    
   </script>
-
 </body>
-
 </html>

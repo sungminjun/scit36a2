@@ -1,4 +1,5 @@
 package com.scit36a2.minnano.dao;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface PosDAO {
 
 	public int deleteSasSadPay(int comp_seq);
 
-	public ArrayList<HashMap<String,Object>> selectPOSone(int comp_seq);
+	public ArrayList<HashMap<String, Object>> selectPOSone(int comp_seq);
 
 	public ArrayList<HashMap<String, Object>> selectPOStwo(int comp_seq);
 
@@ -38,20 +39,29 @@ public interface PosDAO {
 
 	public int makepayment(Payment pmt);
 
-  public int insertCashonhand(Cashonhand cashonhand);
+	public int insertCashonhand(Cashonhand cashonhand);
 
 	public List<Cashonhand> selectCashonhand(Cashonhand cashonhand);
 
 	public List<Cashonhand> selectCashOne(Cashonhand cashonhand);
-	
+
 	public int deleteCashonhand(Cashonhand cashonhand);
 
 	public ArrayList<Cashonhand> predictCash(int comp_seq);
 
-	public int predictPmtCash(int comp_seq);
+	public Integer predictPmtCash(int comp_seq);
 
 	public ArrayList<HashMap<String, Object>> selectPosReport(HashMap<String, Object> map);
 
 	public ArrayList<HashMap<String, Object>> selectPaymentList(int comp_seq);
-}
 
+	public Integer cumulatepaymenttoday(int comp_seq);
+
+	public Integer swaptable(HashMap<String, Integer> map);
+
+	public Integer movetable(HashMap<String, Integer> map);
+
+	public Integer mergetable(HashMap<String, Integer> map);
+
+	public Integer deleteSas(Sales_state sas);
+}

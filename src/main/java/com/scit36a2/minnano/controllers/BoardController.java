@@ -74,6 +74,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/boardRegist", method=RequestMethod.GET)
 	public String boardRegist() {
+		
 		return "board/boardRegist";
 	}
 
@@ -83,22 +84,31 @@ public class BoardController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/boardRegist", method=RequestMethod.POST)
-	public String boardRegist(
+	@RequestMapping(value="boardRegist", method=RequestMethod.POST)
+	public String insertBoard(
 			Board board,
-			MultipartFile upload,
-			HttpSession session ) {
-
-		int emp_seq = (int)session.getAttribute("emp_seq");
+			MultipartFile upload, String board_title, String board_content,
+			HttpSession session,String board_category) {
+			
+		System.out.println("board : " + board + ", " + upload.getOriginalFilename());
+		System.out.println("session : " + session);
+		int emp_seq = (Integer)session.getAttribute("emp_seq");
+		System.out.println(emp_seq);
 		board.setEmp_seq(emp_seq);
+		System.out.println("board : " + board);
+		board.setBoard_title(board_title);
+		board.setBoard_content(board_content);
+		board.setBoard_category(board_category);
 		
-		String board_orgname = upload.getOriginalFilename();
+		String board_orgname1 = upload.getOriginalFilename();
 		String board_savname = FileService.saveFile(upload, uploadPath);
 		
-		board.setBoard_orgname(board_orgname);
+		
+		board.setBoard_orgname(board_orgname1);
 		board.setBoard_savname(board_savname);
 		System.out.println("controller : " + board);
-		int result = repo.boardRegist(board);
+		int result = repo.insertBoard(board);
+	
 		return "redirect:/boardList";
 	}
 

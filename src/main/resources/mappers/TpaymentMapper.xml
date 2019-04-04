@@ -12,7 +12,7 @@
    
   	<select id="selectPaymentList" resultType="HashMap" parameterType="HashMap">
    	SELECT
-	    to_char(min(payment_time), 'mmdd HH24') as daytime
+	    to_char(min(payment_time), 'mmdd') as daytime
 	    , sum(payment_amount) as payment_amount_sum
 	    , sum(sales_order) as sales_order_sum
 	FROM 
@@ -26,7 +26,7 @@
     WHERE
 	    comp_seq = #{comp_seq} and payment_time between trunc(sysdate,'mm') and sysdate
 	GROUP BY 
-	    to_char(payment_time, 'mmdd HH24')
+	    to_char(payment_time, 'mmdd')
 	ORDER BY 
 	  	daytime
   	</select>
@@ -47,7 +47,7 @@
     </sql> 
  -->
    	
-  		<select id="selectListOne" resultType="Map" parameterType="hashmap">
+ <select id="selectListOne" resultType="Map" parameterType="hashmap">
   	select
     	p.payment_seq as payment_seq  
     	, s.sales_state_seq as sales_state_seq
@@ -62,10 +62,31 @@
  		and payment_time > to_date('2019-03-26 11:59:59','YYYY-MM-DD HH24:mi:ss') 
  		and comp_seq = #{comp_seq}
  		]]>  		
+ </select>
+ 
+ <select id="searchDayPosReport" resultType="HashMap" parameterType="HashMap">
+  	  SELECT
+	    to_char(min(payment_time), 'YYYY-MM-DD') as daytime
+	    , sum(payment_amount) as payment_amount_sum
+	    , sum(sales_order) as sales_order_sum
+	FROM 
+		(SELECT 
+	        p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+	    FROM
+	        payment p
+	        LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+	        LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+    WHERE
+	    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+	GROUP BY 
+	    to_char(payment_time, 'YYYY-MM-DD')
+	ORDER BY 
+	  	daytime
   	</select>
-  	<select id="selectPosReport" resultType="HashMap" parameterType="Hashmap">
+  	<select id="selectWeekPosReport" resultType="HashMap" parameterType="Hashmap">
   	 SELECT
-       to_char(payment_time, 'WW') as daytime
+       to_char(payment_time, 'WW') as weektime
        , sum(payment_amount) as payment_amount_sum
        , sum(sales_order) as sales_order_sum
       
@@ -82,6 +103,54 @@
    GROUP BY 
        to_char(payment_time, 'WW')
    ORDER BY 
-        daytime
-  	</select>
-    </mapper>
+        weektime
+ </select>
+ 
+ <select id="selectWeekDay" resultType="HashMap" parameterType="Hashmap">
+  	SELECT DISTINCT
+	       to_char(payment_time, 'WW') as week
+	       ,to_char(trunc(payment_time,'D'),'YYYY/MM/DD day')   AS start_week
+	  		,to_char(trunc(payment_time,'D')+6,'YYYY/MM/DD day') AS end_week
+   FROM
+      (SELECT 
+           p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+       FROM
+           payment p
+           LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+           LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+       ORDER BY payment_time) 
+    WHERE
+       comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+   GROUP BY 
+       to_char(payment_time, 'WW')
+       ,payment_time
+       ,'WW'
+       ,to_char(payment_time, 'd')
+       ,payment_time
+       ,'d'
+       ,TO_CHAR(trunc(payment_time,'D'),'YYYY/MM/DD')
+       ,TO_CHAR(trunc(payment_time,'D')+6,'YYYY/MM/DD')
+   ORDER BY 
+   		week
+ </select>
+ <select id="selectMonthPosReport" resultType="HashMap" parameterType="Hashmap">
+ SELECT
+	    to_char(min(payment_time), 'YYYY-MM') as monthtime
+	    , sum(payment_amount) as payment_amount_sum
+	    , sum(sales_order) as sales_order_sum
+	FROM 
+		(SELECT 
+	        p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+	    FROM
+	        payment p
+	        LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+	        LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+    WHERE
+	    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+	GROUP BY 
+	    to_char(payment_time, 'YYYY-MM')
+	ORDER BY 
+	  	monthtime
+ </select>
+  </mapper>

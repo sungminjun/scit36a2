@@ -74,9 +74,33 @@ public class PosRepo {
 	
 
 
-	public ArrayList<HashMap<String, Object>> selectPosReport(HashMap<String, Object> map) {
+	public ArrayList<HashMap<String, Object>> selectWeekPosReport(HashMap<String, Object> map) {
 		PosDAO dao=session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String,Object>>list=dao.selectPosReport(map);
+		ArrayList<HashMap<String,Object>>list=dao.selectWeekPosReport(map);
+		return list;
+	}
+
+
+
+	public ArrayList<HashMap<String, Object>> selectWeekDay(HashMap<String, Object> map) {
+		PosDAO dao=session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String,Object>>list=dao.selectWeekDay(map);
+		return list;
+	}
+
+
+
+	public ArrayList<Object> searchDayPosReport(HashMap<String, Object> map) {
+		PosDAO dao=session.getMapper(PosDAO.class);
+		ArrayList<Object>list=dao.searchDayPosReport(map);
+		return list;
+	}
+
+
+
+	public ArrayList<Object> selectMonthPosReport(HashMap<String, Object> map) {
+		PosDAO dao=session.getMapper(PosDAO.class);
+		ArrayList<Object>list=dao.selectMonthPosReport(map);
 		return list;
 	}
 

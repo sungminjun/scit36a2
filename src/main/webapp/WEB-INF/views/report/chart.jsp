@@ -18,11 +18,6 @@
 <!-- CSS Files -->
 <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project -->
-<link href="assets/demo/demo.css" rel="stylesheet" />
-<!-- google material.io -->
-<!-- 	
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- -->
 <style type="text/css">
 </style>
 </head>
@@ -30,9 +25,6 @@
 <body class="white-content">
 	<div class="wrapper">
 		<div class="sidebar" data="blue">
-			<!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
-    -->
 			<div class="sidebar-wrapper">
 				<div class="logo">
 					<a href="javascript:void(0)" class="simple-text logo-normal">
@@ -69,23 +61,28 @@
 								<p style="size: 20em;">
 									민나노매점
 									</p1>
-									<button type="submit" class="btn-default ml-auto mr-auto"
-										id="day">일기준</button>
-									<button type="submit" class="btn-default ml-auto mr-auto"
-										id="week">주기준</button>
-									<button type="submit" class="btn-default ml-auto mr-auto"
-										id="month">월기준</button>
-									<p1>시작</p1>
-									<input type="text" id="datepicker1" placeholder="yy-mm-dd"
-										style="width: 100px">
-									<p1>종료</p1>
-									<input type="text" id="datepicker2" placeholder="yy-mm-dd"
-										style="width: 100px">
-									<button type="submit" class="btn ml-auto mr-auto" id="search">검색</button>
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-secondary active"> <input
+										type="radio" name="options" id="option1" value="day" checked > DAY
+									</label> <label class="btn btn-secondary"> <input type="radio"
+										name="options" id="option2" value="week">
+										WEEK
+									</label> <label class="btn btn-secondary"> <input type="radio"
+										name="options" id="option3" value="month">
+										MONTH
+									</label>
+								</div>
+								<p1>시작</p1>
+								<input type="text" id="datepicker1" placeholder="yy-mm-dd"
+									style="width: 100px">
+								<p1>종료</p1>
+								<input type="text" id="datepicker2" placeholder="yy-mm-dd"
+									style="width: 100px">
+								<button type="submit" class="btn ml-auto mr-auto" id="search">검색</button>
 							</div>
 							<div class="card-body">
 								<div class="row">
-									<button type="submit"
+									<!--  									<button type="submit"
 										class="btn-default pull-right justify-content-end ml-auto mr-auto"
 										name="1" style="width: 15%;">매출조회</button>
 									<button type="submit"
@@ -100,6 +97,25 @@
 									<button type="submit"
 										class="btn-default pull-right justify-content-end ml-auto mr-auto"
 										name="5" style="width: 15%;">수지보고서</button>
+										-->
+
+									<div class="btn-group" data-toggle="buttons">
+										<label class="btn btn-secondary active"> <input
+											type="radio" name="options2" id="option1" checked value="sales"> 매출조회
+										</label> <label class="btn btn-secondary"> <input type="radio"
+											name="options2" id="option2"  value="customer">
+											고객통계
+										</label> <label class="btn btn-secondary"> <input type="radio"
+											name="options2" id="option3"  value="menu">
+											메뉴통계
+										</label> <label class="btn btn-secondary"> <input type="radio"
+											name="options2" id="option4"  value="card">
+											현/카조회
+										</label> <label class="btn btn-secondary"> <input type="radio"
+											name="options2" id="option5"  value="income">
+											수지보고서
+										</label>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -125,7 +141,7 @@
 				</div>
 			</div>
 		</div>
-		<footer class="footer"> </footer>
+		<footer class="footer"></footer>
 	</div>
 	</div>
 	<!--추가한 파일-->
@@ -148,7 +164,6 @@
 	<!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
 	<script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
 	<!-- Black Dashboard DEMO methods, don't include it in your project! -->
-	<script src="assets/demo/demo.js">
 		
 	</script>
 	<script>
@@ -164,6 +179,8 @@
 			$("#search").on('click', function() {
 				var start = $("#datepicker1").val();
 				var end = $("#datepicker2").val();
+				var unit = $('input[name=options]:checked').val();
+				var category = $('input[name=options2]:checked').val();
 				if (start == '') {
 					alert("시작일을 입력해주세요!")
 					return;
@@ -183,10 +200,13 @@
 					type : 'post',
 					data : {
 						startDate : start,
-						endDate : end
+						endDate : end,
+						unit : unit,
+						category : category
 					},
-					success : function(resp) {
-						alert(resp);
+					success : function(updateData) {
+						alert('그래프 업데이트 실행');
+						chartUpdate(updateData);
 					}
 				})
 			});
@@ -202,33 +222,41 @@
 				url : 'reportdefaultList',
 				type : 'GET',
 				success : function(resp) {
+					alert('값가져오기 실행')
 					output(resp);
 				}
 			})
 		});
 		//기본값 테이블(표) 매출 테스트
+		var data = [];
+		var labels = [];
 		function output(resp) {
+			alert('표만들기 실행')
 			var output = '';
 			output += '<table class="table table-hover">';
 			output += '<thead><tr><th style="width :30%; text-align: center;">월</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
 			$.each(resp, function(index, item) {
-				output += '<tr><td style="width :30%;">' + item.PAYMENT_TIME
+				output += '<tr><td style="width :30%;">' + item.DAYTIME
 						+ '</td><td style=" text-align: center;, width :50%;">'
-						+ item.PAYMENT_AMOUNT + '원</td><td style="width :30%;"></td></tr>'
+						+ item.PAYMENT_AMOUNT_SUM
+						+ '원</td><td style="width :30%;"></td></tr>'
 			})
 			output += "</table>"
 			$('.tableTest').html(output);
 
 			$.each(resp, function(index, item) {
-				labels[temp] = index;
-				data[temp] = item.PAYMENT_AMOUNT;
+				labels[temp] = item.DAYTIME;
+				data[temp] = item.PAYMENT_AMOUNT_SUM;
 				temp++;
 			});
-			newchart.update();
+			alert('데이터 집어넣기 완료');
+			alert(labels + data);
 			temp = 0;
+			firstshow();
 			//data=[];
 			//labels=[];
 		}
+		/*
 		//그래프 보여주기
 		$(function() {
 			$("button[name=1]").on('click', function() {
@@ -301,19 +329,35 @@
 				temp = 0;
 			});
 		});
+		*/
 		ctx = document.getElementById('myChart').getContext('2d');
-		var newchart = new Chart(ctx, {
-			type : 'bar',//차트모양
-			data : {
-				labels : labels,
-				datasets : [ {
-					label : label,
-					backgroundColor : 'rgb(111, 111, 102)',
-					borderColor : 'rgb(111, 111, 102)',
-					data : data,
-				} ]
-			}
-		});
+		function firstshow() {
+			var newchart = new Chart(ctx, {
+				type : 'bar',//차트모양
+				data : {
+					labels : labels,
+					datasets : [ {
+						label : label,
+						backgroundColor : 'rgb(111, 111, 102)',
+						borderColor : 'rgb(111, 111, 102)',
+						data : data,
+					} ]
+				}
+			});
+			alert('그래프만들기 완료');
+		}
+		//차트 검색을 눌렀을때 업데이트 구문
+		function chartUpdate(updateData){
+			labels=[];
+			data=[];
+			alert(updateData+"새로 넣을 값 왔습니다");
+			$.each(updateData, function(index, item) {
+				labels[temp] = item.DAYTIME;
+				data[temp] = item.PAYMENT_AMOUNT_SUM;
+				temp++;
+			});
+			
+		}
 	</script>
 </body>
 

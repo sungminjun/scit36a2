@@ -341,15 +341,15 @@
                             </div>
                           </div>
                           <div class="row box">
-                          <div class="col-md-4 form-group text-primary mx-auto">
-                            <input type="button" id="pos-btn-4-3" value="카드결제">
-                          </div>
-                          <div class="col-md-4 form-group text-primary mx-auto">
-                            <input type="button" id="pos-btn-4-4" value="현금결제">
-                          </div>
-                          <div class="col-md-4 text-primary">
-                            <input type="button" data-dismiss="modal" value="취소">
-                          </div>
+                            <div class="col-md-4 form-group text-primary mx-auto">
+                              <input type="button" id="pos-btn-4-3" value="카드결제">
+                            </div>
+                            <div class="col-md-4 form-group text-primary mx-auto">
+                              <input type="button" id="pos-btn-4-4" value="현금결제">
+                            </div>
+                            <div class="col-md-4 text-primary">
+                              <input type="button" data-dismiss="modal" value="취소">
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -455,7 +455,7 @@
 
   <script>
     $(function() {
-    	pos_coh_hasstarted();
+      pos_coh_hasstarted();
       $('ul.tab li').click(function() {
         var activeTab = $(this).attr('data-tab');
         $('ul.tab li').removeClass('current');
@@ -602,67 +602,67 @@
       /* alert("alert on rcved function and $this selector " + $(this).attr('s-seatseq') + "번 table") */
       alert('\n\nparam1: "' + param1 + '" and param2: "' + param2 + '" and "' + param3 + '" and "' + param4 + '" has selected.');
 
-      
+
       // param4는 seat가 occupied이면 뭔가 내용이 온다. undefined는 빈 seat라는 것.
       if (param4 == undefined) {
         // param1 이 0이면 주문을 받는다.
         if (param1 == 0) {
-       	  var ppodvisitors = prompt('내점 인원수를 입력하세요.',1);
+          var ppodvisitors = prompt('내점 인원수를 입력하세요.', 1);
           $('#ppodvisitors').val(ppodvisitors);
-            
+
           $('#pos-upper').css('display', 'none');
           $('#pos-lower').css('display', 'flex');
           $('#ppodseatseq').val(param2);
           $('#ppodseatno').val('현재 선택한 테이블: ' + param3);
           $('#tempordertype').val('new');
           pos_ppOrderList();
-        } else if ( param1 == 1 ) {
-        	if ($('#tableSeqFirst').val().length != 0) {
-            	$('#tableSeqSecond').val(param2)
-            	alert('table_move!');
-            	pos_table_move();
-	        } else {
-	        	$('#funcFlag').val('0');
-	            $('#tableSeqFirst').val('');
-	            $('#tableSeqSecond').val('');
-	        	alert('비어있는 자리를 이동하거나 합칠 수 없습니다. 기능을 취소합니다.')
-	        	return false;
-	        }
-        } else if ( param1 == 2 || param1 == 3) {
-        	$('#funcFlag').val('0');
+        } else if (param1 == 1) {
+          if ($('#tableSeqFirst').val().length != 0) {
+            $('#tableSeqSecond').val(param2)
+            alert('table_move!');
+            pos_table_move();
+          } else {
+            $('#funcFlag').val('0');
             $('#tableSeqFirst').val('');
             $('#tableSeqSecond').val('');
-        	alert('비어있는 자리를 이동하거나 합칠 수 없습니다. 기능을 취소합니다.')
-        	return false;
+            alert('비어있는 자리를 이동하거나 합칠 수 없습니다. 기능을 취소합니다.')
+            return false;
+          }
+        } else if (param1 == 2 || param1 == 3) {
+          $('#funcFlag').val('0');
+          $('#tableSeqFirst').val('');
+          $('#tableSeqSecond').val('');
+          alert('비어있는 자리를 이동하거나 합칠 수 없습니다. 기능을 취소합니다.')
+          return false;
         }
       } else {
-          if (param1 == 0) {
-        // param4가 있으면 이미 주문된 내역을 불러온다.
-        $('#pos-upper').css('display', 'none');
-        $('#pos-lower').css('display', 'flex');
-        $('#ppodseatseq').val(param2);
-        $('#alodsasseq').val(param4)
-        $('#preparedOrderMemo').val(param5);
-        $('#tempordertype').val('replace');
-        pos_alOrderList(param4);
-          }else if (param1 == 1 || param1 == 2) {
-        	if ( $('#tableSeqFirst').val().length == 0 ) {
-        		$('#tableSeqFirst').val(param2)
-        		$('#sasSeqFirst').val(param4)
-        	} else {
-        		$('#tableSeqSecond').val(param2)
-        		$('#sasSeqSecond').val(param4)
-        		pos_table_swap()
-        	}
+        if (param1 == 0) {
+          // param4가 있으면 이미 주문된 내역을 불러온다.
+          $('#pos-upper').css('display', 'none');
+          $('#pos-lower').css('display', 'flex');
+          $('#ppodseatseq').val(param2);
+          $('#alodsasseq').val(param4)
+          $('#preparedOrderMemo').val(param5);
+          $('#tempordertype').val('replace');
+          pos_alOrderList(param4);
+        } else if (param1 == 1 || param1 == 2) {
+          if ($('#tableSeqFirst').val().length == 0) {
+            $('#tableSeqFirst').val(param2)
+            $('#sasSeqFirst').val(param4)
+          } else {
+            $('#tableSeqSecond').val(param2)
+            $('#sasSeqSecond').val(param4)
+            pos_table_swap()
+          }
         } else if (param1 == 3) {
-        	if ( $('#tableSeqFirst').val().length == 0 ) {
-        		$('#tableSeqFirst').val(param2)
-        		$('#sasSeqFirst').val(param4)
-        	} else {
-        		$('#tableSeqSecond').val(param2)
-        		$('#sasSeqSecond').val(param4)
-        		pos_table_merge()
-        	}
+          if ($('#tableSeqFirst').val().length == 0) {
+            $('#tableSeqFirst').val(param2)
+            $('#sasSeqFirst').val(param4)
+          } else {
+            $('#tableSeqSecond').val(param2)
+            $('#sasSeqSecond').val(param4)
+            pos_table_merge()
+          }
         }
       }
     }
@@ -691,7 +691,7 @@
       $('#pos-2-10').on('click', pos_modal_2);
       $('#pos-2-11').on('click', pos_modal_3);
       $('#pos-2-12').on('click', pos_modal_4);
-      
+
       $('#pos-btn-2-9-1').on('click', pos_cash_open);
       $('#pos-btn-2-10-1').on('click', pos_cash_withdraw);
       $('#pos-btn-2-11-1').on('click', pos_cash_deposit);
@@ -824,7 +824,7 @@
       var ppod = $('#preparedOrder').val();
       ppod = ppod.substr(0, ppod.length - 1);
       var ppod_arr = ppod.split('|');
-      
+
       var list = [];
       var listsum = 0;
       var ppod_output = '';
@@ -1014,13 +1014,13 @@
         "seat_seq": seat_seq,
         "sales_memo": ppod_memo,
         "ppod": ppod,
-        "sales_visitors" : sales_visitors
+        "sales_visitors": sales_visitors
       }
       var senddata_replace = {
         "seat_seq": seat_seq,
         "sales_memo": ppod_memo,
         "ppod": ppod,
-        "sales_visitors" : sales_visitors,
+        "sales_visitors": sales_visitors,
         "sales_state_seq": sales_state_seq
       }
 
@@ -1150,8 +1150,8 @@
         method: 'POST',
         data: {
           sas_seq: sas_seq
-        }
-      , success: function(resp) {
+        },
+        success: function(resp) {
           console.log(resp)
           var alod = '';
           $.each(resp, function(idx, obj) {
@@ -1186,287 +1186,312 @@
     }
 
     function pos_loadpaymenttoday() {
-        $.ajax({
-          url: 'cumulatepaymenttoday',
-          method: 'POST',
-          success: function(resp) {
-            $('#pos-2-14-1').val('금일매출누계 : ' + resp);
-          }
-        })
-      }
-    
-    function pos_coh_hasstarted() {
-    	var start_chker = 0;
-    	var end_chker = 0;
-    	
-    	$('#coh_50k').change(pos_coh_chktotal)
-    	$('#coh_10k').change(pos_coh_chktotal)
-    	$('#coh_5k').change(pos_coh_chktotal)
-    	$('#coh_1k').change(pos_coh_chktotal)
-    	$('#coh_5c').change(pos_coh_chktotal)
-    	$('#coh_1c').change(pos_coh_chktotal)
-    	$('#coh_error').change(pos_coh_chktotal)
-    	
-    	$.ajax({
-            url: 'selectCashonhand',
-            method: 'POST',
-            success: function(resp) {
-            	console.log(resp);
-            	$.each(resp, function(idx, obj) {
-            		console.log(obj);
-            		console.log(obj.cashonhand_type);
-            		if ( obj.cashonhand_type == 1 ) {
-            			start_chker++;
-            		}
-            		if ( obj.cashonhand_type == 4 ) {
-            			end_chker++;
-            		}
-            		
-            	})
-            	if (start_chker == 0 ) {
-            		alert('영업개시 버튼을 눌러 시재를 입력하십시오.');
-            		$('#pos_cash_open').modal('show');
-            	}
-            	if (end_chker != 0 ) {
-            		alert('이미 영업을 마감하셨습니다.\n');
-            		document.location.replace('${pageContext.request.contextPath}');
-            	}
-            }
-          })
+      $.ajax({
+        url: 'cumulatepaymenttoday',
+        method: 'POST',
+        success: function(resp) {
+          $('#pos-2-14-1').val('금일매출누계 : ' + resp);
+        }
+      })
     }
-    
+
+    function pos_coh_hasstarted() {
+      var start_chker = 0;
+      var end_chker = 0;
+
+      $('#coh_50k').change(pos_coh_chktotal)
+      $('#coh_10k').change(pos_coh_chktotal)
+      $('#coh_5k').change(pos_coh_chktotal)
+      $('#coh_1k').change(pos_coh_chktotal)
+      $('#coh_5c').change(pos_coh_chktotal)
+      $('#coh_1c').change(pos_coh_chktotal)
+      $('#coh_error').change(pos_coh_chktotal)
+
+      $.ajax({
+        url: 'selectCashonhand',
+        method: 'POST',
+        success: function(resp) {
+          console.log(resp);
+          $.each(resp, function(idx, obj) {
+            console.log(obj);
+            console.log(obj.cashonhand_type);
+            if (obj.cashonhand_type == 1) {
+              start_chker++;
+            }
+            if (obj.cashonhand_type == 4) {
+              end_chker++;
+            }
+
+          })
+          if (start_chker == 0) {
+            alert('영업개시 버튼을 눌러 시재를 입력하십시오.');
+            $('#pos_cash_open').modal('show');
+          }
+          if (end_chker != 0) {
+            alert('이미 영업을 마감하셨습니다.\n');
+            document.location.replace('${pageContext.request.contextPath}');
+          }
+        }
+      })
+    }
+
     function pos_coh_chktotal() {
-    	var k50 = $('#coh_50k').val();
-    	var k10 = $('#coh_10k').val();
-    	var k5 = $('#coh_5k').val();
-    	var k1 = $('#coh_1k').val();
-    	var c5 = $('#coh_5c').val();
-    	var c1 = $('#coh_1c').val();
-    	var err = $('#coh_error').val();
-    	
-    	var total = k50 * 50000 + k10 * 10000 + k5 * 5000 + k1 * 1000 + c5 * 500 + c1 * 100 + err * 1;
-    	
-    	$('#coh_listtotal').html("total: " + total);
+      var k50 = $('#coh_50k').val();
+      var k10 = $('#coh_10k').val();
+      var k5 = $('#coh_5k').val();
+      var k1 = $('#coh_1k').val();
+      var c5 = $('#coh_5c').val();
+      var c1 = $('#coh_1c').val();
+      var err = $('#coh_error').val();
+
+      var total = k50 * 50000 + k10 * 10000 + k5 * 5000 + k1 * 1000 + c5 * 500 + c1 * 100 + err * 1;
+
+      $('#coh_listtotal').html("total: " + total);
     }
 
     function pos_cash_open() {
-    	var cashonhand_type = 1;
-    	$('#coh_error').val('');
-    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
-    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
-    	$.ajax({
-    		url : 'insertCashonhand'
-    		, method : 'POST'
-    		, data : senddata
-    		, success : function() {
-    			alert('등록성공')
-    			document.location.reload();		
-    		}
-    	})
+      var cashonhand_type = 1;
+      $('#coh_error').val('');
+      var cashonhand_cash = $('#coh_listtotal').html().substr(6, $('#coh_listtotal').html().length)
+      var senddata = {
+        cashonhand_type: cashonhand_type,
+        cashonhand_cash: cashonhand_cash
+      }
+      $.ajax({
+        url: 'insertCashonhand',
+        method: 'POST',
+        data: senddata,
+        success: function() {
+          alert('등록성공')
+          document.location.reload();
+        }
+      })
     }
 
     function pos_cash_withdraw() {
-    	var cashonhand_type = 2;
-    	$('#coh_error').val('');
-    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
-    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
-    	$.ajax({
-    		url : 'insertCashonhand'
-    		, method : 'POST'
-    		, data : senddata
-    		, success : function() {
-    			alert('등록성공')
-    			document.location.reload();		
-    		}
-    	})
+      var cashonhand_type = 2;
+      $('#coh_error').val('');
+      var cashonhand_cash = $('#coh_listtotal').html().substr(6, $('#coh_listtotal').html().length)
+      var senddata = {
+        cashonhand_type: cashonhand_type,
+        cashonhand_cash: cashonhand_cash
+      }
+      $.ajax({
+        url: 'insertCashonhand',
+        method: 'POST',
+        data: senddata,
+        success: function() {
+          alert('등록성공')
+          document.location.reload();
+        }
+      })
     }
 
     function pos_cash_deposit() {
-    	var cashonhand_type = 3;
-    	$('#coh_error').val('');
-    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
-    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
-    	$.ajax({
-    		url : 'insertCashonhand'
-    		, method : 'POST'
-    		, data : senddata
-    		, success : function() {
-    			alert('등록성공')
-    			document.location.reload();		
-    		}
-    	})
+      var cashonhand_type = 3;
+      $('#coh_error').val('');
+      var cashonhand_cash = $('#coh_listtotal').html().substr(6, $('#coh_listtotal').html().length)
+      var senddata = {
+        cashonhand_type: cashonhand_type,
+        cashonhand_cash: cashonhand_cash
+      }
+      $.ajax({
+        url: 'insertCashonhand',
+        method: 'POST',
+        data: senddata,
+        success: function() {
+          alert('등록성공')
+          document.location.reload();
+        }
+      })
     }
 
     function pos_cash_close() {
-    	var expected_cash = $('#pos-2-13-1').val().substr(7,$('#pos-2-13-1').val().length);
-    	console.log(expected_cash);
-    	var cashonhand_cash = $('#coh_listtotal').html().substr(6,$('#coh_listtotal').html().length) 
+      var expected_cash = $('#pos-2-13-1').val().substr(7, $('#pos-2-13-1').val().length);
+      console.log(expected_cash);
+      var cashonhand_cash = $('#coh_listtotal').html().substr(6, $('#coh_listtotal').html().length)
 
-    	if ( expected_cash != cashonhand_cash ) {
-	    	alert('예상금액과 현재 시재가 일치하지 않습니다. 오류금액을 입력하십시오.')
-	    	return false;
-    	} else {
-    		var conf = confirm('마감처리하시면 오늘은 더 이상 POS기능을 사용할 수 없습니다. 정말 진행하시겠습니까?')
-    		if ( conf != true ) {
-    			return false;
-    		}
-    	}
-    	
-    	var cashonhand_type = 4;
-    	var cashonhand_error = $('#coh_error').val();
-    	var senddata = { cashonhand_type : cashonhand_type, cashonhand_cash : cashonhand_cash}
-    	$.ajax({
-    		url : 'insertCashonhand'
-    		, method : 'POST'
-    		, data : senddata
-    		, success : function() {
-    			alert('등록성공')
-    			document.location.reload();		
-    		}
-    	})
+      if (expected_cash != cashonhand_cash) {
+        alert('예상금액과 현재 시재가 일치하지 않습니다. 오류금액을 입력하십시오.')
+        return false;
+      } else {
+        var conf = confirm('마감처리하시면 오늘은 더 이상 POS기능을 사용할 수 없습니다. 정말 진행하시겠습니까?')
+        if (conf != true) {
+          return false;
+        }
+      }
+
+      var cashonhand_type = 4;
+      var cashonhand_error = $('#coh_error').val();
+      var senddata = {
+        cashonhand_type: cashonhand_type,
+        cashonhand_cash: cashonhand_cash
+      }
+      $.ajax({
+        url: 'insertCashonhand',
+        method: 'POST',
+        data: senddata,
+        success: function() {
+          alert('등록성공')
+          document.location.reload();
+        }
+      })
     }
 
     function pos_modal_1() {
-    	$('#coh_title_1').css('display', 'flex');
-    	$('#pos-btn-2-9-1').css('display', 'flex');
-    	
-    	$('#coh_title_2').css('display', 'none');
-    	$('#coh_title_3').css('display', 'none');
-    	$('#coh_title_4').css('display', 'none');
-    	
-    	$('#coh_error').css('display', 'none');
-    	
-    	$('#pos-btn-2-10-1').css('display', 'none');
-    	$('#pos-btn-2-11-1').css('display', 'none');
-    	$('#pos-btn-2-12-1').css('display', 'none');
+      $('#coh_title_1').css('display', 'flex');
+      $('#pos-btn-2-9-1').css('display', 'flex');
+
+      $('#coh_title_2').css('display', 'none');
+      $('#coh_title_3').css('display', 'none');
+      $('#coh_title_4').css('display', 'none');
+
+      $('#coh_error').css('display', 'none');
+
+      $('#pos-btn-2-10-1').css('display', 'none');
+      $('#pos-btn-2-11-1').css('display', 'none');
+      $('#pos-btn-2-12-1').css('display', 'none');
     }
-    
+
     function pos_modal_2() {
-    	$('#coh_title_2').css('display', 'flex');
-    	$('#pos-btn-2-10-1').css('display', 'flex');
-    	
-    	$('#coh_title_1').css('display', 'none');
-    	$('#coh_title_3').css('display', 'none');
-    	$('#coh_title_4').css('display', 'none');
-    	
-    	$('#coh_error').css('display', 'none');
-    	
-    	$('#pos-btn-2-9-1').css('display', 'none');
-    	$('#pos-btn-2-11-1').css('display', 'none');
-    	$('#pos-btn-2-12-1').css('display', 'none');
+      $('#coh_title_2').css('display', 'flex');
+      $('#pos-btn-2-10-1').css('display', 'flex');
+
+      $('#coh_title_1').css('display', 'none');
+      $('#coh_title_3').css('display', 'none');
+      $('#coh_title_4').css('display', 'none');
+
+      $('#coh_error').css('display', 'none');
+
+      $('#pos-btn-2-9-1').css('display', 'none');
+      $('#pos-btn-2-11-1').css('display', 'none');
+      $('#pos-btn-2-12-1').css('display', 'none');
     }
-    
-    
+
+
     function pos_modal_3() {
-    	$('#coh_title_3').css('display', 'flex');
-    	$('#pos-btn-2-11-1').css('display', 'flex');
-    	
-    	$('#coh_title_1').css('display', 'none');
-    	$('#coh_title_2').css('display', 'none');
-    	$('#coh_title_4').css('display', 'none');
-    	
-    	$('#coh_error').css('display', 'none');
-    	
-    	$('#pos-btn-2-9-1').css('display', 'none');
-    	$('#pos-btn-2-10-1').css('display', 'none');
-    	$('#pos-btn-2-12-1').css('display', 'none');
+      $('#coh_title_3').css('display', 'flex');
+      $('#pos-btn-2-11-1').css('display', 'flex');
+
+      $('#coh_title_1').css('display', 'none');
+      $('#coh_title_2').css('display', 'none');
+      $('#coh_title_4').css('display', 'none');
+
+      $('#coh_error').css('display', 'none');
+
+      $('#pos-btn-2-9-1').css('display', 'none');
+      $('#pos-btn-2-10-1').css('display', 'none');
+      $('#pos-btn-2-12-1').css('display', 'none');
     }
-    
-    
+
+
     function pos_modal_4() {
-    	$('#coh_title_4').css('display', 'flex');
-    	$('#pos-btn-2-12-1').css('display', 'flex');
-    	$('#coh_error').css('display', 'flex');
-    	
-    	$('#coh_title_1').css('display', 'none');
-    	$('#coh_title_2').css('display', 'none');
-    	$('#coh_title_3').css('display', 'none');
-    	
-    	$('#pos-btn-2-9-1').css('display', 'none');
-    	$('#pos-btn-2-10-1').css('display', 'none');
-    	$('#pos-btn-2-11-1').css('display', 'none');
+      $('#coh_title_4').css('display', 'flex');
+      $('#pos-btn-2-12-1').css('display', 'flex');
+      $('#coh_error').css('display', 'flex');
+
+      $('#coh_title_1').css('display', 'none');
+      $('#coh_title_2').css('display', 'none');
+      $('#coh_title_3').css('display', 'none');
+
+      $('#pos-btn-2-9-1').css('display', 'none');
+      $('#pos-btn-2-10-1').css('display', 'none');
+      $('#pos-btn-2-11-1').css('display', 'none');
     }
-    
-    
+
+
     function pos_pmt_list() {}
 
     function pos_table_move() {
-    	var from_sasseq = $('#sasSeqFirst').val();
-    	var to_seatseq = $('#tableSeqSecond').val();
-    	
-    	$('#tableSeqFirst').val('');
-    	$('#sasSeqFirst').val('');
-		$('#tableSeqSecond').val('');
-		$('#sasSeqSecond').val('');
-		$('#funcFlag').val('0');
-		
-		var map = { "from_sasseq" : from_sasseq , "to_seatseq" : to_seatseq };
-		$.ajax({
-			url : 'movetable'
-			, method : 'POST'
-			, data : JSON.stringify(map)
-			, dataType : 'json'
-			, contentType : 'application/json; charset=UTF-8'
-			, success : function() {
-				alert('자리를 이동하였습니다.')
-				document.location.reload();
-			}
-		})
+      var from_sasseq = $('#sasSeqFirst').val();
+      var to_seatseq = $('#tableSeqSecond').val();
+
+      $('#tableSeqFirst').val('');
+      $('#sasSeqFirst').val('');
+      $('#tableSeqSecond').val('');
+      $('#sasSeqSecond').val('');
+      $('#funcFlag').val('0');
+
+      var map = {
+        "from_sasseq": from_sasseq,
+        "to_seatseq": to_seatseq
+      };
+      $.ajax({
+        url: 'movetable',
+        method: 'POST',
+        data: JSON.stringify(map),
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
+        success: function() {
+          alert('자리를 이동하였습니다.')
+          document.location.reload();
+        }
+      })
     }
 
     function pos_table_swap() {
-    	var from_seatseq = $('#tableSeqFirst').val();
-    	var from_sasseq = $('#sasSeqFirst').val();
-    	var to_seatseq = $('#tableSeqSecond').val();
-    	var to_sasseq = $('#sasSeqSecond').val();
-    	
-    	$('#tableSeqFirst').val('');
-    	$('#sasSeqFirst').val('');
-		$('#tableSeqSecond').val('');
-		$('#sasSeqSecond').val('');
-		$('#funcFlag').val('0');
-		
-		var map = { "from_seatseq" : from_seatseq, "from_sasseq" : from_sasseq , "to_seatseq" : to_seatseq, "to_sasseq" : to_sasseq };
-		$.ajax({
-			url : 'swaptable'
-			, method : 'POST'
-			, data : JSON.stringify(map)
-			, dataType : 'json'
-			, contentType : 'application/json; charset=UTF-8'
-			, success : function() {
-				alert('자리를 교환하였습니다.')
-				document.location.reload();
-			}
-		})
+      var from_seatseq = $('#tableSeqFirst').val();
+      var from_sasseq = $('#sasSeqFirst').val();
+      var to_seatseq = $('#tableSeqSecond').val();
+      var to_sasseq = $('#sasSeqSecond').val();
+
+      $('#tableSeqFirst').val('');
+      $('#sasSeqFirst').val('');
+      $('#tableSeqSecond').val('');
+      $('#sasSeqSecond').val('');
+      $('#funcFlag').val('0');
+
+      var map = {
+        "from_seatseq": from_seatseq,
+        "from_sasseq": from_sasseq,
+        "to_seatseq": to_seatseq,
+        "to_sasseq": to_sasseq
+      };
+      $.ajax({
+        url: 'swaptable',
+        method: 'POST',
+        data: JSON.stringify(map),
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
+        success: function() {
+          alert('자리를 교환하였습니다.')
+          document.location.reload();
+        }
+      })
     }
-    
+
     function pos_table_merge() {
-    	var from_seatseq = $('#tableSeqFirst').val();
-    	var from_sasseq = $('#sasSeqFirst').val();
-    	var to_seatseq = $('#tableSeqSecond').val();
-    	var to_sasseq = $('#sasSeqSecond').val();
-    	
-    	$('#tableSeqFirst').val('');
-    	$('#sasSeqFirst').val('');
-		$('#tableSeqSecond').val('');
-		$('#sasSeqSecond').val('');
-		$('#funcFlag').val('0');
-		
-		var map = { "from_seatseq" : from_seatseq, "from_sasseq" : from_sasseq , "to_seatseq" : to_seatseq, "to_sasseq" : to_sasseq };
-		$.ajax({
-			url : 'mergetable'
-			, method : 'POST'
-			, data : JSON.stringify(map)
-			, dataType : 'json'
-			, contentType : 'application/json; charset=UTF-8'
-			, success : function() {
-				alert('자리를 병합하였습니다.')
-				document.location.reload();
-			}
-		})
+      var from_seatseq = $('#tableSeqFirst').val();
+      var from_sasseq = $('#sasSeqFirst').val();
+      var to_seatseq = $('#tableSeqSecond').val();
+      var to_sasseq = $('#sasSeqSecond').val();
+
+      $('#tableSeqFirst').val('');
+      $('#sasSeqFirst').val('');
+      $('#tableSeqSecond').val('');
+      $('#sasSeqSecond').val('');
+      $('#funcFlag').val('0');
+
+      var map = {
+        "from_seatseq": from_seatseq,
+        "from_sasseq": from_sasseq,
+        "to_seatseq": to_seatseq,
+        "to_sasseq": to_sasseq
+      };
+      $.ajax({
+        url: 'mergetable',
+        method: 'POST',
+        data: JSON.stringify(map),
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
+        success: function() {
+          alert('자리를 병합하였습니다.')
+          document.location.reload();
+        }
+      })
     }
-    
-    
+
   </script>
 </body>
+
 </html>

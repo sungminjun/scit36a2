@@ -237,7 +237,7 @@ public class PosController {
 
 		if (result == 1)
 			return "success";
-		else 
+		else
 			return "fail";
 	}
 
@@ -250,7 +250,7 @@ public class PosController {
 		System.out.println(result);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "swaptable", method = RequestMethod.POST)
 	@ResponseBody
 	public int swaptable(HttpSession session, @RequestBody HashMap<String, Integer> map) {
@@ -260,7 +260,6 @@ public class PosController {
 		System.out.println(result);
 		return result;
 	}
-	
 
 	@RequestMapping(value = "mergetable", method = RequestMethod.POST)
 	@ResponseBody
@@ -269,7 +268,7 @@ public class PosController {
 		// from_sasseq state의 정보 중 객수와 메모는 to_sasseq로 옮겨붙인다.
 		// from_sasseq state는 삭제한다.
 		String result = "fail";
-		
+
 		sas.setSales_state_seq(map.get("from_sasseq"));
 		System.out.println(sas.getSales_state_seq());
 		int mergeResult = repo.mergetable(map);
@@ -278,7 +277,7 @@ public class PosController {
 
 		return result;
 	}
-	
+
 	//
 	//
 	//////

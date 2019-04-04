@@ -1,104 +1,102 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.BoardDAO">
 
-<!-- 게시글 조회 -->
-<select id="select" resultType="bo">
-SELECT
-	*
-FROM board
-WHERE
-	<choose>
-		<when test="searchItem=='title'">BOARD_TITLE</when>
-		<when test="searchItem=='userid'">EMP_SEQ</when>
-		<when test="searchItem=='content'">BOARD_CONTENT</when>
-	</choose>
-	LIKE '%' || #{searchWord} ||'%'
-ORDER BY
-	BOARD_SEQ DESC
-</select>
+  <!-- 게시글 조회 -->
+  <select id="select" resultType="bo">
+    SELECT
+    *
+    FROM board
+    WHERE
+    <choose>
+      <when test="searchItem=='title'">BOARD_TITLE</when>
+      <when test="searchItem=='userid'">EMP_SEQ</when>
+      <when test="searchItem=='content'">BOARD_CONTENT</when>
+    </choose>
+    LIKE '%' || #{searchWord} ||'%'
+    ORDER BY
+    BOARD_SEQ DESC
+  </select>
 
-<insert id="insertBoard" parameterType="bo">
-INSERT INTO BOARD
-(
-	  board_seq
-	, emp_seq
-	, board_category
-	, board_title
-	, board_content
-	, board_orgname
-	, board_savname
-	,board_regdate
-	,board_hitcount
-)
-VALUES
-(
-	board_seqs.nextval
-	, #{emp_seq}
-	, #{board_category}
-	, #{board_title}
-	, #{board_content}
-	, #{board_orgname}
-	, #{board_savname}
-	,sysdate
-	,#{board_hitcount}
-)
-</insert>
-<select id="selectOne" parameterType="int" resultType="bo">
-SELECT 
-	board_seq
-	, emp_seq
-	, board_category
-	, board_title
-	, board_content
-	, board_hitcount
-	, to_char(board_regdate, 'YYYY-MM-DD') as board_regdate
-	, board_orgname
-	, board_savname
-FROM board
-WHERE 
-	board_seq = #{board_seq}
-</select>
+  <insert id="insertBoard" parameterType="bo">
+    INSERT INTO BOARD
+    (
+    board_seq
+    , emp_seq
+    , board_category
+    , board_title
+    , board_content
+    , board_orgname
+    , board_savname
+    ,board_regdate
+    ,board_hitcount
+    )
+    VALUES
+    (
+    board_seqs.nextval
+    , #{emp_seq}
+    , #{board_category}
+    , #{board_title}
+    , #{board_content}
+    , #{board_orgname}
+    , #{board_savname}
+    ,sysdate
+    ,#{board_hitcount}
+    )
+  </insert>
+  <select id="selectOne" parameterType="int" resultType="bo">
+    SELECT
+    board_seq
+    , emp_seq
+    , board_category
+    , board_title
+    , board_content
+    , board_hitcount
+    , to_char(board_regdate, 'YYYY-MM-DD') as board_regdate
+    , board_orgname
+    , board_savname
+    FROM board
+    WHERE
+    board_seq = #{board_seq}
+  </select>
 
-<update id="incrementHitcount" parameterType="int">
-update board
-set board_hitcount = board_hitcount+1
-where board_seq = #{board_seq}
-</update>
+  <update id="incrementHitcount" parameterType="int">
+    update board
+    set board_hitcount = board_hitcount+1
+    where board_seq = #{board_seq}
+  </update>
 
-<delete id="delete" parameterType="int">
-DELETE board
-WHERE
-	board_seq = #{board_seq}
-</delete>
+  <delete id="delete" parameterType="int">
+    DELETE board
+    WHERE
+    board_seq = #{board_seq}
+  </delete>
 
-<update id="update" parameterType="bo">
-UPDATE board
-SET
-	board_category = #{board_category}
-	, board_title = #{board_title}
-	, board_content = #{board_content}
-	, board_regdate = sysdate
-	<if test="board_orgname != null">
-	, board_orgname = #{board_orgname}
-	, board_savname = #{board_savname}
-	</if>
-WHERE
-	board_seq = #{board_seq}	
-</update>
-<select id="boardCount" resultType="int">
-SELECT COUNT(*) FROM board
-</select>
+  <update id="update" parameterType="bo">
+    UPDATE board
+    SET
+    board_category = #{board_category}
+    , board_title = #{board_title}
+    , board_content = #{board_content}
+    , board_regdate = sysdate
+    <if test="board_orgname != null">
+      , board_orgname = #{board_orgname}
+      , board_savname = #{board_savname}
+    </if>
+    WHERE
+    board_seq = #{board_seq}
+  </update>
+  <select id="boardCount" resultType="int">
+    SELECT COUNT(*) FROM board
+  </select>
 
-<update id="deleteFile" parameterType="int">
-UPDATE board
-SET
-	board_orgname = null,
-	board_savname = null
-WHERE
-	board_seq=#{board_seq}	
-</update>
+  <update id="deleteFile" parameterType="int">
+    UPDATE board
+    SET
+    board_orgname = null,
+    board_savname = null
+    WHERE
+    board_seq=#{board_seq}
+  </update>
 
 </mapper>

@@ -102,11 +102,11 @@
                       <div class="col-md-8">
                         <div class="form-group">
                           <label>유형</label>
-                            <select class="form-control" id="mgr-1-1" name="expense_type" >
-                              <option value="0" selected="selected">고정지출</option>
-                              <option value="1">변동지출</option>
-                              <option value="2">기타</option>
-                            </select>
+                          <select class="form-control" id="mgr-1-1" name="expense_type">
+                            <option value="0" selected="selected">고정지출</option>
+                            <option value="1">변동지출</option>
+                            <option value="2">기타</option>
+                          </select>
                         </div>
                       </div>
                       <div class="col-md-8">
@@ -116,7 +116,7 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                          난까노 유효성검사 _js_ will be placed here.
+                        난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
                         <div class="form-group">
@@ -125,7 +125,7 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                          난까노 유효성검사 _js_ will be placed here.
+                        난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
                         <div class="form-group">
@@ -134,7 +134,7 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                          난까노 유효성검사 _js_ will be placed here.
+                        난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
                         <div class="form-group">
@@ -194,9 +194,9 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                          길이제한 유효성검사 _js_ will be placed here.
+                        길이제한 유효성검사 _js_ will be placed here.
                       </div>
-                      
+
                       <div class="col-md-8">
                         <div class="form-group">
                           <label>이름</label>
@@ -204,9 +204,9 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                          길이제한 유효성검사 _js_ will be placed here.
+                        길이제한 유효성검사 _js_ will be placed here.
                       </div>
-                      
+
                       <div class="col-md-8">
                         <div class="form-group">
                           <label>가격</label>
@@ -214,13 +214,13 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                          길이제한 유효성검사 _js_ will be placed here.
+                        길이제한 유효성검사 _js_ will be placed here.
                       </div>
-                      
+
                       <div class="col-md-8">
                         <div class="form-group">
                           <label>판매중</label>
-                          <select class="form-control" id="mgr-2-4" name="menu_sellFlag" >
+                          <select class="form-control" id="mgr-2-4" name="menu_sellFlag">
                             <option value="1" selected="selected">판매</option>
                             <option value="0">판매중지</option>
                           </select>
@@ -559,556 +559,562 @@
         <footer class="footer"> </footer>
       </div>
     </div>
-    </div>
+  </div>
 
-    <!--   Core JS Files   -->
-    <script src="./assets/js/core/jquery.min.js"></script>
-    <script src="./assets/js/core/popper.min.js"></script>
-    <script src="./assets/js/core/bootstrap.min.js"></script>
-    <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <!-- Chart JS -->
-    <script src="./assets/js/plugins/chartjs.min.js"></script>
-    <!--  Notifications Plugin    -->
-    <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <!--   Core JS Files   -->
+  <script src="./assets/js/core/jquery.min.js"></script>
+  <script src="./assets/js/core/popper.min.js"></script>
+  <script src="./assets/js/core/bootstrap.min.js"></script>
+  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Chart JS -->
+  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
 
-    <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
 
 
-    <script>
-      $(document).ready(function() {
-        $("button[id=mgr-btn-1]").on('click', function() {
-          mgrshow('1')
-        });
-        $("button[id=mgr-btn-1-5]").on('click', addexps);
-        $("button[id=mgr-btn-1-6]").on('click', modifyexps);
-        $("button[id=mgr-btn-1-7]").on('click', deleteexps);
-        
-        $("button[id=mgr-btn-2]").on('click', function() {
-          mgrshow('2')
-        });
-        $("button[id=mgr-btn-2-5]").on('click', addmenu);
-        $("button[id=mgr-btn-2-6]").on('click', modifymenu);
-        $("button[id=mgr-btn-2-7]").on('click', deletemenu);
-        
-        $("button[id=mgr-btn-3]").on('click', function() {
-          mgrshow('3')
-        });
-        $("button[id=mgr-btn-3-4]").on('click', addseat);
-        $("button[id=mgr-btn-3-5]").on('click', modifyseat);
-        $("button[id=mgr-btn-3-6]").on('click', deleteseat);
+  <script>
+    $(document).ready(function() {
+      $("button[id=mgr-btn-1]").on('click', function() {
+        mgrshow('1')
+      });
+      $("button[id=mgr-btn-1-5]").on('click', addexps);
+      $("button[id=mgr-btn-1-6]").on('click', modifyexps);
+      $("button[id=mgr-btn-1-7]").on('click', deleteexps);
 
-        $("button[id=mgr-btn-4]").on('click', function() {
-        	mgrshow('4')
-        });
-        $("button[id=mgr-btn-4-1]").on('click', function() {
-          mgr4show('1')
-        });
-        $("button[id=mgr-btn-4-2]").on('click', function() {
-          mgr4show('2')
-        });
-        $("button[id=mgr-btn-4-3]").on('click', function() {
-          mgr4show('3')
-        });
+      $("button[id=mgr-btn-2]").on('click', function() {
+        mgrshow('2')
+      });
+      $("button[id=mgr-btn-2-5]").on('click', addmenu);
+      $("button[id=mgr-btn-2-6]").on('click', modifymenu);
+      $("button[id=mgr-btn-2-7]").on('click', deletemenu);
 
-      })
+      $("button[id=mgr-btn-3]").on('click', function() {
+        mgrshow('3')
+      });
+      $("button[id=mgr-btn-3-4]").on('click', addseat);
+      $("button[id=mgr-btn-3-5]").on('click', modifyseat);
+      $("button[id=mgr-btn-3-6]").on('click', deleteseat);
 
-      function mgrshow(param) {
-        if (param == 1) {
-        	$('.mgr-1').css('display', 'flex');
-        	loadexps()
-        } else {
-        	$('.mgr-1').css('display', 'none');
-        }
+      $("button[id=mgr-btn-4]").on('click', function() {
+        mgrshow('4')
+      });
+      $("button[id=mgr-btn-4-1]").on('click', function() {
+        mgr4show('1')
+      });
+      $("button[id=mgr-btn-4-2]").on('click', function() {
+        mgr4show('2')
+      });
+      $("button[id=mgr-btn-4-3]").on('click', function() {
+        mgr4show('3')
+      });
 
-        if (param == 2) {
-          $('.mgr-2').css('display', 'flex');
-          loadmenu();
-        } else {
-          $('.mgr-2').css('display', 'none');
-        }
+    })
 
-        if (param == 3) {
-          $('.mgr-3').css('display', 'flex');
-          loadseat();
-        } else {
-          $('.mgr-3').css('display', 'none');
-        }
-
-        if (param == 4) $('.mgr-4').css('display', 'flex');
-        else $('.mgr-4').css('display', 'none');
+    function mgrshow(param) {
+      if (param == 1) {
+        $('.mgr-1').css('display', 'flex');
+        loadexps()
+      } else {
+        $('.mgr-1').css('display', 'none');
       }
 
-      function loadexps() {
-          $.ajax({
-            url: 'selectExpense',
-            method: 'POST',
-            success: function(resp) {
-              var output = '';
-              output += '<thead class=" text-primary"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
-              $.each(resp, function(idx, obj) {
-                $('#mgr-1-8').html('');
-                output += '<tr s-expseq="' + obj.expense_seq + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' +  obj.expense_amount + '">';
-                output += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
-                output += '</tr>';
-                $('#mgr-1-8').append(output);
-                var temp = 'tr[s-expseq=' + obj.expense_seq + ']';
-                $(temp).on('click', callexps);
-          	  
-          	  $('#mgr-1-1').val('고정지출');
-              setdatetodaydefault();
-          	  $('#mgr-1-3').val('');
-          	  $('#mgr-1-4').val('');    	  
-
-              })
-            }
-          });
-        } 
-      
-      var expense_seq;
- 	  // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
-      // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
-
-      function callexps() {
-    	  expense_seq = $(this).attr('s-expseq');
-    	  var menu = $(this).attr('s-exp-regex');
-	      var exparr = menu.split('|')
-          	 
-          $('#mgr-1-1').val(expense_seq);
-          $('#mgr-1-2').val(exparr[0]);
-          $('#mgr-1-3').val(exparr[1]);
-          $('#mgr-1-4').val(exparr[2]);
-          
-          $("button[id=mgr-btn-1-5]").css('display', 'none');
-          $("button[id=mgr-btn-1-6]").css('display', 'flex');
-          $("button[id=mgr-btn-1-7]").css('display', 'flex');
-      }
-      
-      function addexps() {
-    	  var expense_type = $('#mgr-1-1').val();
-    	  var expense_date = $('#mgr-1-2').val()
-    	  var expense_description = $('#mgr-1-3').val()
-    	  var expense_amount = $('#mgr-1-4').val()
-    	  
-    	  var senddata = { expense_type : expense_type
-    			 , expense_date : expense_date
-    			 , expense_description : expense_description
-    			 , expense_amount : expense_amount };
-    	  console.log(senddata);
-    	  
-    	  $.ajax({
-    		 url : 'insertExpense'
-    		 , method : 'POST'
-    		 , data : { expense_type : expense_type
-    			 , expense_date : expense_date
-    			 , expense_description : expense_description
-    			 , expense_amount : expense_amount }
-    		 , success : loadexps
-    	  });
-      }
-      
-      function modifyexps() {
-    	  var expense_type = $('#mgr-1-1').val();
-    	  var expense_date = $('#mgr-1-2').val()
-    	  var expense_description = $('#mgr-1-3').val()
-    	  var expense_amount = $('#mgr-1-4').val()
-    	  
-        $.ajax({
-          url: 'updateExpense'
-          , method: 'POST'
-          , data: {
-        	  'expense_seq' : expense_seq
-        	  , 'expense_type': expense_type
-              , 'expense_date' : expense_date
-              , 'expense_description': expense_description
-              , 'expense_amount' : expense_amount
-	           	}
-        	, success: function() {
-              $("button[id=mgr-btn-1-5]").css('display', 'flex');
-              $("button[id=mgr-btn-1-6]").css('display', 'none');
-              $("button[id=mgr-btn-1-7]").css('display', 'none');
-              loadexps();
-            }
-          });
-      }
-      
-      function deleteexps() {
-    	  $.ajax({
-              url: 'deleteExpense',
-              method: 'POST',
-              data: {
-                'expense_seq': expense_seq
-              },
-              success: function() {
-                $("button[id=mgr-btn-3-4]").css('display', 'flex');
-                $("button[id=mgr-btn-3-5]").css('display', 'none');
-                $("button[id=mgr-btn-3-6]").css('display', 'none');
-                loadexps();
-              }
-            });
-      }
-      
-      
-      
-      function loadmenu() {
-        var cat = [];
-        $.ajax({
-          url: 'selectMenu',
-          method: 'POST',
-          success: function(resp) {
-            $.each(resp, function(i, obj) {
-              if (cat.indexOf(obj.menu_category) === -1) {
-                cat.push(obj.menu_category)
-              }
-            })
-            console.log(cat);
-            
-            // 여기부터 tab부분 
-            var output = '';
-            $.each(cat, function(i, obj) {
-              if (i == 0) {
-                output += '<li class="active">'
-              } else {
-                output += '<li>'
-              }
-              output += '<a data-toggle="tab" href="#' + obj + '">' + obj + '</a>'
-              output += '<li>'
-            })
-            $('#mgr-2-8').html(output);
-	
-            // 여기부터 탭 밑의 tab-pane
-            var output2 = '';
-            $.each(cat, function(i, obj) {
-              if (i == 0) {
-                output2 += '<div id="' + obj + '" class="tab-pane active">';
-              } else {
-                output2 += '<div id="' + obj + '" class="tab-pane fade">';
-              }
-              output2 += '<h3>' + obj + '</h3>';
-              // 여기까지 카테고리를 기준으로 뿌린다
-
-              // 이중포문, 여기부터 카테고리와 같은 속성일 때 목록에 올린다.
-              $.each(resp, function(idx, obj2) {
-            	  if (obj == obj2.menu_category) {
-                  output2 += '<button class="btn-secondary" s-menuseq="' + obj2.menu_seq + '" s-menu-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br>' + obj2.menu_price + '<br>' + obj2.menu_sellFlag + '</button>';
-            	  }
-              })
-              output2 += '</div>';
-            });
-            
-            $('#mgr-2-9').html(output2);
-
-            $.each(resp, function(idx, obj3) {
-                var temp = 'button[s-menuseq=' + obj3.menu_seq + ']';
-                $(temp).on('click', selectmenu);
-            });
-          }
-        })
+      if (param == 2) {
+        $('.mgr-2').css('display', 'flex');
+        loadmenu();
+      } else {
+        $('.mgr-2').css('display', 'none');
       }
 
-      function addmenu() {
-    	  var menu_category = $('#mgr-2-1').val();
-    	  var menu_name = $('#mgr-2-2').val()
-    	  var menu_price = $('#mgr-2-3').val()
-    	  var menu_sellFlag = $('#mgr-2-4').val()
-    	  
-    	  $.ajax({
-    		 url : 'insertMenu'
-    		 , method : 'POST'
-    		 , data : { menu_category : menu_category
-    			 , menu_name : menu_name
-    			 , menu_price : menu_price
-    			 , menu_sellFlag : menu_sellFlag }
-    		 , success : loadmenu
-    	  });
-    	  
-    	  $('#mgr-2-1').val('');
-    	  $('#mgr-2-2').val('');
-    	  $('#mgr-2-3').val('');
-    	  $('#mgr-2-4').val('1');
+      if (param == 3) {
+        $('.mgr-3').css('display', 'flex');
+        loadseat();
+      } else {
+        $('.mgr-3').css('display', 'none');
       }
-      var menu_seq;
- 	  // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
-      // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
 
-      function selectmenu() {
-        menu_seq = $(this).attr('s-menuseq');
-        var menu = $(this).attr('s-menu-regex');
-        var menuarr = menu.split('|')
-        	
-        console.log(menu_seq + ', ' + menu + ', ' + menuarr[0] + ', ' + menuarr[1] + ', ' + menuarr[2] + ', ' + menuarr[3]);
-        $('#mgr-2-1').val(menuarr[0]);
-        $('#mgr-2-2').val(menuarr[1]);
-        $('#mgr-2-3').val(menuarr[2]);
-        $('#mgr-2-4').val(menuarr[3]);
-        
-        $("button[id=mgr-btn-2-5]").css('display', 'none');
-        $("button[id=mgr-btn-2-6]").css('display', 'flex');
-        $("button[id=mgr-btn-2-7]").css('display', 'flex');
-      }
-      
-      function modifymenu() {
-    	var menu_category = $('#mgr-2-1').val();
-        var menu_name = $('#mgr-2-2').val();
-        var menu_price = $('#mgr-2-3').val();
-        var menu_sellFlag = $('#mgr-2-4').val();
-            
+      if (param == 4) $('.mgr-4').css('display', 'flex');
+      else $('.mgr-4').css('display', 'none');
+    }
+
+    function loadexps() {
       $.ajax({
-        url: 'updateMenu'
-        , method: 'POST'
-        , data: {
-            'menu_seq': menu_seq
-            , 'menu_category' : menu_category
-            , 'menu_name': menu_name
-            , 'menu_price' : menu_price
-            , 'menu_sellFlag' : menu_sellFlag
-          	}
-      	, success: function() {
-            $("button[id=mgr-btn-2-5]").css('display', 'flex');
-            $("button[id=mgr-btn-2-6]").css('display', 'none');
-            $("button[id=mgr-btn-2-7]").css('display', 'none');
-            loadmenu();
-          }
-        });
-      }
-      
-      function deletemenu() {
-    	  $.ajax({
-              url: 'deleteMenu',
-              method: 'POST',
-              data: {
-                'menu_seq': menu_seq
-              },
-              success: function() {
-                $("button[id=mgr-btn-3-4]").css('display', 'flex');
-                $("button[id=mgr-btn-3-5]").css('display', 'none');
-                $("button[id=mgr-btn-3-6]").css('display', 'none');
-                loadmenu();
-              }
-            });
-      }
-      
-      
-      
-      function loadseat() {
-        $.ajax({
-          url: 'selectseat',
-          method: 'POST',
-          success: function(resp) {
-            var totalSeats = Object.keys(resp).length;
-            $('#mgr-3-2').val('총 좌석 수 : ' + totalSeats);
+        url: 'selectExpense',
+        method: 'POST',
+        success: function(resp) {
+          var output = '';
+          output += '<thead class=" text-primary"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
+          $.each(resp, function(idx, obj) {
+            $('#mgr-1-8').html('');
+            output += '<tr s-expseq="' + obj.expense_seq + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' + obj.expense_amount + '">';
+            output += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
+            output += '</tr>';
+            $('#mgr-1-8').append(output);
+            var temp = 'tr[s-expseq=' + obj.expense_seq + ']';
+            $(temp).on('click', callexps);
 
-            var devider = 2;
-            var size = '150px';
+            $('#mgr-1-1').val('고정지출');
+            setdatetodaydefault();
+            $('#mgr-1-3').val('');
+            $('#mgr-1-4').val('');
 
-            if (totalSeats <= 9) {
-              devider = 3;
-              size = '125px';
-            } else if (totalSeats <= 16) {
-              devider = 4;
-              size = '100px';
-            } else if (totalSeats <= 25) {
-              devider = 5;
-              size = '75px';
+          })
+        }
+      });
+    }
+
+    var expense_seq;
+    // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
+    // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
+
+    function callexps() {
+      expense_seq = $(this).attr('s-expseq');
+      var menu = $(this).attr('s-exp-regex');
+      var exparr = menu.split('|')
+
+      $('#mgr-1-1').val(expense_seq);
+      $('#mgr-1-2').val(exparr[0]);
+      $('#mgr-1-3').val(exparr[1]);
+      $('#mgr-1-4').val(exparr[2]);
+
+      $("button[id=mgr-btn-1-5]").css('display', 'none');
+      $("button[id=mgr-btn-1-6]").css('display', 'flex');
+      $("button[id=mgr-btn-1-7]").css('display', 'flex');
+    }
+
+    function addexps() {
+      var expense_type = $('#mgr-1-1').val();
+      var expense_date = $('#mgr-1-2').val()
+      var expense_description = $('#mgr-1-3').val()
+      var expense_amount = $('#mgr-1-4').val()
+
+      var senddata = {
+        expense_type: expense_type,
+        expense_date: expense_date,
+        expense_description: expense_description,
+        expense_amount: expense_amount
+      };
+      console.log(senddata);
+
+      $.ajax({
+        url: 'insertExpense',
+        method: 'POST',
+        data: {
+          expense_type: expense_type,
+          expense_date: expense_date,
+          expense_description: expense_description,
+          expense_amount: expense_amount
+        },
+        success: loadexps
+      });
+    }
+
+    function modifyexps() {
+      var expense_type = $('#mgr-1-1').val();
+      var expense_date = $('#mgr-1-2').val()
+      var expense_description = $('#mgr-1-3').val()
+      var expense_amount = $('#mgr-1-4').val()
+
+      $.ajax({
+        url: 'updateExpense',
+        method: 'POST',
+        data: {
+          'expense_seq': expense_seq,
+          'expense_type': expense_type,
+          'expense_date': expense_date,
+          'expense_description': expense_description,
+          'expense_amount': expense_amount
+        },
+        success: function() {
+          $("button[id=mgr-btn-1-5]").css('display', 'flex');
+          $("button[id=mgr-btn-1-6]").css('display', 'none');
+          $("button[id=mgr-btn-1-7]").css('display', 'none');
+          loadexps();
+        }
+      });
+    }
+
+    function deleteexps() {
+      $.ajax({
+        url: 'deleteExpense',
+        method: 'POST',
+        data: {
+          'expense_seq': expense_seq
+        },
+        success: function() {
+          $("button[id=mgr-btn-3-4]").css('display', 'flex');
+          $("button[id=mgr-btn-3-5]").css('display', 'none');
+          $("button[id=mgr-btn-3-6]").css('display', 'none');
+          loadexps();
+        }
+      });
+    }
+
+
+
+    function loadmenu() {
+      var cat = [];
+      $.ajax({
+        url: 'selectMenu',
+        method: 'POST',
+        success: function(resp) {
+          $.each(resp, function(i, obj) {
+            if (cat.indexOf(obj.menu_category) === -1) {
+              cat.push(obj.menu_category)
+            }
+          })
+          console.log(cat);
+
+          // 여기부터 tab부분 
+          var output = '';
+          $.each(cat, function(i, obj) {
+            if (i == 0) {
+              output += '<li class="active">'
             } else {
-              devider = 6;
-              size = '60px';
+              output += '<li>'
             }
+            output += '<a data-toggle="tab" href="#' + obj + '">' + obj + '</a>'
+            output += '<li>'
+          })
+          $('#mgr-2-8').html(output);
 
-            var output = '';
-            $.each(resp, function(idx, obj) {
-              if ((idx % devider) == 0) {
-                if (idx != 0) {
-                  output += '</div>';
-                }
-                output += '<div class="row">';
+          // 여기부터 탭 밑의 tab-pane
+          var output2 = '';
+          $.each(cat, function(i, obj) {
+            if (i == 0) {
+              output2 += '<div id="' + obj + '" class="tab-pane active">';
+            } else {
+              output2 += '<div id="' + obj + '" class="tab-pane fade">';
+            }
+            output2 += '<h3>' + obj + '</h3>';
+            // 여기까지 카테고리를 기준으로 뿌린다
+
+            // 이중포문, 여기부터 카테고리와 같은 속성일 때 목록에 올린다.
+            $.each(resp, function(idx, obj2) {
+              if (obj == obj2.menu_category) {
+                output2 += '<button class="btn-secondary" s-menuseq="' + obj2.menu_seq + '" s-menu-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br>' + obj2.menu_price + '<br>' + obj2.menu_sellFlag + '</button>';
               }
-              output += '<button class="btn-default seatseq" style="width: ' + size + '; height:' + size + '; margin: 5px;" s-seatseq=' + obj.seat_seq + '>' + obj.seat_id + '</button>'
-            });
-            if (output.substr(output.length - 6, 6) != '</div>') {
-              output += '</div>';
-            }
-            $('#mgr-3-6').html(output);
-            $.each(resp, function(idx, obj) {
-              var temp = 'button[s-seatseq=' + obj.seat_seq + ']';
-              $(temp).on('click', selectseat);
-            });
+            })
+            output2 += '</div>';
+          });
+
+          $('#mgr-2-9').html(output2);
+
+          $.each(resp, function(idx, obj3) {
+            var temp = 'button[s-menuseq=' + obj3.menu_seq + ']';
+            $(temp).on('click', selectmenu);
+          });
+        }
+      })
+    }
+
+    function addmenu() {
+      var menu_category = $('#mgr-2-1').val();
+      var menu_name = $('#mgr-2-2').val()
+      var menu_price = $('#mgr-2-3').val()
+      var menu_sellFlag = $('#mgr-2-4').val()
+
+      $.ajax({
+        url: 'insertMenu',
+        method: 'POST',
+        data: {
+          menu_category: menu_category,
+          menu_name: menu_name,
+          menu_price: menu_price,
+          menu_sellFlag: menu_sellFlag
+        },
+        success: loadmenu
+      });
+
+      $('#mgr-2-1').val('');
+      $('#mgr-2-2').val('');
+      $('#mgr-2-3').val('');
+      $('#mgr-2-4').val('1');
+    }
+    var menu_seq;
+    // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
+    // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
+
+    function selectmenu() {
+      menu_seq = $(this).attr('s-menuseq');
+      var menu = $(this).attr('s-menu-regex');
+      var menuarr = menu.split('|')
+
+      console.log(menu_seq + ', ' + menu + ', ' + menuarr[0] + ', ' + menuarr[1] + ', ' + menuarr[2] + ', ' + menuarr[3]);
+      $('#mgr-2-1').val(menuarr[0]);
+      $('#mgr-2-2').val(menuarr[1]);
+      $('#mgr-2-3').val(menuarr[2]);
+      $('#mgr-2-4').val(menuarr[3]);
+
+      $("button[id=mgr-btn-2-5]").css('display', 'none');
+      $("button[id=mgr-btn-2-6]").css('display', 'flex');
+      $("button[id=mgr-btn-2-7]").css('display', 'flex');
+    }
+
+    function modifymenu() {
+      var menu_category = $('#mgr-2-1').val();
+      var menu_name = $('#mgr-2-2').val();
+      var menu_price = $('#mgr-2-3').val();
+      var menu_sellFlag = $('#mgr-2-4').val();
+
+      $.ajax({
+        url: 'updateMenu',
+        method: 'POST',
+        data: {
+          'menu_seq': menu_seq,
+          'menu_category': menu_category,
+          'menu_name': menu_name,
+          'menu_price': menu_price,
+          'menu_sellFlag': menu_sellFlag
+        },
+        success: function() {
+          $("button[id=mgr-btn-2-5]").css('display', 'flex');
+          $("button[id=mgr-btn-2-6]").css('display', 'none');
+          $("button[id=mgr-btn-2-7]").css('display', 'none');
+          loadmenu();
+        }
+      });
+    }
+
+    function deletemenu() {
+      $.ajax({
+        url: 'deleteMenu',
+        method: 'POST',
+        data: {
+          'menu_seq': menu_seq
+        },
+        success: function() {
+          $("button[id=mgr-btn-3-4]").css('display', 'flex');
+          $("button[id=mgr-btn-3-5]").css('display', 'none');
+          $("button[id=mgr-btn-3-6]").css('display', 'none');
+          loadmenu();
+        }
+      });
+    }
+
+
+
+    function loadseat() {
+      $.ajax({
+        url: 'selectseat',
+        method: 'POST',
+        success: function(resp) {
+          var totalSeats = Object.keys(resp).length;
+          $('#mgr-3-2').val('총 좌석 수 : ' + totalSeats);
+
+          var devider = 2;
+          var size = '150px';
+
+          if (totalSeats <= 9) {
+            devider = 3;
+            size = '125px';
+          } else if (totalSeats <= 16) {
+            devider = 4;
+            size = '100px';
+          } else if (totalSeats <= 25) {
+            devider = 5;
+            size = '75px';
+          } else {
+            devider = 6;
+            size = '60px';
           }
-        });
+
+          var output = '';
+          $.each(resp, function(idx, obj) {
+            if ((idx % devider) == 0) {
+              if (idx != 0) {
+                output += '</div>';
+              }
+              output += '<div class="row">';
+            }
+            output += '<button class="btn-default seatseq" style="width: ' + size + '; height:' + size + '; margin: 5px;" s-seatseq=' + obj.seat_seq + '>' + obj.seat_id + '</button>'
+          });
+          if (output.substr(output.length - 6, 6) != '</div>') {
+            output += '</div>';
+          }
+          $('#mgr-3-6').html(output);
+          $.each(resp, function(idx, obj) {
+            var temp = 'button[s-seatseq=' + obj.seat_seq + ']';
+            $(temp).on('click', selectseat);
+          });
+        }
+      });
 
 
+      $.ajax({
+        url: 'selectCompanyOne',
+        method: 'POST',
+        success: function(resp) {
+          $('#mgr-3-1').val('업체명 : ' + resp.comp_name);
+        }
+      });
+
+    }
+
+    function addseat() {
+      var seat_id = $('#mgr-3-3').val();
+      $.ajax({
+        url: 'addtable',
+        method: 'POST',
+        data: {
+          'seat_id': seat_id
+        },
+        success: loadseat
+      });
+    }
+
+    var seat_seq = '';
+    // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
+    // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
+
+    function selectseat() {
+      seat_seq = $(this).attr('s-seatseq');
+      var seat_id = $(this).text();
+      console.log(seat_id);
+      $('#mgr-3-3').val(seat_id)
+      $("button[id=mgr-btn-3-4]").css('display', 'none');
+      $("button[id=mgr-btn-3-5]").css('display', 'flex');
+      $("button[id=mgr-btn-3-6]").css('display', 'flex');
+    }
+
+    function modifyseat() {
+      var seat_id = $('#mgr-3-3').val();
+      $.ajax({
+        url: 'updateseat',
+        method: 'POST',
+        data: {
+          'seat_seq': seat_seq,
+          'seat_id': seat_id
+        },
+        success: function() {
+          $("button[id=mgr-btn-3-4]").css('display', 'flex');
+          $("button[id=mgr-btn-3-5]").css('display', 'none');
+          $("button[id=mgr-btn-3-6]").css('display', 'none');
+          loadseat();
+        }
+      });
+    }
+
+
+    function deleteseat() {
+      $.ajax({
+        url: 'deleteseat',
+        method: 'POST',
+        data: {
+          'seat_seq': seat_seq
+        },
+        success: function() {
+          $("button[id=mgr-btn-3-4]").css('display', 'flex');
+          $("button[id=mgr-btn-3-5]").css('display', 'none');
+          $("button[id=mgr-btn-3-6]").css('display', 'none');
+          loadseat();
+        }
+      });
+    }
+
+    function mgr4show(param) {
+      if (param == 1) {
+        $('.mgr-4-1').css('display', 'flex');
         $.ajax({
           url: 'selectCompanyOne',
           method: 'POST',
           success: function(resp) {
-            $('#mgr-3-1').val('업체명 : ' + resp.comp_name);
+            $('#mgr-4-1-comp_id').val(resp.comp_id);
+            $('#mgr-4-1-comp_name').val(resp.comp_name);
+            $('#mgr-4-1-comp_tel').val(resp.comp_tel);
+            $('#mgr-4-1-comp_address').val(resp.comp_address);
+            $('#mgr-4-1-comp_address2').val(resp.comp_address2);
           }
-        });
-
+        })
+      } else {
+        $('.mgr-4-1').css('display', 'none');
       }
 
-      function addseat() {
-        var seat_id = $('#mgr-3-3').val();
+      if (param == 2) {
+        $('.mgr-4-2').css('display', 'flex');
         $.ajax({
-          url: 'addtable',
+          url: 'selectOwner',
           method: 'POST',
-          data: {
-            'seat_id': seat_id
-          },
-          success: loadseat
-        });
-      }
-
-      var seat_seq = '';
-      // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
-      // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
-
-      function selectseat() {
-        seat_seq = $(this).attr('s-seatseq');
-        var seat_id = $(this).text();
-        console.log(seat_id);
-        $('#mgr-3-3').val(seat_id)
-        $("button[id=mgr-btn-3-4]").css('display', 'none');
-        $("button[id=mgr-btn-3-5]").css('display', 'flex');
-        $("button[id=mgr-btn-3-6]").css('display', 'flex');
-      }
-
-      function modifyseat() {
-        var seat_id = $('#mgr-3-3').val();
-        $.ajax({
-          url: 'updateseat',
-          method: 'POST',
-          data: {
-            'seat_seq': seat_seq,
-            'seat_id': seat_id
-          },
-          success: function() {
-            $("button[id=mgr-btn-3-4]").css('display', 'flex');
-            $("button[id=mgr-btn-3-5]").css('display', 'none');
-            $("button[id=mgr-btn-3-6]").css('display', 'none');
-            loadseat();
-          }
-        });
-      }
-
-
-      function deleteseat() {
-        $.ajax({
-          url: 'deleteseat',
-          method: 'POST',
-          data: {
-            'seat_seq': seat_seq
-          },
-          success: function() {
-            $("button[id=mgr-btn-3-4]").css('display', 'flex');
-            $("button[id=mgr-btn-3-5]").css('display', 'none');
-            $("button[id=mgr-btn-3-6]").css('display', 'none');
-            loadseat();
-          }
-        });
-      }
-
-      function mgr4show(param) {
-        if (param == 1) {
-          $('.mgr-4-1').css('display', 'flex');
-          $.ajax({
-            url: 'selectCompanyOne',
-            method: 'POST',
-            success: function(resp) {
-              $('#mgr-4-1-comp_id').val(resp.comp_id);
-              $('#mgr-4-1-comp_name').val(resp.comp_name);
-              $('#mgr-4-1-comp_tel').val(resp.comp_tel);
-              $('#mgr-4-1-comp_address').val(resp.comp_address);
-              $('#mgr-4-1-comp_address2').val(resp.comp_address2);
-            }
-          })
-        } else {
-          $('.mgr-4-1').css('display', 'none');
-        }
-
-        if (param == 2) {
-          $('.mgr-4-2').css('display', 'flex');
-          $.ajax({
-            url: 'selectOwner',
-            method: 'POST',
-            success: function(resp) {
-              $('#mgr-4-2-emp_id').val(resp.emp_id);
-              $('#mgr-4-2-emp_name').val(resp.emp_name);
-              $('#mgr-4-2-emp_tel').val(resp.emp_tel);
-              $('#mgr-4-2-emp_pw').attr('placeholder', '정보를 수정하시려면 비밀번호를 입력하십시오.');
-              $('#mgr-4-2-emp_new_pw').attr('placeholder', '비밀번호를 확인하십시오.');
-              $('#mgr-4-2-emp_new_pw2').attr('placeholder', '비밀번호를 확인하십시오.');
-
-            }
-          });
-        } else {
-          $('.mgr-4-2').css('display', 'none');
-        }
-
-        if (param == 3) {
-          $('.mgr-4-3').css('display', 'flex');
-          $.ajax({
-            url: 'selectEmployeeList',
-            method: 'POST',
-            success: function(resp) {
-              $('.mgr-4-3-table').html('');
-              $.each(resp, function(idx, obj) {
-                var output = '';
-                output += '<tr s-empseq="' + obj.emp_seq + '">';
-                output += '<td>' + obj.emp_id + '</td><td>' + obj.emp_name + '</td><td>' + obj.emp_tel + '</td>';
-                output += '</tr>';
-                $('.mgr-4-3-table').append(output);
-                var temp = 'tr[s-empseq=' + obj.emp_seq + ']';
-                $(temp).on('click', callModifyMember);
-              })
-            }
-          })
-        } else {
-          $('.mgr-4-3').css('display', 'none');
-        }
-      }
-
-      function callModifyMember() {
-        var chk = $(this).attr('s-empseq');
-        $.ajax({
-          url: 'selectEmployee',
-          method: 'POST',
-          data: {
-            'emp_seq': chk
-          },
           success: function(resp) {
-            console.log(resp);
-            $('#mgr-4-3-emp_id').val(resp.emp_id).attr('readonly', 'readonly');
-            $('#mgr-4-3-emp_name').val(resp.emp_name);
-            $('#mgr-4-3-emp_tel').val(resp.emp_tel);
-            $('#mgr-4-3-emp_pw').val(resp.emp_pw);
-            $('#mgr-4-3-emp_pw2').attr('placeholder', '수정하려면 새로운 비밀번호를 입력하십시오.');
-            $('#mgr-4-3-btn-submit').val('수정');
-            $('#mgr-4-3-form').attr('action', 'updateEmployee')
+            $('#mgr-4-2-emp_id').val(resp.emp_id);
+            $('#mgr-4-2-emp_name').val(resp.emp_name);
+            $('#mgr-4-2-emp_tel').val(resp.emp_tel);
+            $('#mgr-4-2-emp_pw').attr('placeholder', '정보를 수정하시려면 비밀번호를 입력하십시오.');
+            $('#mgr-4-2-emp_new_pw').attr('placeholder', '비밀번호를 확인하십시오.');
+            $('#mgr-4-2-emp_new_pw2').attr('placeholder', '비밀번호를 확인하십시오.');
+
           }
         });
+      } else {
+        $('.mgr-4-2').css('display', 'none');
       }
 
-      function deleteMember() {
-
+      if (param == 3) {
+        $('.mgr-4-3').css('display', 'flex');
+        $.ajax({
+          url: 'selectEmployeeList',
+          method: 'POST',
+          success: function(resp) {
+            $('.mgr-4-3-table').html('');
+            $.each(resp, function(idx, obj) {
+              var output = '';
+              output += '<tr s-empseq="' + obj.emp_seq + '">';
+              output += '<td>' + obj.emp_id + '</td><td>' + obj.emp_name + '</td><td>' + obj.emp_tel + '</td>';
+              output += '</tr>';
+              $('.mgr-4-3-table').append(output);
+              var temp = 'tr[s-empseq=' + obj.emp_seq + ']';
+              $(temp).on('click', callModifyMember);
+            })
+          }
+        })
+      } else {
+        $('.mgr-4-3').css('display', 'none');
       }
+    }
 
-      function setdatetodaydefault() {
-   	      var date = new Date();
+    function callModifyMember() {
+      var chk = $(this).attr('s-empseq');
+      $.ajax({
+        url: 'selectEmployee',
+        method: 'POST',
+        data: {
+          'emp_seq': chk
+        },
+        success: function(resp) {
+          console.log(resp);
+          $('#mgr-4-3-emp_id').val(resp.emp_id).attr('readonly', 'readonly');
+          $('#mgr-4-3-emp_name').val(resp.emp_name);
+          $('#mgr-4-3-emp_tel').val(resp.emp_tel);
+          $('#mgr-4-3-emp_pw').val(resp.emp_pw);
+          $('#mgr-4-3-emp_pw2').attr('placeholder', '수정하려면 새로운 비밀번호를 입력하십시오.');
+          $('#mgr-4-3-btn-submit').val('수정');
+          $('#mgr-4-3-form').attr('action', 'updateEmployee')
+        }
+      });
+    }
 
-  	      var day = date.getDate();
-  	      var month = date.getMonth() + 1;
-  	      var year = date.getFullYear();
+    function deleteMember() {
 
-  	      if (month < 10) month = "0" + month;
-  	      if (day < 10) day = "0" + day;
+    }
 
-  	      var today = year + "-" + month + "-" + day;   
-  	      console.log(today)
-  	      $("#mgr-1-2").attr("value", today);
-      }
-      
-    </script>
+    function setdatetodaydefault() {
+      var date = new Date();
+
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
+
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+
+      var today = year + "-" + month + "-" + day;
+      console.log(today)
+      $("#mgr-1-2").attr("value", today);
+    }
+
+  </script>
 </body>
 
 </html>

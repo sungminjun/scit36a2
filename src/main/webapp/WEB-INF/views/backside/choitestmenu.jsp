@@ -44,10 +44,10 @@
       if (menu_price.trim().length == 0) {
         alert("제대로 가격입력할것");
         return;
-      }	else if (isNaN(menu_price)) {
-		alert("가격은 숫자로입력");
-		return;
-	}
+      } else if (isNaN(menu_price)) {
+        alert("가격은 숫자로입력");
+        return;
+      }
 
       var menu_category = $("#menu_category option:selected").val();
 
@@ -63,7 +63,7 @@
         url: "insertMenu",
         method: "POST",
         data: menu,
-        success:output
+        success: output
       });
 
     }
@@ -127,32 +127,32 @@
 </head>
 
 <body>
-  
-    <tr>
-      <td>
-        <input type="text" placeholder="등록할 메뉴이름 입력" id="menu_name">
-        <select id="menu_sellFlag">
-          <option value="판매중">판매중</option>
-          <option value="판매중아님">판매중아님</option>
-        </select>
-        <input type="text" placeholder="품목판매가 입력" id="menu_price">
-        <select id="menu_category">
-          <option value="음식">음식</option>
-          <option value="후식">후식</option>
-          <option value="디저트">디저트</option>
-          <option value="음료">음료</option>
-        </select>
-      </td>
-      <td>
-        <input type="button" value="메뉴 추가 등록확인버튼" id="insertnewmenubutton">
-      </td>
-    </tr>
- 
+
+  <tr>
+    <td>
+      <input type="text" placeholder="등록할 메뉴이름 입력" id="menu_name">
+      <select id="menu_sellFlag">
+        <option value="판매중">판매중</option>
+        <option value="판매중아님">판매중아님</option>
+      </select>
+      <input type="text" placeholder="품목판매가 입력" id="menu_price">
+      <select id="menu_category">
+        <option value="음식">음식</option>
+        <option value="후식">후식</option>
+        <option value="디저트">디저트</option>
+        <option value="음료">음료</option>
+      </select>
+    </td>
+    <td>
+      <input type="button" value="메뉴 추가 등록확인버튼" id="insertnewmenubutton">
+    </td>
+  </tr>
+
   <br><br><br><br><br><br>
   <input type="text" placeholder="메뉴삭제할 번호입력" id="menu_seq">
   <input type="button" value="메뉴 삭제 버튼" id="deletebutton">
-<table id="menuRegi">
-</table>
+  <table id="menuRegi">
+  </table>
 
 
 </body>

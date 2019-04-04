@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,7 +10,7 @@
   <title>
     MinnanoPOS
   </title>
-  
+
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -31,10 +32,14 @@
         $('#' + activeTab).addClass('current');
       })
     });
-    
-    <c:if test="${findResult != null}">
-    	alert('id 찾기 결과: ' + ${findResult});
-    </c:if>
+
+    <
+    c: if test = "${findResult != null}" >
+      alert('id 찾기 결과: ' + $ {
+        findResult
+      }); <
+    /c:if>
+
   </script>
 
 </head>

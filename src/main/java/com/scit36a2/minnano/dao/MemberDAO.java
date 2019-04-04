@@ -39,7 +39,7 @@ public interface MemberDAO {
 	// 회사(사장) 아이디 찾기
 	public Employee findId(Map<String, Object> map);
 
-	// 현재 등록된 전체 직원 목록 불러오기	
+	// 현재 등록된 전체 직원 목록 불러오기
 	public List<Employee> employeeList(int comp_seq);
 
 	// 직원정보 수정을 위한 특정 직원정보 호출

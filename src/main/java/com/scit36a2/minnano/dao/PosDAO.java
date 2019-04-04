@@ -50,8 +50,14 @@ public interface PosDAO {
 
 	public int predictPmtCash(int comp_seq);
 
-	public ArrayList<HashMap<String, Object>> selectPosReport(HashMap<String, Object> map);
+	public ArrayList<HashMap<String, Object>> selectWeekPosReport(HashMap<String, Object> map);
 
 	public ArrayList<HashMap<String, Object>> selectPaymentList(int comp_seq);
+
+	public ArrayList<HashMap<String, Object>> selectWeekDay(HashMap<String, Object> map);
+
+	public ArrayList<Object> searchDayPosReport(HashMap<String, Object> map);
+
+	public ArrayList<Object> selectMonthPosReport(HashMap<String, Object> map);
 }
 

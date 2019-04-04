@@ -70,21 +70,6 @@ public class ReportsController {
 		
 		ArrayList<Object>result = new ArrayList<Object>();
 		
-		
-		/*for(int i=0;i<search_date.size();i++) {
-			for(int j=0;j<search_week.size();j++) {
-				
-			}
-		}
-		*/
-		/*for (HashMap<String,Object> result3 : search_date) {
-			
-			for (HashMap<String,Object> result2 : search_week) {
-			result3.putAll(result2);
-			System.out.println(result3.toString());
-			}
-		}*/
-		
 		for (int i = 0; i < search_date.size(); i++) {
 			for (int j = 0; j < search_week.size(); j++) {
 				if(i==j) {
@@ -102,20 +87,6 @@ public class ReportsController {
 		System.out.println(result.toString());
 		
 		return result;
-		
-		/*for (HashMap<String, Object> hashMap : search_date) {
-			result.add(hashMap);
-		}
-		for (HashMap<String, Object> hashMap : search_week) {
-			result.add(hashMap);
-		}
-		System.out.println(result.toString());
-			
-		/*ArrayList searchList=new ArrayList(Arrays.asList(search_date));
-		searchList.addAll(Arrays.asList(search_week));
-		Object[]searchWeekList=searchList.toArray();
-		System.out.println(Arrays.toString(searchWeekList));
-		*/
 	
 		
 		}else {//달 별 매출

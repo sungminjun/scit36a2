@@ -26,6 +26,11 @@
 		)
 	</insert>
 	
+	<delete id="deleteSas" parameterType="sas">
+		delete from sales_state
+		where sales_state_seq = #{sales_state_seq}
+	</delete>
+	
 	<insert id="insertSad" parameterType="sad">
 		INSERT INTO sales_detail VALUES(
 			sales_detail_seqs.nextval,
@@ -58,6 +63,17 @@
 			, #{payment_clerk}
 		)
 	</insert>
+	
+	<select id="cumulatepaymenttoday" parameterType="int" resultType="int">
+		SELECT sum(payment_amount)
+		FROM payment p 
+		JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+		WHERE comp_seq = #{param} and payment_time like sysdate
+	</select>
+
+
+
+
 			
 <select id="selectPOSone" resultType="HashMap" parameterType="int">
 	select  sea.seat_seq, sea.seat_id, 
@@ -78,13 +94,10 @@ left outer join sales_state sas on me.comp_seq = sas.comp_seq
 left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
 
 </select>
-	
-	<delete id="deleteSasSadPay" parameterType="sas">
-		delete from sales_state
-		where comp_seq = #{comp_seq}
-	</delete>
-	
-	<update id="updatePOStwo" parameterType="sas"><!-- 한번의 입력을 받아(sales_state_seq) 두개의 테이블에 있는 데이터를 수정(sales_memo,sales_visitors,sales_discount,sales_order,menu_seq)하는 구문입니다. 필요하지 않으실수도 있겠지만 어느것이 수정이 필요한지 몰라 수정할만한 것을 임의적으로 생각해봤습니다. -->
+
+
+	<!-- 한번의 입력을 받아(sales_state_seq) 두개의 테이블에 있는 데이터를 수정(sales_memo,sales_visitors,sales_discount,sales_order,menu_seq)하는 구문입니다. 필요하지 않으실수도 있겠지만 어느것이 수정이 필요한지 몰라 수정할만한 것을 임의적으로 생각해봤습니다. -->
+	<update id="updatePOStwo" parameterType="sas">
 		begin for cs in (
 			select sas.sales_memo sas_sales_memo, sas.sales_visitors sas_sales_visitors, sad.sales_discount sad_sales_discount, sad.sales_order sad_sales_order, sad.menu_seq sad_menu_seq
 			from sales_state sas, sales_detail sad
@@ -120,6 +133,104 @@ left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
 	</insert>
 
 	
+	<select id="selectCashonhand" resultType="coh" parameterType="coh">
+		select 
+			*
+		from
+			cashonhand
+		where
+			comp_seq = #{comp_seq} and cashonhand_regdate like sysdate
+	</select>
+
+	<insert id="insertCashonhand" parameterType="coh">
+	insert into cashonhand values (
+		cashonhand_seqs.nextval,
+		#{comp_seq},
+		#{cashonhand_type},
+		#{cashonhand_register},
+		sysdate,
+		#{cashonhand_error},
+		#{cashonhand_cash}
+	)
+	</insert>
+
+	<update id="movetable" parameterType="hashmap">
+		UPDATE sales_state
+		SET seat_seq = #{to_seatseq} WHERE sales_state_seq = #{from_sasseq}  
+	</update>
+
+	<update id="swaptable" parameterType="hashmap">
+		UPDATE sales_state
+		SET seat_seq = CASE 
+        				WHEN sales_state_seq = #{from_sasseq} THEN #{to_seatseq}
+        				WHEN sales_state_seq = #{to_sasseq} THEN #{from_seatseq}
+        				END
+       	WHERE sales_state_seq in (#{from_sasseq}, #{to_sasseq})
+	</update>
+
+	<update id="mergetable" parameterType="hashmap">
+<!-- 
+		BEGIN
+		FOR i IN ( 
+			SELECT 
+				 distinct s.sales_state_seq, s.sales_memo sales_memo, s.sales_visitors sales_visitors, s.seat_seq seat_seq  
+			FROM
+				sales_state s
+				LEFT OUTER JOIN sales_detail d ON s.sales_state_seq = d.sales_state_seq
+			WHERE
+				s.sales_state_seq in (#{to_sasseq}, #{from_sasseq}) 
+			)
+		LOOP
+			UPDATE sales_state
+				SET 
+				sales_visitors = (SELECT sum(sales_visitors) FROM sales_state where sales_state_seq in (#{from_sasseq}, #{to_sasseq})) 
+				, sales_memo = CONCAT( (SELECT sales_memo FROM sales_state where sales_state_seq = #{from_sasseq}), (SELECT sales_memo FROM sales_state where sales_state_seq = #{to_sasseq}) )
+				WHERE sales_state_seq = #{to_sasseq};
+			UPDATE sales_detail
+				SET sales_state_seq = #{to_sasseq} 
+				WHERE sales_state_seq = #{from_sasseq};
+		END LOOP;
+		END;
+
+ -->
+ 
+ 		BEGIN
+		FOR i IN ( 
+			SELECT 
+				 distinct s.sales_state_seq, s.sales_memo sales_memo, s.sales_visitors sales_visitors, s.seat_seq seat_seq  
+			FROM
+				sales_state s
+				LEFT OUTER JOIN sales_detail d ON s.sales_state_seq = d.sales_state_seq
+			WHERE
+				s.sales_state_seq in (#{to_sasseq}) 
+			)
+		LOOP
+			UPDATE sales_state
+				SET 
+				sales_visitors = (SELECT sum(sales_visitors) FROM sales_state where sales_state_seq in (#{from_sasseq}, #{to_sasseq})) 
+				, sales_memo = CONCAT( (SELECT sales_memo FROM sales_state where sales_state_seq = #{from_sasseq}), (SELECT sales_memo FROM sales_state where sales_state_seq = #{to_sasseq}) )
+				WHERE sales_state_seq = #{to_sasseq};
+		END LOOP;
+		
+		FOR i IN ( 
+			SELECT 
+				 distinct s.sales_state_seq, s.sales_memo sales_memo, s.sales_visitors sales_visitors, s.seat_seq seat_seq  
+			FROM
+				sales_state s
+				LEFT OUTER JOIN sales_detail d ON s.sales_state_seq = d.sales_state_seq
+			WHERE
+				s.sales_state_seq in (#{from_sasseq}) 
+			)
+		LOOP
+					UPDATE sales_detail
+				SET sales_state_seq = #{to_sasseq} 
+				WHERE sales_state_seq = #{from_sasseq};
+		END LOOP;
+		
+		END;
+ 
+ 	</update>
+	
 	<resultMap type="hashmap" id="testresult">
 		<result property="payment_seq" column="payment_seq"/>
   		<result property="sales_state_seq" column="sales_state_seq"/>
@@ -144,6 +255,8 @@ left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
         	payment_time <= to_date('2019-03-26 11:59:59', 'YYYY-MM-DD HH24:mi:ss') and comp_seq = #{comp_seq}
        	]]>
 	</select>
+
+
 <!-- 	
   	<resultMap id="sales_state" type="sas">
   	<result property="comp_seq" column="comp_seq"></result>
@@ -195,39 +308,7 @@ left outer join sales_detail sad on sas.SALES_STATE_SEQ = sad.sales_state_seq
 			)	select * from dual
 	</insert>
 	
-<insert id="insertCashonhand" parameterType="coh">
-insert into cashonhand	(
-cashonhand_seq,
-comp_seq,
-cashonhand_type,
-cashonhand_register,
-cashonhand_regdate,
-cashonhand_error,
-cashonhand_cash
-)	values	(
-cashonhand_seqs.nextval,
-#{comp_seq},
-#{cashonhand_type},
-#{cashonhand_register},
-sysdate,
-#{cashonhand_error},
-#{cashonhand_cash}
-)
-</insert>
-<select id="selectCashonhand" resultType="coh" parameterType="coh">
-	select 
-		cashonhand_seq,
-		comp_seq,
-		cashonhand_type,
-		cashonhand_register,
-		cashonhand_regdate,
-		cashonhand_error,
-		cashonhand_cash
-	from
-		cashonhand
-	where
-		comp_seq = #{comp_seq}
-</select>
+
 <select id="selectCashOne" resultType="coh" parameterType="coh">
 	select 
 		CASHONHAND_SEQ, 
@@ -255,18 +336,18 @@ and
 			cashonhand_seq = #{cashonhand_seq}
 </delete>
 
-<select id="predictCash" parameterType="int" resultType="hashmap">
+<select id="predictCash" parameterType="int" resultType="coh">
 	SELECT * FROM CASHONHAND WHERE comp_seq = #{param} and CASHONHAND_REGDATE like sysdate
 </select>
 
 <select id="predictPmtCash" parameterType="int" resultType="int">
-select  
-	sum(payment_amount)
-from 
-	payment p
-left join SALES_STATE s on p.sales_state_seq = s.sales_state_seq
-where 
-	comp_seq = #{comp_seq}
+	SELECT  
+		sum(payment_amount)
+	FROM
+		payment p
+		left join SALES_STATE s on p.sales_state_seq = s.sales_state_seq
+	WHERE 
+		comp_seq = #{comp_seq} and payment_type = 2 and payment_time like sysdate
 </select>
 
 </mapper>

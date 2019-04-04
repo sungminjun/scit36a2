@@ -142,9 +142,9 @@ public class PosRepo {
 		return result;
 	}
 
-	public int predictPmtCash(int comp_seq) {
+	public Integer predictPmtCash(int comp_seq) {
 		PosDAO mapper = session.getMapper(PosDAO.class);
-		int result = mapper.predictPmtCash(comp_seq);
+		Integer result = mapper.predictPmtCash(comp_seq);
 		return result;
 	}
 
@@ -183,6 +183,36 @@ public class PosRepo {
 		PosDAO dao = session.getMapper(PosDAO.class);
 		ArrayList<HashMap<String, Object>> list = dao.selectPosReport(map);
 		return list;
+	}
+
+	public Integer cumulatepaymenttoday(int comp_seq) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		Integer result = mapper.cumulatepaymenttoday(comp_seq);
+		return result;
+	}
+
+	public int swaptable(HashMap<String, Integer> map) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		Integer result = mapper.swaptable(map);
+		return result;
+	}
+
+	public int movetable(HashMap<String, Integer> map) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		Integer result = mapper.movetable(map);
+		return result;
+	}
+
+	public int mergetable(HashMap<String, Integer> map) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		Integer result = mapper.mergetable(map);
+		return result;
+	}
+
+	public int deleteSas(Sales_state sas) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		Integer result = mapper.deleteSas(sas);
+		return result;
 	}
 
 }

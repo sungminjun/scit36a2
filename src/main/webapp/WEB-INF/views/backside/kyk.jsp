@@ -26,7 +26,7 @@
       <a href="choitestmenu">철규상 메뉴 테스트</a>
       <a href="board_k">게시판 메뉴 테스트</a>
       <a href="report_k"> 보고서 테스트</a>
-   	  <a href="choitestexpense">철규상 지출 테스트</a><br>
+      <a href="choitestexpense">철규상 지출 테스트</a><br>
       <a href="choiTestPOS1">철규상 POS테스트</a><br>
       <a href="choiTestCashonHand">철규상 시재 테스트</a>
     </c:if>

@@ -52,14 +52,14 @@ public class MemberController {
 		int comp_seq = e.getComp_seq();
 		String emp_id = employee.getEmp_id();
 		String emp_pw = employee.getEmp_pw();
-		int emp_seq = e.getEmp_seq();//추가-최철규
-	
+		int emp_seq = e.getEmp_seq();// 추가-최철규
+
 		if (e != null) {
 			if (emp_id.equals(e.getEmp_id()) && emp_pw.equals(e.getEmp_pw())) {
 
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
-				session.setAttribute("emp_seq", emp_seq);//추가 최철규
+				session.setAttribute("emp_seq", emp_seq);// 추가 최철규
 				System.out.println(session.getAttribute("emp_id"));
 				System.out.println(session.getAttribute("comp_seq"));
 				System.out.println(session.getAttribute("emp_seq"));
@@ -338,8 +338,7 @@ public class MemberController {
 	}
 
 	/**
-	 * mgr의 직원정보 등록요청 처리
-	 *	// 예시 ui단에 비밀번호 찾는 질문 입력란이 없는데....어떻게 하실것인지!
+	 * mgr의 직원정보 등록요청 처리 // 예시 ui단에 비밀번호 찾는 질문 입력란이 없는데....어떻게 하실것인지!
 	 * 
 	 * @author 김유경
 	 */
@@ -355,10 +354,12 @@ public class MemberController {
 		int result = repo.joinMember(employee);
 
 		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)	return "redirect:/mgr";
-		else				return "redirect:/mgr";
+		if (result == 1)
+			return "redirect:/mgr";
+		else
+			return "redirect:/mgr";
 	}
-	
+
 	/**
 	 * mgr의 직원정보 수정요청 처리
 	 * 
@@ -369,12 +370,13 @@ public class MemberController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		employee.setComp_seq(comp_seq);
 		int result = repo.updateMember(employee);
-		
-		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)	return "redirect:/mgr";
-		else				return "redirect:/mgr";
-	}
 
+		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
+		if (result == 1)
+			return "redirect:/mgr";
+		else
+			return "redirect:/mgr";
+	}
 
 	//
 	//

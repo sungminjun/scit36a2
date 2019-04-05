@@ -50,16 +50,16 @@ public class SettingsController {
 	public String insertseat(Seat seat, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		seat.setComp_seq(comp_seq);
-		//System.out.println(seat);
-		
+		// System.out.println(seat);
+
 		int result = repo.insertseat(seat);
-		
+
 		if (result == 1) {
 			return "success";
-		}	else	{
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	/**
 	 * 해당 회사의 전체 테이블 목록 조회
@@ -72,7 +72,7 @@ public class SettingsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		List<Seat> seatList = new ArrayList<Seat>();
 		seatList = repo.selectseat(comp_seq);
-		//System.out.println("seatList : " + seatList);
+		// System.out.println("seatList : " + seatList);
 		return seatList;
 	}
 
@@ -88,12 +88,12 @@ public class SettingsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		seat.setComp_seq(comp_seq);
 		int result = repo.deleteseat(seat);
-		if (result == 1)	{
+		if (result == 1) {
 			return "success";
-		}else	{
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	/**
 	 * 테이블수정
@@ -106,12 +106,12 @@ public class SettingsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		seat.setComp_seq(comp_seq);
 		int result = repo.updateseat(seat);
-		if (result == 1)	{
+		if (result == 1) {
 			return "success";
-		}	else {
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	// seat(table) manager methods above
 	//
@@ -134,14 +134,14 @@ public class SettingsController {
 		System.out.println(menu);
 		menu.setComp_seq(comp_seq);
 		int result = repo.insertMenu(menu);
-		//System.out.println("컨트롤러 result : " + result);
-		
-		if (result == 1)	{
+		// System.out.println("컨트롤러 result : " + result);
+
+		if (result == 1) {
 			return "success";
-		}	else	{
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	/**
 	 * 해당 점포의 메뉴 목록을 조회
@@ -150,15 +150,14 @@ public class SettingsController {
 	 */
 	@RequestMapping(value = "selectMenu", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Menu> selectMenu(HttpSession session,Menu menu) {
+	public List<Menu> selectMenu(HttpSession session, Menu menu) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		//List<Menu> menuList = new ArrayList<Menu>();
+		// List<Menu> menuList = new ArrayList<Menu>();
 		menu.setComp_seq(comp_seq);
 		List<Menu> result = repo.selectMenu(menu);
-		//System.out.println("menuList : " + result);
+		// System.out.println("menuList : " + result);
 		return result;
 	}
-
 
 	/**
 	 * 메뉴 삭제
@@ -172,12 +171,12 @@ public class SettingsController {
 		menu.setComp_seq(comp_seq);
 		int result = repo.deleteMenu(menu);
 
-		if (result == 1)	{
+		if (result == 1) {
 			return "success";
-		}	else	{
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	/**
 	 * 메뉴 업데이트
@@ -192,19 +191,19 @@ public class SettingsController {
 		System.out.println(menu);
 		System.out.println(menu.getMenu_name());
 		System.out.println(menu.getMenu_name().getClass());
- 
+
 		int result = repo.updateMenu(menu);
 		/*
 		 * int Emp_auth_level = employee.getEmp_auth_level(); if (Emp_auth_level == 9) {
 		 * int result = repo.updateMenu(menu_seq); return "success"; } else { return
 		 * "false"; }
 		 */
-		if (result == 1)	{
+		if (result == 1) {
 			return "success";
-		}	else	{
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	// menu manager methods above
 	//
@@ -219,13 +218,13 @@ public class SettingsController {
 		System.out.println(expense);
 		expense.setComp_seq(comp_seq);
 		int result = repo.insertExpense(expense);
-		
-		if (result == 1)	{
+
+		if (result == 1) {
 			return "success";
-		}else	{
+		} else {
 			return "fail";
-		}	
 		}
+	}
 
 	@RequestMapping(value = "selectExpense", method = RequestMethod.POST)
 	public @ResponseBody List<Expense> selectExpense(HttpSession session) {
@@ -238,23 +237,23 @@ public class SettingsController {
 	@ResponseBody
 	public String deleteExpense(Expense expense) {
 		int result = repo.deleteExpense(expense);
-		if (result == 1)	{
+		if (result == 1) {
 			return "success";
-		}	else	{
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	@RequestMapping(value = "updateExpense", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateExpense(Expense expense) {
 		int result = repo.updateExpense(expense);
-		if (result == 1)	{
+		if (result == 1) {
 			return "success";
-		}	else	{
+		} else {
 			return "fail";
 		}
-		}
+	}
 
 	// expense manager methods above
 	//

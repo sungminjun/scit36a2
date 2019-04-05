@@ -7,7 +7,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
   <title>
     MinnanoPOS
   </title>
@@ -20,16 +20,16 @@
   <!-- CSS Files -->
   <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- boardList용 CSS -->
-	<link href="assets/css/board/boardList.css" rel="stylesheet" type="text/css" />
-  
+  <link href="assets/css/board/boardList.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body class="white-content">
-	
 
-	<div class="wrapper">
-  
-  
+
+  <div class="wrapper">
+
+
     <div class="sidebar" data="blue">
       <div class="sidebar-wrapper">
         <div class="logo">
@@ -73,20 +73,20 @@
     </div>
 
 
-		<div class="main-panel" data="blue">
-			<div class="content">
-				<div class="row">
+    <div class="main-panel" data="blue">
+      <div class="content">
+        <div class="row">
 
-					<div class="col-xl-10">
-						<div id="titleForm">
-							<h2>
-								<a id="boardTitle" href="/minnano/">招き猫の掲示板</a>
+          <div class="col-xl-10">
+            <div id="titleForm">
+              <h2>
+                <a id="boardTitle" href="/minnano/">招き猫の掲示板</a>
 
-							</h2>
-						</div>
-					</div>
+              </h2>
+            </div>
+          </div>
 
-					<!-- 
+          <!-- 
 					<div class="col-md-8">
 						<div class="card">
 							<div class="card-header">
@@ -101,39 +101,36 @@
 						</div>
 					</div> -->
 
-					<div class="col-xl-8">
-						<div id="wrapper-neck">
+          <div class="col-xl-8">
+            <div id="wrapper-neck">
 
-							<!-- 특정 글 검색 -->
-							<form id="search" action="boardList" method="GET">
-								<select name="searchItem">
-									<option value="title"
-										${searchItem =='title'  ? 'selected' : ''}>제목</option>
-									<option value="userid"
-										${searchItem =='userid' ? 'selected' : ''}>작성자</option>
-									<option value="content"
-										${searchItem =='content'? 'selected' : ''}>내용</option>
-								</select> <input type="text" name="searchWord" value="${searchWord}" />
-								&nbsp; <input class="button" type="submit" value="검색" />
-							</form>
-						</div>
+              <!-- 특정 글 검색 -->
+              <form id="search" action="boardList" method="GET">
+                <select name="searchItem">
+                  <option value="title" ${searchItem=='title' ? 'selected' : '' }>제목</option>
+                  <option value="userid" ${searchItem=='userid' ? 'selected' : '' }>작성자</option>
+                  <option value="content" ${searchItem=='content' ? 'selected' : '' }>내용</option>
+                </select> <input type="text" name="searchWord" value="${searchWord}" />
+                &nbsp; <input class="button" type="submit" value="검색" />
+              </form>
+            </div>
 
-					</div>
+          </div>
 
 
-					<div class="col-xl-10">
-						<div id="wrapper-body">
-							<table id="searchTable">
+          <div class="col-xl-10">
+            <div id="wrapper-body">
+              <table id="searchTable">
 
-								<tr id="index">
-									<th>번호</th>
-									<th class="title">글제목</th>
-									<th>글쓴날</th>
-									<th>글쓴이</th>
-									<th>조회수</th>
-								</tr>
+                <tr id="index">
+                  <th>번호</th>
+                  <th class="title">글제목</th>
+                  <th>글쓴날</th>
+                  <th>글쓴이</th>
+                  <th>조회수</th>
+                </tr>
 
-								<%-- <!-- 게시글 출력 반복 -->
+                <%-- <!-- 게시글 출력 반복 -->
 								<c:forEach var="board" items="${boardList}" varStatus="stat">
 									<tr>
 										<td>${stat.count + navi.startRecord}</td>
@@ -147,54 +144,48 @@
 										<td>${board.hitcount}</td>
 									</tr>
 								</c:forEach>   --%>
-							</table>
-						</div>
+              </table>
+            </div>
 
-					</div>
-
-
-
-				</div>
-
-
-				<!-- 페이지 네비게이터 -->
-				<div id="navigator" style="text-align: center;">
-
-					<a
-						href="boardList?currentPage=${navi.currentPage-navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
-						◁◁ </a> <a
-						href="boardList?currentPage=${navi.currentPage-1}&searchItem=${searchItem}&searchWord=${searchWord}">
-						◀ </a> &nbsp;&nbsp;
-					<c:forEach var="page" begin="${navi.startPageGroup}"
-						end="${navi.endPageGroup }">
-						<c:if test="${page != navi.currentPage }">
-							<a
-								href="boardList?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp;
-	</c:if>
-						<c:if test="${page == navi.currentPage }">
-							<span style="color: red; font-size: 1.2em;">${page}</span> &nbsp;
-	</c:if>
-					</c:forEach>
-					&nbsp;&nbsp; <a
-						href="boardList?currentPage=${navi.currentPage+1}&searchItem=${searchItem}&searchWord=${searchWord}">
-						▶ </a> <a
-						href="boardList?currentPage=${navi.currentPage+navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
-						▷▷ </a>
-				</div>
-			</div>
+          </div>
 
 
 
-			<div class="write">
-				<a class="writeBtn" href="boardRegist">글쓰기</a>
-			</div>
-
-		</div>
+        </div>
 
 
+        <!-- 페이지 네비게이터 -->
+        <div id="navigator" style="text-align: center;">
 
-		<footer class="footer"> </footer>
-	</div>
+          <a href="boardList?currentPage=${navi.currentPage-navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
+            ◁◁ </a> <a href="boardList?currentPage=${navi.currentPage-1}&searchItem=${searchItem}&searchWord=${searchWord}">
+            ◀ </a> &nbsp;&nbsp;
+          <c:forEach var="page" begin="${navi.startPageGroup}" end="${navi.endPageGroup }">
+            <c:if test="${page != navi.currentPage }">
+              <a href="boardList?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp;
+            </c:if>
+            <c:if test="${page == navi.currentPage }">
+              <span style="color: red; font-size: 1.2em;">${page}</span> &nbsp;
+            </c:if>
+          </c:forEach>
+          &nbsp;&nbsp; <a href="boardList?currentPage=${navi.currentPage+1}&searchItem=${searchItem}&searchWord=${searchWord}">
+            ▶ </a> <a href="boardList?currentPage=${navi.currentPage+navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
+            ▷▷ </a>
+        </div>
+      </div>
+
+
+
+      <div class="write">
+        <a class="writeBtn" href="boardRegist">글쓰기</a>
+      </div>
+
+    </div>
+
+
+
+    <footer class="footer"> </footer>
+  </div>
 
 
   <!--   Core JS Files   -->

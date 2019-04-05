@@ -18,11 +18,11 @@
   <br>
   <br>
   <c:if test="${sessionScope.emp_id != null}">
-  <span style="color: red;">${sessionScope.comp_seq}</span> 번 회사의, <span style="color: red;">${sessionScope.emp_id}</span> 로 로그인 되어있습니다.
+    <span style="color: red;">${sessionScope.comp_seq}</span> 번 회사의, <span style="color: red;">${sessionScope.emp_id}</span> 로 로그인 되어있습니다.
   </c:if>
-  <br> 작업완료: 모든페이지 사이드바 링크 연결 완료. mgr페이지 서브메뉴 선택에 따라 show/hide 처리 
+  <br> 작업완료: 모든페이지 사이드바 링크 연결 완료. mgr페이지 서브메뉴 선택에 따라 show/hide 처리
   <br> 작업중: 로그인, 회원가입, id/pw찾기 연결
-  <br> 예정사항: mgr페이지 세부기능 연결 
+  <br> 예정사항: mgr페이지 세부기능 연결
   <br>
   <br>
   <table border="1" style="border-collapse: collapse;" class="progress">
@@ -48,100 +48,100 @@
   <script>
     var data = {
       "da": [{
-        "side": "front",
-        "charge": "프론트공통",
-        "page": "basic",
-        "desc": "공통양식",
-        "prog": "100%"
-      }, {
-        "side": "front",
-        "charge": "이영창,전성민",
-        "page": "login",
-        "desc": "로그인",
-        "prog": "100%"
-      }, {
-        "side": "front",
-        "charge": "이영창",
-        "page": "join",
-        "desc": "회원가입",
-        "prog": "100%"
-      }, {
-        "side": "front",
-        "charge": "이영창",
-        "page": "find",
-        "desc": "id/pw찾기",
-        "prog": "70%<br>기능미결"
-      }, {
-        "side": "front",
-        "charge": "전성민",
-        "page": "main",
-        "desc": "로그인 후 첫 분기화면",
-        "prog": "100%<br>폐기예정"
-      }, {
-        "side": "front",
-        "charge": "전성민",
-        "page": "mgr",
-        "desc": "관리자메뉴",
-        "prog": "100%"
-      }, {
+          "side": "front",
+          "charge": "프론트공통",
+          "page": "basic",
+          "desc": "공통양식",
+          "prog": "100%"
+        }, {
+          "side": "front",
+          "charge": "이영창,전성민",
+          "page": "login",
+          "desc": "로그인",
+          "prog": "100%"
+        }, {
+          "side": "front",
+          "charge": "이영창",
+          "page": "join",
+          "desc": "회원가입",
+          "prog": "100%"
+        }, {
+          "side": "front",
+          "charge": "이영창",
+          "page": "find",
+          "desc": "id/pw찾기",
+          "prog": "70%<br>기능미결"
+        }, {
+          "side": "front",
+          "charge": "전성민",
+          "page": "main",
+          "desc": "로그인 후 첫 분기화면",
+          "prog": "100%<br>폐기예정"
+        }, {
+          "side": "front",
+          "charge": "전성민",
+          "page": "mgr",
+          "desc": "관리자메뉴",
+          "prog": "100%"
+        }, {
           "side": "front",
           "charge": "전성민",
           "page": "pos",
           "desc": "포스화면",
           "prog": "1%"
-      }, {
+        }, {
           "side": "front",
           "charge": "이영창",
           "page": "posMain",
           "desc": "포스화면",
           "prog": "50%"
-      }, {
-        "side": "back",
-        "charge": "최철규",
-        "page": "choiTest",
-        "desc": "백단테스트메뉴(최철규,테이블)",
-        "prog": "50%"
-      }, {
-        "side": "back",
-        "charge": "최철규",
-        "page": "choitestmenu",
-        "desc": "백단테스트메뉴(최철규,메뉴)",
-        "prog": "50%"
-      }, {
+        }, {
+          "side": "back",
+          "charge": "최철규",
+          "page": "choiTest",
+          "desc": "백단테스트메뉴(최철규,테이블)",
+          "prog": "50%"
+        }, {
+          "side": "back",
+          "charge": "최철규",
+          "page": "choitestmenu",
+          "desc": "백단테스트메뉴(최철규,메뉴)",
+          "prog": "50%"
+        }, {
           "side": "back",
           "charge": "최철규",
           "page": "choipos",
           "desc": "백단테스트메뉴(최철규,pos)",
           "prog": "50%"
-      }, {
-        "side": "back",
-        "charge": "김유경",
-        "page": "kyk",
-        "desc": "백단테스트메뉴(김유경)",
-        "prog": "50%"
-      },
-      {
-        "side": "front",
-        "charge": "이호정",
-        "page": "report",
-        "desc": "보고서 페이지",
-        "prog": "50%"
-      }, {
+        }, {
+          "side": "back",
+          "charge": "김유경",
+          "page": "kyk",
+          "desc": "백단테스트메뉴(김유경)",
+          "prog": "50%"
+        },
+        {
+          "side": "front",
+          "charge": "이호정",
+          "page": "report",
+          "desc": "보고서 페이지",
+          "prog": "50%"
+        }, {
           "side": "front",
           "charge": "이호정",
           "page": "chart",
           "desc": "보고서 페이지 (작업용)",
           "prog": "50%"
         }, {
-        	"side": "front",
-            "charge": "이영창",
-            "page": "boardList",
-            "desc": "게시판",
-            "prog": "10%"
-        	
+          "side": "front",
+          "charge": "이영창",
+          "page": "boardList",
+          "desc": "게시판",
+          "prog": "10%"
+
         }
-      
-      
+
+
       ]
     }
 
@@ -162,4 +162,5 @@
 
   </script>
 </body>
+
 </html>

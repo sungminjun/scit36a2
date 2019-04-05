@@ -85,7 +85,7 @@
                       </div>
                     </div>
                     <div class="col-md-3">
-                        Ajax here ~ 사업자 등록번호 Auto check
+                      Ajax here ~ 사업자 등록번호 Auto check
                     </div>
                   </div>
                   <div class="row justify-content-center">
@@ -120,7 +120,7 @@
                       도로명주소API will be placed here.
                       <br> also, 도로명주소에 따라 위도/경도 addr2에 입력..
                     </div>
-                    
+
                   </div>
 
                   <hr>
@@ -134,7 +134,7 @@
                       </div>
                     </div>
                     <div class="col-md-3">
-                        Ajax here ~ ID 중복  Auto check
+                      Ajax here ~ ID 중복 Auto check
                     </div>
                   </div>
 
@@ -146,7 +146,7 @@
                       </div>
                     </div>
                     <div class="col-md-3">
-                        Ajax here ~ pw 제한조건 Auto check
+                      Ajax here ~ pw 제한조건 Auto check
                     </div>
                   </div>
                   <div class="row justify-content-center">
@@ -157,7 +157,7 @@
                       </div>
                     </div>
                     <div class="col-md-3">
-                        Ajax here ~ pw1과 동일한지 Auto check
+                      Ajax here ~ pw1과 동일한지 Auto check
                     </div>
                   </div>
                   <div class="row justify-content-center">
@@ -188,7 +188,7 @@
                       </div>
                     </div>
                     <div class="col-md-3">
-                        quiz는 dropdown목록에서 선택하는 것은 어떨지 생각해볼 것
+                      quiz는 dropdown목록에서 선택하는 것은 어떨지 생각해볼 것
                     </div>
                   </div>
                   <div class="row justify-content-center">
@@ -222,7 +222,7 @@
       </div>
     </div>
   </div>
-  
+
   <!--   Core JS Files   -->
   <script src="./assets/js/core/jquery.min.js"></script>
   <script src="./assets/js/core/popper.min.js"></script>

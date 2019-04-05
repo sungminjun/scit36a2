@@ -97,7 +97,6 @@ public class TestPageController {
 		return "choitestpayment";
 	}
 
-
 	@RequestMapping(value = "/report_k", method = RequestMethod.GET)
 	public String report_k() {
 		return "report/report_k";

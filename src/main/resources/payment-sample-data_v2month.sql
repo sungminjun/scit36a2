@@ -10730,3 +10730,6 @@ INSERT INTO payment VALUES(payment_seqs.nextval, 3329, 2, 24000, TO_DATE('2019-0
 INSERT INTO payment VALUES(payment_seqs.nextval, 3330, 2, 10500, TO_DATE('2019-04-03 23:02:00','RR/MM/DD HH24:MI:SS'), '홍성우');
 INSERT INTO payment VALUES(payment_seqs.nextval, 3331, 1, 10500, TO_DATE('2019-04-03 23:10:00','RR/MM/DD HH24:MI:SS'), '홍성우');
 INSERT INTO payment VALUES(payment_seqs.nextval, 3332, 2, 8500, TO_DATE('2019-04-03 23:18:00','RR/MM/DD HH24:MI:SS'), '홍성우');
+
+commit;
+show user;

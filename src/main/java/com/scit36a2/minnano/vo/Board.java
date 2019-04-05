@@ -2,12 +2,12 @@ package com.scit36a2.minnano.vo;
 
 public class Board {
 	private int board_seq; // board_seq number NOT NULL,
-	private int emp_seq; // emp_seq number NOT NULL, 
+	private int emp_seq; // emp_seq number NOT NULL,
 	private String board_category; // board_category varchar2(30) NOT NULL,
 	private String board_title; // board_title varchar2(100) NOT NULL,
 	private String board_content; // board_content varchar2(3000) NOT NULL,
-	private String board_orgname; // board_orgname varchar2(500),	
-	private String board_savname; // board_savname varchar2(500),	
+	private String board_orgname; // board_orgname varchar2(500),
+	private String board_savname; // board_savname varchar2(500),
 	private String board_regdate; // board_regdate date DEFAULT sysdate NOT NULL,
 	private int board_hitcount; // board_hitcount number DEFAULT 0 NOT NULL,
 

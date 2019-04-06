@@ -274,14 +274,16 @@
 	    monthtime
    </select>
 	<select id="selectAllExpense" resultType="HashMap" parameterType="HashMap">
-	select 
-	    to_char(min(EXPENSE_DATE), 'YYYY-MM') as monthtime
-	    ,sum(EXPENSE_amount) as allexpense
-	    from 
-	    expense
-	    where
-	    comp_seq = #{comp_seq} and EXPENSE_DATE between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
-	    order by
+select 
+    to_char(expense_date, 'YYYY-MM') as monthtime,
+    sum(EXPENSE_AMOUNT) as EXPENSE_AMOUNT
+from 
+    expense
+where 
+    comp_seq = #{comp_seq} and expense_date between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+GROUP BY
+    to_char(expense_date, 'YYYY-MM')
+ORDER BY
 	    monthtime
 	</select>	   
 </mapper>

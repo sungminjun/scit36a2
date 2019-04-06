@@ -20,10 +20,10 @@ public interface BoardDAO {
 	public int insertBoard(Board board);
 
 	/** 게시글 한 개 조회 */
-	Board selectOne(int boardnum);
+	Board selectOne(int board_seq);
 
 	/** 게시글 한 개 삭제 */
-	int delete(int boardnum);
+	int delete(int board_seq);
 
 	int update(Board board);
 
@@ -37,16 +37,16 @@ public interface BoardDAO {
 	/**
 	 * 조회수 올리기
 	 * 
-	 * @param boardnum
+	 * @param board_seq
 	 * @return
 	 */
-	int incrementHitcount(int boardnum);
+	int incrementHitcount(int board_seq);
 
 	/**
 	 * 파일을 삭제하기 위해 DB에서 수정이 일어남
 	 * 
-	 * @param boardnum
+	 * @param board_seq
 	 * @return
 	 */
-	int deleteFile(int boardnum);
+	int deleteFile(int board_seq);
 }

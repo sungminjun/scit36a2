@@ -37,7 +37,7 @@
   <div id="wrapper">
     <h2>[ 게시판 글 수정 ]</h2>
     <form action="boardUpdate" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="boardnum" value="${board.boardnum }" />
+      <input type="hidden" name="board_seq" value="${board.board_seq }" />
       <table border="1">
         <tr>
           <th>제목</th>
@@ -55,7 +55,7 @@
             <c:if test="${board.originalfile != null}">
               ${board.originalfile}
               <span style="color:red">
-                <a href="deleteFile?boardnum=${board.boardnum}">X</a>
+                <a href="deleteFile?board_seq=${board.board_seq}">X</a>
               </span>
             </c:if>
           </td>

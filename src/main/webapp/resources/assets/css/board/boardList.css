@@ -14,12 +14,12 @@ body {
 	
 	/* 게시판 제목 */
 	#titleForm {
-		background: #3498db !important;
-		border: #3498db;
+		background: #1d8cf8 !important;/* #3498db; */
+		border: #1d8cf8; /* #3498db; */
 		border-radius: 10px;
 		text-align: center;
 		margin-top: 50p !important;
-		height: 100px;
+/* 		height: 100px; */
 		cursor: pointer;
 	}
 	#boardTitle{
@@ -29,8 +29,6 @@ body {
 	}
 	
 	#boardTitle h2{
-		
-		
 		text-align: center;
 	}
 	
@@ -38,7 +36,7 @@ body {
 	div#wrapper-body {
 		text-align: center;
 		padding: 2px;
-		background: #3498db;
+		/* background: #3498db; */
 		margin: 2px;
 		border-radius: 10px;
 	}
@@ -143,19 +141,20 @@ body {
 	.writeBtn {
 		background: none;
 		display: block;
-		margin: 10px auto;
+		/* margin: 10px auto; */
 		text-align: center;
 		color: #000000;
 		border: 2px solid #3498db;
-		padding: 10px 5px;
-		width: 10%;
+		/* padding: 10px 5px; */
+		/* width: 10%; */
+		width: 70px;
+		height: 30px;
 		float:right;
 		outline: none;
-		border-radius: 20px;
+		border-radius: 10px;
 		transition: 0.25s;
 		cursor: pointer;
 		/* position: static; */
-		
 	}
 	
 	.writeBtn:hover {
@@ -169,20 +168,15 @@ body {
 	}
 	
 	
-	
-	
-	
 	#search {
-		text-align:right;
+		text-align:left;
+		float: left;
 	}
 	
 	#searchTable {
-
 		text-align: center;
-	
 		border: 2px solid #3498db;
 		border-radius: 15px;
-		
 	}
 	
 	#search .button {
@@ -196,7 +190,7 @@ body {
 
 		width: 70px;
 		height: 30px;
-		float:right;
+		float: right;
 		outline: none;
 		border-radius: 10px;
 		transition: 0.25s;

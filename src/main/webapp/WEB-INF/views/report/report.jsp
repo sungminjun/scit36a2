@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -7,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="imgs/favicon.png">
   <title>MinnanoPOS</title>
   <!--     Fonts and icons     -->
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -17,7 +16,6 @@
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!--추가한 파일 jquery ui for chartjs  -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
 </head>
 
 <body class="white-content">
@@ -74,33 +72,44 @@
                     <input type="text" class="form-control text-center" id="company_name" value="company name" disabled="disabled">
                   </div>
                   <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-secondary active"> <input type="radio" name="options2" id="option1" checked value="sales">
+                    <label class="btn btn-secondary active" id="option21"> 
+                    <input type="radio" name="options2" checked value="sales">
                       매출조회
-                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option2" value="customer">
+                    </label> 
+                    <label class="btn btn-secondary" id="option22"> 
+                    <input type="radio" name="options2" value="customer">
                       고객통계
-                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option3" value="menu">
+                    </label> 
+                    <label class="btn btn-secondary" id="option23"> 
+                    <input type="radio" name="options2" value="menu">
                       메뉴통계
-                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option4" value="card">
+                    </label> 
+                    <label class="btn btn-secondary" id="option24"> 
+                    <input type="radio" name="options2" value="card">
                       현/카조회
-                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option5" value="income">
+                    </label> 
+                    <label class="btn btn-secondary" id="option25"> 
+                    <input type="radio" name="options2" value="income">
                       수지보고서
                     </label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4 btn-group" data-toggle="buttons">
+                  <div class="col-md-4 btn-group" id="options" data-toggle="buttons">
                     <label class="btn btn-secondary active">
-                      <input type="radio" name="options" id="option1" value="day" checked>
+                      <input type="radio" name="options" id="option11" value="day" checked>
                       DAY
                     </label>
                     <label class="btn btn-secondary">
-                      <input type="radio" name="options" id="option2" value="week">
+                      <input type="radio" name="options" id="option12" value="week">
                       WEEK
                     </label>
                     <label class="btn btn-secondary">
-                      <input type="radio" name="options" id="option3" value="month">
+                      <input type="radio" name="options" id="option13" value="month">
                       MONTH
                     </label>
+                  </div>
+                  <div class="col-md-4" id="blank" style="display:none;">
                   </div>
                   <div class="col-md-6 input-group">
                     <label>시작일</label>
@@ -168,14 +177,15 @@
 
     // call init onload
     $(document).ready(function() {
+      dobutton();
+      setdatepicker();
+   		// set default date (st = today -6months, end = today)
+      setdatetodaydefault();
       init();
     })
 
     // 기본 페이지 로딩용 스크립트
     function init() {
-      // set default date (st = today -6months, end = today)
-      setdatetodaydefault();
-
       var startDate = $('#datepicker1').val();
       var endDate = $('#datepicker2').val();
       var unit = $('input[name=options]:checked').val();
@@ -202,6 +212,22 @@
         },
         success: output
       })
+      
+      $('#option21').on('click', showtype1);
+      $('#option22').on('click', showtype1);
+      $('#option23').on('click', showtype2);
+      $('#option24').on('click', showtype2);
+      $('#option25').on('click', showtype2);
+    }
+    
+    function showtype1() {
+    	$('#options').css('display', 'flex');
+    	$('#blank').css('display', 'none');
+    }
+    
+    function showtype2() {
+    	$('#options').css('display', 'none');
+    	$('#blank').css('display', 'flex');
     }
 
     function setdatetodaydefault() {
@@ -269,14 +295,16 @@
     }
     
     //날짜 찝기
-    $(function() {
+
+    function setdatepicker() {
       $("#datepicker1, #datepicker2").datepicker({
         dateFormat: 'yy-mm-dd',
+        viewMode: 'days'
       });
-    });
+    }
     
     //날짜 유효성 검사
-    $(function() {
+    function dobutton() {
       $("#search").on('click', function() {
         var start = $("#datepicker1").val();
         var end = $("#datepicker2").val();
@@ -302,8 +330,8 @@
           , success: chartUpdate
         })
       });
-    });
-
+    }
+      
     //차트 검색을 눌렀을때 업데이트 구문
     // 즉, 첫번째 output이 아닌, init된 이후의 output에 대해서의 반응
     function chartUpdate(updateData) {

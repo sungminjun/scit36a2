@@ -41,12 +41,6 @@ public class BoardController {
 	final String uploadPath = "/boardfile";
 
 	@RequestMapping(value = "/board", method = RequestMethod.GET)
-	public String board() {
-		logger.info("welcome board.");
-		return "board/board";
-	}
-
-	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String boardList(@RequestParam(value = "searchItem", defaultValue = "title") String searchItem,
 							@RequestParam(value = "searchWord", defaultValue = "") String searchWord,
 							@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model, HttpSession session)		{
@@ -65,7 +59,7 @@ public class BoardController {
 		model.addAttribute("searchItem", searchItem);
 		//model.addAttribute("emp_id",emp_id);
 		 
-		return "board/boardList";
+		return "board/board";
 	}
 
 	/**
@@ -75,7 +69,6 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/boardRegist", method = RequestMethod.GET)
 	public String boardRegist() {
-
 		return "board/boardRegist";
 	}
 
@@ -118,9 +111,9 @@ public class BoardController {
 	@RequestMapping(value = "/boardDetail", method = RequestMethod.GET)
 	public String boardDetail(@RequestParam(value = "searchItem", defaultValue = "title") String searchItem,
 			@RequestParam(value = "searchWord", defaultValue = "") String searchWord,
-			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, int boardnum, Model model) {
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, int board_seq, Model model) {
 
-		Board board = repo.boardDetail(boardnum);
+		Board board = repo.boardDetail(board_seq);
 		System.out.println(board);
 
 		//
@@ -150,9 +143,9 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
-	public String download(int boardnum, HttpServletResponse response) {
-		// boardnum에 해당하는 글 추출
-		Board board = repo.seletOne(boardnum);
+	public String download(int board_seq, HttpServletResponse response) {
+		// board_seq에 해당하는 글 추출
+		Board board = repo.seletOne(board_seq);
 		// 파일명을 추출
 		String originalfile = board.getBoard_orgname();
 		String savedfile = board.getBoard_savname();
@@ -185,8 +178,8 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/boardDelete", method = RequestMethod.GET)
-	public String boardDelete(int boardnum, HttpSession session) {
-		Board oldBoard = repo.seletOne(boardnum);
+	public String boardDelete(int board_seq, HttpSession session) {
+		Board oldBoard = repo.seletOne(board_seq);
 
 		String savedfile = oldBoard.getBoard_savname();
 		// HDD에 저장된 파일 삭제
@@ -198,17 +191,17 @@ public class BoardController {
 		// if(loginId != null && loginId.equals(oldBoard.getUserid()))
 
 		// DB에 저장된 글 삭제
-		repo.boardDelete(boardnum);
+		repo.boardDelete(board_seq);
 
 		return "redirect:/boardList";
 	}
 
 	@RequestMapping(value = "/boardUpdate", method = RequestMethod.GET)
-	public String boardUpdate(int boardnum, HttpSession session, Model model) {
+	public String boardUpdate(int board_seq, HttpSession session, Model model) {
 		// String loginId = (String) session.getAttribute("loginId");
 
 		// if(loginId != null) {
-		Board board = repo.seletOne(boardnum);
+		Board board = repo.seletOne(board_seq);
 
 		model.addAttribute("board", board);
 		return "board/boardUpdate";
@@ -260,8 +253,8 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.GET)
-	public String deleteFile(int boardnum) {
-		Board oldBoard = repo.seletOne(boardnum);
+	public String deleteFile(int board_seq) {
+		Board oldBoard = repo.seletOne(board_seq);
 
 		String savedfile = oldBoard.getBoard_savname();
 		String fullPath = uploadPath + "/" + savedfile;
@@ -271,8 +264,8 @@ public class BoardController {
 		} else {
 			System.out.println("파일 삭제 못함!!!!");
 		}
-		repo.deleteFile(boardnum);
+		repo.deleteFile(board_seq);
 
-		return "redirect:/boardUpdate?boardnum=" + boardnum;
+		return "redirect:/boardUpdate?board_seq=" + board_seq;
 	}
 }

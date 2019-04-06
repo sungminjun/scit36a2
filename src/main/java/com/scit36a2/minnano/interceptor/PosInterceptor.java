@@ -12,14 +12,27 @@ public class PosInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		Integer chk = (Integer)session.getAttribute("comp_seq");
+		Integer chk = (Integer) session.getAttribute("comp_seq");
+		Integer chk_auth = (Integer) session.getAttribute("emp_auth_level");
+
 		String root = request.getContextPath();
-		if ( chk == null ) {
+		String uri = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+		String posfunc = "pos logout selectseat selectCompanyOne selectMenu seatsavailable makeorder replaceorder alOrderList";
+		posfunc += " makepayment makepaymentcomplex predicCash cumulatepaymenttoday selectCashonhand";
+		posfunc += " insertCashonhand movetable swaptable mergetable";
+		System.out.println(uri + " contains posfunc : " + posfunc.contains(uri) );
+		if (chk == null) {
 			response.sendRedirect(root + "/login");
 			return false;
+		} else {
+			if (chk_auth != 9) {
+				if (!(posfunc.contains(uri))) {
+					response.sendRedirect(root + "/pos");
+					return false;
+				}
+			}
 		}
 		
 		return super.preHandle(request, response, handler);
 	}
-
 }

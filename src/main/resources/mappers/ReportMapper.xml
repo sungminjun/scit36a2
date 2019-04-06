@@ -241,7 +241,7 @@
    <select id="selectCardPercent" resultType="HashMap" parameterType="HashMap">
    	SELECT
 	    payment_type
-	    ,sum(payment_amount)
+	    ,sum(payment_amount) as payment_amount
 	    FROM
 	    (SELECT
 	    p.payment_type as payment_type, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order,s.sales_visitors as sales_visitors,p.payment_time as payment_time

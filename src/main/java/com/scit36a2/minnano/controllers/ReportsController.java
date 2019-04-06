@@ -174,6 +174,9 @@ public class ReportsController {
 
 		ArrayList<HashMap<String, Object>> all_Payment = repo.selectAllPayment(map); // 일주일
 		ArrayList<HashMap<String, Object>> all_Expense = repo.selectAllExpense(map); // 일주일 일-월 표시
+		
+		System.out.println(all_Expense);
+		System.out.println(all_Payment);
 
 		ArrayList<Object> result = new ArrayList<Object>();
 

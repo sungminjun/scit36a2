@@ -27,6 +27,7 @@ import com.scit36a2.minnano.dao.BoardRepo;
 import com.scit36a2.minnano.util.FileService;
 import com.scit36a2.minnano.util.PageNavigator;
 import com.scit36a2.minnano.vo.Board;
+import com.scit36a2.minnano.vo.Employee;
 
 // 커뮤니티 기능
 @Controller
@@ -47,19 +48,23 @@ public class BoardController {
 
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String boardList(@RequestParam(value = "searchItem", defaultValue = "title") String searchItem,
-			@RequestParam(value = "searchWord", defaultValue = "") String searchWord,
-			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model) {
-
+							@RequestParam(value = "searchWord", defaultValue = "") String searchWord,
+							@RequestParam(value = "currentPage", defaultValue = "1") int currentPage, Model model, HttpSession session)		{
+							
 		// DB 접속 코드
 		int totalRecoundCount = repo.totalBoardCount(searchItem, searchWord); // search한것의 전체 게시글 수
 		PageNavigator navi = new PageNavigator(currentPage, totalRecoundCount);
+		Employee employee = new Employee();
 		List<Board> boardList = repo.boardList(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
-
+		
+		//String emp_id = (String)session.getAttribute("emp_id");
+		// emp_seq를 repo보내서 member매퍼에서 select emp_id 또는 emp_name 또는 comp_seq로 comp_name을 불러와서 넣어줄수도있죠...
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("navi", navi);
 		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("searchItem", searchItem);
-
+		//model.addAttribute("emp_id",emp_id);
+		 
 		return "board/boardList";
 	}
 

@@ -13,8 +13,8 @@ public interface BoardDAO {
 	 * 
 	 * @param map
 	 * @param rb
-	 */
-	List<Board> select(Map<String, String> map, RowBounds rb);
+	 */													 
+	List<Board> boardList(Map<String, String> map,RowBounds rb);
 
 	/** 게시글 한 개 등록하는 메서드 */
 	public int insertBoard(Board board);

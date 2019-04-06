@@ -130,20 +130,20 @@
                   <th>조회수</th>
                 </tr>
 
-                <%-- <!-- 게시글 출력 반복 -->
+                <!-- 게시글 출력 반복 -->
 								<c:forEach var="board" items="${boardList}" varStatus="stat">
 									<tr>
 										<td>${stat.count + navi.startRecord}</td>
-										<td><a
-											href="boardDetail?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}&board_seq=${board.board_seq}">${board.title}</a>
+										<td><a href="boardList?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}&board_seq=${board.board_seq}">${board.board_title}</a>
 											<c:if test="${board.board_orgname != null }">
 												<img src="imgs/attachment.png" />
 											</c:if></td>
-										<td>${board.regdate}</td>
-										<td>${board.emp_id}</td>
-										<td>${board.hitcount}</td>
+										<td>${board.board_regdate}</td>
+										<td>${board.emp_seq}</td>
+										<%-- <td>${board.emp_seq}</td> --%>
+										<td>${board.board_hitcount}</td>
 									</tr>
-								</c:forEach>   --%>
+								</c:forEach>
               </table>
             </div>
 

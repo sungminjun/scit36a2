@@ -1,5 +1,4 @@
 package com.scit36a2.minnano.dao;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.scit36a2.minnano.vo.Board;
+import com.scit36a2.minnano.vo.Employee;
 
 @Repository
 public class BoardRepo {
@@ -24,8 +24,8 @@ public class BoardRepo {
 		Map<String, String> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchWord", searchWord);
-		// System.out.println(map);
-		List<Board> list = dao.select(map, rb);
+		
+		List<Board> list = dao.boardList(map, rb);
 
 		return list;
 	}

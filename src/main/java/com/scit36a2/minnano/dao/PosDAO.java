@@ -51,16 +51,6 @@ public interface PosDAO {
 
 	public Integer predictPmtCash(int comp_seq);
 
-	public ArrayList<HashMap<String, Object>> selectWeekPosReport(HashMap<String, Object> map);
-
-	public ArrayList<HashMap<String, Object>> selectPaymentList(int comp_seq);
-
-	public ArrayList<HashMap<String, Object>> selectWeekDay(HashMap<String, Object> map);
-
-	public ArrayList<Object> searchDayPosReport(HashMap<String, Object> map);
-
-	public ArrayList<Object> selectMonthPosReport(HashMap<String, Object> map);
-
 	public Integer cumulatepaymenttoday(int comp_seq);
 
 	public Integer swaptable(HashMap<String, Integer> map);
@@ -70,22 +60,6 @@ public interface PosDAO {
 	public Integer mergetable(HashMap<String, Integer> map);
 
 	public Integer deleteSas(Sales_state sas);
-
-	public ArrayList<Object> selectMenu(HashMap<String, Object> map);
-
-	public ArrayList<Object> selectCustomerDay(HashMap<String, Object> map);
-
-	public ArrayList<HashMap<String, Object>> selectCustomerWeekReport(HashMap<String, Object> map);
-
-	public ArrayList<HashMap<String, Object>> selectGuestWeekDay(HashMap<String, Object> map);
-
-	public ArrayList<Object> selectMonthGuestReport(HashMap<String, Object> map);
-
-	public ArrayList<Object> selectCardPercent(HashMap<String, Object> map);
-
-	public ArrayList<HashMap<String, Object>> selectAllPayment(HashMap<String, Object> map);
-
-	public ArrayList<HashMap<String, Object>> selectAllExpense(HashMap<String, Object> map);
 
 
 

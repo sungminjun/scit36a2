@@ -21,7 +21,7 @@
 	 	<mapper resource="mappers/MemberMapper.xml"/>
 	 	<mapper resource="mappers/SalesMapper.xml"/>
 	 	<mapper resource="mappers/PosMapper.xml"/>
-	 	<mapper resource="mappers/TpaymentMapper.xml"/>
+	 	<mapper resource="mappers/ReportMapper.xml"/>
  	</mappers>
  	
 </configuration>

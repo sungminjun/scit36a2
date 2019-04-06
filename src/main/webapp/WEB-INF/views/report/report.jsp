@@ -286,7 +286,7 @@
           datasets: [{
             type: "bar",
             label: label,
-            backgroundColor: 'rgb(111, 111, 102)',
+            backgroundColor: '#3e95cd',
             borderColor: 'rgb(111, 111, 102)',
             data: data,
           }, ]
@@ -346,10 +346,24 @@
           data[temp] = item.PAYMENT_AMOUNT_SUM;
           temp++;
         });
+        
         //그래프 업데이트
         newchart.data.datasets[0].data = data;
         newchart.data.labels = labels;
-        newchart.update();
+        label='매출액'
+        //그래프 업데이트
+        newchart.destroy();
+        newchart = new Chart(ctx, {
+            type: 'bar', //차트모양
+            data: {
+              labels: labels,
+              datasets: [{
+                label: label,
+                backgroundColor: "#3e95cd",
+                data: data,
+              }, ]
+            }
+          });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
@@ -374,7 +388,20 @@
         //그래프 업데이트
         newchart.data.datasets[0].data = data;
         newchart.data.labels = labels;
-        newchart.update();
+        label='매출액'
+            //그래프 업데이트
+            newchart.destroy();
+            newchart = new Chart(ctx, {
+                type: 'bar', //차트모양
+                data: {
+                  labels: labels,
+                  datasets: [{
+                    label: label,
+                    backgroundColor: "#3e95cd",
+                    data: data,
+                  }, ]
+                }
+              });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
@@ -398,7 +425,20 @@
         //그래프 업데이트
         newchart.data.datasets[0].data = data;
         newchart.data.labels = labels;
-        newchart.update();
+        label='매출액'
+            //그래프 업데이트
+            newchart.destroy();
+            newchart = new Chart(ctx, {
+                type: 'bar', //차트모양
+                data: {
+                  labels: labels,
+                  datasets: [{
+                    label: label,
+                    backgroundColor: "#3e95cd",
+                    data: data,
+                  }, ]
+                }
+              });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
@@ -458,16 +498,16 @@
         // table용 output처리
         var output = '';
         output += '<table class="table table-hover">';
-        output += '<thead><tr><th style="width :25%; text-align: center;">기준일</th>'
-        output += '<th style="width :25%;">내점객수</th>'
-        output += '<th style="width :25%;">객단가</th>'
-        output += '<th style="width :25%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
+        output += '<thead><tr><th style="width :20%; text-align: center;">기준일</th>'
+        output += '<th style="width :25%; text-align: center;">내점객수</th>'
+        output += '<th style="width :25%;text-align: center;">객단가</th>'
+        output += '<th style="width :30%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :25%;">' + item.DAYTIME +'</td>'
+          output += '<tr><td style="width :20%;">' + item.DAYTIME +'</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
-          output += '<td style="width :25%;">' + item.SPIN + '회전</td></tr>'
+          output += '<td style="width :30%;">' + item.SPIN + '회전</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);
@@ -519,16 +559,16 @@
         // table용 output처리
         var output = '';
         output += '<table class="table table-hover">';
-        output += '<thead><tr><th style="width :25%; text-align: center;">기준주</th>'
-        output += '<th style="width :25%;">내점객수</th>'
-        output += '<th style="width :25%;">객단가</th>'
-        output += '<th style="width :25%; text-align: center;">회전율</th></tr></thead></table>'
+        output += '<thead><tr><th style="width :30%; text-align: center;">기준주</th>'
+        output += '<th style="width :25%; text-align: center;">내점객수</th>'
+        output += '<th style="width :25%; text-align: center;">객단가</th>'
+        output += '<th style="width :20%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :25%;">' + item.STARTDATE + "~" + item.ENDDATE + '</td>'
+          output += '<tr><td style="width :30%; text-align: center;">' + item.STARTDATE + "~" + item.ENDDATE + '</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
-          output += '<td style="width :25%;">' + item.SPIN + '회전</td></tr>'
+          output += '<td style="width :20%; text-align: center;">' + (item.SPIN/7).toFixed(1) + '회전</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);
@@ -579,16 +619,16 @@
         // table용 output처리
         var output = '';
         output += '<table class="table table-hover">';
-        output += '<thead><tr><th style="width :25%; text-align: center;">기준월</th>'
-        output += '<th style="width :25%;">내점객수</th>'
-        output += '<th style="width :25%;">객단가</th>'
-        output += '<th style="width :25%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
+        output += '<thead><tr><th style="width :20%; text-align: center;">기준월</th>'
+        output += '<th style="width :25%; text-align: center;">내점객수</th>'
+        output += '<th style="width :25%; text-align: center;">객단가</th>'
+        output += '<th style="width :30%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :25%;">' + item.DAYTIME +'</td>'
+          output += '<tr><td style="width :20%;">' + item.DAYTIME +'</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
-          output += '<td style="width :25%;">' + item.SPIN + '회전</td></tr>'
+          output += '<td style="width :30%; text-align: center;">' + item.SPIN + '회전</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);
@@ -612,8 +652,7 @@
               datasets: [{
                 type: "bar",
                 label: label,
-                backgroundColor: 'rgb(111, 111, 102)',
-                borderColor: 'rgb(111, 111, 102)',
+                backgroundColor: "#3e95cd",
                 data: data,
               }, ]
             }
@@ -641,11 +680,15 @@
         alert('현금/카드 데이, 위크, 먼쓰 없고 기간만 정해서 통계내줌')
         //그래프 값 넣기
         var card=['카드','현금']
+        //퍼센트 만들어주기
+        var percent=0;
         $.each(updateData, function(index, item) {
           labels[temp] = card[temp];
           data[temp] = item.PAYMENT_AMOUNT;
+          percent+=item.PAYMENT_AMOUNT;
           temp++;
         });
+        alert(percent);
          //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
@@ -665,24 +708,23 @@
         output += '<table class="table table-hover">';
         output += '<thead><tr><th style="width :30%; text-align: center;">구분</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :30%;">' + labels[index] +
+          output += '<tr><td style="width :30%; text-align: center;">' + labels[index] +
             '</td><td style=" text-align: center; width :50%;">' +
             item.PAYMENT_AMOUNT +
-            '원</td><td style="width :30%;"></td></tr>'
+            '원</td><td style="width :30%;">'+((item.PAYMENT_AMOUNT/percent).toFixed(2))*100+'%'+'</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);
         //@@@@@@@@@@@@@일 &수지@@@@@@@@@@@@@@
       } else if ($('input[name=options2]:checked').val() == 'income') {
-        alert('수지 데이')
         //그래프 값 넣기
         var data2=[];
         var data3=[];
         $.each(updateData, function(index, item) {
           labels[temp] = item.MONTHTIME;
           data[temp] = item.ALLPAYMENT;
-          data2[temp]=item.ALLEXPENSE;
-          data3[temp]=(item.ALLPAYMENT-item.ALLEXPENSE)/item.ALLPAYMENT
+          data2[temp]=item.EXPENSE_AMOUNT;
+          data3[temp]=(((item.ALLPAYMENT-item.EXPENSE_AMOUNT)/item.ALLPAYMENT)*100).toFixed(2);
           temp++;
         });
         //그래프 업데이트
@@ -692,32 +734,55 @@
             data: {
               labels: labels,
               datasets: [{
+            	type:'bar',
                 label: '매출액',
                 backgroundColor: ["#3e95cd", "#8e5ea2"],
                 data: data,
+                yAxisID :'A'
               },{
+            	  type:'bar',
                   label: '지출액',
                   backgroundColor: ["#3e95cd", "#8e5ea2"],
-                  data: data2,  
+                  data: data2,
+                  yAxisID :'A'
             	  
               },{
             	  type :'line',
                   label: '이익률',
-                  backgroundColor: ["#3e95cd", "#8e5ea2"],
-                  data: [157364000,157364000], 
-                  fill: false,
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                  data: data3,
+                  yAxisID :'B'
               } ]
+            },
+            options:{
+                scales: {
+                	yAxes: [{
+                        id: 'A',                             
+                        type: 'linear',
+                        position: 'left',
+                    }, {
+                        id: 'B',                             
+                        type: 'linear',
+                        position: 'right',
+                      
+               
+                    }]
+                }  
             }
           });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
-        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        output += '<thead><tr><th style="width :20%; text-align: center;">월</th>'
+        output += '<th style="width :30%; text-align: center;">매출액</th>'
+        output += '<th style="width :30%; text-align: center;">지출액</th>'
+        output += '<th style="width :20%; text-align: center;">이익률</th></tr></thead></table>'
+        output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :30%;">' + item.DAYTIME +
-            '</td><td style=" text-align: center; width :50%;">' +
-            item.PAYMENT_AMOUNT_SUM +
-            '원</td><td style="width :30%;"></td></tr>'
+          output += '<tr><td style="width :20%;">' + item.MONTHTIME +'</td>'
+          output += '<td style="text-align: center; width :30%;">' + item.EXPENSE_AMOUNT + '</td>'
+          output += '<td style="text-align: center; width :30%;">' + item.ALLPAYMENT + ' 건</td>'
+          output += '<td style="width :20%;text-align: center;">' + (((item.ALLPAYMENT-item.EXPENSE_AMOUNT)/item.ALLPAYMENT)*100).toFixed(2)+"%" + '</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);

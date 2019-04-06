@@ -684,16 +684,32 @@
         //@@@@@@@@@@@@@월 &수지@@@@@@@@@@@@@@
       } else if ($('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'income') {
         alert('수지 먼쓰')
+        newchart.destroy();
         //그래프 값 넣기
-        $.each(updateData, function(index, item) {
+                $.each(updateData, function(index, item) {
           labels[temp] = item.DAYTIME;
           data[temp] = item.PAYMENT_AMOUNT_SUM;
           temp++;
         });
-        //그래프 업데이트
-        newchart.data.datasets[0].data = data;
-        newchart.data.labels = labels;
-        newchart.update();
+             newchart = new Chart(ctx, {
+        type: 'line', //차트모양
+        data: {
+          labels: labels,
+          datasets: [{
+            label: label,
+            borderColor: 'rgb(111, 111, 102)',
+            data: [52050000,52050000]
+          },{
+             label:"data2",
+             borderColor: 'rgb(000, 111, 000)',
+             data :[52050000,122190345]
+          },{
+             label:"data3",
+             borderColor: 'rgb(000, 111, 111)',
+             data :[0,153164500]
+          }]
+        }
+      });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';

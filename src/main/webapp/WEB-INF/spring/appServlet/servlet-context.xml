@@ -31,13 +31,15 @@
 	<beans:bean class="com.scit36a2.minnano.interceptor.PosInterceptor" id="posInterceptor" ></beans:bean>
 	<interceptors>
 		<interceptor>
-<!-- 		<mapping path="/**" />
+	 		<mapping path="/**" />
 			<exclude-mapping path="/login" />
 			<exclude-mapping path="/join" />
 			<exclude-mapping path="/find" />
 			<exclude-mapping path="/findId" />
 			<exclude-mapping path="/resources/**" />
- -->			<mapping path="/asd" />
+			<exclude-mapping path="/assets/**" />
+			<exclude-mapping path="/imgs/**" />
+ 	<!-- 			<mapping path="/asd" /> -->
  			<beans:ref bean="posInterceptor" />
 		</interceptor>
 	</interceptors>

@@ -58,12 +58,6 @@ public class PosRepo {
 
 	}
 
-	public ArrayList<HashMap<String, Object>> selectPaymentList(int comp_seq) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectPaymentList(comp_seq);
-		return list;
-	}
-
 	public ArrayList<HashMap<String, Object>> seatsavailable(int comp_seq) {
 		PosDAO mapper = session.getMapper(PosDAO.class);
 		ArrayList<HashMap<String, Object>> result = mapper.seatsavailable(comp_seq);
@@ -148,30 +142,6 @@ public class PosRepo {
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectWeekPosReport(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectWeekPosReport(map);
-		return list;
-	}
-
-	public ArrayList<HashMap<String, Object>> selectWeekDay(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectWeekDay(map);
-		return list;
-	}
-
-	public ArrayList<Object> searchDayPosReport(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<Object> list = dao.searchDayPosReport(map);
-		return list;
-	}
-
-	public ArrayList<Object> selectMonthPosReport(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<Object> list = dao.selectMonthPosReport(map);
-		return list;
-	}
-
 	public Integer cumulatepaymenttoday(int comp_seq) {
 		PosDAO mapper = session.getMapper(PosDAO.class);
 		Integer result = mapper.cumulatepaymenttoday(comp_seq);
@@ -201,56 +171,5 @@ public class PosRepo {
 		Integer result = mapper.deleteSas(sas);
 		return result;
 	}
-
-
-	public ArrayList<Object> selectMenu(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<Object> list = dao.selectMenu(map);
-		return list;
-	}
-
-	public ArrayList<Object> selectGuestDay(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<Object> list = dao.selectCustomerDay(map);
-		return list;
-	}
-
-	public ArrayList<HashMap<String, Object>> selectWeekGuestReport(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectCustomerWeekReport(map);
-		return list;
-	}
-
-	public ArrayList<HashMap<String, Object>> selectGuestWeekDay(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectGuestWeekDay(map);
-		return list;
-	}
-
-	public ArrayList<Object> selectMonthGuestReport(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<Object> list = dao.selectMonthGuestReport(map);
-		return list;
-	}
-
-	public ArrayList<Object> selectCardPercent(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<Object> list = dao.selectCardPercent(map);
-		return list;
-	}
-
-	public ArrayList<HashMap<String, Object>> selectAllPayment(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectAllPayment(map);
-		return list;
-	}
-
-	public ArrayList<HashMap<String, Object>> selectAllExpense(HashMap<String, Object> map) {
-		PosDAO dao = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectAllExpense(map);
-		return list;
-	}
-
-
 
 }

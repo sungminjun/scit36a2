@@ -1,24 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/png" href="./imgs/favicon.png">
-  <title>MinnanoPOS by MANEKINEKO@SCIT36A</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <title>MinnanoPOS</title>
   <!--     Fonts and icons     -->
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-
-  <!--추가한 파일-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+  <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <!--추가한 파일 jquery ui for chartjs  -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 </head>
 
@@ -65,139 +63,726 @@
         </ul>
       </div>
     </div>
-
-
     <div class="main-panel" data="blue">
       <div class="content">
-        <!--  menu1 지출관리 -->
         <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-body">
-                <span>민나노매점</span>
-                <button type="submit" class="btn-default ml-auto mr-auto" id="day" style="width: 10%;">일기준</button>
-                <button type="submit" class="btn-default ml-auto mr-auto" id="week" style="width: 10%;">주기준</button>
-                <button type="submit" class="btn-default ml-auto mr-auto" id="month" style="width: 10%;">월기준</button>
-                <button type="submit" class="btn-default  " style="width: 10%;">기간설정</button>
-                <input type="text" id="datepicker1" placeholder="yy-mm-dd" style="width: 100px">
-                <input type="text" id="datepicker2" placeholder="yy-mm-dd" style="width: 100px">
-                <button type="submit" class="btn ml-auto mr-auto">검색</button>
-              </div>
-              <div class="card-body">
                 <div class="row">
-                  <button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="1" style="width: 15%;">
-                    매출조회</button>
-                  <button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="2" style="width: 15%;">
-                    고객통계</button>
-                  <button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="3" style="width: 15%;">
-                    메뉴통계</button>
-                  <button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="4" style="width: 15%;">현/카
-                    조회</button>
-                  <button type="submit" class="btn-default pull-right justify-content-end ml-auto mr-auto" name="5" style="width: 15%;">수지보고서
-                  </button>
+                  <div class="col-md-3">
+                    <input type="text" class="form-control text-center" id="company_name" value="company name" disabled="disabled">
+                  </div>
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-secondary active"> <input type="radio" name="options2" id="option1" checked value="sales">
+                      매출조회
+                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option2" value="customer">
+                      고객통계
+                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option3" value="menu">
+                      메뉴통계
+                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option4" value="card">
+                      현/카조회
+                    </label> <label class="btn btn-secondary"> <input type="radio" name="options2" id="option5" value="income">
+                      수지보고서
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 btn-group" data-toggle="buttons">
+                    <label class="btn btn-secondary active">
+                      <input type="radio" name="options" id="option1" value="day" checked>
+                      DAY
+                    </label>
+                    <label class="btn btn-secondary">
+                      <input type="radio" name="options" id="option2" value="week">
+                      WEEK
+                    </label>
+                    <label class="btn btn-secondary">
+                      <input type="radio" name="options" id="option3" value="month">
+                      MONTH
+                    </label>
+                  </div>
+                  <div class="col-md-6 input-group">
+                    <label>시작일</label>
+                    <input type="text" id="datepicker1" class="form-control text-center" placeholder="YY-MM-DD">
+                    <label>종료일</label>
+                    <input type="text" id="datepicker2" class="form-control text-center" placeholder="YY-MM-DD">
+                    <button type="submit" class="btn mx-auto" id="search">검색</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <!-- 차트부분 -->
+          <div class="col-md-7">
             <div class="card">
-              <div class="card-body" style="height: auto">
-                <canvas id="myChart"></canvas>
+              <div class="card-body">
+                <canvas id="myChart" height="200%"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- 차트 표 부분 -->
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-body">
+                <div class="tableTest" style="width: auto;"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <footer class="footer"> </footer>
+    <footer class="footer"></footer>
   </div>
-
   <!--   Core JS Files   -->
-  <!--  <script src="./assets/js/core/jquery.min.js"></script>-->
-  <script src="./assets/js/core/popper.min.js"></script>
-  <script src="./assets/js/core/bootstrap.min.js"></script>
-  <script src="./assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="assets/js/core/jquery.min.js"></script>
+  <script src="assets/js/core/popper.min.js"></script>
+  <script src="assets/js/core/bootstrap.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
   <!-- Chart JS -->
-  <script src="./assets/js/plugins/chartjs.min.js"></script>
+  <script src="assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="./assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
-
+  <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <!-- 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+ -->
   <script>
+    // 전역변수 here
+    // 그래프 테스트 (일일매출  현재일부터 1일까지의 매출)
+    var data = [];
+    var labels = [];
+    var label = "매출액";
+    //map 형식 index 번호 세는용
+    var temp = 0;
+    //기본값 테이블(표) 매출 테스트
+    var chart;
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var newchart;
+
+    // call init onload
+    $(document).ready(function() {
+      init();
+    })
+
+    // 기본 페이지 로딩용 스크립트
+    function init() {
+      // set default date (st = today -6months, end = today)
+      setdatetodaydefault();
+
+      var startDate = $('#datepicker1').val();
+      var endDate = $('#datepicker2').val();
+      var unit = $('input[name=options]:checked').val();
+      var category = $('input[name=options2]:checked').val();
+
+      // load company name
+      $.ajax({
+        url: 'selectCompanyOne',
+        method: 'POST',
+        success: function(resp) {
+          $('#company_name').val('업체명 : ' + resp.comp_name);
+        }
+      })
+
+      // set default start_date and end_date (#datepicker1, #datepicker2)
+      $.ajax({
+        url: 'search_date',
+        method: 'POST',
+        data: {
+          startDate: startDate,
+          endDate: endDate,
+          unit: unit,
+          category: category
+        },
+        success: output
+      })
+    }
+
+    function setdatetodaydefault() {
+      var date = new Date();
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+      var today = year + "-" + month + "-" + day;
+
+      var stdate;
+      if (month > 6) {
+        month = date.getMonth() - 5;
+      } else {
+        year = date.getFullYear() - 1;
+        month = date.getMonth() + 7;
+      }
+      stdate = year + "-" + month + "-" + day;
+
+      $('#datepicker1').val(stdate);
+      $('#datepicker2').val(today);
+    }
+
+
+    function output(resp) {
+      var output = '';
+      output += '<table class="table table-hover">';
+      output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+      $.each(resp, function(index, item) {
+        output += '<tr><td style="width :30%;">' + item.DAYTIME +
+          '</td><td style=" text-align: center; width :50%;">' +
+          item.PAYMENT_AMOUNT_SUM +
+          '원</td><td style="width :30%;"></td></tr>'
+      })
+      output += "</table>"
+      $('.tableTest').html(output);
+
+      $.each(resp, function(index, item) {
+        labels[temp] = item.DAYTIME;
+        data[temp] = item.PAYMENT_AMOUNT_SUM;
+        temp++;
+      });
+      temp = 0;
+      firstshow();
+      data = [];
+      labels = [];
+    }
+
+    // initializing for output (first time output) 
+    function firstshow() {
+      newchart = new Chart(ctx, {
+        type: 'bar', //차트모양
+        data: {
+          labels: labels,
+          datasets: [{
+            type: "bar",
+            label: label,
+            backgroundColor: 'rgb(111, 111, 102)',
+            borderColor: 'rgb(111, 111, 102)',
+            data: data,
+          }, ]
+        }
+      });
+    }
+    
+    //날짜 찝기
     $(function() {
       $("#datepicker1, #datepicker2").datepicker({
         dateFormat: 'yy-mm-dd',
       });
     });
-    //다중 그래프
-    var data;
-    var labels = ["1월", "2월", "3월", "4월", "5월", "6월", "7월"];
+    
+    //날짜 유효성 검사
     $(function() {
-      $("button[name=1]").on('click', function() {
-        data = [23, 22, 43, 25, 122, 5, 25];
-        $('canvas').removeAttr('class');
-        good();
-      });
-      $("button[name=2]").on('click', function() {
-        data = [12, 32, 55, 25, 53, 33, 76];
-        $('canvas').removeAttr('class');
-        good();
-      });
-      $("button[name=3]").on('click', function() {
-        data = [62, 73, 33, 13, 52, 31, 25];
-        $('canvas').removeAttr('class');
-        good();
-      });
-      $("button[name=4]").on('click', function() {
-        data = [42, 22, 13, 20, 22, 4, 25];
-        $('canvas').removeAttr('class');
-        good();
-      });
-      $("button[name=5]").on('click', function() {
-        data = [52, 22, 4, 43, 12, 52, 25];
-        $('canvas').removeAttr('class');
-        good();
-      });
-      $("#day").on('click', function() {
-        labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
-      });
-      $("#week").on('click', function() {
-        labels = ["1주차", "2주차", "3주차", "3주차", "5주차"];
-      });
-      $("#month").on('click', function() {
-        labels = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月", ];
-      });
-    });
-
-    $(function() {
-      good();
-    });
-
-    function good() {
-
-      var ctx;
-      ctx = document.getElementById('myChart').getContext('2d');
-      var chart;
-      chart = new Chart(ctx, {
-        // The type of chart we want to create
-
-        type: 'bar',
-        // The data for our dataset
-        data: {
-          labels: labels,
-          datasets: [{
-            label: "평균매출액",
-            backgroundColor: 'rgb(111, 111, 102)',
-            borderColor: 'rgb(111, 111, 102)',
-            data: data,
-          }]
+      $("#search").on('click', function() {
+        var start = $("#datepicker1").val();
+        var end = $("#datepicker2").val();
+        var unit = $('input[name=options]:checked').val();
+        var category = $('input[name=options2]:checked').val();
+        if (start == '') {
+          alert("시작일을 입력해주세요!")
+          return false;
         }
-        // Configuration options go here
+        if (end == '') {
+          alert("종료일을 입력해주세요!")
+          return false;
+        }
+        if (start > end) {
+          alert("종료일은 시작일보다 작을 수 없습니다.")
+          return false;
+        }
+        //날짜 검색
+        $.ajax({
+          url: 'search_date'
+          , method: 'post'
+          , data: { startDate: start, endDate: end, unit: unit, category: category }
+          , success: chartUpdate
+        })
       });
-    };
+    });
+
+    //차트 검색을 눌렀을때 업데이트 구문
+    // 즉, 첫번째 output이 아닌, init된 이후의 output에 대해서의 반응
+    function chartUpdate(updateData) {
+      console.log(updateData);
+      labels = [];
+      data = [];
+      //@@@@@@@@@@@@@@일 &매출@@@@@@@@@@@@@@@ daily sales
+      if ($('input[name=options]:checked').val() == 'day' && $('input[name=options2]:checked').val() == 'sales') {
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.DAYTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@주 &매출@@@@@@@@@@@@@@@ weekly sales
+      } else if ($('input[name=options]:checked').val() == 'week' && $('input[name=options2]:checked').val() == 'sales') {
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.STARTDATE;
+          labels[temp] += "~" + item.ENDDATE;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">기간(주)</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.STARTDATE + "~" + item.ENDDATE +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@월 &매출@@@@@@@@@@@@ monthly sales
+      } else if ($('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'sales') {
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.MONTHTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">월</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.MONTHTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@일 &고객@@@@@@@@@@@@@@   
+      } else if ($('input[name=options]:checked').val() == 'day' && $('input[name=options2]:checked').val() == 'customer') {
+        alert('고객 데이')
+        //그래프 값 넣기
+        var data1 = [];
+        var data2 = [];
+        var data3 = [];
+        temp = 0;
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          /* data1[temp] = item.VISITORS; */
+          data2[temp] = item.GECK; 
+          /* data3[temp] = item.SPIN; */
+          temp++;
+        });
+        /* var label1 = '내점객수'; */
+        var label2 = '객단가';
+        var label3 = '회전';
+        //그래프 업데이트
+        newchart.destroy();
+        newchart = new Chart(ctx, {
+            type: 'line', //차트모양
+            data: {
+              labels: labels,
+              datasets: [
+              /* {
+                label: label1,
+                borderColor: 'rgb(111, 111, 102)',
+                data: data1
+              },  */
+              {
+                label: label2,
+                borderColor: 'rgb(000, 111, 000)',
+                data: data2
+              }
+              /* , {
+                label: label3,
+                borderColor: 'rgb(000, 111, 111)',
+                data: data3
+              } */
+              ]
+            }
+          });
+        temp = 0;
+        // table용 output처리
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :25%; text-align: center;">기준일</th>'
+        output += '<th style="width :25%;">내점객수</th>'
+        output += '<th style="width :25%;">객단가</th>'
+        output += '<th style="width :25%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
+        output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :25%;">' + item.DAYTIME +'</td>'
+          output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
+          output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
+          output += '<td style="width :25%;">' + item.SPIN + '회전</td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@주 &고객@@@@@@@@@@@@@@   
+      } else if ($('input[name=options]:checked').val() == 'week' && $('input[name=options2]:checked').val() == 'customer') {
+        alert('고객 위크')
+        //그래프 값 넣기
+        var data1 = [];
+        var data2 = [];
+        var data3 = [];
+        temp = 0;
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.STARTDATE;
+          labels[temp] += "~" + item.ENDDATE;
+          /* data1[temp] = item.VISITORS; */
+          data2[temp] = item.GECK; 
+          /* data3[temp] = item.SPIN; */
+          temp++;
+        });
+        /* var label1 = '내점객수'; */
+        var label2 = '객단가';
+        var label3 = '회전';
+        //그래프 업데이트
+        newchart.destroy();
+        newchart = new Chart(ctx, {
+            type: 'line', //차트모양
+            data: {
+              labels: labels,
+              datasets: [
+              /* {
+                label: label1,
+                borderColor: 'rgb(111, 111, 102)',
+                data: data1
+              },  */
+              {
+                label: label2,
+                borderColor: 'rgb(000, 111, 000)',
+                data: data2
+              }
+              /* , {
+                label: label3,
+                borderColor: 'rgb(000, 111, 111)',
+                data: data3
+              } */
+              ]
+            }
+          });
+        temp = 0;
+        // table용 output처리
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :25%; text-align: center;">기준주</th>'
+        output += '<th style="width :25%;">내점객수</th>'
+        output += '<th style="width :25%;">객단가</th>'
+        output += '<th style="width :25%; text-align: center;">회전율</th></tr></thead></table>'
+        output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :25%;">' + item.STARTDATE + "~" + item.ENDDATE + '</td>'
+          output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
+          output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
+          output += '<td style="width :25%;">' + item.SPIN + '회전</td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@월 &고객@@@@@@@@@@@@@@   
+      } else if ($('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'customer') {
+        alert('고객 먼쓰')
+        //그래프 값 넣기
+        var data1 = [];
+        var data2 = [];
+        var data3 = [];
+        temp = 0;
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          /* data1[temp] = item.VISITORS; */
+          data2[temp] = item.GECK; 
+          /* data3[temp] = item.SPIN; */
+          temp++;
+        });
+        /* var label1 = '내점객수'; */
+        var label2 = '객단가';
+        var label3 = '회전';
+        //그래프 업데이트
+        newchart.destroy();
+        newchart = new Chart(ctx, {
+            type: 'line', //차트모양
+            data: {
+              labels: labels,
+              datasets: [
+              /* {
+                label: label1,
+                borderColor: 'rgb(111, 111, 102)',
+                data: data1
+              },  */
+              {
+                label: label2,
+                borderColor: 'rgb(000, 111, 000)',
+                data: data2
+              }
+              /* , {
+                label: label3,
+                borderColor: 'rgb(000, 111, 111)',
+                data: data3
+              } */
+              ]
+            }
+          });
+        temp = 0;
+        // table용 output처리
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :25%; text-align: center;">기준월</th>'
+        output += '<th style="width :25%;">내점객수</th>'
+        output += '<th style="width :25%;">객단가</th>'
+        output += '<th style="width :25%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
+        output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :25%;">' + item.DAYTIME +'</td>'
+          output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
+          output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
+          output += '<td style="width :25%;">' + item.SPIN + '회전</td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@일 &메뉴@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@주 &메뉴@@@@@@@@@@@@@@
+        //@@@@@@@@@@@@@월&메뉴@@@@@@@@@@@@@@
+      } else if ($('input[name=options]:checked').val() == 'day' && $('input[name=options2]:checked').val() == 'menu' || $('input[name=options]:checked').val() == 'week' && $('input[name=options2]:checked').val() == 'menu' || $('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'menu') {
+        alert('메뉴 데이, 위크, 먼쓰 없고 기간만 정해서 통계내줌')
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.MENU_NAME;
+          data[temp] = item.SALES_ORDER_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.destroy();
+        newchart = new Chart(ctx, {
+            type: 'bar', //차트모양
+            data: {
+              labels: labels,
+              datasets: [{
+                type: "bar",
+                label: label,
+                backgroundColor: 'rgb(111, 111, 102)',
+                borderColor: 'rgb(111, 111, 102)',
+                data: data,
+              }, ]
+            }
+          });
+        temp = 0;
+        // table용 output처리
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :10%; text-align: center;">순번</th>'
+        output += '<th style="width :30%; text-align: center;">메뉴</th>'
+        output += '<th style="width :30%; text-align: center;">판매량</th>'
+        output += '<th style="width :30%; text-align: center;">매출액</th></tr></thead></table>'
+        output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :10%;">' + ++temp +'</td>'
+          output += '<td style="text-align: center; width :30%;">' + item.MENU_NAME + '</td>'
+          output += '<td style="text-align: center; width :30%;">' + item.SALES_ORDER_SUM + ' 건</td>'
+          output += '<td style="width :30%;">' + item.PAYMENT_AMOUNT + ' 원</td></tr>'
+        })
+        temp = 0;
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@일 &현금/카드@@@@@@@@@@@@@@
+      } else if ($('input[name=options]:checked').val() == 'day' && $('input[name=options2]:checked').val() == 'card') {
+        alert('현카 데이')
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.DAYTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '건</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@주 &현금/카드@@@@@@@@@@@@@@
+      } else if ($('input[name=options]:checked').val() == 'week' && $('input[name=options2]:checked').val() == 'card') {
+        alert('현카 위크')
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.DAYTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@월 &현금/카드@@@@@@@@@@@@@@
+      } else if ($('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'card') {
+        alert('현카 먼쓰')
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.DAYTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@일 &수지@@@@@@@@@@@@@@
+      } else if ($('input[name=options]:checked').val() == 'day' && $('input[name=options2]:checked').val() == 'income') {
+        alert('수지 데이')
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.DAYTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@주 &수지@@@@@@@@@@@@@@
+      } else if ($('input[name=options]:checked').val() == 'week' && $('input[name=options2]:checked').val() == 'income') {
+        alert('수지 위크')
+        //그래프 값 넣기
+        var data2 = [];
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          data2[temp] = item.PAYMENT_AMOUNT_SUM * 2;
+          temp++;
+        });
+        //그래프 업데이트
+        newchart.data.datasets[0].data = data;
+        newchart.data.datasets[1].data = data2;
+        newchart.data.datasets[1].label = "두번째 데이터";
+        newchart.data.datasets[1].type = "bar";
+        newchart.data.labels = labels;
+        newchart.update();
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.DAYTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+        //@@@@@@@@@@@@@월 &수지@@@@@@@@@@@@@@
+      } else if ($('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'income') {
+        alert('수지 먼쓰')
+        newchart.destroy();
+        //그래프 값 넣기
+        $.each(updateData, function(index, item) {
+          labels[temp] = item.DAYTIME;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
+          temp++;
+        });
+        newchart = new Chart(ctx, {
+          type: 'line', //차트모양
+          data: {
+            labels: labels,
+            datasets: [{
+              label: label,
+              borderColor: 'rgb(111, 111, 102)',
+              data: [52050000, 52050000]
+            }, {
+              label: "data2",
+              borderColor: 'rgb(000, 111, 000)',
+              data: [52050000, 122190345]
+            }, {
+              label: "data3",
+              borderColor: 'rgb(000, 111, 111)',
+              data: [0, 153164500]
+            }]
+          }
+        });
+        temp = 0;
+        var output = '';
+        output += '<table class="table table-hover">';
+        output += '<thead><tr><th style="width :30%; text-align: center;">일</th><th style="width :50%; text-align: center;">판매금액</th><th style="width :20%;">비고</th></tr></thead></table></div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
+        $.each(updateData, function(index, item) {
+          output += '<tr><td style="width :30%;">' + item.DAYTIME +
+            '</td><td style=" text-align: center; width :50%;">' +
+            item.PAYMENT_AMOUNT_SUM +
+            '원</td><td style="width :30%;"></td></tr>'
+        })
+        output += "</table>"
+        $('.tableTest').html(output);
+      }
+
+
+    }
 
   </script>
 </body>

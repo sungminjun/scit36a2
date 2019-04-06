@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scit36a2.minnano.dao.ReportDAO">
+  <resultMap id="sales_state" type="sas">
+    <result property="comp_seq" column="comp_seq"></result>
+  </resultMap>
+  <resultMap id="sales_detail" type="sad">
+    <result property="sales_state_seq" column="sales_state_seq"></result>
+  </resultMap>
+
+
+<!-- 
+  <select id="selectPaymentList" resultType="HashMap" parameterType="HashMap">
+    SELECT
+	    to_char(min(payment_time), 'mmdd') as daytime
+	    , sum(payment_amount) as payment_amount_sum
+	    , sum(sales_order) as sales_order_sum
+    FROM
+		    (SELECT
+			    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+		    FROM
+			    payment p
+			    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+			    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+		    ORDER BY payment_time)
+    WHERE
+	    comp_seq = #{comp_seq} and payment_time between trunc(sysdate,'mm') and sysdate
+    GROUP BY
+ 	   to_char(payment_time, 'mmdd')
+    ORDER BY
+ 	   daytime
+  </select>
+ -->
+ 
+  <select id="selectListOne" resultType="Map" parameterType="hashmap">
+    select
+    p.payment_seq as payment_seq
+    , s.sales_state_seq as sales_state_seq
+    , p.payment_type as payment_type
+    , p.payment_amount as payment_amount
+    , to_char(p.payment_time, 'YYYY-MM-DD HH24:mi:ss') payment_time
+    FROM payment p
+    LEFT OUTER JOIN sales_detail d ON p.SALES_STATE_SEQ = d.SALES_STATE_SEQ
+    LEFT OUTER JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+    <![CDATA[
+ 		WHERE payment_time <= to_date('2019-03-26 23:59:59', 'YYYY-MM-DD HH24:mi:ss') 
+ 		and payment_time > to_date('2019-03-26 11:59:59','YYYY-MM-DD HH24:mi:ss') 
+ 		and comp_seq = #{comp_seq}
+ 		]]>
+  </select>
+
+  <select id="searchDayPosReport" resultType="HashMap" parameterType="HashMap">
+    SELECT
+    to_char(min(payment_time), 'YYYY-MM-DD') as daytime
+    , sum(payment_amount) as payment_amount_sum
+    , sum(sales_order) as sales_order_sum
+    FROM
+    (SELECT
+    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+    FROM
+    payment p
+    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+    ORDER BY payment_time)
+    WHERE
+    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+    GROUP BY
+    to_char(payment_time, 'YYYY-MM-DD')
+    ORDER BY
+    daytime
+  </select>
+  <select id="selectWeekPosReport" resultType="HashMap" parameterType="Hashmap">
+
+    SELECT
+    to_char(payment_time, 'WW') as week
+    ,sum(payment_amount) as payment_amount_sum
+    FROM
+    (SELECT
+    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+    FROM
+    payment p
+    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+    ORDER BY payment_time)
+    WHERE
+    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+    GROUP BY
+    to_char(payment_time, 'WW')
+    ORDER BY
+    week
+  </select>
+
+  <select id="selectWeekDay" resultType="HashMap" parameterType="Hashmap">
+
+    SELECT
+    TO_CHAR(trunc(payment_time,'D'),'YYYY/MM/DD') AS startdate
+    ,TO_CHAR(trunc(payment_time,'D')+6,'YYYY/MM/DD') AS enddate
+    ,sum(payment_amount) as payment_amount_sum
+    FROM
+    (SELECT
+    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+    FROM
+    payment p
+    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+    ORDER BY payment_time)
+    WHERE
+    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+    GROUP BY
+    TO_CHAR(trunc(payment_time,'D'),'YYYY/MM/DD'), TO_CHAR(trunc(payment_time,'D')+6,'YYYY/MM/DD')
+    ORDER BY
+    startdate
+  </select>
+  <select id="selectMonthPosReport" resultType="HashMap" parameterType="Hashmap">
+    SELECT
+    to_char(min(payment_time), 'YYYY-MM') as monthtime
+    , sum(payment_amount) as payment_amount_sum
+    , sum(sales_order) as sales_order_sum
+    FROM
+    (SELECT
+    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+    FROM
+    payment p
+    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+    ORDER BY payment_time)
+    WHERE
+    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+    GROUP BY
+    to_char(payment_time, 'YYYY-MM')
+    ORDER BY
+    monthtime
+  </select>
+
+ <select id="selectCustomerDay" resultType="HashMap" parameterType="HashMap">
+   SELECT
+	    to_char(min(payment_time), 'YYYY-MM-DD') as daytime
+	    , round(sum(payment_amount)/sum(sales_visitors))as geck
+	    , round(sum(payment_amount) / ((select count(seat_seq) from seat where comp_seq = #{comp_seq})*3.2*sum(payment_amount)/sum(sales_visitors)),1) as spin
+	    , sum(sales_visitors) as visitors
+    FROM
+	    (SELECT
+	    	p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order,s.sales_visitors as sales_visitors
+	    FROM
+		    payment p
+		    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+		    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+    WHERE
+    	comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+    GROUP BY
+    	to_char(payment_time, 'YYYY-MM-DD')
+    ORDER BY
+    	daytime
+  </select>
+  
+   <select id="selectCustomerWeekReport" resultType="HashMap" parameterType="HashMap">
+    SELECT
+	    to_char(payment_time, 'WW') as week
+	    , round(sum(payment_amount)/sum(sales_visitors))as geck
+	    , round(sum(payment_amount) / ((select count(seat_seq) from seat where comp_seq = #{comp_seq})*3.2*sum(payment_amount)/sum(sales_visitors)),1) as spin
+	    , sum(sales_visitors) as visitors
+    FROM
+	    (SELECT
+	    	p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order,s.sales_visitors as sales_visitors
+	    FROM
+	    	payment p
+		    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+		    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+    WHERE
+    	comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+    GROUP BY
+    	to_char(payment_time, 'WW')
+    ORDER BY
+    	week
+   </select>
+   <select id="selectGuestWeekDay" resultType="HashMap" parameterType="HashMap">
+        SELECT
+	    TO_CHAR(trunc(payment_time,'D'),'YYYY/MM/DD') AS startdate
+	    ,TO_CHAR(trunc(payment_time,'D')+6,'YYYY/MM/DD') AS enddate
+	    ,sum(payment_amount) as payment_amount_sum
+	    FROM
+	    (SELECT
+	    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+	    FROM
+	    payment p
+	    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+	    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+	    WHERE
+	    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+	    GROUP BY
+	    TO_CHAR(trunc(payment_time,'D'),'YYYY/MM/DD'), TO_CHAR(trunc(payment_time,'D')+6,'YYYY/MM/DD')
+	    ORDER BY
+	    startdate
+   </select>
+   <select id="selectMonthGuestReport" resultType="HashMap" parameterType="HashMap">
+   	 SELECT
+	    to_char(min(payment_time), 'YYYY-MM') as daytime
+	    , round(sum(payment_amount)/sum(sales_visitors))as geck
+	    , round(sum(payment_amount) / ((select count(seat_seq) from seat where comp_seq = #{comp_seq})*3.2*sum(payment_amount)/sum(sales_visitors)),1) as spin
+	    , sum(sales_visitors) as visitors
+    FROM
+	    (SELECT
+	    	p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order,s.sales_visitors as sales_visitors
+	    FROM
+		    payment p
+		    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+		    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+    WHERE
+    	comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+    GROUP BY
+    	to_char(payment_time, 'YYYY-MM')
+    ORDER BY
+    	daytime
+   </select>
+   
+   
+   <select id="selectMenu" resultType="HashMap" parameterType="Hashmap">
+		select
+			d.menu_seq, m.menu_name, sum(d.sales_order) as sales_Order_Sum,sum(p.PAYMENT_AMOUNT) as payment_amount
+		from 
+		    sales_detail d
+		    left join sales_state s on d.sales_state_seq = s.sales_state_seq
+		    left join menu m on d.menu_seq = m.menu_seq
+		    left join payment p on d.SALES_STATE_SEQ = p.SALES_STATE_SEQ
+		where 
+		    s.sales_end between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+		    and m.comp_seq = #{comp_seq}
+		    <!-- <![CDATA[and rownum between 1 and 12]]> -->    
+		group by
+		    d.menu_seq, m.menu_name
+		order by
+		    sum(d.sales_order) desc
+  </select>
+ 
+ 
+ 
+   <select id="selectCardPercent" resultType="HashMap" parameterType="HashMap">
+   	SELECT
+	    payment_type
+	    ,sum(payment_amount)
+	    FROM
+	    (SELECT
+	    p.payment_type as payment_type, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order,s.sales_visitors as sales_visitors,p.payment_time as payment_time
+	    FROM
+	    payment p
+	    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+	    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+	    WHERE
+	    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+	    GROUP BY
+	    payment_type
+   </select>
+   <select id="selectAllPayment" resultType="HashMap" parameterType="HashMap">
+    SELECT
+	    to_char(min(payment_time), 'YYYY-MM') as monthtime
+	    , sum(payment_amount) as allpayment
+	    FROM
+	    (SELECT
+	    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq
+	    FROM
+	    payment p
+	    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+	    WHERE
+	    comp_seq = #{comp_seq} and payment_time between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+	    GROUP BY
+	    to_char(payment_time, 'YYYY-MM')
+	    ORDER BY
+	    monthtime
+   </select>
+	<select id="selectAllExpense" resultType="HashMap" parameterType="HashMap">
+	select 
+	    to_char(min(EXPENSE_DATE), 'YYYY-MM') as monthtime
+	    ,sum(EXPENSE_amount) as allexpense
+	    from 
+	    expense
+	    where
+	    comp_seq = #{comp_seq} and EXPENSE_DATE between to_timestamp(#{startDate}, 'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+	    order by
+	    monthtime
+	</select>	   
+</mapper>

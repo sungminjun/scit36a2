@@ -78,20 +78,20 @@ public class ReportsController {
 				return search_Month;
 			}
 		} else if (category.equals("customer")) {
-			guestReport(session, startDate, endDate, unit, category);
+			return guestReport(session, startDate, endDate, unit, category);
 		} else if (category.equals("menu")) {
-			menuReport(session, startDate, endDate, unit, category);
+			return menuReport(session, startDate, endDate, unit, category);
 		} else if (category.equals("card")) {
-			cardCheck(session, startDate, endDate, unit, category);
+			return cardCheck(session, startDate, endDate, unit, category);
 		} else if (category.equals("income")) {
-			income(session, startDate, endDate, unit, category);
+			return income(session, startDate, endDate, unit, category);
 		}
 		return null;
 	}
 
 	// 손님based 통계
 	@RequestMapping(value = "guestReport", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> guestReport(HttpSession session, String startDate, String endDate,
+	public ArrayList<Object> guestReport(HttpSession session, String startDate, String endDate,
 			String unit, String category) {
  		HashMap<String, Object> map = new HashMap<>();
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
@@ -108,7 +108,6 @@ public class ReportsController {
 			ArrayList<HashMap<String, Object>> search_week = repo.selectWeekGuestReport(map); // 일주일
 			ArrayList<HashMap<String, Object>> search_weekDay = repo.selectGuestWeekDay(map); // 일주일 일-월 표시
 			ArrayList<Object> result = new ArrayList<Object>();
-
 			for (int i = 0; i < search_week.size(); i++) {
 				for (int j = 0; j < search_weekDay.size(); j++) {
 					if (i == j) {
@@ -132,11 +131,8 @@ public class ReportsController {
 	@RequestMapping(value = "menuReport", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Object> menuReport(HttpSession session, String startDate, String endDate,
 			String category, String unit) {
-
 		HashMap<String, Object> map = new HashMap<>();
-
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-
 		map.put("comp_seq", comp_seq);
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
@@ -186,9 +182,7 @@ public class ReportsController {
 				if (i == j) {
 					HashMap<String, Object> weekHashMap = all_Expense.get(j);
 					HashMap<String, Object> dateHashMap = all_Payment.get(i);
-
 					weekHashMap.forEach((k, v) -> dateHashMap.put(k, v));
-
 					result.add(dateHashMap);
 				}
 			}

@@ -70,4 +70,27 @@ public interface PosDAO {
 	public Integer mergetable(HashMap<String, Integer> map);
 
 	public Integer deleteSas(Sales_state sas);
+
+	public ArrayList<Object> selectMenu(HashMap<String, Object> map);
+
+	public ArrayList<Object> selectCustomerDay(HashMap<String, Object> map);
+
+	public ArrayList<HashMap<String, Object>> selectCustomerWeekReport(HashMap<String, Object> map);
+
+	public ArrayList<HashMap<String, Object>> selectGuestWeekDay(HashMap<String, Object> map);
+
+	public ArrayList<Object> selectMonthGuestReport(HashMap<String, Object> map);
+
+	public ArrayList<Object> selectCardPercent(HashMap<String, Object> map);
+
+	public ArrayList<HashMap<String, Object>> selectAllPayment(HashMap<String, Object> map);
+
+	public ArrayList<HashMap<String, Object>> selectAllExpense(HashMap<String, Object> map);
+
+
+
+	
+
+
+
 }

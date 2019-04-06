@@ -202,4 +202,55 @@ public class PosRepo {
 		return result;
 	}
 
+
+	public ArrayList<Object> selectMenu(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<Object> list = dao.selectMenu(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectGuestDay(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<Object> list = dao.selectCustomerDay(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectWeekGuestReport(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectCustomerWeekReport(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectGuestWeekDay(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectGuestWeekDay(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectMonthGuestReport(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<Object> list = dao.selectMonthGuestReport(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectCardPercent(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<Object> list = dao.selectCardPercent(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectAllPayment(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectAllPayment(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectAllExpense(HashMap<String, Object> map) {
+		PosDAO dao = session.getMapper(PosDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectAllExpense(map);
+		return list;
+	}
+
+
+
 }

@@ -648,19 +648,21 @@
           output += '<thead class=" text-primary"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
           $.each(resp, function(idx, obj) {
             $('#mgr-1-8').html('');
-            output += '<tr s-expseq="' + obj.expense_seq + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' + obj.expense_amount + '">';
+            output += '<tr s-expseq="' + obj.expense_seq + '" s-exptype="' + obj.expense_type + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' + obj.expense_amount + '">';
             output += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
             output += '</tr>';
+          })
             $('#mgr-1-8').append(output);
+          $.each(resp, function(idx, obj) {
             var temp = 'tr[s-expseq=' + obj.expense_seq + ']';
             $(temp).on('click', callexps);
+          })
 
             $('#mgr-1-1').val('고정지출');
             setdatetodaydefault();
             $('#mgr-1-3').val('');
             $('#mgr-1-4').val('');
 
-          })
         }
       });
     }
@@ -671,10 +673,12 @@
 
     function callexps() {
       expense_seq = $(this).attr('s-expseq');
-      var menu = $(this).attr('s-exp-regex');
-      var exparr = menu.split('|')
+      var expregex = $(this).attr('s-exp-regex');
+      var exparr = expregex.split('|')
 
-      $('#mgr-1-1').val(expense_seq);
+      console.log(exparr)
+      
+      $('#mgr-1-1').val($(this).attr('s-exptype'));
       $('#mgr-1-2').val(exparr[0]);
       $('#mgr-1-3').val(exparr[1]);
       $('#mgr-1-4').val(exparr[2]);

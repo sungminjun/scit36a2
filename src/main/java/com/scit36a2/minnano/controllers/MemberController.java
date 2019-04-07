@@ -53,6 +53,7 @@ public class MemberController {
 		String emp_id = employee.getEmp_id();
 		String emp_pw = employee.getEmp_pw();
 		int emp_seq = e.getEmp_seq();// 추가-최철규
+		int emp_auth_level = e.getEmp_auth_level();
 
 		if (e != null) {
 			if (emp_id.equals(e.getEmp_id()) && emp_pw.equals(e.getEmp_pw())) {
@@ -60,9 +61,11 @@ public class MemberController {
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
 				session.setAttribute("emp_seq", emp_seq);// 추가 최철규
+				session.setAttribute("emp_auth_level", emp_auth_level);// add for interceptor, 190406 jsm 
 				System.out.println(session.getAttribute("emp_id"));
 				System.out.println(session.getAttribute("comp_seq"));
 				System.out.println(session.getAttribute("emp_seq"));
+				System.out.println(session.getAttribute("emp_auth_level"));
 				return "redirect:/";
 			} else {
 				message = "로그인에 실패하셨습니다.";

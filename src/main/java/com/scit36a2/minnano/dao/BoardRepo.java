@@ -38,26 +38,26 @@ public class BoardRepo {
 		return result;
 	}
 
-	public Board boardDetail(int boardnum) {
+	public Board boardDetail(int board_seq) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		Board board = dao.selectOne(boardnum);
+		Board board = dao.selectOne(board_seq);
 
-		dao.incrementHitcount(boardnum); // 조회수를 1회 늘림
+		dao.incrementHitcount(board_seq); // 조회수를 1회 늘림
 
 		return board;
 	}
 
-	public int boardDelete(int boardnum) {
+	public int boardDelete(int board_seq) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		int result = dao.delete(boardnum);
+		int result = dao.delete(board_seq);
 
 		return result;
 
 	}
 
-	public Board seletOne(int boardnum) {
+	public Board seletOne(int board_seq) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		Board board = dao.selectOne(boardnum);
+		Board board = dao.selectOne(board_seq);
 
 		return board;
 	}
@@ -81,9 +81,9 @@ public class BoardRepo {
 		return boardCount;
 	}
 
-	public int deleteFile(int boardnum) {
+	public int deleteFile(int board_seq) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		int result = dao.deleteFile(boardnum);
+		int result = dao.deleteFile(board_seq);
 
 		return result;
 

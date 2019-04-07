@@ -31,7 +31,6 @@
     SEAT
     where
     seat_seq = #{seat_seq}
-
   </delete>
 
   <update id="updateseat" parameterType="sea">

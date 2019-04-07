@@ -39,7 +39,6 @@
 			<exclude-mapping path="/resources/**" />
 			<exclude-mapping path="/assets/**" />
 			<exclude-mapping path="/imgs/**" />
- 	<!-- 			<mapping path="/asd" /> -->
  			<beans:ref bean="posInterceptor" />
 		</interceptor>
 	</interceptors>

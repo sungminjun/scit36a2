@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TestPageController {
 
+	@RequestMapping(value = "/devhome", method = RequestMethod.GET)
+	public String home() {
+		return "devhome";
+	}
+	
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
 	public String basic() {
 		return "frontside/basic";

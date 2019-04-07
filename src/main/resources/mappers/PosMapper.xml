@@ -137,7 +137,7 @@
     from
     cashonhand
     where
-    comp_seq = #{comp_seq} and cashonhand_regdate like sysdate
+    comp_seq = #{comp_seq} and cashonhand_regdate like to_date(sysdate, 'yy-mm-dd')
   </select>
 
   <insert id="insertCashonhand" parameterType="coh">

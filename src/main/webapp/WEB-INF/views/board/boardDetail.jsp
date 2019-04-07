@@ -18,11 +18,11 @@
 
   <script>
     function boardDelete() {
-      location.href = "boardDelete?boardnum=${board.boardnum}";
+      location.href = "boardDelete?board_seq=${board.board_seq}";
     }
 
     function boardUpdate() {
-      location.href = "boardUpdate?boardnum=${board.boardnum}";
+      location.href = "boardUpdate?board_seq=${board.board_seq}";
     }
 
   </script>
@@ -34,29 +34,29 @@
     <table border="1">
       <tr>
         <th>제목</th>
-        <td>${board.title}</td>
+        <td>${board.board_title}</td>
       </tr>
       <tr>
-        <th>글 쓴날</th>
-        <td>${board.regdate}</td>
+        <th>글쓴날</th>
+        <td>${board.board_regdate}</td>
       </tr>
       <tr>
         <th>글 쓴이</th>
-        <td>${board.userid }</td>
+        <td>${board.emp_seq }</td>
       </tr>
       <tr>
         <th>첨부 파일</th>
         <td>
-          <a href="download?boardnum=${board.boardnum}">${board.originalfile}</a>
+          <a href="download?board_seq=${board.board_seq}">${board.board_orgname}</a>
           <c:if test="${not empty mime}">
-            <img src="download?boardnum=${board.boardnum}" style="width:100px;height:100px" />
+            <img src="download?board_seq=${board.board_seq}" style="width:100px;height:100px" />
           </c:if>
         </td>
       </tr>
       <tr>
         <th>글내용</th>
         <td>
-          <pre>${board.content}</pre>
+          <pre>${board.board_content}</pre>
         </td>
       </tr>
       <tr>

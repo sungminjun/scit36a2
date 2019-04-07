@@ -10,7 +10,6 @@
     MinnanoPOS
   </title>
   <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
@@ -22,85 +21,65 @@
   <div class="wrapper">
     <div class="sidebar" data="blue">
       <div class="sidebar-wrapper">
-
-
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-normal">
+          <a href="${pageContext.request.contextPath}" class="simple-text logo-normal">
             MP
           </a>
         </div>
         <ul class="nav">
           <li>
-            <a href="#">
-              <i class="tim-icons icon-money-coins" title="포스 / Enter POS"></i>
+            <a href="pos">
+              <i class="tim-icons icon-money-coins" title="포스기능 / Enter POS"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="mgr">
               <i class="tim-icons icon-settings-gear-63" title="설정 / settings"></i>
-              <!-- <i class="material-icons">settings</i> -->
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="board">
               <i class="tim-icons icon-chat-33" title="커뮤니티 / community"></i>
             </a>
             <br><br>
           </li>
           <li>
-            <a href="#">
-              <i class="tim-icons icon-chart-pie-36" title="보고서 / reports"></i>
+            <a href="report">
+              <i class="tim-icons icon-chart-pie-36" title="보고서 / report"></i>
             </a>
             <br><br>
             <br><br><br>
           </li>
           <li>
-            <a href="#">
+            <a href="logout">
               <i class="tim-icons icon-button-power" title="로그아웃 / logout" aria-label="logout"></i>
-              <!-- <i class="material-icons">power_settings_new</i> -->
             </a>
           </li>
         </ul>
       </div>
     </div>
     <div class="main-panel" data="blue">
-
       <!-- 영역 시작 -->
       <div class="content">
-        <div class="row" style="max-width: 850px;">
-          <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6 mx-auto">
+            <div class="card">
+              <h1>proto for 190406 demo</h1>
+              welcome!<a href="devhome">click here for devhome</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mx-auto">
             <div class="card">
               <img class="main-junc" alt="main-pos-icon" src="imgs/main-pos.png">
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="card">
-              <img class="main-junc" alt="main-community-icon" src="imgs/main-community.png">
-            </div>
-          </div>
-        </div>
-        <div class="row" style="max-width: 850px;">
-          <div class="col-md-6">
-            <div class="card">
-              <img class="main-junc" alt="main-settings-icon" src="imgs/main-settings.png">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card">
-              <img class="main-junc" alt="main-reports-icon" src="imgs/main-reports.jpg">
-            </div>
-          </div>
         </div>
       </div>
-      <footer class="footer">
-        각 div에 onclick으로 이동하는 것 추가... 하지말고
-        <br>그냥 밀어버릴까 생각중 커뮤니티쪽 공지사항이나 보여주거나?
-        <br> 아니면 커뮤니티 쪽 기능을 좀 더 늘리던가?
-      </footer>
     </div>
-  </div>
 
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>

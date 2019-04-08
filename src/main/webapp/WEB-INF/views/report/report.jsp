@@ -791,7 +791,20 @@
         //@@@@@@@@@@@@@주 &수지@@@@@@@@@@@@@@
       }
     }
-
+    $(document).keydown(function(event) {
+  	  if (event.keyCode == '37') {
+  		    location.href="pos"
+  		  }
+  		  else if (event.keyCode == '39') {
+  		    location.href="mgr"
+  		  }
+  		  else if (event.keyCode == '38') {
+  			    location.href="board"
+  			  }
+  		  else if (event.keyCode == '40') {
+  			    location.href="report"
+  			  }
+  		});
   </script>
 </body>
 

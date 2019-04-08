@@ -169,6 +169,23 @@
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script type="text/javascript">
+  $(document).keydown(function(event) {
+	  if (event.keyCode == '37') {
+		    location.href="pos"
+		  }
+		  else if (event.keyCode == '39') {
+		    location.href="mgr"
+		  }
+		  else if (event.keyCode == '38') {
+			    location.href="board"
+			  }
+		  else if (event.keyCode == '40') {
+			    location.href="report"
+			  }
+		});
+  
+  </script>
 </body>
 
 </html>

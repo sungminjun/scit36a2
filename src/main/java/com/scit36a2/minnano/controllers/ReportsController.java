@@ -201,4 +201,70 @@ public class ReportsController {
 		return result;
 
 	}
+	
+	//매출 종합보고서-3개월치
+	@RequestMapping(value="totalReport",method=RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalReport(HttpSession session){
+		HashMap<String, Object> map = new HashMap<>();
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		map.put("comp_seq", comp_seq);
+		ArrayList<Object> total_expence = repo.selectTotalReport(map);
+		System.out.println("total_expence" + total_expence.toString());
+		return total_expence;
+	}
+	
+	//메뉴 종합보고서-3개월치
+	@RequestMapping(value="totalMenuReport",method=RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalMenuReport(HttpSession session){
+		
+		HashMap<String, Object> map = new HashMap<>();
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		map.put("comp_seq", comp_seq);
+		ArrayList<Object> total_Menu_Report = repo.selectTotalMenuReport(map);
+		System.out.println("total_Menu_Report" + total_Menu_Report.toString());
+		return total_Menu_Report;
+	}
+	
+	//손님 종합보고서-3개월치
+	@RequestMapping(value="totalGuestReport",method=RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalGuestReport(HttpSession session){
+		
+		HashMap<String, Object> map = new HashMap<>();
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		map.put("comp_seq", comp_seq);
+		ArrayList<Object> total_Guest_expence = repo.selectTotalGuestReport(map);
+		System.out.println("total_Guest_expence" + total_Guest_expence.toString());
+		return total_Guest_expence;
+	}
+	
+	//수지 종합보고서-1개월치
+	@RequestMapping(value="totalIncomeReport",method=RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalIncome(HttpSession session){
+		HashMap<String, Object> map = new HashMap<>();
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		map.put("comp_seq", comp_seq);
+		
+		ArrayList<HashMap<String, Object>> month_Payment = repo.selectMonthPayment(map); // 한달
+		ArrayList<HashMap<String, Object>> month_Expense = repo.selectMonthExpense(map); // 한달
+	
+
+		System.out.println(month_Expense);
+		System.out.println(month_Payment);
+
+		ArrayList<Object> result = new ArrayList<Object>();
+
+		for (int i = 0; i < month_Payment.size(); i++) {
+			for (int j = 0; j < month_Expense.size(); j++) {
+				if (i == j) {
+					HashMap<String, Object> weekHashMap = month_Expense.get(j);
+					HashMap<String, Object> dateHashMap = month_Payment.get(i);
+					weekHashMap.forEach((k, v) -> dateHashMap.put(k, v));
+					result.add(dateHashMap);
+				}
+			}
+		}
+		System.out.println(result.toString());
+
+		return result;
+	}
 }

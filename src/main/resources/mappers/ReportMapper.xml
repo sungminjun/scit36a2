@@ -197,7 +197,7 @@
    </select>
    <select id="selectMonthGuestReport" resultType="HashMap" parameterType="HashMap">
    	 SELECT
-	    to_char(min(payment_time), 'YYYY-MM') as daytime
+	    to_char(min(payment_time), 'YYYY-MM') as monthtime
 	    , round(sum(payment_amount)/sum(sales_visitors))as geck
 	    , round(sum(payment_amount) / ((select count(seat_seq) from seat where comp_seq = #{comp_seq})*3.2*sum(payment_amount)/sum(sales_visitors)),1) as spin
 	    , sum(sales_visitors) as visitors
@@ -214,13 +214,13 @@
     GROUP BY
     	to_char(payment_time, 'YYYY-MM')
     ORDER BY
-    	daytime
+    	monthtime
    </select>
    
    
    <select id="selectMenu" resultType="HashMap" parameterType="Hashmap">
 		select
-			d.menu_seq, m.menu_name, sum(d.sales_order) as sales_Order_Sum,sum(p.PAYMENT_AMOUNT) as payment_amount
+			d.menu_seq, m.menu_name,m.MENU_CATEGORY, sum(d.sales_order) as sales_Order_Sum,sum(p.PAYMENT_AMOUNT) as payment_amount
 		from 
 		    sales_detail d
 		    left join sales_state s on d.sales_state_seq = s.sales_state_seq
@@ -231,7 +231,7 @@
 		    and m.comp_seq = #{comp_seq}
 		    <!-- <![CDATA[and rownum between 1 and 12]]> -->    
 		group by
-		    d.menu_seq, m.menu_name
+		    d.menu_seq, m.menu_name, m.MENU_CATEGORY
 		order by
 		    sum(d.sales_order) desc
   </select>
@@ -285,5 +285,124 @@ GROUP BY
     to_char(expense_date, 'YYYY-MM')
 ORDER BY
 	    monthtime
-	</select>	   
+	</select>
+	<select id="selectTotalReport" resultType="HashMap" parameterType="HashMap">
+	SELECT
+	    to_char(min(payment_time), 'YYYY-MM') as monthtime
+	    , sum(payment_amount) as payment_amount_sum
+	    , sum(sales_order) as sales_order_sum
+	    FROM
+	    (SELECT
+	    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order
+	    FROM
+	    payment p
+	    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+	    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+	    WHERE
+	    comp_seq = #{comp_seq} and payment_time between trunc(add_months(sysdate,-3)+1)and trunc(add_months(sysdate,-1)+1)
+	    GROUP BY
+	    to_char(payment_time, 'YYYY-MM')
+	    ORDER BY
+	    monthtime
+	</select>
+	<select id="selectTotalMenuReport" resultType="HashMap" parameterType="HashMap">
+	  select
+		d.menu_seq, m.menu_name,m.MENU_CATEGORY, sum(d.sales_order) as sales_Order_Sum,sum(p.PAYMENT_AMOUNT) as payment_amount
+		from 
+		    sales_detail d
+		    left join sales_state s on d.sales_state_seq = s.sales_state_seq
+		    left join menu m on d.menu_seq = m.menu_seq
+		    left join payment p on d.SALES_STATE_SEQ = p.SALES_STATE_SEQ
+		where 
+		    s.sales_end between trunc(add_months(sysdate,-3)+1)and trunc(add_months(sysdate,-1)+1)
+		    and m.comp_seq = 7	  
+		group by
+		    d.menu_seq, m.menu_name, m.MENU_CATEGORY
+		order by
+		  sum(d.sales_order) desc
+	</select>
+	<select id="selectTotalGuestReport" resultType="HashMap" parameterType="HashMap">
+	 SELECT
+		    to_char(min(payment_time), 'YYYY-MM') as monthtime
+		    , round(sum(payment_amount)/sum(sales_visitors))as geck
+		    , round(sum(payment_amount) / ((select count(seat_seq) from seat where comp_seq = #{comp_seq})*3.2*sum(payment_amount)/sum(sales_visitors)),1) as spin
+		    , sum(sales_visitors) as visitors
+	    FROM
+		    (SELECT
+		    	p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq, d.sales_order as sales_order,s.sales_visitors as sales_visitors
+		    FROM
+			    payment p
+			    LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+			    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+		    ORDER BY payment_time)
+	    WHERE
+	    	comp_seq =#{comp_seq} and payment_time between trunc(add_months(sysdate,-3)+1)and trunc(add_months(sysdate,-1)+1)
+	    GROUP BY
+	    	to_char(payment_time, 'YYYY-MM')
+	    ORDER BY
+	    	monthtime
+	</select>
+	<select id="selectMonthPayment" resultType="HashMap" parameterType="HashMap">
+	   SELECT
+	    to_char(min(payment_time), 'YYYY-MM') as monthtime1
+	    , sum(payment_amount) as allpayment1
+	    FROM
+	    (SELECT
+	    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq
+	    FROM
+	    payment p
+	    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+	    WHERE
+	    comp_seq = #{comp_seq} and payment_time between trunc(add_months(sysdate,-1)+1)and trunc(sysdate)
+	    GROUP BY
+	    to_char(payment_time, 'YYYY-MM')
+	    ORDER BY
+	    monthtime1
+	</select>
+	<select id="selectMonthExpense" resultType="HashMap" parameterType="HashMap">
+	select 
+	    to_char(expense_date, 'YYYY-MM') as monthtime1,
+	    sum(EXPENSE_AMOUNT) as EXPENSE_AMOUNT1
+	from 
+	    expense
+	where 
+	    comp_seq = #{comp_seq} and expense_date =trunc(add_months(sysdate,-1)+1)
+	GROUP BY
+	    to_char(expense_date, 'YYYY-MM')
+	ORDER BY
+		    monthtime1
+	</select>
+	<select id="select3MonthPayment" resultType="HashMap" parameterType="HashMap">
+	   SELECT
+	    to_char(min(payment_time), 'YYYY-MM') as monthtime3
+	    , sum(payment_amount) as allpayment3
+	    FROM
+	    (SELECT
+	    p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq
+	    FROM
+	    payment p
+	    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	    ORDER BY payment_time)
+	    WHERE
+	    comp_seq = #{comp_seq} and payment_time between trunc(add_months(sysdate,-3)+1)and trunc(sysdate)
+	    GROUP BY
+	    to_char(payment_time, 'YYYY-MM')
+	    ORDER BY
+	    monthtime3
+	</select>
+	<select id="select3MonthExpense" resultType="HashMap" parameterType="HashMap">
+	select 
+	    to_char(expense_date, 'YYYY-MM') as monthtime3,
+	    sum(EXPENSE_AMOUNT) as EXPENSE_AMOUNT3
+	from 
+	    expense
+	where 
+	    comp_seq = #{comp_seq} and expense_date between trunc(add_months(sysdate,-3)+1)and trunc(sysdate)
+	GROUP BY
+	    to_char(expense_date, 'YYYY-MM')
+	ORDER BY
+		    monthtime3
+	</select>
 </mapper>

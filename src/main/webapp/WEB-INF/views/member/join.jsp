@@ -168,6 +168,14 @@
 									</div>
 									<div class="row justify-content-center">
 										<div class="col-md-6">
+                      <div class="form-group">
+                        <label for="emp_quiz">비밀번호 찾기 질문</label>
+                        <!-- <input type="text" class="form-control" name="emp_quiz"> -->
+                        <select>
+                        	<option value="우리조이름은?">
+                        </select>
+                      </div>
+                      <!--
 											<div class="form-group">
 												<label for="emp_quiz">비밀번호 찾기 질문</label> <input type="text"
 													class="form-control" name="emp_quiz">
@@ -175,6 +183,7 @@
 										</div>
 										<div class="col-md-3">quiz는 dropdown목록에서 선택하는 것은 어떨지
 											생각해볼 것</div>
+                      -->
 									</div>
 									<div class="row justify-content-center">
 										<div class="col-md-6">

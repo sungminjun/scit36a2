@@ -28,7 +28,13 @@ public class ReportsController {
 	public String report() {
 		return "report/report";
 	}
-
+	//종합보고서 이동
+	@RequestMapping(value = "/synthesize", method = RequestMethod.GET)
+	public String synthesize(HttpSession session) {
+		System.out.println("간다");
+		System.out.println(session.getAttribute("comp_seq"));
+		return "report/synthesize";
+	}
 //	// 보고서 첫화면 리스트 불러오기(request param, default 값 설정, 기간을 받아 그걸 다시 sql문으로 보내는 동적 쿼리문)
 //	@RequestMapping(value = "reportdefaultList", method = RequestMethod.POST)
 //	public @ResponseBody ArrayList<HashMap<String, Object>> defaultlist(HttpSession session) {

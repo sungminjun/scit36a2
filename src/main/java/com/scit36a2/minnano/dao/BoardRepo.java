@@ -1,4 +1,5 @@
 package com.scit36a2.minnano.dao;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,26 +17,23 @@ public class BoardRepo {
 	@Autowired
 	SqlSession session;
 
-	public String getEmpId(int board_seq)	{
+	public String getEmpId(int board_seq) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		String result = dao.getEmpId(board_seq);
 		return result;
 	}
-	
-	
+
 	// DB에서 제공하는 RowBounds를 이용한 페이징 기법
-	public List<HashMap<String,Object>> boardList(String searchItem, String searchWord, int startRecord, int countPerPage) {
+	public List<HashMap<String, Object>> boardList(String searchItem, String searchWord, int startRecord,
+			int countPerPage) {
 		RowBounds rb = new RowBounds(startRecord, countPerPage);
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		
-		
-		
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchWord", searchWord);
-		
-		List<HashMap<String,Object>> list = dao.boardList(map, rb);
+
+		List<HashMap<String, Object>> list = dao.boardList(map, rb);
 
 		return list;
 	}
@@ -57,10 +55,9 @@ public class BoardRepo {
 		return board;
 	}
 
-
-	public int boardDelete(int board_seq) {
+	public int boardDelete(Board board) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		int result = dao.delete(board_seq);
+		int result = dao.delete(board);
 
 		return result;
 
@@ -92,20 +89,19 @@ public class BoardRepo {
 		return boardCount;
 	}
 
-	
-
-	/*public int deleteFile(int board_seq) {
-		BoardDAO dao = session.getMapper(BoardDAO.class);
-		int result = dao.deleteFile(board_seq);
-
-		return result;
-
-	}*/
+	/*
+	 * public int deleteFile(int board_seq) { BoardDAO dao =
+	 * session.getMapper(BoardDAO.class); int result = dao.deleteFile(board_seq);
+	 * 
+	 * return result;
+	 * 
+	 * }
+	 */
 
 	public int inputComment(Board_comments board_comments) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		int result = dao.inputComment(board_comments);
-		
+
 		return result;
 	}
 
@@ -115,7 +111,6 @@ public class BoardRepo {
 		return result;
 	}
 
-	
 	public int deleteComment(Board_comments board_comments) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		int result = dao.deleteComment(board_comments);
@@ -128,5 +123,4 @@ public class BoardRepo {
 		return result;
 	}
 
-	
 }

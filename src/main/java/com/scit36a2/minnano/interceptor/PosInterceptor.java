@@ -32,7 +32,7 @@ public class PosInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 		}
-		
+
 		return super.preHandle(request, response, handler);
 	}
 }

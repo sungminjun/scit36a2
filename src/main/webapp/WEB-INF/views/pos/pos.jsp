@@ -370,35 +370,35 @@
                           </div>
                         </div>
                         <div id="payment_complex">
-                        <div class="row box">
-                          <div class="col-md-2 form-group mx-auto">
-                            <select class="pmt_cmp_type">
-                              <option value="1">카드</option>
-                              <option value="2">현금</option>
-                            </select>
+                          <div class="row box">
+                            <div class="col-md-2 form-group mx-auto">
+                              <select class="pmt_cmp_type">
+                                <option value="1">카드</option>
+                                <option value="2">현금</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4 form-group mx-auto">
+                              <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">
+                            </div>
+                            <div class="col-md-4 mx-auto dropdown">
+                            </div>
                           </div>
-                          <div class="col-md-4 form-group mx-auto">
-                            <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">
-                          </div>
-                          <div class="col-md-4 mx-auto dropdown">
-                          </div>
-                        </div>
 
-                        <div class="row box">
-                          <div class="col-md-2 form-group mx-auto">
-                            <select class="pmt_cmp_type">
-                              <option value="1">카드</option>
-                              <option value="2">현금</option>
-                            </select>
-                          </div>
-                          <div class="col-md-4 form-group mx-auto">
-                            <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">
-                          </div>
-                          <div class="col-md-4 form-group mx-auto">
-                            <a class="pmt_cmp_addline"><i class="tim-icons icon-simple-add text-warning"></i>한줄추가</a>
+                          <div class="row box">
+                            <div class="col-md-2 form-group mx-auto">
+                              <select class="pmt_cmp_type">
+                                <option value="1">카드</option>
+                                <option value="2">현금</option>
+                              </select>
+                            </div>
+                            <div class="col-md-4 form-group mx-auto">
+                              <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">
+                            </div>
+                            <div class="col-md-4 form-group mx-auto">
+                              <a class="pmt_cmp_addline"><i class="tim-icons icon-simple-add text-warning"></i>한줄추가</a>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
                         <div class="row box">
                           <div class="col-md-12 mx-auto">
@@ -608,9 +608,9 @@
         // param1 이 0이면 주문을 받는다.
         if (param1 == 0) {
           var ppodvisitors = prompt('내점 인원수를 입력하세요.', 1);
-		  if ( ppodvisitors == null || ppodvisitors < 0 ) {
-			  return false;
-		  }
+          if (ppodvisitors == null || ppodvisitors < 0) {
+            return false;
+          }
           $('#ppodvisitors').val(ppodvisitors);
 
           $('#pos-upper').css('display', 'none');
@@ -703,7 +703,7 @@
       $('#pos-2-17').on('click', function() {
         pos_pmt_list();
       });
-      
+
       btn_pmt_cmp_addline();
 
       $('#pos-btn-3-1').on('click', pos_order_discount);
@@ -715,9 +715,9 @@
       $('#pos-btn-4-4').on('click', pos_payment_cash);
       $('#pos-btn-4-5').on('click', pos_payment_complex);
     }
-    
+
     function btn_pmt_cmp_addline() {
-    	$('.pmt_cmp_addline').on('click', pmt_cmp_addline);
+      $('.pmt_cmp_addline').on('click', pmt_cmp_addline);
     }
 
     // 기능버튼을 클릭했을때, flag=1이 된 상태에서, 좌석버튼을 클릭한다.
@@ -1085,27 +1085,27 @@
     function pos_payment_cash() {
       pos_payment(2);
     }
-    
+
     function pmt_cmp_addline() {
-    	$(this).remove();
-		var output = '';
-		output += '<div class="row box">'
-		output += '<div class="col-md-2 form-group mx-auto">'
-		output += '  <select class="pmt_cmp_type">'
-		output += '    <option value="1">카드</option>'
-		output += '    <option value="2">현금</option>'
-		output += ' </select>'
-		output += ' </div>'
-		output += '  <div class="col-md-4 form-group mx-auto">'
-		output += '     <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">'
-		output += '   </div>'
-		output += '   <div class="col-md-4 form-group mx-auto">'
-		output += '      <span class="pmt_cmp_addline"><i class="tim-icons icon-simple-add text-warning"></i>한줄추가</span>'
-		output += '    </div>'
-		output += '  </div>'
-		output += ' </div>'
-    	$('#payment_complex').append(output);
-		btn_pmt_cmp_addline();
+      $(this).remove();
+      var output = '';
+      output += '<div class="row box">'
+      output += '<div class="col-md-2 form-group mx-auto">'
+      output += '  <select class="pmt_cmp_type">'
+      output += '    <option value="1">카드</option>'
+      output += '    <option value="2">현금</option>'
+      output += ' </select>'
+      output += ' </div>'
+      output += '  <div class="col-md-4 form-group mx-auto">'
+      output += '     <input type="number" class="pmt_cmp_amount" placeholder="금액을 입력하세요">'
+      output += '   </div>'
+      output += '   <div class="col-md-4 form-group mx-auto">'
+      output += '      <span class="pmt_cmp_addline"><i class="tim-icons icon-simple-add text-warning"></i>한줄추가</span>'
+      output += '    </div>'
+      output += '  </div>'
+      output += ' </div>'
+      $('#payment_complex').append(output);
+      btn_pmt_cmp_addline();
     }
 
     function pos_payment_complex() {
@@ -1522,19 +1522,17 @@
       })
     }
     $(document).keydown(function(event) {
-  	  if (event.keyCode == '37') {
-  		    location.href="pos"
-  		  }
-  		  else if (event.keyCode == '39') {
-  		    location.href="mgr"
-  		  }
-  		  else if (event.keyCode == '38') {
-  			    location.href="board"
-  			  }
-  		  else if (event.keyCode == '40') {
-  			    location.href="report"
-  			  }
-  		});
+      if (event.keyCode == '37') {
+        location.href = "pos"
+      } else if (event.keyCode == '39') {
+        location.href = "mgr"
+      } else if (event.keyCode == '38') {
+        location.href = "board"
+      } else if (event.keyCode == '40') {
+        location.href = "report"
+      }
+    });
+
   </script>
 </body>
 

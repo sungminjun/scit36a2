@@ -63,7 +63,7 @@ public class MemberController {
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
 				session.setAttribute("emp_seq", emp_seq);// 추가 최철규
-				session.setAttribute("emp_auth_level", emp_auth_level);// add for interceptor, 190406 jsm 
+				session.setAttribute("emp_auth_level", emp_auth_level);// add for interceptor, 190406 jsm
 				System.out.println(session.getAttribute("emp_id"));
 				System.out.println(session.getAttribute("comp_seq"));
 				System.out.println(session.getAttribute("emp_seq"));
@@ -175,12 +175,12 @@ public class MemberController {
 	 * 
 	 * @author 김유경
 	 */
-	
+
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String find() {
 		return "member/find"; // 원래는 /member/find
 	}
-	
+
 	/**
 	 * id찾기 기능
 	 * 
@@ -190,8 +190,7 @@ public class MemberController {
 	public @ResponseBody Employee findId(String comp_id, String emp_name) {
 		System.out.println(comp_id);
 		HashMap<String, Object> map = new HashMap<>();
-	
-		
+
 		System.out.println("여기들름");
 		map.put("comp_id", comp_id);
 		map.put("emp_name", emp_name);
@@ -206,15 +205,15 @@ public class MemberController {
 			return null;
 		}
 	}
+
 	/**
 	 * 패스워드 찾기 기능
 	 * 
 	 * @author 김유경
 	 */
-	@RequestMapping(value="/findPw",method=RequestMethod.POST)
-	public String findPw(String emp_id,long comp_id,String emp_name,String emp_quiz_answer,Model model) {
-		
-		
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	public String findPw(String emp_id, long comp_id, String emp_name, String emp_quiz_answer, Model model) {
+
 		return null;
 	}
 

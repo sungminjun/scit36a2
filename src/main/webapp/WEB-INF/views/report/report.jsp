@@ -108,6 +108,9 @@
                       <input type="radio" name="options" id="option13" value="month">
                       MONTH
                     </label>
+                      <div>
+      <button class="testFinal">종합보고서</button>
+   </div>
                   </div>
                   <div class="col-md-4" id="blank" style="display:none;">
                   </div>
@@ -144,7 +147,9 @@
       </div>
     </div>
     <footer class="footer"></footer>
+
   </div>
+
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
@@ -791,8 +796,38 @@
         //@@@@@@@@@@@@@주 &수지@@@@@@@@@@@@@@
       }
     }
-
+    $('.testFinal').on('click', function() {
+        $.ajax({
+           url : 'totalReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        });
+        $.ajax({
+           url : 'totalMenuReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        });
+        $.ajax({
+           url : 'totalGuestReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        })
+        $.ajax({
+           url : 'totalIncomeReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        })
+        });
   </script>
+
 </body>
 
 </html>

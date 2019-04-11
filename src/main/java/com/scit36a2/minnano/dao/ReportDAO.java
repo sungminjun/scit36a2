@@ -28,5 +28,15 @@ public interface ReportDAO {
 	// 수지보고
 	public ArrayList<HashMap<String, Object>> selectAllPayment(HashMap<String, Object> map);
 	public ArrayList<HashMap<String, Object>> selectAllExpense(HashMap<String, Object> map);
+	//종합보고서-매출
+	public ArrayList<Object> selectTotalReport(HashMap<String, Object> map);
+	//종합보고서-메뉴
+	public ArrayList<Object> selectTotalMenuReport(HashMap<String, Object> map);
+	//종합보고서-손님
+	public ArrayList<Object> selectTotalGuestReport(HashMap<String, Object> map);
+	//종합보고서-수지,1개월
+	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map);
+	//종합보고서-수지,1개월
+	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map);
 
 }

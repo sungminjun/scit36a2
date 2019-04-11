@@ -30,16 +30,52 @@
         $('.tabcontent').removeClass('current');
         $(this).addClass('current');
         $('#' + activeTab).addClass('current');
+     
+        
+    /*     $('#findId').on('click',function(){
+            	var comp_id=$('#comp_id').val();
+            	var emp_name=$('#emp_name').val();
+            	var postData={'comp_id':comp_id,'emp_name':emp_name};
+            	alert(postData);
+   					
+            	
+            	$.ajax({
+            		url:'findId'
+            		,type:'POST'
+            		,data: postData
+            		,success:function(resp) {
+            				alert(resp.emp_id);
+            			}
+            	
+            	})
+            	
+        })   */        	
+        
+                   	   
       })
+      
+     $("#findIdForm").on("submit",function(event){
+ 	 	event.preventDefault();
+            	var comp_id=$('#comp_id').val();
+            	var emp_name=$('#emp_name').val();
+            	var postData={'comp_id':comp_id,'emp_name':emp_name};
+            	           	
+            	$.ajax({
+            		url:'findId'
+            		,type:'POST'
+            		,data: postData
+            		,success:function(resp) {
+            				alert("id는"+resp.emp_id+"입니다.");
+            			}
+            	})
+        })
     });
 
-    <
-    c: if test = "${findResult != null}" >
-      alert('id 찾기 결과: ' + $ {
-        findResult
-      }); <
-    /c:if>
-
+    $("#findId").on('click', function() {
+    	return false;
+    })
+    
+    $("")
   </script>
 
 </head>
@@ -103,23 +139,26 @@
             <div id="tab1" class="tabcontent current rounded-bottom rounded-right">
               <form class="box" id="findIdForm" action="findId" method="POST">
                 <h1>ID찾기</h1>
-                <p><input type="text" name="comp_id" placeholder="사업자 등록번호"></p>
-                <p><input type="password" name="emp_name" placeholder="회원이름"></p>
-                <p><input type="submit" name="idSearch" value="ID찾기"></p>
+                <p><input type="text" name="comp_id" id="comp_id" placeholder="사업자 등록번호"></p>
+                <p><input type="text" name="emp_name" id="emp_name" placeholder="회원이름"></p>
+                <p><input type="submit" id="findId" name="idSearch" value="ID찾기"></p>
               </form>
             </div>
 
             <div id="tab2" class="tabcontent rounded">
-              <form class="box">
+              <form class="box" id="findPwForm" action="findPw" method="POST">
                 <h1>PW찾기</h1>
-                <p><input type="text" name="idInput" placeholder="ID입력"></p>
-                <p><input type="text" name="companyEnrollnum" placeholder="사업자 등록번호"></p>
-                <p><input type="text" name="userName" placeholder="회원이름"></p>
-                <p class="instant_text">질문질문질문</p>
-                <p><input type="text" name="answer" placeholder="질문에 대한 답을 넣어주세요"></p>
+                <p><input type="text" name="emp_id" placeholder="ID입력"></p>
+                <p><input type="text" name="comp_id" placeholder="사업자 등록번호"></p>
+                <div><input type="text" name="emp_name" placeholder="회원이름">
+                <input type="submit" name="quizSearch" value="입력"></div>
+                <p class="instant_text">${data.EMP_QUIZ}</p>
+                <p><input type="text" name="emp_quiz_answer" placeholder="질문에 대한 답을 넣어주세요"></p>
 
 
-                <p><input type="submit" name="" value="PW찾기"></p>
+                <p><input type="submit" name="pwSearch" value="PW찾기"></p>
+                <!-- data를 전송해서, ok면(quiz정답이 들어오면) 새로운 비밀번호를 입력받아서 (2번입력받아야함) 전송한다. -->
+                <!-- 전송한 data를 update해서 pw를 덮어씌운다. -->  
               </form>
             </div>
           </div>

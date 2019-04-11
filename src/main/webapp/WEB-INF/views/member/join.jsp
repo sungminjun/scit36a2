@@ -184,7 +184,10 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="emp_quiz">비밀번호 찾기 질문</label>
-                        <input type="text" class="form-control" name="emp_quiz">
+                        <!-- <input type="text" class="form-control" name="emp_quiz"> -->
+                        <select>
+                        	<option value="우리조이름은?">
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-3">

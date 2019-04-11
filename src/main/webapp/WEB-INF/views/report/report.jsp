@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+
   <link rel="icon" type="image/png" href="imgs/favicon.png">
   <title>MinnanoPOS</title>
   <!--     Fonts and icons     -->
@@ -115,6 +115,8 @@
                   </div>
                   <div class="col-md-4" id="blank" style="display:none;">
                   </div>
+                  <div class="col-md-4" id="blank" style="display:none;">
+                  </div>
                   <div class="col-md-6 input-group">
                     <label>시작일</label>
                     <input type="text" id="datepicker1" class="form-control text-center" placeholder="YY-MM-DD">
@@ -192,8 +194,6 @@
 
     // 기본 페이지 로딩용 스크립트
     function init() {
-      // set default date (st = today -6months, end = today)
-      setdatetodaydefault();
       var startDate = $('#datepicker1').val();
       var endDate = $('#datepicker2').val();
       var unit = $('input[name=options]:checked').val();
@@ -304,7 +304,6 @@
     }
     
     //날짜 찝기
-
     function setdatepicker() {
       $("#datepicker1, #datepicker2").datepicker({
         dateFormat: 'yy-mm-dd',

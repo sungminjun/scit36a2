@@ -57,9 +57,10 @@ public class BoardRepo {
 		return board;
 	}
 
-	public int boardDelete(Board board) {
+
+	public int boardDelete(int board_seq) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		int result = dao.boardDelete(board);
+		int result = dao.delete(board_seq);
 
 		return result;
 

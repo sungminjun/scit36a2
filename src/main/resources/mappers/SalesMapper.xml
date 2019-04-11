@@ -108,7 +108,7 @@
     )
   </insert>
 
-  <select id="selectExpense" parameterType="int" resultType="exp">
+  <select id="selectExpense" parameterType="HashMap" resultType="exp">
     select
     expense_seq
     , comp_seq
@@ -119,7 +119,7 @@
     from
     EXPENSE
     where
-    comp_seq = #{comp_seq}
+    comp_seq = #{comp_seq} and expense_date like to_date(#{month}, 'yyyy-mm')
   </select>
 
   <delete id="deleteExpense" parameterType="exp">

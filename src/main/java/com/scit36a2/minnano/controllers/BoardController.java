@@ -176,10 +176,12 @@ public class BoardController {
 	}*/
 
 	@RequestMapping(value = "/boardDelete", method = RequestMethod.GET)
+
 	public String boardDelete(int board_seq, HttpSession session,Board board) {
 		Board oldBoard = repo.seletOne(board_seq);
 		int emp_seq = (Integer)session.getAttribute("emp_seq");
 		board.setEmp_seq(emp_seq);
+
 		String savedfile = oldBoard.getBoard_savname();
 		// HDD에 저장된 파일 삭제
 		if (savedfile != null) {
@@ -191,7 +193,6 @@ public class BoardController {
 
 		// DB에 저장된 글 삭제
 		repo.boardDelete(board);
-
 		return "redirect:/board";
 	}
 

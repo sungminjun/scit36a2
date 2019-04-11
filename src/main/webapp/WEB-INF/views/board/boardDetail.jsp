@@ -93,6 +93,7 @@
         $("#comments").html(a);
        $('.del').on('click',deleteComment);
       $('.up').on('click',updateComment);
+
     }
     
     function deleteComment()	{

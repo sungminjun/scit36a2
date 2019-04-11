@@ -97,6 +97,7 @@ public class PosController {
 	@RequestMapping(value = "replaceorder", method = RequestMethod.POST)
 	public @ResponseBody String replaceorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod) {
 		String result = "";
+		System.out.println(sas + ", " + sad + ", " + ppod);
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		int sas_seq = sas.getSales_state_seq();
 		sas.setComp_seq(comp_seq);
@@ -399,14 +400,12 @@ public class PosController {
 
 	@RequestMapping(value = "deleteCashonhand", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand, int cashonhand_seq) {
+	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		cashonhand.setComp_seq(comp_seq);
-		cashonhand.setCashonhand_seq(cashonhand_seq);
 		System.out.println("cashonhand 컨트롤러 삭제 : " + cashonhand);
 		int result = repo.deleteCashonhand(cashonhand);
 		System.out.println("result 컨트롤러 삭제  : " + result);
-		System.out.println(cashonhand_seq);
 		return "success";
 
 	}

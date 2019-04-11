@@ -322,8 +322,6 @@
     CASHONHAND_TYPE = 1
     and
     CASHONHAND_REGDATE like sysdate
-
-
   </select>
 
 

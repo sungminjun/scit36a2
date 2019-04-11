@@ -24,10 +24,10 @@ public interface BoardDAO {
 	public int insertBoard(Board board);
 
 	/** 게시글 한 개 조회 */
-	Board selectOne(int board);
+	Board selectOne(int board_seq);
 
 	/** 게시글 한 개 삭제 */
-	int boardDelete(Board board);
+	int delete(int board_seq);
 
 	int boardUpdate(Board board);
 
@@ -54,6 +54,7 @@ public interface BoardDAO {
 	 */
 	int deleteFile(int board_seq);
 
+
 	int inputComment(Board_comments board_comments);
 
 	List<Board_comments> selectComment(Board_comments board_comments);
@@ -62,5 +63,4 @@ public interface BoardDAO {
 
 	int updateComment(Board_comments board_comments);
 
-	
 }

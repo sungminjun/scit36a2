@@ -5,6 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <link rel="icon" type="image/png" href="imgs/favicon.png">
   <title>MinnanoPOS</title>
   <!--     Fonts and icons     -->
@@ -91,6 +92,7 @@
                     <input type="radio" name="options2" value="income">
                       수지보고서
                     </label>
+                    <button class="btn mx-auto" onclick="window.open('synthesize','window_name','width=800,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200	')">종합보고서</button>
                   </div>
                 </div>
                 <div class="row">
@@ -107,6 +109,11 @@
                       <input type="radio" name="options" id="option13" value="month">
                       MONTH
                     </label>
+                      <div>
+      <button class="testFinal">종합보고서</button>
+   </div>
+                  </div>
+                  <div class="col-md-4" id="blank" style="display:none;">
                   </div>
                   <div class="col-md-4" id="blank" style="display:none;">
                   </div>
@@ -143,7 +150,9 @@
       </div>
     </div>
     <footer class="footer"></footer>
+
   </div>
+
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
@@ -237,13 +246,14 @@
       if (month < 10) month = "0" + month;
       if (day < 10) day = "0" + day;
       var today = year + "-" + month + "-" + day;
-
       var stdate;
       if (month > 6) {
         month = date.getMonth() - 5;
       } else {
         year = date.getFullYear() - 1;
         month = date.getMonth() + 7;
+        
+        
       }
       stdate = year + "-" + month + "-" + day;
 
@@ -788,7 +798,54 @@
       }
     }
 
+    $('.testFinal').on('click', function() {
+        $.ajax({
+           url : 'totalReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        });
+        $.ajax({
+           url : 'totalMenuReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        });
+        $.ajax({
+           url : 'totalGuestReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        })
+        $.ajax({
+           url : 'totalIncomeReport',
+           method : 'POST',
+           success : function(resp) {
+              alert(resp);
+           }
+        })
+        });
+
+    $(document).keydown(function(event) {
+  	  if (event.keyCode == '37') {
+  		    location.href="pos"
+  		  }
+  		  else if (event.keyCode == '39') {
+  		    location.href="mgr"
+  		  }
+  		  else if (event.keyCode == '38') {
+  			    location.href="board"
+  			  }
+  		  else if (event.keyCode == '40') {
+  			    location.href="report"
+  			  }
+  		});
+
   </script>
+
 </body>
 
 </html>

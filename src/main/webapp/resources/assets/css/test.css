@@ -133,6 +133,13 @@
 	
 }
 
+.form-control input[type = "text"]:focus {
+	background: #3498db !important;
+	color: #ffffff !important;
+	text-transform: uppercase !important;
+	
+}
+
 
 
 

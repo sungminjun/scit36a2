@@ -1089,7 +1089,6 @@
             $('#mgr-4-2-emp_pw').attr('placeholder', '정보를 수정하시려면 비밀번호를 입력하십시오.');
             $('#mgr-4-2-emp_new_pw').attr('placeholder', '비밀번호를 확인하십시오.');
             $('#mgr-4-2-emp_new_pw2').attr('placeholder', '비밀번호를 확인하십시오.');
-
           }
         });
       } else {
@@ -1158,7 +1157,6 @@
       $("#mgr-1-2").val(today);
       $('#datepicker_exp').val(thismonth);
     }
-
     function cancel_close() {
 		var str = '';
 		var senddata = '';
@@ -1189,6 +1187,20 @@
     	})
     }
     
+    $(document).keydown(function(event) {
+  	  if (event.keyCode == '37') {
+  		    location.href="pos"
+  		  }
+  		  else if (event.keyCode == '39') {
+  		    location.href="mgr"
+  		  }
+  		  else if (event.keyCode == '38') {
+  			    location.href="board"
+  			  }
+  		  else if (event.keyCode == '40') {
+  			    location.href="report"
+  			  }
+  		});
   </script>
 </body>
 </html>

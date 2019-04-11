@@ -1,55 +1,114 @@
 @charset "UTF-8";
 
-div#wrapper{
-		width : 800px;
-		margin : 0 auto;
-		back-ground: #ffff00;
-	}
-	div#wrapper>h2 {
-		text-align : center;
-	}
-	div#wrapper table {
-		margin:0 auto;
-		width : 800px;
-	}
-	th {
-		width: 100px;
-	}
-	pre {
-		width : 600px;
-		height : 200px;
-		overflow: auto;
-	}
-	table.reply {
-		width : 800px;
-	}
-	input[name='text'] {
-		width : 600px;
-	}
-	input[type='submit'] {
-		width : 600px;
-		color: #blue;
-		cursor: pointer;
-	}
-	
-	span {
-		display: inline-block;
 
-		margin : 5px;
+.card-footer{
+	text-align: center;
+}
+
+#board_update {
+	background: none;
+	display: inline-block;
+	text-align: center;
+	color: #000000;
+	border: 2px solid #3498db;
+	padding: 2px 5px; 
+	width: 70px;
+	height: 30px;
+	outline: none;
+	border-radius: 10px;
+	transition: 0.25s;
+	cursor: pointer;
+	position: center relative;
+	
+}
+
+#board_update:hover {
+	background: #3498db;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
+#board_delete{
+	background: none;
+	display: inline-block;
+	text-align: center;
+	color: #000000;
+	border: 2px solid #3498db;
+	padding: 2px 5px; 
+	width: 70px;
+	height: 30px;
+	outline: none;
+	border-radius: 10px;
+ 	transition: 0.25s;
+	cursor: pointer;
+}
+
+#board_delete:hover {
+	background: #3498db;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
+#returnBoard {
+	background: none;
+	display: inline-block;
+	text-align: center;
+	color: #000000;
+	border: 2px solid #3498db;
+	padding: 2px 5px; 
+	width: 70px;
+	height: 30px;
+	outline: none;
+	border-radius: 10px;
+ 	transition: 0.25s;
+	cursor: pointer;
+	
+} 
+#returnBoard:hover {
+	background: #08588e;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
+
+/* #returnBoard {
+	transform: translate(-50%, -50%);
+	color: #000000;
+	position: static;
+	text-transform: uppercase;
+	text-decoration: none;
+	font-family: sans-self;
+	background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b,, #03a9f4);
+	border-radius: 30px;
+
+}
+
+#returnBoard:hover{
+	animation: animate 8s linear infinite;
+}
+
+@keyframes animate {
+	0%
+	{
+		background-position: 0%;
 	}
-	td.replycontent {
-		width : auto;
+	100% 
+	{
+		background-position: 400%;
 	}
-	td.replytext {
-		width : 600px;
-		text-align : left;
-	}
-	td.replysub {
-		width : 80px;
-		text-align : right;
-	}
-	td.replybtn{
-		width : 100px;
-		text-align : right;
-		
-	}
+}
+
+a:before{
+	content: '';
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	right: -5px;
+	bottom: -5px;
+	z-index: -1;
+	bacground: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b,, #03a9f4);
+	border-radius: 30px;
+	filter: blur;
+}
+
+ */

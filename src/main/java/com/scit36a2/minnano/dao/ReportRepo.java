@@ -97,4 +97,36 @@ public class ReportRepo {
 		return list;
 	}
 
+	public ArrayList<Object> selectTotalReport(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<Object> list = dao.selectTotalReport(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectTotalMenuReport(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<Object> list = dao.selectTotalMenuReport(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectTotalGuestReport(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<Object> list = dao.selectTotalGuestReport(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectMonthPayment(map);
+		return list;
+	}
+
+	
+
+	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectMonthExpense(map);
+		return list;
+	}
+
 }

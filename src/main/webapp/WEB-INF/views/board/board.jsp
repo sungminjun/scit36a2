@@ -105,6 +105,7 @@
               <table id="searchTable">
                 <tr id="index">
                   <th>번호</th>
+                  <th>카테고리</th>
                   <th class="title">글제목</th>
                   <th>글쓴날</th>
                   <th>글쓴이</th>
@@ -114,15 +115,19 @@
                 <c:forEach var="board" items="${boardList}" varStatus="stat">
                   <tr>
                     <td>${stat.count + navi.startRecord}</td>
+                    <td>${board.BOARD_SEQ}</td>
+                    <td>${board.BOARD_CATEGORY}
                     <td><a href="boardDetail?board_seq=${board.board_seq}&currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${board.board_title}</a>
+</td>
+                   	<td><a href="boardDetail?board_seq=${board.BOARD_SEQ}&currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${board.BOARD_TITLE}</a>
                       <c:if test="${board.board_orgname != null }">
                         ♣
                       </c:if>
                     </td>
-                    <td>${board.board_regdate}</td>
-                    <td>${board.emp_seq}</td>
-                    <%-- <td>${board.emp_seq}</td> --%>
-                    <td>${board.board_hitcount}</td>
+
+                    <td>${board.BOARD_REGDATE}</td>
+                    <td>${board.EMP_SEQ}</td>
+                    <td>${board.BOARD_HITCOUNT}</td>
                   </tr>
                 </c:forEach>
               </table>
@@ -169,6 +174,23 @@
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script type="text/javascript">
+  $(document).keydown(function(event) {
+	  if (event.keyCode == '37') {
+		    location.href="pos"
+		  }
+		  else if (event.keyCode == '39') {
+		    location.href="mgr"
+		  }
+		  else if (event.keyCode == '38') {
+			    location.href="board"
+			  }
+		  else if (event.keyCode == '40') {
+			    location.href="report"
+			  }
+		});
+  
+  </script>
 </body>
 
 </html>

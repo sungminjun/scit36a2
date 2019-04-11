@@ -71,13 +71,17 @@
     <div class="main-panel" data="blue">
       <div class="content">
         <div class="row">
+        
           <div class="col-xl-10">
+          
             <div id="titleForm">
               <h2 style="font-family: 'M PLUS 1p'; font-size: 3em;">
                 <a id="boardTitle" href="${pageContext.request.contextPath}/board">招き猫の掲示板</a>
               </h2>
             </div>
+            
           </div>
+          
         </div>
 
         <div class="row">
@@ -105,6 +109,7 @@
               <table id="searchTable">
                 <tr id="index">
                   <th>번호</th>
+                  <th>카테고리</th>
                   <th class="title">글제목</th>
                   <th>글쓴날</th>
                   <th>글쓴이</th>
@@ -113,16 +118,17 @@
                 <!-- 게시글 출력 반복 -->
                 <c:forEach var="board" items="${boardList}" varStatus="stat">
                   <tr>
-                    <td>${stat.count + navi.startRecord}</td>
-                    <td><a href="boardDetail?board_seq=${board.board_seq}&currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${board.board_title}</a>
+                    <%-- <td>${stat.count + navi.startRecord}</td> --%>
+                    <td>${board.BOARD_SEQ}</td>
+                    <td>${board.BOARD_CATEGORY}</td>
+                   	<td><a href="boardDetail?board_seq=${board.BOARD_SEQ}&currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${board.BOARD_TITLE}</a>
                       <c:if test="${board.board_orgname != null }">
                         ♣
                       </c:if>
                     </td>
-                    <td>${board.board_regdate}</td>
-                    <td>${board.emp_seq}</td>
-                    <%-- <td>${board.emp_seq}</td> --%>
-                    <td>${board.board_hitcount}</td>
+                    <td>${board.BOARD_REGDATE}</td>
+                    <td>${board.EMP_SEQ}</td>
+                    <td>${board.BOARD_HITCOUNT}</td>
                   </tr>
                 </c:forEach>
               </table>

@@ -37,17 +37,17 @@
   <div id="wrapper">
     <h2>[ 게시판 글 수정 ]</h2>
     <form action="boardUpdate" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="board_seq" value="${board.board_seq }" />
+      <input type="hidden" name="board_seq" value="${board.board_seq}" />
       <table border="1">
         <tr>
           <th>제목</th>
-          <td><input type="text" name="title" value="${board.title}" /></td>
+          <td><input type="text" name="board_title" value="${board.board_title}" /></td>
         </tr>
         <tr>
           <th>글쓴이</th>
           <td>${sessionScope.loginName}</td>
         </tr>
-        <tr>
+        <%-- <tr>
           <th>첨부파일</th>
           <td>
             <input type="file" name="upload" value="그림선택" />
@@ -59,16 +59,16 @@
               </span>
             </c:if>
           </td>
-        </tr>
+        </tr> --%>
         <tr>
           <th>글내용</th>
-          <td><textarea name="content" cols="60" rows="10">${board.content }</textarea></td>
+          <td><textarea name="board_content" cols="60" rows="10">${board.board_content}</textarea></td>
         </tr>
         <tr>
           <td colspan="2">
             <input type="submit" value="글수정" />
             <input type="reset" value="취소" />
-            <a href="boardList">목록으로</a>
+            <a href="board">목록으로</a>
           </td>
         </tr>
       </table>

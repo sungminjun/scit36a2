@@ -1,11 +1,13 @@
 package com.scit36a2.minnano.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 
 import com.scit36a2.minnano.vo.Board;
+import com.scit36a2.minnano.vo.Board_comments;
 
 public interface BoardDAO {
 	/**
@@ -14,18 +16,20 @@ public interface BoardDAO {
 	 * @param map
 	 * @param rb
 	 */													 
-	List<Board> boardList(Map<String, String> map,RowBounds rb);
+	public String getEmpId(int board_seq);
+	
+	List<HashMap<String, Object>> boardList(Map<String, Object> map,RowBounds rb);
 
 	/** 게시글 한 개 등록하는 메서드 */
 	public int insertBoard(Board board);
 
 	/** 게시글 한 개 조회 */
-	Board selectOne(int board_seq);
+	Board selectOne(int board);
 
 	/** 게시글 한 개 삭제 */
-	int delete(int board_seq);
+	int boardDelete(Board board);
 
-	int update(Board board);
+	int boardUpdate(Board board);
 
 	/**
 	 * 전체 글 개수 조회
@@ -49,4 +53,14 @@ public interface BoardDAO {
 	 * @return
 	 */
 	int deleteFile(int board_seq);
+
+	int inputComment(Board_comments board_comments);
+
+	List<Board_comments> selectComment(Board_comments board_comments);
+
+	int deleteComment(Board_comments board_comments);
+
+	int updateComment(Board_comments board_comments);
+
+	
 }

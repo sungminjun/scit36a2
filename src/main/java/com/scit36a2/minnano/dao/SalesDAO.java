@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.scit36a2.minnano.vo.Expense;
@@ -25,7 +26,7 @@ public interface SalesDAO {
 
 	public int insertExpense(Expense expense);// 지출유형입력에 따른 지출내역등록
 
-	public List<Expense> selectExpense(int comp_seq);
+	public List<Expense> selectExpense(HashMap<String, Object> map);
 
 	public int deleteExpense(Expense expense);
 

@@ -1,6 +1,7 @@
 package com.scit36a2.minnano.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -227,9 +228,11 @@ public class SettingsController {
 	}
 
 	@RequestMapping(value = "selectExpense", method = RequestMethod.POST)
-	public @ResponseBody List<Expense> selectExpense(HttpSession session) {
+	public @ResponseBody List<Expense> selectExpense(HttpSession session, String month, HashMap<String, Object> map) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		List<Expense> expenseList = repo.selectExpense(comp_seq);
+		map.put("month", month);
+		map.put("comp_seq", comp_seq);
+		List<Expense> expenseList = repo.selectExpense(map);
 		return expenseList;
 	}
 

@@ -33,12 +33,9 @@
       })
     });
 
-    <
-    c: if test = "${findResult != null}" >
-      alert('id 찾기 결과: ' + $ {
-        findResult
-      }); <
-    /c:if>
+    <c:if test="${findResult != null}">
+      alert('id 찾기 결과: ' + ${findResult}); 
+    </c:if>
 
   </script>
 

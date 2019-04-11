@@ -61,10 +61,4 @@ public interface PosDAO {
 
 	public Integer deleteSas(Sales_state sas);
 
-
-
-	
-
-
-
 }

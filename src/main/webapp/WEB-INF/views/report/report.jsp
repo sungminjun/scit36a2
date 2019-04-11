@@ -72,24 +72,24 @@
                     <input type="text" class="form-control text-center" id="company_name" value="company name" disabled="disabled">
                   </div>
                   <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-secondary active" id="option21"> 
-                    <input type="radio" name="options2" checked value="sales">
+                    <label class="btn btn-secondary active" id="option21">
+                      <input type="radio" name="options2" checked value="sales">
                       매출조회
-                    </label> 
-                    <label class="btn btn-secondary" id="option22"> 
-                    <input type="radio" name="options2" value="customer">
+                    </label>
+                    <label class="btn btn-secondary" id="option22">
+                      <input type="radio" name="options2" value="customer">
                       고객통계
-                    </label> 
-                    <label class="btn btn-secondary" id="option23"> 
-                    <input type="radio" name="options2" value="menu">
+                    </label>
+                    <label class="btn btn-secondary" id="option23">
+                      <input type="radio" name="options2" value="menu">
                       메뉴통계
-                    </label> 
-                    <label class="btn btn-secondary" id="option24"> 
-                    <input type="radio" name="options2" value="card">
+                    </label>
+                    <label class="btn btn-secondary" id="option24">
+                      <input type="radio" name="options2" value="card">
                       현/카조회
-                    </label> 
-                    <label class="btn btn-secondary" id="option25"> 
-                    <input type="radio" name="options2" value="income">
+                    </label>
+                    <label class="btn btn-secondary" id="option25">
+                      <input type="radio" name="options2" value="income">
                       수지보고서
                     </label>
                     <button class="btn mx-auto" onclick="window.open('synthesize','window_name','width=800,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200	')">종합보고서</button>
@@ -109,9 +109,9 @@
                       <input type="radio" name="options" id="option13" value="month">
                       MONTH
                     </label>
-                      <div>
-      <button class="testFinal">종합보고서</button>
-   </div>
+                    <div>
+                      <button class="testFinal">종합보고서</button>
+                    </div>
                   </div>
                   <div class="col-md-4" id="blank" style="display:none;">
                   </div>
@@ -187,7 +187,7 @@
     $(document).ready(function() {
       dobutton();
       setdatepicker();
-   		// set default date (st = today -6months, end = today)
+      // set default date (st = today -6months, end = today)
       setdatetodaydefault();
       init();
     })
@@ -220,22 +220,22 @@
         },
         success: output
       })
-      
+
       $('#option21').on('click', showtype1);
       $('#option22').on('click', showtype1);
       $('#option23').on('click', showtype2);
       $('#option24').on('click', showtype2);
       $('#option25').on('click', showtype2);
     }
-    
+
     function showtype1() {
-    	$('#options').css('display', 'flex');
-    	$('#blank').css('display', 'none');
+      $('#options').css('display', 'flex');
+      $('#blank').css('display', 'none');
     }
-    
+
     function showtype2() {
-    	$('#options').css('display', 'none');
-    	$('#blank').css('display', 'flex');
+      $('#options').css('display', 'none');
+      $('#blank').css('display', 'flex');
     }
 
     function setdatetodaydefault() {
@@ -252,8 +252,8 @@
       } else {
         year = date.getFullYear() - 1;
         month = date.getMonth() + 7;
-        
-        
+
+
       }
       stdate = year + "-" + month + "-" + day;
 
@@ -302,7 +302,7 @@
         }
       });
     }
-    
+
     //날짜 찝기
     function setdatepicker() {
       $("#datepicker1, #datepicker2").datepicker({
@@ -310,7 +310,7 @@
         viewMode: 'days'
       });
     }
-    
+
     //날짜 유효성 검사
     function dobutton() {
       $("#search").on('click', function() {
@@ -332,14 +332,19 @@
         }
         //날짜 검색
         $.ajax({
-          url: 'search_date'
-          , method: 'post'
-          , data: { startDate: start, endDate: end, unit: unit, category: category }
-          , success: chartUpdate
+          url: 'search_date',
+          method: 'post',
+          data: {
+            startDate: start,
+            endDate: end,
+            unit: unit,
+            category: category
+          },
+          success: chartUpdate
         })
       });
     }
-      
+
     //차트 검색을 눌렀을때 업데이트 구문
     // 즉, 첫번째 output이 아닌, init된 이후의 output에 대해서의 반응
     function chartUpdate(updateData) {
@@ -354,24 +359,24 @@
           data[temp] = item.PAYMENT_AMOUNT_SUM;
           temp++;
         });
-        
+
         //그래프 업데이트
         newchart.data.datasets[0].data = data;
         newchart.data.labels = labels;
-        label='매출액'
+        label = '매출액'
         //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
-            type: 'bar', //차트모양
-            data: {
-              labels: labels,
-              datasets: [{
-                label: label,
-                backgroundColor: "#3e95cd",
-                data: data,
-              }, ]
-            }
-          });
+          type: 'bar', //차트모양
+          data: {
+            labels: labels,
+            datasets: [{
+              label: label,
+              backgroundColor: "#3e95cd",
+              data: data,
+            }, ]
+          }
+        });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
@@ -396,20 +401,20 @@
         //그래프 업데이트
         newchart.data.datasets[0].data = data;
         newchart.data.labels = labels;
-        label='매출액'
-            //그래프 업데이트
-            newchart.destroy();
-            newchart = new Chart(ctx, {
-                type: 'bar', //차트모양
-                data: {
-                  labels: labels,
-                  datasets: [{
-                    label: label,
-                    backgroundColor: "#3e95cd",
-                    data: data,
-                  }, ]
-                }
-              });
+        label = '매출액'
+        //그래프 업데이트
+        newchart.destroy();
+        newchart = new Chart(ctx, {
+          type: 'bar', //차트모양
+          data: {
+            labels: labels,
+            datasets: [{
+              label: label,
+              backgroundColor: "#3e95cd",
+              data: data,
+            }, ]
+          }
+        });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
@@ -433,20 +438,20 @@
         //그래프 업데이트
         newchart.data.datasets[0].data = data;
         newchart.data.labels = labels;
-        label='매출액'
-            //그래프 업데이트
-            newchart.destroy();
-            newchart = new Chart(ctx, {
-                type: 'bar', //차트모양
-                data: {
-                  labels: labels,
-                  datasets: [{
-                    label: label,
-                    backgroundColor: "#3e95cd",
-                    data: data,
-                  }, ]
-                }
-              });
+        label = '매출액'
+        //그래프 업데이트
+        newchart.destroy();
+        newchart = new Chart(ctx, {
+          type: 'bar', //차트모양
+          data: {
+            labels: labels,
+            datasets: [{
+              label: label,
+              backgroundColor: "#3e95cd",
+              data: data,
+            }, ]
+          }
+        });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
@@ -470,7 +475,7 @@
         $.each(updateData, function(index, item) {
           labels[temp] = item.DAYTIME;
           /* data1[temp] = item.VISITORS; */
-          data2[temp] = item.GECK; 
+          data2[temp] = item.GECK;
           /* data3[temp] = item.SPIN; */
           temp++;
         });
@@ -480,10 +485,10 @@
         //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
-            type: 'line', //차트모양
-            data: {
-              labels: labels,
-              datasets: [
+          type: 'line', //차트모양
+          data: {
+            labels: labels,
+            datasets: [
               /* {
                 label: label1,
                 borderColor: 'rgb(111, 111, 102)',
@@ -499,9 +504,9 @@
                 borderColor: 'rgb(000, 111, 111)',
                 data: data3
               } */
-              ]
-            }
-          });
+            ]
+          }
+        });
         temp = 0;
         // table용 output처리
         var output = '';
@@ -512,7 +517,7 @@
         output += '<th style="width :30%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :20%;">' + item.DAYTIME +'</td>'
+          output += '<tr><td style="width :20%;">' + item.DAYTIME + '</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
           output += '<td style="width :30%;">' + item.SPIN + '회전</td></tr>'
@@ -531,7 +536,7 @@
           labels[temp] = item.STARTDATE;
           labels[temp] += "~" + item.ENDDATE;
           /* data1[temp] = item.VISITORS; */
-          data2[temp] = item.GECK; 
+          data2[temp] = item.GECK;
           /* data3[temp] = item.SPIN; */
           temp++;
         });
@@ -541,10 +546,10 @@
         //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
-            type: 'line', //차트모양
-            data: {
-              labels: labels,
-              datasets: [
+          type: 'line', //차트모양
+          data: {
+            labels: labels,
+            datasets: [
               /* {
                 label: label1,
                 borderColor: 'rgb(111, 111, 102)',
@@ -560,9 +565,9 @@
                 borderColor: 'rgb(000, 111, 111)',
                 data: data3
               } */
-              ]
-            }
-          });
+            ]
+          }
+        });
         temp = 0;
         // table용 output처리
         var output = '';
@@ -576,7 +581,7 @@
           output += '<tr><td style="width :30%; text-align: center;">' + item.STARTDATE + "~" + item.ENDDATE + '</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
-          output += '<td style="width :20%; text-align: center;">' + (item.SPIN/7).toFixed(1) + '회전</td></tr>'
+          output += '<td style="width :20%; text-align: center;">' + (item.SPIN / 7).toFixed(1) + '회전</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);
@@ -591,7 +596,7 @@
         $.each(updateData, function(index, item) {
           labels[temp] = item.DAYTIME;
           /* data1[temp] = item.VISITORS; */
-          data2[temp] = item.GECK; 
+          data2[temp] = item.GECK;
           /* data3[temp] = item.SPIN; */
           temp++;
         });
@@ -601,10 +606,10 @@
         //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
-            type: 'line', //차트모양
-            data: {
-              labels: labels,
-              datasets: [
+          type: 'line', //차트모양
+          data: {
+            labels: labels,
+            datasets: [
               /* {
                 label: label1,
                 borderColor: 'rgb(111, 111, 102)',
@@ -620,9 +625,9 @@
                 borderColor: 'rgb(000, 111, 111)',
                 data: data3
               } */
-              ]
-            }
-          });
+            ]
+          }
+        });
         temp = 0;
         // table용 output처리
         var output = '';
@@ -633,7 +638,7 @@
         output += '<th style="width :30%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :20%;">' + item.DAYTIME +'</td>'
+          output += '<tr><td style="width :20%;">' + item.DAYTIME + '</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
           output += '<td style="width :30%; text-align: center;">' + item.SPIN + '회전</td></tr>'
@@ -654,17 +659,17 @@
         //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
-            type: 'bar', //차트모양
-            data: {
-              labels: labels,
-              datasets: [{
-                type: "bar",
-                label: label,
-                backgroundColor: "#3e95cd",
-                data: data,
-              }, ]
-            }
-          });
+          type: 'bar', //차트모양
+          data: {
+            labels: labels,
+            datasets: [{
+              type: "bar",
+              label: label,
+              backgroundColor: "#3e95cd",
+              data: data,
+            }, ]
+          }
+        });
         temp = 0;
         // table용 output처리
         var output = '';
@@ -675,7 +680,7 @@
         output += '<th style="width :30%; text-align: center;">매출액</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :10%;">' + ++temp +'</td>'
+          output += '<tr><td style="width :10%;">' + ++temp + '</td>'
           output += '<td style="text-align: center; width :30%;">' + item.MENU_NAME + '</td>'
           output += '<td style="text-align: center; width :30%;">' + item.SALES_ORDER_SUM + ' 건</td>'
           output += '<td style="width :30%;">' + item.PAYMENT_AMOUNT + ' 원</td></tr>'
@@ -687,29 +692,29 @@
       } else if ($('input[name=options2]:checked').val() == 'card') {
         alert('현금/카드 데이, 위크, 먼쓰 없고 기간만 정해서 통계내줌')
         //그래프 값 넣기
-        var card=['카드','현금']
+        var card = ['카드', '현금']
         //퍼센트 만들어주기
-        var percent=0;
+        var percent = 0;
         $.each(updateData, function(index, item) {
           labels[temp] = card[temp];
           data[temp] = item.PAYMENT_AMOUNT;
-          percent+=item.PAYMENT_AMOUNT;
+          percent += item.PAYMENT_AMOUNT;
           temp++;
         });
         alert(percent);
-         //그래프 업데이트
+        //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
-            type: 'pie', //차트모양
-            data: {
-              labels: labels,
-              datasets: [{
-                label: label,
-                backgroundColor: ["#3e95cd", "#8e5ea2"],
-                data: data,
-              }, ]
-            }
-          });
+          type: 'pie', //차트모양
+          data: {
+            labels: labels,
+            datasets: [{
+              label: label,
+              backgroundColor: ["#3e95cd", "#8e5ea2"],
+              data: data,
+            }, ]
+          }
+        });
         temp = 0;
         // table용 output처리
         var output = '';
@@ -719,65 +724,65 @@
           output += '<tr><td style="width :30%; text-align: center;">' + labels[index] +
             '</td><td style=" text-align: center; width :50%;">' +
             item.PAYMENT_AMOUNT +
-            '원</td><td style="width :30%;">'+((item.PAYMENT_AMOUNT/percent).toFixed(2))*100+'%'+'</td></tr>'
+            '원</td><td style="width :30%;">' + ((item.PAYMENT_AMOUNT / percent).toFixed(2)) * 100 + '%' + '</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);
         //@@@@@@@@@@@@@일 &수지@@@@@@@@@@@@@@
       } else if ($('input[name=options2]:checked').val() == 'income') {
         //그래프 값 넣기
-        var data2=[];
-        var data3=[];
+        var data2 = [];
+        var data3 = [];
         $.each(updateData, function(index, item) {
           labels[temp] = item.MONTHTIME;
           data[temp] = item.ALLPAYMENT;
-          data2[temp]=item.EXPENSE_AMOUNT;
-          data3[temp]=(((item.ALLPAYMENT-item.EXPENSE_AMOUNT)/item.ALLPAYMENT)*100).toFixed(2);
+          data2[temp] = item.EXPENSE_AMOUNT;
+          data3[temp] = (((item.ALLPAYMENT - item.EXPENSE_AMOUNT) / item.ALLPAYMENT) * 100).toFixed(2);
           temp++;
         });
         //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
-        	type :'bar',
-            data: {
-              labels: labels,
-              datasets: [{
-            	type:'bar',
-                label: '매출액',
-                backgroundColor: ["#3e95cd", "#8e5ea2"],
-                data: data,
-                yAxisID :'A'
-              },{
-            	  type:'bar',
-                  label: '지출액',
-                  backgroundColor: ["#3e95cd", "#8e5ea2"],
-                  data: data2,
-                  yAxisID :'A'
-            	  
-              },{
-            	  type :'line',
-                  label: '이익률',
-                  backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                  data: data3,
-                  yAxisID :'B'
-              } ]
-            },
-            options:{
-                scales: {
-                	yAxes: [{
-                        id: 'A',                             
-                        type: 'linear',
-                        position: 'left',
-                    }, {
-                        id: 'B',                             
-                        type: 'linear',
-                        position: 'right',
-                      
-               
-                    }]
-                }  
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              type: 'bar',
+              label: '매출액',
+              backgroundColor: ["#3e95cd", "#8e5ea2"],
+              data: data,
+              yAxisID: 'A'
+            }, {
+              type: 'bar',
+              label: '지출액',
+              backgroundColor: ["#3e95cd", "#8e5ea2"],
+              data: data2,
+              yAxisID: 'A'
+
+            }, {
+              type: 'line',
+              label: '이익률',
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              data: data3,
+              yAxisID: 'B'
+            }]
+          },
+          options: {
+            scales: {
+              yAxes: [{
+                id: 'A',
+                type: 'linear',
+                position: 'left',
+              }, {
+                id: 'B',
+                type: 'linear',
+                position: 'right',
+
+
+              }]
             }
-          });
+          }
+        });
         temp = 0;
         var output = '';
         output += '<table class="table table-hover">';
@@ -787,10 +792,10 @@
         output += '<th style="width :20%; text-align: center;">이익률</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :20%;">' + item.MONTHTIME +'</td>'
+          output += '<tr><td style="width :20%;">' + item.MONTHTIME + '</td>'
           output += '<td style="text-align: center; width :30%;">' + item.EXPENSE_AMOUNT + '</td>'
           output += '<td style="text-align: center; width :30%;">' + item.ALLPAYMENT + ' 건</td>'
-          output += '<td style="width :20%;text-align: center;">' + (((item.ALLPAYMENT-item.EXPENSE_AMOUNT)/item.ALLPAYMENT)*100).toFixed(2)+"%" + '</td></tr>'
+          output += '<td style="width :20%;text-align: center;">' + (((item.ALLPAYMENT - item.EXPENSE_AMOUNT) / item.ALLPAYMENT) * 100).toFixed(2) + "%" + '</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);
@@ -799,50 +804,47 @@
     }
 
     $('.testFinal').on('click', function() {
-        $.ajax({
-           url : 'totalReport',
-           method : 'POST',
-           success : function(resp) {
-              alert(resp);
-           }
-        });
-        $.ajax({
-           url : 'totalMenuReport',
-           method : 'POST',
-           success : function(resp) {
-              alert(resp);
-           }
-        });
-        $.ajax({
-           url : 'totalGuestReport',
-           method : 'POST',
-           success : function(resp) {
-              alert(resp);
-           }
-        })
-        $.ajax({
-           url : 'totalIncomeReport',
-           method : 'POST',
-           success : function(resp) {
-              alert(resp);
-           }
-        })
-        });
+      $.ajax({
+        url: 'totalReport',
+        method: 'POST',
+        success: function(resp) {
+          alert(resp);
+        }
+      });
+      $.ajax({
+        url: 'totalMenuReport',
+        method: 'POST',
+        success: function(resp) {
+          alert(resp);
+        }
+      });
+      $.ajax({
+        url: 'totalGuestReport',
+        method: 'POST',
+        success: function(resp) {
+          alert(resp);
+        }
+      })
+      $.ajax({
+        url: 'totalIncomeReport',
+        method: 'POST',
+        success: function(resp) {
+          alert(resp);
+        }
+      })
+    });
 
     $(document).keydown(function(event) {
-  	  if (event.keyCode == '37') {
-  		    location.href="pos"
-  		  }
-  		  else if (event.keyCode == '39') {
-  		    location.href="mgr"
-  		  }
-  		  else if (event.keyCode == '38') {
-  			    location.href="board"
-  			  }
-  		  else if (event.keyCode == '40') {
-  			    location.href="report"
-  			  }
-  		});
+      if (event.keyCode == '37') {
+        location.href = "pos"
+      } else if (event.keyCode == '39') {
+        location.href = "mgr"
+      } else if (event.keyCode == '38') {
+        location.href = "board"
+      } else if (event.keyCode == '40') {
+        location.href = "report"
+      }
+    });
 
   </script>
 

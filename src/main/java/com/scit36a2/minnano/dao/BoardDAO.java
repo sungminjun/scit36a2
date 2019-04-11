@@ -15,10 +15,10 @@ public interface BoardDAO {
 	 * 
 	 * @param map
 	 * @param rb
-	 */													 
+	 */
 	public String getEmpId(int board_seq);
-	
-	List<HashMap<String, Object>> boardList(Map<String, Object> map,RowBounds rb);
+
+	List<HashMap<String, Object>> boardList(Map<String, Object> map, RowBounds rb);
 
 	/** 게시글 한 개 등록하는 메서드 */
 	public int insertBoard(Board board);
@@ -27,7 +27,7 @@ public interface BoardDAO {
 	Board selectOne(int board_seq);
 
 	/** 게시글 한 개 삭제 */
-	int delete(int board_seq);
+	int delete(Board board);
 
 	int boardUpdate(Board board);
 
@@ -53,7 +53,6 @@ public interface BoardDAO {
 	 * @return
 	 */
 	int deleteFile(int board_seq);
-
 
 	int inputComment(Board_comments board_comments);
 

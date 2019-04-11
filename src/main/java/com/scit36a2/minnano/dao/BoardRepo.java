@@ -9,23 +9,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.scit36a2.minnano.vo.Board;
-import com.scit36a2.minnano.vo.Employee;
+import com.scit36a2.minnano.vo.Board_comments;
 
 @Repository
 public class BoardRepo {
 	@Autowired
 	SqlSession session;
 
+	public String getEmpId(int board_seq)	{
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		String result = dao.getEmpId(board_seq);
+		return result;
+	}
+	
+	
 	// DB에서 제공하는 RowBounds를 이용한 페이징 기법
-	public List<Board> boardList(String searchItem, String searchWord, int startRecord, int countPerPage) {
+	public List<HashMap<String,Object>> boardList(String searchItem, String searchWord, int startRecord, int countPerPage) {
 		RowBounds rb = new RowBounds(startRecord, countPerPage);
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-
-		Map<String, String> map = new HashMap<>();
+		
+		
+		
+		
+		Map<String, Object> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchWord", searchWord);
 		
-		List<Board> list = dao.boardList(map, rb);
+		List<HashMap<String,Object>> list = dao.boardList(map, rb);
 
 		return list;
 	}
@@ -47,9 +57,9 @@ public class BoardRepo {
 		return board;
 	}
 
-	public int boardDelete(int board_seq) {
+	public int boardDelete(Board board) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		int result = dao.delete(board_seq);
+		int result = dao.boardDelete(board);
 
 		return result;
 
@@ -62,9 +72,9 @@ public class BoardRepo {
 		return board;
 	}
 
-	public int update(Board board) {
+	public int boardUpdate(Board board) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		int result = dao.update(board);
+		int result = dao.boardUpdate(board);
 
 		return result;
 	}
@@ -81,11 +91,41 @@ public class BoardRepo {
 		return boardCount;
 	}
 
-	public int deleteFile(int board_seq) {
+	
+
+	/*public int deleteFile(int board_seq) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		int result = dao.deleteFile(board_seq);
 
 		return result;
 
+	}*/
+
+	public int inputComment(Board_comments board_comments) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		int result = dao.inputComment(board_comments);
+		
+		return result;
 	}
+
+	public List<Board_comments> selectComment(Board_comments board_comments) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		List<Board_comments> result = dao.selectComment(board_comments);
+		return result;
+	}
+
+	
+	public int deleteComment(Board_comments board_comments) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		int result = dao.deleteComment(board_comments);
+		return result;
+	}
+
+	public int updateComment(Board_comments board_comments) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		int result = dao.updateComment(board_comments);
+		return result;
+	}
+
+	
 }

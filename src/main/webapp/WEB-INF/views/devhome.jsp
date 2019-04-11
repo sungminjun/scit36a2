@@ -135,7 +135,7 @@
         }, {
           "side": "front",
           "charge": "이영창",
-          "page": "boardList",
+          "page": "board",
           "desc": "게시판",
           "prog": "10%"
 

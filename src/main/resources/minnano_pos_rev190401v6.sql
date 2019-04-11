@@ -250,6 +250,7 @@ CREATE TABLE seat
 ALTER TABLE board_comments
 	ADD FOREIGN KEY (board_seq)
 	REFERENCES board (board_seq)
+	on delete cascade
 ;
 
 

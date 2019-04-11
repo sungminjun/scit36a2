@@ -224,7 +224,7 @@
 	<script>
 		$("#postcodify").postcodify();
 		$("#search_button").postcodifyPopUp({
-			insertAddress : "#search_button"			
+			insertAddress : "#search_button"
 		})
 	</script>
 </body>

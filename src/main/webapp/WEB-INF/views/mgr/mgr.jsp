@@ -1048,7 +1048,6 @@
             $('#mgr-4-2-emp_pw').attr('placeholder', '정보를 수정하시려면 비밀번호를 입력하십시오.');
             $('#mgr-4-2-emp_new_pw').attr('placeholder', '비밀번호를 확인하십시오.');
             $('#mgr-4-2-emp_new_pw2').attr('placeholder', '비밀번호를 확인하십시오.');
-
           }
         });
       } else {

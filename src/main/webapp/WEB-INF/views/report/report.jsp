@@ -92,6 +92,7 @@
                     <input type="radio" name="options2" value="income">
                       수지보고서
                     </label>
+                    <button class="btn mx-auto" onclick="window.open('synthesize','window_name','width=800,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200	')">종합보고서</button>
                   </div>
                 </div>
                 <div class="row">
@@ -240,13 +241,14 @@
       if (month < 10) month = "0" + month;
       if (day < 10) day = "0" + day;
       var today = year + "-" + month + "-" + day;
-
       var stdate;
       if (month > 6) {
         month = date.getMonth() - 5;
       } else {
         year = date.getFullYear() - 1;
         month = date.getMonth() + 7;
+        
+        
       }
       stdate = year + "-" + month + "-" + day;
 
@@ -791,7 +793,20 @@
         //@@@@@@@@@@@@@주 &수지@@@@@@@@@@@@@@
       }
     }
-
+    $(document).keydown(function(event) {
+  	  if (event.keyCode == '37') {
+  		    location.href="pos"
+  		  }
+  		  else if (event.keyCode == '39') {
+  		    location.href="mgr"
+  		  }
+  		  else if (event.keyCode == '38') {
+  			    location.href="board"
+  			  }
+  		  else if (event.keyCode == '40') {
+  			    location.href="report"
+  			  }
+  		});
   </script>
 </body>
 

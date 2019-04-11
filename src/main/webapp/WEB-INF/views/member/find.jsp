@@ -2,11 +2,10 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
+<link rel="icon" type="image/png" href="./imgs/favicon.png">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/png" href="./imgs/favicon.png">
   <title>
     MinnanoPOS
   </title>
@@ -32,14 +31,11 @@
         $('#' + activeTab).addClass('current');
       })
     });
-
-    <
-    c: if test = "${findResult != null}" >
-      alert('id 찾기 결과: ' + $ {
-        findResult
-      }); <
-    /c:if>
-
+/*
+    <c:if test="${findResult != null}" >
+      alert('id 찾기 결과: ' + $ {findResult}); 
+      </c:if>
+      */
   </script>
 
 </head>

@@ -45,10 +45,12 @@ public interface ReportDAO {
 	// 종합보고서-손님
 	public ArrayList<Object> selectTotalGuestReport(HashMap<String, Object> map);
 
-	// 종합보고서-수지,1개월
+	// 종합보고서-수지
 	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map);
 
-	// 종합보고서-수지,1개월
+	// 종합보고서-수지
 	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map);
+	//종합보고서-카드
+	public ArrayList<Object> selectTotalCardReport(HashMap<String, Object> map);
 
 }

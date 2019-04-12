@@ -1,7 +1,9 @@
 package com.scit36a2.minnano.controllers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -237,34 +239,68 @@ public class ReportsController {
 		System.out.println("total_Guest_expence" + total_Guest_expence.toString());
 		return total_Guest_expence;
 	}
+	//수지 종합보고서
+		@RequestMapping(value="totalIncomeReport",method=RequestMethod.POST)
+		public @ResponseBody ArrayList<Object> totalIncome(HttpSession session){
+			HashMap<String, Object> map = new HashMap<>();
+			int comp_seq = (Integer) session.getAttribute("comp_seq");
+			map.put("comp_seq", comp_seq);
+			
+			
+			ArrayList<HashMap<String, Object>> month_Payment = repo.selectMonthPayment(map); // 한달
+			ArrayList<HashMap<String, Object>> month_Expense = repo.selectMonthExpense(map); // 한달
+		
 
-	// 수지 종합보고서-1개월치
-	@RequestMapping(value = "totalIncomeReport", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> totalIncome(HttpSession session) {
-		HashMap<String, Object> map = new HashMap<>();
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		map.put("comp_seq", comp_seq);
+			System.out.println(month_Expense);
+			System.out.println(month_Payment);
 
-		ArrayList<HashMap<String, Object>> month_Payment = repo.selectMonthPayment(map); // 한달
-		ArrayList<HashMap<String, Object>> month_Expense = repo.selectMonthExpense(map); // 한달
+			ArrayList<Object> result = new ArrayList<Object>();
 
-		System.out.println(month_Expense);
-		System.out.println(month_Payment);
-
-		ArrayList<Object> result = new ArrayList<Object>();
-
-		for (int i = 0; i < month_Payment.size(); i++) {
-			for (int j = 0; j < month_Expense.size(); j++) {
-				if (i == j) {
-					HashMap<String, Object> weekHashMap = month_Expense.get(j);
-					HashMap<String, Object> dateHashMap = month_Payment.get(i);
-					weekHashMap.forEach((k, v) -> dateHashMap.put(k, v));
-					result.add(dateHashMap);
+			for (int i = 0; i < month_Payment.size(); i++) {
+				for (int j = 0; j < month_Expense.size(); j++) {
+					if (i == j) {
+						HashMap<String, Object> weekHashMap = month_Expense.get(j);
+						HashMap<String, Object> dateHashMap = month_Payment.get(i);
+						weekHashMap.forEach((k, v) -> dateHashMap.put(k, v));
+						result.add(dateHashMap);
+					}
 				}
 			}
+			System.out.println(result.toString());
+			
+			ArrayList<Object> result2=new ArrayList<Object>();
+			result2.add(result.get(0));
+			int three=0;
+			int three2=0;
+			for (int i = 3; i < 6; i++) {
+				Map<String, Object> a=  (Map<String, Object>)result.get(i);
+				three += ((BigDecimal)(a.get("ALLPAYMENT"))).intValue();
+				three2+=((BigDecimal)(a.get("EXPENSE_AMOUNT"))).intValue();
+			}
+			HashMap<String, Object> result3= new HashMap<String, Object>();
+			result3.put("ALLPAYMENT", three);
+			result3.put("EXPENSE_AMOUNT", three2);
+			result2.add(result3);
+			for (int i = 0; i < 6; i++) {
+				Map<String, Object> a=  (Map<String, Object>)result.get(i);
+				three += ((BigDecimal)(a.get("ALLPAYMENT"))).intValue();
+				three2+=((BigDecimal)(a.get("EXPENSE_AMOUNT"))).intValue();
+			}
+			HashMap<String, Object> result4= new HashMap<String, Object>();
+			result4.put("ALLPAYMENT", three);
+			result4.put("EXPENSE_AMOUNT", three2);
+			result2.add(result4);
+			System.out.println(result2);
+			return result2;
 		}
-		System.out.println(result.toString());
-
-		return result;
-	}
+		@RequestMapping(value="totalCardReport",method=RequestMethod.POST)
+		public @ResponseBody ArrayList<Object> totalCardReport(HttpSession session){
+			
+			HashMap<String, Object> map = new HashMap<>();
+			int comp_seq = (Integer) session.getAttribute("comp_seq");
+			map.put("comp_seq", comp_seq);
+			ArrayList<Object> total_Card_Report = repo.selectTotalCardReport(map);
+			System.out.println("total_Card_Report" + total_Card_Report.toString());
+			return total_Card_Report;
+		}
 }

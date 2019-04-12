@@ -126,4 +126,9 @@ public class ReportRepo {
 		return list;
 	}
 
+	public ArrayList<Object> selectTotalCardReport(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<Object> list = dao.selectTotalCardReport(map);
+		return list;
+	}
 }

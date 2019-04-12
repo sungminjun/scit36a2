@@ -16,6 +16,13 @@ public class BoardRepo {
    @Autowired
    SqlSession session;
 
+   public String getEmpId(int board_seq) {
+	      BoardDAO dao = session.getMapper(BoardDAO.class);
+	      String result = dao.getEmpId(board_seq);
+	      return result;
+   }
+   
+   
    // DB에서 제공하는 RowBounds를 이용한 페이징 기법
    public List<HashMap<String,Object>> boardList(String searchItem, String searchWord, int startRecord, int countPerPage) {
       RowBounds rb = new RowBounds(startRecord, countPerPage);

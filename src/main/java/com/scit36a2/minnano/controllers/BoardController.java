@@ -108,8 +108,10 @@ public class BoardController {
          @RequestParam(value = "currentPage", defaultValue = "1") int currentPage, int board_seq, Model model) {
 
       Board board = repo.boardDetail(board_seq);
-      System.out.println(board);
-
+      //System.out.println(board);
+      
+      String id = repo.getEmpId(board_seq);
+      
       //
       String mime = null;
       if (board.getBoard_orgname() != null) {
@@ -132,7 +134,8 @@ public class BoardController {
       model.addAttribute("navi", navi);
       model.addAttribute("searchWord", searchWord);
       model.addAttribute("searchItem", searchItem);
-
+      model.addAttribute("id", id);
+      
       return "board/boardDetail";
    }
 

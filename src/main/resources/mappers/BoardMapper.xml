@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.BoardDAO">
 
+<!-- boardDetail에서 id를 뽑아주기 위한 것. -->
+  <select id="getEmpId" resultType="String" parameterType="int">
+    select distinct
+    e.emp_id
+    from
+    board b
+    left join employee e on b.emp_seq = e.emp_seq
+    where
+    board_seq = #{board_seq}
+  </select>
+
   <!-- 게시글 조회 -->
 <select id="boardList" resultType="hashmap" parameterType="map">
 select 
@@ -63,6 +74,8 @@ ORDER BY
     FROM board
     WHERE
     board_seq = #{board_seq}
+    order by
+    	board_seq desc
   </select>
 
   <update id="incrementHitcount" parameterType="int">
@@ -135,6 +148,8 @@ ORDER BY
          BOARD_COMMENTS
       where
          board_seq = #{board_seq}
+      order by
+      	board_comments_seq desc
    </select>
       
    <delete id="deleteComment" parameterType="cmt">

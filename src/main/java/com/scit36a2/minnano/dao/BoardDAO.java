@@ -10,12 +10,17 @@ import com.scit36a2.minnano.vo.Board;
 import com.scit36a2.minnano.vo.Board_comments;
 
 public interface BoardDAO {
+	
+	
    /**
     * 게시글을 조회하는 메서드
     * 
     * @param map
     * @param rb
-    */                                        
+    */
+	
+	public String getEmpId(int board_seq);
+	
    List<HashMap<String, Object>> boardList(Map<String, Object> map,RowBounds rb);
 
    /** 게시글 한 개 등록하는 메서드 */

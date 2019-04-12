@@ -118,7 +118,7 @@
                 <!-- 게시글 출력 반복 -->
                 <c:forEach var="board" items="${boardList}" varStatus="stat">
                   <tr>
-                    <td>${stat.count + navi.startRecord}</td>
+                    <td>${board.BOARD_SEQ}</td>
                     <td>${board.BOARD_CATEGORY}</td>
                     <td><a href="boardDetail?board_seq=${board.BOARD_SEQ}&currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${board.BOARD_TITLE}</a>
                       <c:if test="${board.board_orgname != null }">

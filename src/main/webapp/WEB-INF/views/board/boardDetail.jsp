@@ -10,7 +10,10 @@
   
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  
+  
+  <link href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" rel="stylesheet">
+  
   <!-- Nucleo Icons -->
   <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
@@ -82,20 +85,9 @@
 	     var a = "";
 	
 	      $.each(resp, function(index, item) {
-	       //a += '<tr id="'+item.board_comments_seq+'">';
-	      /* a+='<div  >'
-	      a += '<div class="divLeft" id="'+item.board_comments_seq+'">';
-	       a += 	'<div class="divLeft">' + item.board_comments_seq + '</div>';
-	       a += 	"<div class='divRight'>" + item.board_comments_writer + "</div>";
-	       a += 	"<div class='divContent' id='"+item.board_comments_content+"'>" + item.board_comments_content + "</div>";
-	       a += 	"<div >" + item.board_comments_regdate + "</div>";
-	       a += 	"<div ><input type='button' data-value=" + item.board_comments_seq + " class='del' value='댓글삭제버튼'></div>";
-	       a += 	"<div ><input type='button' d-value=" + item.board_comments_seq + " class='up' value='댓글수정버튼'></div>";
-	       a += '</div>'
-	    a += '</div>' */
-	       
-	    a += '<div class="comments_box "id="'+item.board_comments_seq+'">';
-	      /*  a += 	'<div class="comments_seq">' + item.board_comments_seq + '</div>'; */
+	       	       
+	  	   a += '<div class="comments_box "id="'+item.board_comments_seq+'">';
+	  	   
 	       a += 	'<div class="comments_writer">' + item.board_comments_writer + '</div>';
 	       a += 	'<div class="comments_content" id="'+item.board_comments_content+'">' + item.board_comments_content + '</div>';
 	       a += 	'<div class="comments_regdate">' + item.board_comments_regdate + '</div>';
@@ -104,30 +96,33 @@
 	       a +=				'<i class="far fa-trash-alt"></i>'
 	       a +=		'</div>'
 	       
-	       a += 	"<div class='comments_modify'><input type='button' d-value=" + item.board_comments_seq + " class='up' value='수정'></div>";
+		   a +=		'<div class="comments_update" d-value="'+ item.board_comments_seq +'">'
+	       a +=			'<i class="fas fa-tools"></i>'
+	       a +=		'</div>'
+	       
 	       a += '</div>' 
 	     });
 	     $("#comment_box").html(a);
 	    $('.comments_delete').on('click',deleteComment);
-	   $('.up').on('click',updateComment);
+	   $('.comments_update').on('click',updateComment);
 	}/* output */
 	    
 	
-	    function deleteComment()   {
+	    function deleteComment()   {		
 	       alert("삭제");
 	       var board_comments_seq = $(this).attr("data-value");
-	       //var com = {"board_comments_seq" : board_comments_seq};
+	      
 	       $.ajax({
 	          url : "deleteComment",
 	          method : "POST",
 	          data : {board_comments_seq : board_comments_seq},
-	          success : output
+	          success : selectComment
 	             
 	       });
 	    } 
 	    
 	
-	/* 
+	 
 	     function updateComment()   {     
 	       var board_comments_seq = $(this).attr("d-value");
 	       var board_seq = ${board.board_seq};
@@ -140,31 +135,30 @@
 	             var a = '';
 
 	               $.each(resp, function(index, item) {
-	                  if (item.board_comments_seq == board_comments_seq) {
-	                       a += '<tr class="'+item.board_comments_seq+'">';
-	                       a += "<td>" + item.board_comments_seq + "</td>";
-	                       a += "<td>" + item.board_comments_writer + "</td>";
-	                       a += '<td><input type="text" value="' + item.board_comments_content + '" id="newComment"></td>';
-	                       a += "<td>" + item.board_comments_regdate + "</td>";
-	                       a += "<td><input type='button' d-value=" + item.board_comments_seq + " class='up' value='댓글수정버튼'></td>";
-	                       a += "</tr>";
+	                  if (item.board_comments_seq == board_comments_seq) {	 
+	                	  
+	                       a += '<div class="comments_box "id="'+item.board_comments_seq+'">';
+	                       a += 	'<div class="comments_writer">' + item.board_comments_writer + '</div>';
+	                       a += 	'<div class="comments_content"><input class="update_insert_bar" type="text" value="' + item.board_comments_content + '" id="newComment"></div>';
+	                       a += 	'<div class="comments_regdate">' + item.board_comments_regdate + '</div>';
+	                       a += 	'<div class="comments_update2"><input type="button" d-value="' + item.board_comments_seq + '" class="comments_update_button" value="댓글수정"></div>';
+	                       a += '</div>';
 	  
 	                } else {
-	                   a += '<tr id="'+item.board_comments_seq+'">';
-	                       a += "<td>" + item.board_comments_seq + "</td>";
-	                       a += "<td>" + item.board_comments_writer + "</td>";
-	                       a += '<td class="'+item.board_comments_content+'">' + item.board_comments_content + '</td>';
-	                       a += "<td>" + item.board_comments_regdate + "</td>";
-	                       a += "</tr>";
+	                  	   a += '<div class="comments_box" id="'+item.board_comments_seq+'">';
+	                       a += 	'<div class="comments_writer">' + item.board_comments_writer + '</div>';
+	                       a += 	'<div class="comments_content" id="'+item.board_comments_content+'">' + item.board_comments_content + '</div>';
+	                       a += 	'<div class="comments_regdate">' + item.board_comments_regdate + '</div>';
+	                       a += '</div>';
 	                }
 	               })
 	               
-	               $('#comments').html(a);
-	               $('.up').on('click', upComment);
+	               $('#comment_box').html(a);
+	               $('.comments_update_button').on('click', upComment);
 	          }
 	       });
 	    }
-	      */
+	      
 	     
 	     function upComment(){
 	        var board_comments_seq = $(this).attr("d-value");
@@ -181,7 +175,7 @@
 	           ,success : function(resp){
 	              if (resp == 1) {
 	            alert('성공');
-	             $('#comments').empty();
+	             $('#comment_box').empty();
 	            selectComment();
 	         } else {
 	            alert('실패');
@@ -252,7 +246,7 @@
 									<h3 style="margin:0px;">
 										<span>${board.board_title}</span>
 									</h3><br>
-										<span>${board.emp_seq}</span>
+										<span>${id}</span>
 										<span> | </span>
 										<span>${board.board_regdate}</span>
 										<span> | </span>
@@ -269,7 +263,7 @@
 						
 						</div><!-- card-body 끝-->
 						<hr>
-						<div class="card-footer" >
+						<div class="card-footer" style="float:right;" >
 							<%-- <c:if test="${sessionScope.emp_seq }  "> --%>
 								<input id="board_update" value="글수정"onclick="boardUpdate();"/>
 								<input id="board_delete" value="글삭제"onclick="boardDelete();"/>
@@ -286,8 +280,11 @@
 							</div>
 							
 							<!-- 댓글 입력 -->
-							<input type="text" id="board_comments_content" name="board_comments_content" placeholder="댓글입력">
-							<input type="button" id="comButton" value="댓글등록버튼">
+							<div id="comment_regist_form">
+								<input type="text" id="board_comments_content" name="board_comments_content" placeholder="댓글입력" style="width:200px;">
+								<input type="button" id="comButton" value="등록">
+							</div>
+							
 							</div>
 	
 

@@ -126,20 +126,20 @@
                 <div class="row">
                   <div class="table-responsive">
                     <table class="table tablesorter table-hover">
-                    <thead class=" text-primary" style="table-layout:fixed;">
-                      <tr>
-                        <th class="text-center" style="width: 30%;">일시</th>
-                        <th class="text-center" style="width: 30%;">등록자</th>
-                        <th class="text-center" style="width: 20%;">유형</th>
-                        <th class="text-center" style="width: 20%;">금액</th>
-                     </tr>
-                    </thead>
+                      <thead class=" text-primary" style="table-layout:fixed;">
+                        <tr>
+                          <th class="text-center" style="width: 30%;">일시</th>
+                          <th class="text-center" style="width: 30%;">등록자</th>
+                          <th class="text-center" style="width: 20%;">유형</th>
+                          <th class="text-center" style="width: 20%;">금액</th>
+                        </tr>
+                      </thead>
                     </table>
                   </div>
                   <div class="table-responsive" style="max-height: 380px; overflow: auto;">
-                  <!-- <div class="col-md-12"> -->
+                    <!-- <div class="col-md-12"> -->
                     <table class="table tablesorter table-hover" id="pos-1-6">
-                    <!-- payment log grid will be placed here -->
+                      <!-- payment log grid will be placed here -->
                     </table>
                   </div>
                 </div>
@@ -474,11 +474,11 @@
     </footer>
   </div>
   <div>
-  <input type="hidden" id="funcFlag" value="0">
-  <input type="hidden" id="tableSeqFirst" value="">
-  <input type="hidden" id="sasSeqFirst" value="">
-  <input type="hidden" id="tableSeqSecond" value="">
-  <input type="hidden" id="sasSeqSecond" value="">
+    <input type="hidden" id="funcFlag" value="0">
+    <input type="hidden" id="tableSeqFirst" value="">
+    <input type="hidden" id="sasSeqFirst" value="">
+    <input type="hidden" id="tableSeqSecond" value="">
+    <input type="hidden" id="sasSeqSecond" value="">
   </div>
 
 
@@ -495,7 +495,7 @@
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <!--추가한 파일 jquery ui for chartjs  -->
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  
+
   <script>
     $(function() {
       pos_coh_hasstarted();
@@ -687,7 +687,7 @@
           $('#pos-upper').css('display', 'none');
           $('#pos-lower').css('display', 'flex');
           $('#ppodseatseq').val(param2);
-          param3 = param3.substr(0,param3.indexOf('<'));
+          param3 = param3.substr(0, param3.indexOf('<'));
           $('#ppodseatno').val('현재 선택한 테이블: ' + param3);
           $('#alodsasseq').val(param4)
           $('#preparedOrderMemo').val(param5);
@@ -733,7 +733,7 @@
         $('#tableSeqFirst').val('');
         $('#tableSeqSecond').val('');
         $('#pmtlog').css('display', 'none');
-    	$('#seatsgrid').css('display', 'flex');
+        $('#seatsgrid').css('display', 'flex');
         alert('모든 기능을 취소합니다.');
       });
 
@@ -751,9 +751,9 @@
         pos_pmt_list();
       });
       $('#search_pmtlist').on('click', function() {
-    	load_pmt_list();
+        load_pmt_list();
       });
-      
+
       btn_pmt_cmp_addline();
 
       $('#pos-btn-3-1').on('click', pos_order_discount);
@@ -1482,66 +1482,68 @@
 
 
     function pos_pmt_list() {
-    	setdatepicker();
-    	setdatetodaydefault();
-    	$('#pmtlog').css('display', 'flex');
-    	$('#seatsgrid').css('display', 'none');
-    	load_pmt_list();
+      setdatepicker();
+      setdatetodaydefault();
+      $('#pmtlog').css('display', 'flex');
+      $('#seatsgrid').css('display', 'none');
+      load_pmt_list();
     }
-    
+
     function load_pmt_list() {
-    	var ddate = $('#datepicker_pmtlist').val();
-    	var senddata = { ddate : ddate } 
-    	console.log(ddate);
-    	$.ajax({
-    		url : 'selectpayments'
-    		, method : 'POST'
-    		, data : JSON.stringify(senddata)
-        	, dataType: 'json'
-            , contentType: 'application/json; charset=UTF-8'
-    		, success : function(resp) {
-    			console.log(resp);
-    			var output = '<table><tbody>';
-    			$.each(resp, function(idx, obj) {
-    				output += '<tr>'
-    				output += '   <td class="text-center" style="width: 30%;">' + obj.payment_time + '</td>'
-    				output += '   <td class="text-center" style="width: 30%;">' + obj.payment_clerk + '</td>'
-    				if (obj.payment_type == 1) {
-    				output += '   <td class="text-center" style="width: 20%;">' + '카드' + '</td>'
-    				} else {
-    				output += '   <td class="text-center" style="width: 20%;">' + '현금' + '</td>'
-    				}
-    				output += '   <td class="text-center" style="width: 20%;">' + obj.payment_amount + '</td>'
-    				output += '</tr>'
-    			})
-    			output += '</tbody></table>'
-    			$('#pos-1-6').html(output);
-    		}
-    	})
+      var ddate = $('#datepicker_pmtlist').val();
+      var senddata = {
+        ddate: ddate
+      }
+      console.log(ddate);
+      $.ajax({
+        url: 'selectpayments',
+        method: 'POST',
+        data: JSON.stringify(senddata),
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
+        success: function(resp) {
+          console.log(resp);
+          var output = '<table><tbody>';
+          $.each(resp, function(idx, obj) {
+            output += '<tr>'
+            output += '   <td class="text-center" style="width: 30%;">' + obj.payment_time + '</td>'
+            output += '   <td class="text-center" style="width: 30%;">' + obj.payment_clerk + '</td>'
+            if (obj.payment_type == 1) {
+              output += '   <td class="text-center" style="width: 20%;">' + '카드' + '</td>'
+            } else {
+              output += '   <td class="text-center" style="width: 20%;">' + '현금' + '</td>'
+            }
+            output += '   <td class="text-center" style="width: 20%;">' + obj.payment_amount + '</td>'
+            output += '</tr>'
+          })
+          output += '</tbody></table>'
+          $('#pos-1-6').html(output);
+        }
+      })
     }
-    
+
     function setdatepicker() {
-        $("#datepicker_pmtlist").datepicker({
-          dateFormat: 'yy-mm-dd',
-          defaultDate: 0,
-          changeMonth: true,
-          changeYear: true,
-          showButtonPanel: true,
-        });
-      }
-    
+      $("#datepicker_pmtlist").datepicker({
+        dateFormat: 'yy-mm-dd',
+        defaultDate: 0,
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+      });
+    }
+
     function setdatetodaydefault() {
-        var date = new Date();
+      var date = new Date();
 
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
 
-        if (month < 10) month = "0" + month;
-        if (day < 10) day = "0" + day;
-        var today = year + "-" + month + "-" + day;
-        $("#datepicker_pmtlist").val(today);
-      }
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+      var today = year + "-" + month + "-" + day;
+      $("#datepicker_pmtlist").val(today);
+    }
 
 
 

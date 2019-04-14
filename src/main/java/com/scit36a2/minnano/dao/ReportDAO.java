@@ -50,7 +50,8 @@ public interface ReportDAO {
 
 	// 종합보고서-수지
 	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map);
-	//종합보고서-카드
+
+	// 종합보고서-카드
 	public ArrayList<Object> selectTotalCardReport(HashMap<String, Object> map);
 
 }

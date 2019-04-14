@@ -638,7 +638,7 @@
         output += '<th style="width :30%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-        	alert(item.MONTHTIME);
+          alert(item.MONTHTIME);
           output += '<tr><td style="width :20%;">' + item.MONTHTIME + '</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'

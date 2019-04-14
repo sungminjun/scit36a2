@@ -47,7 +47,9 @@ public class ReportRepo {
 		return list;
 	}
 
-	// sales(payment) by
+	//
+	// guest methods below here
+
 	public ArrayList<Object> selectGuestDay(HashMap<String, Object> map) {
 		ReportDAO dao = session.getMapper(ReportDAO.class);
 		ArrayList<Object> list = dao.selectCustomerDay(map);
@@ -72,11 +74,17 @@ public class ReportRepo {
 		return list;
 	}
 
+	//
+	// menu methods below here
+
 	public ArrayList<Object> selectMenu(HashMap<String, Object> map) {
 		ReportDAO dao = session.getMapper(ReportDAO.class);
 		ArrayList<Object> list = dao.selectMenu(map);
 		return list;
 	}
+	
+	//
+	// methods for cashflow and profit (card-cash ration, expense-payment amount)
 
 	public ArrayList<Object> selectCardPercent(HashMap<String, Object> map) {
 		ReportDAO dao = session.getMapper(ReportDAO.class);
@@ -95,6 +103,9 @@ public class ReportRepo {
 		ArrayList<HashMap<String, Object>> list = dao.selectAllExpense(map);
 		return list;
 	}
+	
+	//
+	// methods for total report
 
 	public ArrayList<Object> selectTotalReport(HashMap<String, Object> map) {
 		ReportDAO dao = session.getMapper(ReportDAO.class);

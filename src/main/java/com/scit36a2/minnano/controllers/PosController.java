@@ -19,11 +19,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scit36a2.minnano.dao.PosRepo;
 import com.scit36a2.minnano.vo.Cashonhand;
-import com.scit36a2.minnano.vo.Menu;
 import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
-import com.scit36a2.minnano.vo.Seat;
 
 // POS기능 - 메인화면에서 일어나는 기능들 
 // 영업개시(시재관리), 테이블 조회, 판매전표 조회, 
@@ -45,7 +43,11 @@ public class PosController {
 		return "pos/pos";
 	}
 
-	// req list for Order-in-progress
+	/**
+	 * 현재 주문상태에 있는 좌석을 요청
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "/seatsavailable", method = RequestMethod.POST)
 	public @ResponseBody String show(HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
@@ -60,7 +62,11 @@ public class PosController {
 		return result;
 	}
 
-	// create order 임시방편으로
+	/**
+	 * create order 임시방편으로처리
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "makeorder", method = RequestMethod.POST)
 	public @ResponseBody String makeorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod) {
 //		System.out.println(sas + ", " + sad + ", " + ppod);
@@ -93,7 +99,11 @@ public class PosController {
 		return result;
 	}
 
-	// create order 임시방편으로
+	/**
+	 * replace order : 주문을 수정할 때 다 밀어버리고 새로 등록 -- 임시방편으로
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "replaceorder", method = RequestMethod.POST)
 	public @ResponseBody String replaceorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod) {
 		String result = "";
@@ -130,14 +140,33 @@ public class PosController {
 		return result;
 	}
 
+	/**
+	 * 이미 주문되어있는 내용을 호출(sas로 sad의 내용을 호출함)
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "alOrderList", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Sales_detail> alOrderList(HttpSession session, int sas_seq) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
+//		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		ArrayList<Sales_detail> sadList = repo.alOrderList(sas_seq);
 
 		return sadList;
 	}
 
+	// order 관련 내용 (sales_state and sales_detail) above here
+	// functions for order list and in-progress(ongoing) order details
+	//
+	//////
+	//////
+	//
+	// payment 관련 내용처리
+	//
+
+	/**
+	 * 현금/카드 단건(1건)결제 등록
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "makepayment", method = RequestMethod.POST)
 	public @ResponseBody String makepayment(HttpSession session, Payment pmt) {
 		String result = "";
@@ -148,9 +177,16 @@ public class PosController {
 		int sasupdateresult = repo.updatesasdone(sas_seq);
 		int makepmtresult = repo.makepayment(pmt);
 
+		// if 문으로 result 판별해서 처리해야함
+		
 		return result;
 	}
 
+	/**
+	 * 복합결제 등록
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "makepaymentcomplex", method = RequestMethod.POST)
 	public @ResponseBody String makepaymentcomplex(HttpSession session, String pmtcmp, Payment pmt) {
 		String result = "";
@@ -179,6 +215,55 @@ public class PosController {
 		return result;
 	}
 
+	/**
+	 * 금일의 누적 매출을 조회함
+	 * 
+	 * @author jsm, cck
+	 */
+	@RequestMapping(value = "cumulatepaymenttoday", method = RequestMethod.POST)
+	@ResponseBody
+	public Integer cumulatepaymenttoday(HttpSession session) {
+		// predictCash
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		Integer result = repo.cumulatepaymenttoday(comp_seq);
+		if (result == null) {
+			result = 0;
+		}
+		return result;
+	}
+
+	/**
+	 * 해당 일자의 매출을 조회한다.
+	 * 
+	 * @author jsm, cck
+	 */
+	@RequestMapping(value = "selectpayments", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<Payment> selectpayments(HttpSession session, @RequestBody HashMap<String, Object> map) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		map.put("comp_seq", comp_seq);
+		System.out.println(map);
+		ArrayList<Payment> result = repo.selectpayments(map);
+		if (result == null) {
+			return null;
+		}
+		return result;
+	}
+
+	//
+	// payments 관련 내용 above here (결제=매출 등록, 조회, 누적매출 조회)
+	//
+	//////
+	//////
+	//
+	// cashonhand 관련 내용 below here
+	//
+
+	/**
+	 * 현금시재를 예상하는 메소드 (개시, 회수, 투입, 마감에 이용)
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "predicCash", method = RequestMethod.POST)
 	@ResponseBody
 	public Integer predicCash(HttpSession session) {
@@ -202,35 +287,14 @@ public class PosController {
 		if (predictPmt != null) {
 			result += predictPmt;
 		}
-
 		return result;
 	}
 
-	@RequestMapping(value = "cumulatepaymenttoday", method = RequestMethod.POST)
-	@ResponseBody
-	public Integer cumulatepaymenttoday(HttpSession session) {
-		// predictCash
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		Integer result = repo.cumulatepaymenttoday(comp_seq);
-		if (result == null) {
-			result = 0;
-		}
-		return result;
-	}
-	
-	@RequestMapping(value = "selectpayments", method = RequestMethod.POST)
-	@ResponseBody
-	public ArrayList<Payment> selectpayments(HttpSession session, @RequestBody HashMap<String, Object> map) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		map.put("comp_seq", comp_seq);
-		System.out.println(map);
-		ArrayList<Payment> result = repo.selectpayments(map);
-		if (result == null) {
-			return null;
-		}
-		return result;
-	}
-
+	/**
+	 * 현금시재를 조회하는 메소드
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "selectCashonhand", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Cashonhand> selectCashonhand(HttpSession session, Cashonhand cashonhand) {
@@ -240,6 +304,11 @@ public class PosController {
 		return result;
 	}
 
+	/**
+	 * 현금시재를 등록하는 메소드 (개시, 회수, 투입, 마감에 이용)
+	 * 
+	 * @author jsm, cck
+	 */
 	@RequestMapping(value = "insertCashonhand", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertCashonhand(HttpSession session, Cashonhand coh) {
@@ -255,6 +324,20 @@ public class PosController {
 			return "fail";
 	}
 
+	//
+	// cashonhand 관련 내용 above here
+	//
+	//////
+	//////
+	//
+	// table 관련(좌석관련) 관리method below here 
+	//
+	
+	/**
+	 * 테이블을 이동시킨다.
+	 * 
+	 * @author jsm
+	 */
 	@RequestMapping(value = "movetable", method = RequestMethod.POST)
 	@ResponseBody
 	public int movetable(HttpSession session, @RequestBody HashMap<String, Integer> map) {
@@ -265,6 +348,11 @@ public class PosController {
 		return result;
 	}
 
+	/**
+	 * 테이블을 맞바꾼다.
+	 * 
+	 * @author jsm
+	 */
 	@RequestMapping(value = "swaptable", method = RequestMethod.POST)
 	@ResponseBody
 	public int swaptable(HttpSession session, @RequestBody HashMap<String, Integer> map) {
@@ -275,6 +363,11 @@ public class PosController {
 		return result;
 	}
 
+	/**
+	 * 테이블을 합친다.
+	 * 
+	 * @author jsm
+	 */
 	@RequestMapping(value = "mergetable", method = RequestMethod.POST)
 	@ResponseBody
 	public String mergetable(HttpSession session, @RequestBody HashMap<String, Integer> map, Sales_state sas) {
@@ -293,134 +386,8 @@ public class PosController {
 	}
 
 	//
+	// table 관련(좌석관련) 관리method above here
 	//
 	//////
-	//////
-	//
-	// will be check and select soon...
-
-	// create sales_state and sub-sales_details
-	@RequestMapping(value = "insertSasSad", method = RequestMethod.POST)
-	@ResponseBody
-	public String insertSasSad(HttpSession session, Sales_state sales_state, Sales_detail sales_detail, Menu menu) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		System.out.println("comp_seq" + comp_seq);
-
-		// sas
-		// seq(자동생성), comp(session), sales_start(sysdate), sales_end(sysdate+1)
-		// seat_seq(ajax), sales_visitors(ajax), sales_memo(ajax)
-		// sad
-		// seq(생성), sas_seq(부여)
-		// menu_seq(ajax), sales_order(ajax), sales_discount(ajax)
-
-		menu.setComp_seq(comp_seq);
-
-		System.out.println("menu" + menu);
-		//////////////////////////////////
-		HashMap<String, Object> map = new HashMap<>();
-
-		map.put("menu", menu);
-		map.put("sales_state_seq", sales_state);
-		map.put("sales_detail", sales_detail);
-
-		map.put("sales_state_seq", sales_state.getSales_state_seq());
-		map.put("comp_seq", sales_state.getComp_seq());
-		map.put("seat_seq", sales_state.getSeat_seq());
-		map.put("sales_start", sales_state.getSales_start());
-		map.put("sales_end", sales_state.getSales_end());
-		map.put("sales_visitors", sales_state.getSales_visitors());
-		map.put("sales_memo", sales_state.getSales_memo());
-		map.put("sales_detail_seq", sales_detail.getSales_detail_seq());
-		map.put("sales_state_seq", sales_detail.getSales_state_seq());
-		map.put("menu_seq", sales_detail.getMenu_seq());
-		map.put("sales_order", sales_detail.getSales_order());
-		map.put("sales_discount", sales_detail.getSales_discount());
-
-		int result = repo.insertSasSad(map);
-		System.out.println("result1 : " + result);
-		if (result != 0) {
-			System.out.println("O : " + result);
-		} else {
-			System.out.println("X : " + result);
-		}
-		System.out.println("result3 : " + result);
-		return "success";
-	}
-
-	@RequestMapping(value = "selectPOSone", method = RequestMethod.POST)
-	@ResponseBody
-	public ArrayList<HashMap<String, Object>> selectPOSone(HttpSession session, Seat seat, Sales_state sales_state,
-			Sales_detail sales_detail) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-
-		ArrayList<HashMap<String, Object>> result = repo.selectPOSone(comp_seq);
-
-		System.out.println("selectPOSone1 result : " + result);
-
-		return result;
-	}
-
-	@RequestMapping(value = "selectPOStwo", method = RequestMethod.POST)
-	@ResponseBody
-	public ArrayList<HashMap<String, Object>> selectPOStwo(HttpSession session, Menu menu, Sales_state sales_state,
-			Sales_detail sales_detail) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		ArrayList<HashMap<String, Object>> result = repo.selectPOStwo(comp_seq);
-		System.out.println("selectPOStwo2 result" + result);
-		return result;
-	}
-
-	@RequestMapping(value = "deleteSasSadPay", method = RequestMethod.POST)
-	@ResponseBody
-	public String deleteSasSadPay(Sales_state sales_state, HttpSession session) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		System.out.println("삭제 컨트롤러 comp_seq : " + comp_seq);
-		sales_state.setComp_seq(comp_seq);
-
-		System.out.println("삭제 컨트롤러 sales_state : " + comp_seq);
-		int result = repo.deleteSasSadPay(comp_seq);
-		System.out.println("삭제 컨트롤러 result : " + result);
-		return "success";
-	}
-
-	@RequestMapping(value = "updatePOStwo", method = RequestMethod.POST)
-	@ResponseBody
-	public int updatePOStwo(HttpSession session, int sales_state_seq, Sales_state sales_state) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		sales_state.setComp_seq(comp_seq);
-		// sales_state.setSales_state_seq(sales_state_seq);
-		System.out.println("sales_state컨트롤러 : " + sales_state);
-		int result = repo.updatePOStwo(sales_state);
-		System.out.println("result 컨트롤러 : " + result);
-		return result;
-	}
-
-	@RequestMapping(value = "choiTestCashonHand", method = RequestMethod.GET)
-	public String choiTestCashonHand() {
-
-		return "backside/choiTestCashonHand";
-	}
-
-	@RequestMapping(value = "selectCashOne", method = RequestMethod.POST)
-	@ResponseBody
-	public List<Cashonhand> selectCashOne(HttpSession session, Cashonhand cashonhand) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		cashonhand.setComp_seq(comp_seq);
-		List<Cashonhand> result = repo.selectCashOne(cashonhand);
-
-		return result;
-	}
-
-	@RequestMapping(value = "deleteCashonhand", method = RequestMethod.POST)
-	@ResponseBody
-	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand) {
-		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		cashonhand.setComp_seq(comp_seq);
-		System.out.println("cashonhand 컨트롤러 삭제 : " + cashonhand);
-		int result = repo.deleteCashonhand(cashonhand);
-		System.out.println("result 컨트롤러 삭제  : " + result);
-		return "success";
-
-	}
 
 }

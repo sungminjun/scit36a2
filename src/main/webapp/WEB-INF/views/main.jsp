@@ -66,8 +66,9 @@
         <div class="row">
           <div class="col-md-6 mx-auto">
             <div class="card">
-              <h1>proto for 190406 demo</h1>
-              welcome!<a href="devhome">click here for devhome</a>
+              <h1>for 0416 shiage</h1>
+              shiage 작업을 위해 사용하지 않는 front단과 back단 파일들을 정리했습니다.
+
             </div>
           </div>
         </div>
@@ -82,6 +83,7 @@
         </div>
       </div>
     </div>
+  </div>
 
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>
@@ -95,20 +97,18 @@
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <script>
-  $(document).keydown(function(event) {
-	  if (event.keyCode == '37') {
-		    location.href="pos"
-		  }
-		  else if (event.keyCode == '39') {
-		    location.href="mgr"
-		  }
-		  else if (event.keyCode == '38') {
-			    location.href="board"
-			  }
-		  else if (event.keyCode == '40') {
-			    location.href="report"
-			  }
-		});
+    $(document).keydown(function(event) {
+      if (event.keyCode == '37') {
+        location.href = "pos"
+      } else if (event.keyCode == '39') {
+        location.href = "mgr"
+      } else if (event.keyCode == '38') {
+        location.href = "board"
+      } else if (event.keyCode == '40') {
+        location.href = "report"
+      }
+    });
+
   </script>
 </body>
 

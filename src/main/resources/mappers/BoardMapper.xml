@@ -2,168 +2,181 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.BoardDAO">
 
-  <!-- boardDetail에서 id를 뽑아주기 위한 것. -->
-  <select id="getEmpId" resultType="String" parameterType="int">
-    select distinct
-    e.emp_id
-    from
-    board b
-    left join employee e on b.emp_seq = e.emp_seq
-    where
-    board_seq = #{board_seq}
-  </select>
+	<select id="boardCount" resultType="int">
+		SELECT COUNT(*) FROM board
+	</select>
 
-  <!-- 게시글 조회 -->
-<select id="boardList" resultType="hashmap" parameterType="map">
-select 
-     b.board_seq,
-     e.emp_name as emp_seq, 
-     b.board_category, 
-     b.board_title, 
-     b.board_content, 
-     b.board_orgname, 
-     b.board_savname, 
-     b.board_regdate, 
-     b.board_hitcount 
-from 
-     board b
-left join employee e on b.emp_seq = e.emp_seq
-WHERE
-   <choose>
-      <when test="searchItem=='title'">BOARD_TITLE</when>
-      <when test="searchItem=='userid'">EMP_NAME</when>
-      <when test="searchItem=='content'">BOARD_CONTENT</when>
-    </choose>
-    LIKE '%' || #{searchWord} ||'%'
-    ORDER BY
-    BOARD_SEQ DESC
-  </select>
-  <insert id="insertBoard" parameterType="bo">
-    INSERT INTO BOARD
-    (
-    board_seq
-    , emp_seq
-    , board_category
-    , board_title
-    , board_content
-    , board_orgname
-    , board_savname
-    )
-    VALUES
-    (
-    board_seqs.nextval
-    , #{emp_seq}
-    , #{board_category}
-    , #{board_title}
-    , #{board_content}
-    , #{board_orgname}
-    , #{board_savname}
-    )
-  </insert>
-  <select id="selectOne" parameterType="int" resultType="bo">
-    SELECT
-    board_seq
-    , emp_seq
-    , board_category
-    , board_title
-    , board_content
-    , board_hitcount
-    , to_char(board_regdate, 'YYYY-MM-DD') as board_regdate
-    , board_orgname
-    , board_savname
-    FROM board
-    WHERE
-    board_seq = #{board_seq}
-    ORDER BY
-    BOARD_SEQ DESC
-  </select>
+	<!-- 게시글 조회 -->
+	<select id="boardList" resultType="hashmap" parameterType="map">
+		select
+		b.board_seq,
+		e.emp_name as emp_seq,
+		b.board_category,
+		b.board_title,
+		b.board_content,
+		b.board_orgname,
+		b.board_savname,
+		b.board_regdate,
+		b.board_hitcount
+		from
+		board b
+		left join employee e on
+		b.emp_seq = e.emp_seq
+		WHERE
+		<choose>
+			<when test="searchItem=='title'">BOARD_TITLE</when>
+			<when test="searchItem=='userid'">EMP_NAME</when>
+			<when test="searchItem=='content'">BOARD_CONTENT</when>
+		</choose>
+		LIKE '%' || #{searchWord} ||'%'
+		ORDER BY
+		BOARD_SEQ DESC
+	</select>
 
-  <update id="incrementHitcount" parameterType="int">
-    update board
-    set board_hitcount = board_hitcount+1
-    where board_seq = #{board_seq}
-  </update>
+	<insert id="insertBoard" parameterType="bo">
+		INSERT INTO BOARD
+		(
+		board_seq
+		, emp_seq
+		, board_category
+		, board_title
+		, board_content
+		,
+		board_orgname
+		, board_savname
+		)
+		VALUES
+		(
+		board_seqs.nextval
+		, #{emp_seq}
+		,
+		#{board_category}
+		, #{board_title}
+		, #{board_content}
+		, #{board_orgname}
+		, #{board_savname}
+		)
+	</insert>
 
-  <delete id="boardDelete" parameterType="bo">
-    DELETE board
-    WHERE
-       board_seq = #{board_seq}
-    and
-       emp_seq = #{emp_seq}
+	<update id="incrementHitcount" parameterType="int">
+		update board
+		set
+		board_hitcount = board_hitcount+1
+		where board_seq = #{board_seq}
+	</update>
 
-  </delete>
+	<select id="selectOne" parameterType="int" resultType="bo">
+		SELECT
+		board_seq
+		, emp_seq
+		, board_category
+		, board_title
+		, board_content
+		,
+		board_hitcount
+		, to_char(board_regdate, 'YYYY-MM-DD') as board_regdate
+		, board_orgname
+		, board_savname
+		FROM board
+		WHERE
+		board_seq = #{board_seq}
+		ORDER BY
+		BOARD_SEQ DESC
+	</select>
 
-  <update id="boardUpdate" parameterType="bo">
-    UPDATE board
-    SET
-    board_title = #{board_title}
-    , board_content = #{board_content}
-    , board_regdate = sysdate
-    <if test="board_orgname != null">
-      , board_orgname = #{board_orgname}
-      , board_savname = #{board_savname}
-    </if>
-    WHERE
-          board_seq = #{board_seq}
-      and
-         emp_seq = #{emp_seq}
-  </update>
-  <select id="boardCount" resultType="int">
-    SELECT COUNT(*) FROM board
-  </select>
+	<!-- boardDetail에서 id를 뽑아주기 위한 것. -->
+	<select id="getEmpId" resultType="String" parameterType="int">
+		select
+		distinct
+		e.emp_id
+		from
+		board b
+		left join employee e on b.emp_seq =
+		e.emp_seq
+		where
+		board_seq = #{board_seq}
+	</select>
 
-  <update id="deleteFile" parameterType="int">
-    UPDATE board
-    SET
-    board_orgname = null,
-    board_savname = null
-    WHERE
-    board_seq=#{board_seq}
-  </update>
+	<select id="selectComment" resultType="cmt" parameterType="cmt">
+		select
+		board_comments_seq,
+		board_seq,
+		board_comments_writer,
+		board_comments_content,
+		board_comments_regdate
+		from
+		BOARD_COMMENTS
+		where
+		board_seq = #{board_seq}
+		order by
+		board_comments_seq desc
+	</select>
 
-   <insert id="inputComment" parameterType="cmt">
-   insert into BOARD_COMMENTS   (
-      BOARD_COMMENTS_SEQ, 
-      BOARD_SEQ, 
-      BOARD_COMMENTS_WRITER, 
-      BOARD_COMMENTS_CONTENT, 
-      BOARD_COMMENTS_REGDATE
-   )   values   (
-      board_comments_seqs.nextval,
-      #{board_seq},
-      #{board_comments_writer},
-      #{board_comments_content},
-      sysdate
-   )
-   </insert>
+	<delete id="boardDelete" parameterType="bo">
+		DELETE board
+		WHERE
+		board_seq = #{board_seq}
+		and
+		emp_seq = #{emp_seq}
+	</delete>
 
-   <select id="selectComment" resultType="cmt" parameterType="cmt">
-      select
-         board_comments_seq,
-         board_seq,
-         board_comments_writer,
-         board_comments_content,
-         board_comments_regdate
-      from
-         BOARD_COMMENTS
-      where
-         board_seq = #{board_seq}
-      order by
-      	board_comments_seq desc
-   </select>
-      
-   <delete id="deleteComment" parameterType="cmt">
-      delete from BOARD_COMMENTS
-      where
-         board_comments_seq = #{board_comments_seq}
-   </delete>
+	<update id="boardUpdate" parameterType="bo">
+		UPDATE board
+		SET
+		board_title = #{board_title}
+		, board_content =
+		#{board_content}
+		, board_regdate = sysdate
+		<if test="board_orgname != null">
+			, board_orgname = #{board_orgname}
+			, board_savname =
+			#{board_savname}
+		</if>
+		WHERE
+		board_seq = #{board_seq}
+		and
+		emp_seq = #{emp_seq}
+	</update>
 
-   <update id="updateComment" parameterType="cmt">
-      update
-         BOARD_COMMENTS
-      set
-         BOARD_COMMENTS_CONTENT = #{board_comments_content}
-      where
-         board_comments_seq = #{board_comments_seq}
-   </update>
+	<insert id="inputComment" parameterType="cmt">
+		insert into
+		BOARD_COMMENTS (
+		BOARD_COMMENTS_SEQ,
+		BOARD_SEQ,
+		BOARD_COMMENTS_WRITER,
+		BOARD_COMMENTS_CONTENT,
+		BOARD_COMMENTS_REGDATE
+		) values (
+		board_comments_seqs.nextval,
+		#{board_seq},
+		#{board_comments_writer},
+		#{board_comments_content},
+		sysdate
+		)
+	</insert>
+
+	<delete id="deleteComment" parameterType="cmt">
+		delete from
+		BOARD_COMMENTS
+		where
+		board_comments_seq = #{board_comments_seq}
+	</delete>
+
+	<update id="updateComment" parameterType="cmt">
+		update
+		BOARD_COMMENTS
+		set
+		BOARD_COMMENTS_CONTENT = #{board_comments_content}
+		where
+		board_comments_seq = #{board_comments_seq}
+	</update>
+
+	<update id="deleteFile" parameterType="int">
+		UPDATE board
+		SET
+		board_orgname = null,
+		board_savname = null
+		WHERE
+		board_seq=#{board_seq}
+	</update>
 </mapper>

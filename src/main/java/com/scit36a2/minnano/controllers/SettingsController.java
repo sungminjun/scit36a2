@@ -262,11 +262,4 @@ public class SettingsController {
 	//
 	///////
 
-	// 삭제예정 -- mgr으로 통합
-	// 지출화면이동
-//	@RequestMapping(value = "insertExpense", method = RequestMethod.GET)
-//	public String insertExpense() {
-//		return "Expense";// 지출화면 jsp 확인
-//	}
-
 }

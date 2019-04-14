@@ -71,17 +71,17 @@
     <div class="main-panel" data="blue">
       <div class="content">
         <div class="row">
-        
+
           <div class="col-xl-10">
-          
+
             <div id="titleForm">
               <h2 style="font-family: 'M PLUS 1p'; font-size: 3em;">
                 <a id="boardTitle" href="${pageContext.request.contextPath}/board">招き猫の掲示板</a>
               </h2>
             </div>
-            
+
           </div>
-          
+
         </div>
 
         <div class="row">

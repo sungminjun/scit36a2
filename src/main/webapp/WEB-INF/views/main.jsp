@@ -66,8 +66,9 @@
         <div class="row">
           <div class="col-md-6 mx-auto">
             <div class="card">
-              <h1>proto for 190406 demo</h1>
-              welcome!<a href="devhome">click here for devhome</a>
+              <h1>for 0416 shiage</h1>
+              shiage 작업을 위해 사용하지 않는 front단과 back단 파일들을 정리했습니다.
+              
             </div>
           </div>
         </div>
@@ -81,6 +82,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 
   <!--   Core JS Files   -->

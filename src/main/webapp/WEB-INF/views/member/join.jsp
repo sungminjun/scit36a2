@@ -103,8 +103,6 @@
                     <div class="col-md-3"></div>
                   </div>
                   <hr>
-
-
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -113,7 +111,6 @@
                     </div>
                     <div class="col-md-3">Ajax here ~ ID 중복 Auto check</div>
                   </div>
-
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -184,7 +181,7 @@
                       </div>
                     </div>
                   </div>
-
+              </div>
               </form>
 
             </div>

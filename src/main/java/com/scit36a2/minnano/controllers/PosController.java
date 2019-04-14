@@ -217,6 +217,19 @@ public class PosController {
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "selectpayments", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<Payment> selectpayments(HttpSession session, @RequestBody HashMap<String, Object> map) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		map.put("comp_seq", comp_seq);
+		System.out.println(map);
+		ArrayList<Payment> result = repo.selectpayments(map);
+		if (result == null) {
+			return null;
+		}
+		return result;
+	}
 
 	@RequestMapping(value = "selectCashonhand", method = RequestMethod.POST)
 	@ResponseBody

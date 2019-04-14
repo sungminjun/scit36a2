@@ -61,4 +61,6 @@ public interface PosDAO {
 
 	public Integer deleteSas(Sales_state sas);
 
+	public ArrayList<Payment> selectpayments(HashMap<String, Object> map);
+
 }

@@ -92,7 +92,7 @@
                       <input type="radio" name="options2" value="income">
                       수지보고서
                     </label>
-                    <button class="btn mx-auto" onclick="window.open('synthesize','window_name','width=800,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200	')">종합보고서</button>
+                    <button class="btn mx-auto" onclick="window.open('synthesize','window_name','width=900,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200	')">종합보고서</button>
                   </div>
                 </div>
                 <div class="row">
@@ -594,7 +594,7 @@
         var data3 = [];
         temp = 0;
         $.each(updateData, function(index, item) {
-          labels[temp] = item.DAYTIME;
+          labels[temp] = item.MONTHTIME;
           /* data1[temp] = item.VISITORS; */
           data2[temp] = item.GECK;
           /* data3[temp] = item.SPIN; */
@@ -638,7 +638,8 @@
         output += '<th style="width :30%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          output += '<tr><td style="width :20%;">' + item.DAYTIME + '</td>'
+        	alert(item.MONTHTIME);
+          output += '<tr><td style="width :20%;">' + item.MONTHTIME + '</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
           output += '<td style="width :30%; text-align: center;">' + item.SPIN + '회전</td></tr>'

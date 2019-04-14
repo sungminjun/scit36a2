@@ -70,8 +70,15 @@
   </select>
 
 
-
-
+  <select id="selectpayments" parameterType="hashmap" resultType="pmt">
+  	SELECT
+  		p.payment_seq, p.sales_state_seq, p.payment_type, p.payment_amount, p.payment_time, p.payment_clerk
+  	FROM 
+  		payment p
+  		JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+  	WHERE 
+  		s.comp_seq = #{comp_seq} and p.payment_time like to_date(#{ddate}, 'yyyy-mm-dd')
+  </select>
 
   <select id="selectPOSone" resultType="HashMap" parameterType="int">
     select sea.seat_seq, sea.seat_id,

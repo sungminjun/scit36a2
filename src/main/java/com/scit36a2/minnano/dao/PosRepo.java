@@ -172,4 +172,10 @@ public class PosRepo {
 		return result;
 	}
 
+	public ArrayList<Payment> selectpayments(HashMap<String, Object> map) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		ArrayList<Payment> result = mapper.selectpayments(map);
+		return result;
+	}
+
 }

@@ -16,6 +16,10 @@
   <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+
+  <!-- test -->
+  <link href="./assets/css/test.css" rel="stylesheet" />
+
 </head>
 
 <body class="white-content">
@@ -93,8 +97,8 @@
                 <div class="card-footer">
                   <div class="row pull-right justify-content-center">
                     <div class="col-12">
-                      <a href="#" class="simple-text">회원가입</a><br>
-                      <a href="#" class="simple-text">ID/PW 찾기</a>
+                      <a href="join" class="simple-text">회원가입</a><br>
+                      <a href="find" class="simple-text">ID/PW 찾기</a>
                     </div>
                   </div>
                 </div>

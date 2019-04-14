@@ -14,7 +14,7 @@ public class TestPageController {
 	public String home() {
 		return "devhome";
 	}
-	
+
 	@RequestMapping(value = "/basic", method = RequestMethod.GET)
 	public String basic() {
 		return "frontside/basic";

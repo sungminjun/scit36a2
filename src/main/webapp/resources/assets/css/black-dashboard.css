@@ -1862,12 +1862,35 @@ pre code {
 }
 
 .form-control:focus {
-  color: rgba(255, 255, 255, 0.8);
+  color: #3498db;
   background-color: #ffffff;
   border-color: #344675;
   outline: 0;
   box-shadow: none, none;
-}
+} 
+
+/* .form-control input[type = "text"]:focus {
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	border: 2px solid #3498db;
+	padding: 14px 10px;
+	width: 200px;
+	outline: none;
+	border-color: #3498db;
+	border-radius: 24px;
+	transition: 0.25s;
+	box-shadow: none, none;
+	
+	color: rgba(255, 255, 255, 0.8);
+  background-color: #ffffff;
+  border-color: #344675;
+  outline: 0;
+  box-shadow: none, none;
+} */
+
+
 
 .form-control::placeholder {
   color: #adb5bd;
@@ -15125,7 +15148,7 @@ table.tablesorter thead tr .headerSortDown {
   border-radius: 50%;
 }
 
-/* 사이드바 아이콘 크기 .sidebar .nav i, */
+/* �궗�씠�뱶諛� �븘�씠肄� �겕湲� .sidebar .nav i, */
 .sidebar .nav li.active>a[data-toggle="collapse"]:before,
 .off-canvas-sidebar .nav li.active>a[data-toggle="collapse"]:before {
   content: " ";
@@ -15516,7 +15539,7 @@ table.tablesorter thead tr .headerSortDown {
   height: 380px;
 }
 /* 
-<!-- 반응형 sidebar -->
+<!-- 諛섏쓳�삎 sidebar -->
 @media screen and (max-width: 991px) {
   .sidebar {
     position: fixed;

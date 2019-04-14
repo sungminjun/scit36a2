@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,7 +63,7 @@ public class MemberController {
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
 				session.setAttribute("emp_seq", emp_seq);// 추가 최철규
-				session.setAttribute("emp_auth_level", emp_auth_level);// add for interceptor, 190406 jsm 
+				session.setAttribute("emp_auth_level", emp_auth_level);// add for interceptor, 190406 jsm
 				System.out.println(session.getAttribute("emp_id"));
 				System.out.println(session.getAttribute("comp_seq"));
 				System.out.println(session.getAttribute("emp_seq"));
@@ -173,9 +175,10 @@ public class MemberController {
 	 * 
 	 * @author 김유경
 	 */
+
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	public String find() {
-		return "member/find";
+		return "member/find"; // 원래는 /member/find
 	}
 
 	/**
@@ -184,19 +187,34 @@ public class MemberController {
 	 * @author 전성민
 	 */
 	@RequestMapping(value = "/findId", method = RequestMethod.POST)
-	public String findId(int comp_id, String emp_name, Model model) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public @ResponseBody Employee findId(String comp_id, String emp_name) {
+		System.out.println(comp_id);
+		HashMap<String, Object> map = new HashMap<>();
+
+		System.out.println("여기들름");
 		map.put("comp_id", comp_id);
 		map.put("emp_name", emp_name);
 		logger.info("map: " + map);
 		Employee result = repo.findId(map);
 		if (result != null) {
 			logger.info(result.toString());
-			model.addAttribute("findResult", result.getEmp_id());
+			System.out.println(result);
+			return result;
 		} else {
-			model.addAttribute("findResult", "조건에 맞는 결과가 없습니다.");
+			System.out.println("else다");
+			return null;
 		}
-		return "member/find";
+	}
+
+	/**
+	 * 패스워드 찾기 기능
+	 * 
+	 * @author 김유경
+	 */
+	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
+	public String findPw(String emp_id, long comp_id, String emp_name, String emp_quiz_answer, Model model) {
+
+		return null;
 	}
 
 	/**

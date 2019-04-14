@@ -20,7 +20,7 @@ public class PosInterceptor extends HandlerInterceptorAdapter {
 		String posfunc = "pos logout selectseat selectCompanyOne selectMenu seatsavailable makeorder replaceorder alOrderList";
 		posfunc += " makepayment makepaymentcomplex predicCash cumulatepaymenttoday selectCashonhand";
 		posfunc += " insertCashonhand movetable swaptable mergetable";
-		System.out.println(uri + " contains posfunc : " + posfunc.contains(uri) );
+//		System.out.println(uri + " contains posfunc : " + posfunc.contains(uri) );
 		if (chk == null) {
 			response.sendRedirect(root + "/login");
 			return false;
@@ -32,7 +32,7 @@ public class PosInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 		}
-		
+
 		return super.preHandle(request, response, handler);
 	}
 }

@@ -23,7 +23,7 @@
       var rcvPw = $('#userpwd').val();
 
       if (rcvId.length < 3 || rcvId.length > 10 || rcvPw.length < 3 || rcvPw.length > 10) {
-        alert('id/pw는 3자리 이상 10자리 이하입니다.');
+        alert('id는 3자리 이상 10자리 이하 입니다');
         return false;
       } else {
         $('#loginForm').submit();
@@ -48,15 +48,20 @@
     <table>
       <tr>
         <td>아이디</td>
-        <td><input type="text" id="userid" name="emp_id" placeholder="3~10 자리 ID 입력" /></td>
+        <td><input type="text" id="userid" name="userid" placeholder="3~10 자리 ID 입력" /></td>
       </tr>
       <tr>
         <td>비밀번호</td>
-        <td><input type="password" id="userpwd" name="emp_pw" placeholder="3~10자리 비밀번호 입력"></td>
+        <td><input type="password" id="userpwd" name="userpwd" placeholder="3~10자리 비밀번호 입력"></td>
       </tr>
       <tr>
         <td colspan="2"><input id="loginbtn" type="button" value="로그인" />
+
+          <a href="Findidready.jsp"><b>아이디 찾기</b></a>
+          <a href="Findpassready.jsp"><b>비밀번호 찾기</b></a>
         </td>
     </table>
   </form>
 </body>
+
+</html>

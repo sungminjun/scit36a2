@@ -19,7 +19,7 @@ public class ReportRepo {
 //		return list;
 //	}
 
-	// sales(payment) - daily 일간매출 
+	// sales(payment) - daily 일간매출
 	public ArrayList<Object> searchDayPosReport(HashMap<String, Object> map) {
 		ReportDAO dao = session.getMapper(ReportDAO.class);
 		ArrayList<Object> list = dao.searchDayPosReport(map);
@@ -46,9 +46,8 @@ public class ReportRepo {
 		ArrayList<Object> list = dao.selectMonthPosReport(map);
 		return list;
 	}
-	
-	
-	// sales(payment) by 
+
+	// sales(payment) by
 	public ArrayList<Object> selectGuestDay(HashMap<String, Object> map) {
 		ReportDAO dao = session.getMapper(ReportDAO.class);
 		ArrayList<Object> list = dao.selectCustomerDay(map);
@@ -94,6 +93,36 @@ public class ReportRepo {
 	public ArrayList<HashMap<String, Object>> selectAllExpense(HashMap<String, Object> map) {
 		ReportDAO dao = session.getMapper(ReportDAO.class);
 		ArrayList<HashMap<String, Object>> list = dao.selectAllExpense(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectTotalReport(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<Object> list = dao.selectTotalReport(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectTotalMenuReport(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<Object> list = dao.selectTotalMenuReport(map);
+		return list;
+	}
+
+	public ArrayList<Object> selectTotalGuestReport(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<Object> list = dao.selectTotalGuestReport(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectMonthPayment(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map) {
+		ReportDAO dao = session.getMapper(ReportDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectMonthExpense(map);
 		return list;
 	}
 

@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +76,9 @@ public class SalesRepo {
 		return result;
 	}
 
-	public List<Expense> selectExpense(int expense_seq) {
+	public List<Expense> selectExpense(HashMap<String, Object> map) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		List<Expense> result = mapper.selectExpense(expense_seq);
+		List<Expense> result = mapper.selectExpense(map);
 
 		return result;
 	}

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.scit36a2.minnano.dao.BoardDAO">
 
-<!-- boardDetail에서 id를 뽑아주기 위한 것. -->
+  <!-- boardDetail에서 id를 뽑아주기 위한 것. -->
   <select id="getEmpId" resultType="String" parameterType="int">
     select distinct
     e.emp_id
@@ -33,11 +33,11 @@ WHERE
       <when test="searchItem=='title'">BOARD_TITLE</when>
       <when test="searchItem=='userid'">EMP_NAME</when>
       <when test="searchItem=='content'">BOARD_CONTENT</when>
-   </choose>
-   LIKE '%' || #{searchWord} ||'%'
-ORDER BY
-   BOARD_SEQ DESC
-</select>
+    </choose>
+    LIKE '%' || #{searchWord} ||'%'
+    ORDER BY
+    BOARD_SEQ DESC
+  </select>
   <insert id="insertBoard" parameterType="bo">
     INSERT INTO BOARD
     (
@@ -74,8 +74,8 @@ ORDER BY
     FROM board
     WHERE
     board_seq = #{board_seq}
-    order by
-    	board_seq desc
+    ORDER BY
+    BOARD_SEQ DESC
   </select>
 
   <update id="incrementHitcount" parameterType="int">
@@ -90,12 +90,12 @@ ORDER BY
        board_seq = #{board_seq}
     and
        emp_seq = #{emp_seq}
+
   </delete>
 
   <update id="boardUpdate" parameterType="bo">
     UPDATE board
     SET
-   
     board_title = #{board_title}
     , board_content = #{board_content}
     , board_regdate = sysdate

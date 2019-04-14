@@ -15,6 +15,15 @@
   <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <!--추가한 파일 jquery ui for chartjs  -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!--  style for monthpicker show -->
+  <style>
+    .ui-datepicker-calendar {
+      display: none;
+    }
+
+  </style>
 </head>
 
 <body class="white-content">
@@ -75,6 +84,7 @@
                   <button class="btn ml-auto mr-auto" id="mgr-btn-2">판매메뉴 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-3">점내좌석 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-4">업체정보 관리</button>
+                  <button class="btn ml-auto mr-auto" id="mgr-btn-5">영업마감 취소</button>
                 </div>
               </div>
               <!-- 
@@ -148,27 +158,35 @@
                   </div>
 
                   <div class="col-md-6">
-
+                    <div class="row">
+                      <div class="col-md-8 input-group">
+                        <label>해당월</label>
+                        <input type="text" id="datepicker_exp" class="form-control text-center" placeholder="YYYY-MM">
+                        <button type="button" class="btn mx-auto" id="search_exp">검색</button>
+                      </div>
+                    </div>
                     <div class="table-responsive">
                       <table class="table tablesorter table-hover" id="mgr-1-8">
                         <!-- expense list by ajax will be placed here -->
                       </table>
                     </div>
-
+                    <div class="table-responsive" style="max-height: 380px; overflow: auto;">
+                      <table class="table tablesorter table-hover" id="mgr-1-8-2">
+                        <!-- expense list by ajax will be placed here -->
+                      </table>
+                    </div>
                   </div>
-
                 </div>
-
               </div>
-
+              <!-- 
               <div class="card-footer">
                 <h5 class="title">
                   관리메뉴 1-footer <br>여기는 2단형식으로, 좌측에는 지출관리 기능 <br>
                   우측에는 지출 내역을 보여주는 모듈이 들어가야한다. <br> 지출을 보여주는 모듈에는,
                   클릭 시 선택한 지출 정보가 좌측 모듈로 표시되어야한다.
                 </h5>
-              </div>
-
+              </div> 
+-->
             </div>
           </div>
         </div>
@@ -570,15 +588,19 @@
   <script src="./assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
   <script src="./assets/js/plugins/bootstrap-notify.js"></script>
-
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <!--추가한 파일 jquery ui for chartjs  -->
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
 
   <script>
     $(document).ready(function() {
       $("button[id=mgr-btn-1]").on('click', function() {
         mgrshow('1')
+      });
+      $("button[id=search_exp]").on('click', function() {
+        loadexps()
       });
       $("button[id=mgr-btn-1-5]").on('click', addexps);
       $("button[id=mgr-btn-1-6]").on('click', modifyexps);
@@ -610,13 +632,28 @@
       $("button[id=mgr-btn-4-3]").on('click', function() {
         mgr4show('3')
       });
-
+      $("button[id=mgr-btn-5]").on('click', function() {
+        cancel_close();
+      });
     })
+
+    function setdatepicker() {
+      $("#datepicker_exp").datepicker({
+        dateFormat: 'yy-mm',
+        defaultDate: 0,
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        onClose: function(dateText, inst) {
+          $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+        }
+      });
+    }
 
     function mgrshow(param) {
       if (param == 1) {
         $('.mgr-1').css('display', 'flex');
-        loadexps()
+        setdatepicker();
       } else {
         $('.mgr-1').css('display', 'none');
       }
@@ -637,31 +674,42 @@
 
       if (param == 4) $('.mgr-4').css('display', 'flex');
       else $('.mgr-4').css('display', 'none');
+
     }
 
     function loadexps() {
+      var month = $('#datepicker_exp').val();
+      senddata = {
+        month: month
+      }
       $.ajax({
         url: 'selectExpense',
         method: 'POST',
+        data: senddata,
         success: function(resp) {
+          $('#mgr-1-8').html('');
+          $('#mgr-1-8-2').html('');
           var output = '';
-          output += '<thead class=" text-primary"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
+          var output2 = '';
+          output += '<thead class=" text-primary" style="table-layout:fixed;"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
+          $('#mgr-1-8').html(output);
+          output2 += '<tbody>'
           $.each(resp, function(idx, obj) {
-            $('#mgr-1-8').html('');
-            output += '<tr s-expseq="' + obj.expense_seq + '" s-exptype="' + obj.expense_type + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' + obj.expense_amount + '">';
-            output += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
-            output += '</tr>';
+            output2 += '<tr s-expseq="' + obj.expense_seq + '" s-exptype="' + obj.expense_type + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' + obj.expense_amount + '">';
+            output2 += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
+            output2 += '</tr>';
           })
-            $('#mgr-1-8').append(output);
+          output2 += '</tbody>'
+          $('#mgr-1-8-2').html(output2);
           $.each(resp, function(idx, obj) {
             var temp = 'tr[s-expseq=' + obj.expense_seq + ']';
             $(temp).on('click', callexps);
           })
 
-            $('#mgr-1-1').val('고정지출');
-            setdatetodaydefault();
-            $('#mgr-1-3').val('');
-            $('#mgr-1-4').val('');
+          $('#mgr-1-1').val('고정지출');
+          /* setdatetodaydefault(); */
+          $('#mgr-1-3').val('');
+          $('#mgr-1-4').val('');
 
         }
       });
@@ -677,7 +725,7 @@
       var exparr = expregex.split('|')
 
       console.log(exparr)
-      
+
       $('#mgr-1-1').val($(this).attr('s-exptype'));
       $('#mgr-1-2').val(exparr[0]);
       $('#mgr-1-3').val(exparr[1]);
@@ -1048,7 +1096,6 @@
             $('#mgr-4-2-emp_pw').attr('placeholder', '정보를 수정하시려면 비밀번호를 입력하십시오.');
             $('#mgr-4-2-emp_new_pw').attr('placeholder', '비밀번호를 확인하십시오.');
             $('#mgr-4-2-emp_new_pw2').attr('placeholder', '비밀번호를 확인하십시오.');
-
           }
         });
       } else {
@@ -1065,7 +1112,7 @@
             $.each(resp, function(idx, obj) {
               var output = '';
               output += '<tr s-empseq="' + obj.emp_seq + '">';
-              output += '<td>' + obj.emp_id + '</td><td>' + obj.emp_name + '</td><td>' + obj.emp_tel + '</td>';
+              output += '<td class="text-center">' + obj.emp_id + '</td><td class="text-center">' + obj.emp_name + '</td><td class="text-center">' + obj.emp_tel + '</td>';
               output += '</tr>';
               $('.mgr-4-3-table').append(output);
               var temp = 'tr[s-empseq=' + obj.emp_seq + ']';
@@ -1112,11 +1159,55 @@
 
       if (month < 10) month = "0" + month;
       if (day < 10) day = "0" + day;
-
       var today = year + "-" + month + "-" + day;
-      console.log(today)
-      $("#mgr-1-2").attr("value", today);
+      var thismonth = year + "-" + month;
+      $("#mgr-1-2").val(today);
+      $('#datepicker_exp').val(thismonth);
     }
+
+    function cancel_close() {
+      var str = '';
+      var senddata = '';
+      $.ajax({
+        url: 'selectCashonhand',
+        method: 'post',
+        success: function(resp) {
+          console.log(resp);
+          $.each(resp, function(idx, obj) {
+            console.log(obj)
+            if (obj.cashonhand_type == 4)
+              str = obj.cashonhand_register + '님이 ' + obj.cashonhand_regdate + '에 등록한 마감정보(마감금액: ' + obj.cashonhand_cash + ', 오차금액' + obj.cashonhand_error + ')를 삭제하시고 마감을 취소하시겠습니까?';
+            senddata = {
+              "cashonhand_seq": obj.cashonhand_seq
+            }
+          })
+          console.log(senddata);
+          var conf = confirm(str);
+          if (conf == true) {
+            $.ajax({
+              url: 'deleteCashonhand',
+              method: 'post',
+              data: senddata,
+              success: function(resp) {
+                alert('영업 마감정보를 삭제하고 마감을 취소합니다.');
+              }
+            })
+          }
+        }
+      })
+    }
+
+    $(document).keydown(function(event) {
+      if (event.keyCode == '37') {
+        location.href = "pos"
+      } else if (event.keyCode == '39') {
+        location.href = "mgr"
+      } else if (event.keyCode == '38') {
+        location.href = "board"
+      } else if (event.keyCode == '40') {
+        location.href = "report"
+      }
+    });
 
   </script>
 </body>

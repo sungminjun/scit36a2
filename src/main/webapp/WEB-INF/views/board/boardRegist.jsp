@@ -66,7 +66,6 @@ function goBoard(){
   
   
 </head>
-
 <body class="white-content">
   <div class="wrapper">
     <div class="sidebar" data="blue">
@@ -171,6 +170,7 @@ function goBoard(){
 
 
 				</div>
+
       </div>
       <footer class="footer">
       </footer>

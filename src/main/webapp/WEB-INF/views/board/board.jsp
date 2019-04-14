@@ -135,27 +135,27 @@
             </div>
           </div>
         </div>
-        
-        
+
+
         <div class="row">
           <!-- 페이지 네비게이터 -->
           <div class="col-xl-10">
-          <div id="navigator" style="text-align: center;">
-            <a href="board?currentPage=${navi.currentPage-navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
-              ◁◁ </a> <a href="board?currentPage=${navi.currentPage-1}&searchItem=${searchItem}&searchWord=${searchWord}">
-              ◀ </a> &nbsp;&nbsp;
-            <c:forEach var="page" begin="${navi.startPageGroup}" end="${navi.endPageGroup }">
-              <c:if test="${page != navi.currentPage }">
-                <a href="board?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp;
-              </c:if>
-              <c:if test="${page == navi.currentPage }">
-                <span style="color: red;">${page}</span>&nbsp;
-              </c:if>
-            </c:forEach>
-            &nbsp;&nbsp; <a href="board?currentPage=${navi.currentPage+1}&searchItem=${searchItem}&searchWord=${searchWord}">
-              ▶ </a> <a href="board?currentPage=${navi.currentPage+navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
-              ▷▷ </a>
-          </div>
+            <div id="navigator" style="text-align: center;">
+              <a href="board?currentPage=${navi.currentPage-navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
+                ◁◁ </a> <a href="board?currentPage=${navi.currentPage-1}&searchItem=${searchItem}&searchWord=${searchWord}">
+                ◀ </a> &nbsp;&nbsp;
+              <c:forEach var="page" begin="${navi.startPageGroup}" end="${navi.endPageGroup }">
+                <c:if test="${page != navi.currentPage }">
+                  <a href="board?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp;
+                </c:if>
+                <c:if test="${page == navi.currentPage }">
+                  <span style="color: red;">${page}</span>&nbsp;
+                </c:if>
+              </c:forEach>
+              &nbsp;&nbsp; <a href="board?currentPage=${navi.currentPage+1}&searchItem=${searchItem}&searchWord=${searchWord}">
+                ▶ </a> <a href="board?currentPage=${navi.currentPage+navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}">
+                ▷▷ </a>
+            </div>
           </div>
         </div>
       </div>
@@ -175,6 +175,20 @@
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+  <script type="text/javascript">
+    $(document).keydown(function(event) {
+      if (event.keyCode == '37') {
+        location.href = "pos"
+      } else if (event.keyCode == '39') {
+        location.href = "mgr"
+      } else if (event.keyCode == '38') {
+        location.href = "board"
+      } else if (event.keyCode == '40') {
+        location.href = "report"
+      }
+    });
+
+  </script>
 </body>
 
 </html>

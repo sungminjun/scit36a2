@@ -180,6 +180,7 @@ body {
 	}
 	
 	#search .button {
+		
 		color: #000000;
 		text-align: center;
 		background: none;
@@ -198,6 +199,7 @@ body {
 	}
 	
 	#search .button:hover{
+		border:#113d5b; 
 		background: #113d5b !important;
 		text-transform: uppercase !important;
 		color: #ffffff !important;

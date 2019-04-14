@@ -16,56 +16,56 @@
   <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-  <!-- boardRegist용 CSS -->
+   <!-- boardRegist용 CSS -->
   <link href="assets/css/board/boardRegist.css" rel="stylesheet" type="text/css" />
+  
+<script src="resources/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
 
-  <script src="resources/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      // code here : 각 이벤트에 맞게 함수 호출
-      $('#registButton').on('click', boardRegist);
-      $('#cancelButton').on('click', goBoard);
-    });
-
-
-
-    function boardRegist() {
-      var board_title = $("#board_title").val();
-      var board_category = $("#board_category").val();
-      var board_content = $("#board_content").val();
-
-      var board = {
-        "board_title": board_title,
-        "board_category": board_category,
-        "board_content": board_content
-      }
-
-      $.ajax({
-        type: 'POST',
-        url: 'boardRegist',
-        data: board,
-        success: function(resp) {
-          if (resp == 1) {
-            alert('등록에 성공했습니다.');
-            goBoard();
-          } else {
-            alert('등록실패');
-            return;
-          }
-
-        }
-      });
-    }
-
-    function goBoard() {
-      location.href = "/minnano/board";
-    }
-
-  </script>
+$(function() {
+	// code here : 각 이벤트에 맞게 함수 호출
+	$('#registButton').on('click', boardRegist);
+	$('#cancelButton').on('click', goBoard);
+});
 
 
+
+function boardRegist(){
+	var board_title = $("#board_title").val();
+	var board_category = $("#board_category").val();
+	var board_content = $("#board_content").val();
+	
+	var board = {
+		"board_title" : board_title
+		, "board_category" : board_category
+		, "board_content" : board_content
+	}
+		
+	$.ajax({
+		type : 'POST'
+		, url : 'boardRegist'
+		, data : board
+		, success : function(resp) {
+			if (resp == 1) {
+				alert('등록에 성공했습니다.');	
+				goBoard();
+			} else {
+				alert('등록실패');
+				return;
+			}
+			
+		}
+	});
+}
+
+function goBoard(){
+	location.href = "/minnano/board";
+}
+
+</script>
+  
+  
 </head>
-
 <body class="white-content">
   <div class="wrapper">
     <div class="sidebar" data="blue">
@@ -114,61 +114,63 @@
     <div class="main-panel" data="blue">
       <div class="content">
         <div class="row">
-          <div class="col-md-6 ml-auto mr-auto">
+			<div class="col-md-6 ml-auto mr-auto">
 
-            <div id="titleForm">
-              <h2 style="font-family: 'M PLUS 1p'; font-size: 3em;">
-                <a id="boardTitle" href="${pageContext.request.contextPath}/board">[ 게시판 글쓰기 ]</a>
-              </h2>
-            </div>
+						<div id="titleForm">
+							<h2 style="font-family: 'M PLUS 1p'; font-size: 3em;">
+								<a id="boardTitle" href="${pageContext.request.contextPath}/board">[ 게시판 글쓰기 ]</a>
+							</h2>
+						</div>
 
-            <div class="card">
-              <div class="card-header">
-                <h5 class="title">[게시판 글쓰기]</h5>
-              </div>
+						<div class="card">
+							<div class="card-header">
+								<h5 class="title">[게시판 글쓰기]</h5>
+							</div>
+							
+							<div class="card-body">
+								<div>
+								<label>제목</label><br>
+									<input id="board_title" type="text" name="board_title">
+								</div>
+								<hr>
+								<div>
+								<label>글쓴이</label><br>
+								${sessionScope.emp_id}
+								</div>
+								<hr>
+								<div>
+								<label>카테고리 선택</label><br>
+								<div id="category-choice">
+									<select id="board_category" name="board_category">
+										<option value="삽니다">삽니다</option>
+										<option value="팝니다">팝니다</option>
+										<option value="조언 부탁드립니다">조언 부탁드립니다</option>
+										<option value="기타">기타</option>
+									</select>
 
-              <div class="card-body">
-                <div>
-                  <label>제목</label><br>
-                  <input id="board_title" type="text" name="board_title">
-                </div>
-                <hr>
-                <div>
-                  <label>글쓴이</label><br>
-                  ${sessionScope.emp_id}
-                </div>
-                <hr>
-                <div>
-                  <label>카테고리 선택</label><br>
-                  <div id="category-choice">
-                    <select id="board_category" name="board_category">
-                      <option value="삽니다">삽니다</option>
-                      <option value="팝니다">팝니다</option>
-                      <option value="조언 부탁드립니다">조언 부탁드립니다</option>
-                      <option value="기타">기타</option>
-                    </select>
-
-                  </div><br>
-                </div>
-
-                <hr>
-                <div>
-                  <label>글내용</label><br>
-                  <textarea id="board_content" name="board_content"></textarea>
-                </div>
-                <hr>
-              </div>
-              <div class="card_footer" style="text-align:center;">
-                <input id="registButton" type="button" value="글등록" />
-                <input id="cancelButton" type="button" value="취소" />
-              </div>
-            </div>
-
-          </div>
+									</div><br>
+								</div>
+								
+								<hr>
+								
+								<div>
+								<label>글내용</label><br>
+									<textarea id="board_content" name="board_content"></textarea>
+								</div>
+								<hr>
+							</div>
+							<div class="card_footer" style="text-align:center;">
+								 <input id="registButton" type="button" value="글등록"/>
+         						 <input id="cancelButton" type="button" value="취소" />
+							</div>
+						</div>
+						
+					</div>
 
 
 
-        </div>
+				</div>
+
       </div>
       <footer class="footer">
       </footer>

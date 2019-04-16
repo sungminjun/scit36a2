@@ -19,7 +19,7 @@
     comp_seq=#{comp_seq}
   </select>
 
-  <select id="selectCompanyOneById" parameterType="com" resultType="com">
+  <select id="selectCompanyOneById" parameterType="String" resultType="com">
     SELECT
     *
     FROM

@@ -18,7 +18,80 @@
 
   <!-- CSS~tab관련  Files -->
   <link href="./assets/css/test.css" rel="stylesheet" />
+  
+  <!-- CSS~join.css -->
+  <link href="./assets/css/member/join.css" rel="stylesheet" />
 </head>
+
+<script src="resources/jquery-3.3.1.min.js"></script>
+<script>
+
+var id=false;
+var pw=false;
+var pw2=false;
+
+$(function() {
+   
+   $("#company_Id").on("focusout",company_Idcheck);
+  
+   /* $("#userPw").on("keyup",pwcheck);
+   $("#uerPwdChk").on("keyup",checkPw);
+   $("#signUpBtn").on("click",signUp);
+   $("#phone").blur(phoneCheck); */
+   
+});
+
+function company_Idcheck() {
+	   var comp_id = $("#company_Id").val();
+	   console.log(comp_id);
+
+	   var regexp = /^[0-9]+$/;
+	   if( !regexp.test(comp_id) ) {
+	    $("#company_IdResult").text("아이디는 숫자만 입력가능합니다.");
+        $("#company_IdResult").attr("style", "color:#f00; position: relative; vertical-align: middle;  background: #f9f28e");
+        $("#company_Id").css("background-color", "#FFCECE");
+	   	$('#company_Id').val(comp_id.replace(!regexp,''));
+	   	return false;
+	   }
+	   
+	   if(comp_id.length != 10){
+	      $("#company_Id").css("background-color", "#FFCECE");
+	      $("#company_IdResult").text("사업자 등록번호 10자리를 입력해주세요");
+	      $("#company_IdResult").attr("style", "color:#f00");
+	      return false;
+	   }
+	   /* 
+ 	   if(comp_id.length != 10){
+		   $("#company_IdResult").text("10자리의 숫자를 입력해주세요.");
+		   $("#company_IdResult").attr("style", "color:#f00");
+           $("#company_Id").css("background-color", "#FFCECE");
+           id=false;
+ 	      return;
+	   } 
+	  */
+	   
+	   
+	   $.ajax({
+	      data : {comp_id : comp_id}
+	      , url : "checkComp_id",
+	      method : "POST",
+	      success : function(data) {
+	    	 alert("success");
+            $("#company_Id").css("background-color", "#B0F6AC").attr('readonly','readonly');
+            $("#company_IdResult").text("사용 가능한 아이디 입니다.").attr("style", "color:#00f");
+	      },
+	      error : function() { 
+	    	  alert('fail')
+	    	  $("#company_Id").css("background-color", "#FFCECE");
+	          $("#company_IdResult").text("중복되는 ID 입니다");
+	          $("#company_Id").attr("style", "color:#f00");
+	      }
+
+	   });   
+	}
+
+
+</script>
 
 <body class="white-content">
   <div class="wrapper">
@@ -54,36 +127,47 @@
       <div class="content">
         <div class="row">
           <div class="col-md-6 ml-auto mr-auto">
+          
             <div class="card">
+            
               <div class="card-header">
                 <h5 class="title">ENROLL USER</h5>
               </div>
               <form id="registForm" action="join" method="POST">
+              
                 <div class="card-body">
                   <div class="row justify-content-center">
+                  
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="comp_id">사업자 등록번호</label> <input type="text" class="form-control" name="comp_id">
+                        <label for="comp_id" id="comp_id">사업자 등록번호</label> 
+                        <input type="text" class="form-control" name="comp_id" id="company_Id">
                       </div>
                     </div>
-                    <div class="col-md-3">Ajax here ~ 사업자 등록번호 Auto check</div>
+                    <div class="col-md-4" id="company_IdResult">Ajax here ~ 사업자 등록번호 Auto check</div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="comp_name">가게 이름</label> <input type="text" class="form-control" name="comp_name">
+                        <label for="comp_name">가게 이름</label> 
+                        <input id="company_name" type="text" class="form-control" name="comp_name"><br>
+                        <span class="error_box" id="company_name_Msg" style role="alert"></span>
                       </div>
                     </div>
                     <div class="col-md-3"></div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="comp_tel">가게 전화번호</label> <input type="text" class="form-control" name="comp_tel">
+                        <label for="comp_tel">가게 전화번호</label> 
+                        <input type="text" class="form-control" name="comp_tel">
                       </div>
                     </div>
                     <div class="col-md-3"></div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -94,15 +178,18 @@
                     <div class="col-md-3">
                     </div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="comp_address">세부주소</label> <input type="text" class="form-control" name="comp_address2">
+                        <label for="comp_address">세부주소</label> 
+                        <input type="text" class="form-control" name="comp_address2">
                       </div>
                     </div>
                     <div class="col-md-3"></div>
                   </div>
                   <hr>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -111,47 +198,62 @@
                     </div>
                     <div class="col-md-3">Ajax here ~ ID 중복 Auto check</div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="emp_pw">PASSWORD</label> <input type="password" class="form-control" name="emp_pw">
+                        <label for="emp_pw">PASSWORD</label> 
+                        <input type="password" class="form-control" name="emp_pw">
                       </div>
                     </div>
                     <div class="col-md-3">Ajax here ~ pw 제한조건 Auto check</div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="emp_pw2">PASSWORD 재확인</label> <input type="password" class="form-control" name="emp_pw2">
+                        <label for="emp_pw2">PASSWORD 재확인</label> 
+                        <input type="password" class="form-control" name="emp_pw2">
                       </div>
                     </div>
                     <div class="col-md-3">Ajax here ~ pw1과 동일한지 Auto check</div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="emp_name">이름</label> <input type="text" class="form-control" name="emp_name">
+                        <label for="emp_name">이름</label> 
+                        <input type="text" class="form-control" name="emp_name">
                       </div>
                     </div>
                     <div class="col-md-3"></div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="emp_tel">전화번호</label> <input type="text" class="form-control" name="emp_tel">
+                        <label for="emp_tel">전화번호</label> 
+                        <input type="text" class="form-control" name="emp_tel">
                       </div>
                     </div>
                     <div class="col-md-3"></div>
                   </div>
+                  
                   <div class="row justify-content-center">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="emp_quiz">비밀번호 찾기 질문</label>
+                        <label for="emp_quiz">비밀번호 찾기 질문</label><br />
                         <!-- <input type="text" class="form-control" name="emp_quiz"> -->
-                        <select>
-                          <option value="우리조이름은?">
+                        <select id="question_box">
+                          <option class="question_select" >질문을 골라주세요</option>
+                          <option class="question_select" >민트초코는 호?불호?</option>
+                          <option class="question_select" >육개장 큰사이즈 먹는 사람은 뭐다?</option>
+                          <option class="question_select" >탕수육은 부먹찍먹?</option>
+                          <option class="question_select" >아이즈원 장원영 VS 레드벨벳 아이린</option>
                         </select>
                       </div>
+                     </div>
+                    <div class="col-md-3"></div>
                       <!--
 											<div class="form-group">
 												<label for="emp_quiz">비밀번호 찾기 질문</label> <input type="text"
@@ -161,27 +263,28 @@
 										<div class="col-md-3">quiz는 dropdown목록에서 선택하는 것은 어떨지
 											생각해볼 것</div>
                       -->
-                    </div>
+                   </div>
+                    
                     <div class="row justify-content-center">
                       <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="emp_quiz_answer">비밀번호 찾기 답</label> <input type="text" class="form-control" name="emp_quiz_answer">
-                        </div>
+                          <label for="emp_quiz_answer">비밀번호 찾기 답</label> 
                       </div>
                       <div class="col-md-3"></div>
                     </div>
-
-                    <div class="row justify-content-center">
-                      <div class="col-md-2">
-                        <input type="reset" class="btn-default" value="취소">
-                      </div>
-                      <div class="col-md-1"></div>
-                      <div class="col-md-3">
-                        <input type="submit" class="btn-default" value="회원가입">
-                      </div>
+                    
+					<div class="row justify-content-center">
+						<div class="col-md-6">
+							<input type="text" class="form-control"	name="emp_quiz_answer">
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					
+					<div class="row justify-content-center" id="join_footer">
+	                        <!-- <input type="reset" id="join_cancel_btn" value="취소">
+	                        <input type="button" id="join_enroll_button" value="회원가입"> -->
                     </div>
+                    
                   </div>
-                </div>
               </form>
 
             </div>
@@ -189,7 +292,7 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 
 
   <!--   Core JS Files   -->
@@ -206,7 +309,7 @@
   <!-- 주소 api -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-  <script>
+<script>
     $("#postcodify").postcodify();
     $("#search_button").postcodifyPopUp({
       insertAddress: "#search_button"

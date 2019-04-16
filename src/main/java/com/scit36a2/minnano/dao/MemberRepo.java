@@ -73,9 +73,9 @@ public class MemberRepo {
 		return c;
 	}
 
-	public Company selectCompanyOneById(Company company) {
+	public Company selectCompanyOneById(String id) {
 		MemberDAO dao = session.getMapper(MemberDAO.class);
-		Company c = dao.selectCompanyOneById(company);
+		Company c = dao.selectCompanyOneById(id);
 		return c;
 	}
 
@@ -102,5 +102,7 @@ public class MemberRepo {
 		Employee result = dao.selectEmployee(emp);
 		return result;
 	}
+
+	
 
 }

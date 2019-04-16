@@ -70,8 +70,6 @@
           <div class="col-md-6 mx-auto">
             <div class="card">
               <img class="main-junc" alt="main-pos-icon" src="imgs/main-pos.png">
-              <!-- 주소테스트 -->
-              <div id="postcodify"></div>
             </div>
           </div>
           <div class="col-md-6 mx-auto">

@@ -736,9 +736,9 @@
         var data3 = [];
         $.each(updateData, function(index, item) {
           labels[temp] = item.MONTHTIME;
-          data[temp] = item.ALLPAYMENT;
+          data[temp] = item.PAYMENT_AMOUNT_SUM;
           data2[temp] = item.EXPENSE_AMOUNT;
-          data3[temp] = (((item.ALLPAYMENT - item.EXPENSE_AMOUNT) / item.ALLPAYMENT) * 100).toFixed(2);
+          data3[temp] = (((item.PAYMENT_AMOUNT_SUM - item.EXPENSE_AMOUNT) / item.PAYMENT_AMOUNT_SUM) * 100).toFixed(2);
           temp++;
         });
         //그래프 업데이트

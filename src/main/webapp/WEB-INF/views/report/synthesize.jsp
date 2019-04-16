@@ -196,7 +196,7 @@
     var employee;
     $.each(resp, function(index, item) {
       if (index == 1) {
-        mae = item.ALLPAYMENT;
+        mae = item.PAYMENT_AMOUNT_SUM;
         ji = item.EXPENSE_AMOUNT;
       }
     })
@@ -233,7 +233,7 @@
     output += '<th style="width :40%; text-align: center;">È¸Àü</th></tr></thead>'
     $.each(resp, function(index, item) {
       if (index == 1) {
-        mae = item.ALLPAYMENT;
+        mae = item.PAYMENT_AMOUNT_SUM;
         ji = item.EXPENSE_AMOUNT;
       }
     })

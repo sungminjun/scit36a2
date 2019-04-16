@@ -26,14 +26,23 @@
 
   <script>
     $(function() {
-
       selectComment();
-      $("#comButton").on("click", function() {
-        inputComment();
-      })
-
+      $("#comButton").on("click", inputComment)
+      if ( ${sessionScope.emp_seq} != ${board.emp_seq} ) {
+    	  $('#board_update').css('display', 'none');
+    	  $('#board_delete').css('display', 'none');
+      }
+      if ( '${board.board_orgname}' == 'yes' ) {
+    	  var addlink = '<input id="board_report" value="통계보기"/>';
+    	  $('#reportlink').html(addlink);
+    	  $('#board_report').on('click', showreport)
+      }
     });
 
+    function showreport() {
+  	    var url = 'showreport';
+  	    window.open(url,'popupView','width=900,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200');  
+    }
 
     function boardDelete() {
       location.href = "boardDelete?board_seq=${board.board_seq}";
@@ -46,9 +55,7 @@
 
     function inputComment() {
       var board_comments_content = $("#board_comments_content").val();
-      var board_seq = $ {
-        board.board_seq
-      };
+      var board_seq = ${board.board_seq};
       if (board_comments_content.trim().length == 0) {
         alert("댓글입력할것");
         return;
@@ -71,9 +78,7 @@
     } /* inputComment */
 
     function selectComment() {
-      var board_seq = $ {
-        board.board_seq
-      };
+      var board_seq = ${board.board_seq};
       var d = {
         "board_seq": board_seq
       };
@@ -87,7 +92,6 @@
 
 
     function output(resp) {
-
       var a = "";
 
       $.each(resp, function(index, item) {
@@ -97,14 +101,15 @@
         a += '<div class="comments_writer">' + item.board_comments_writer + '</div>';
         a += '<div class="comments_content" id="' + item.board_comments_content + '">' + item.board_comments_content + '</div>';
         a += '<div class="comments_regdate">' + item.board_comments_regdate + '</div>';
-
+		if (item.board_comments_writer == '${sessionScope.emp_name}') {
         a += '<div class="comments_delete" data-value="' + item.board_comments_seq + '">'
         a += '<i class="far fa-trash-alt"></i>'
         a += '</div>'
-
         a += '<div class="comments_update" d-value="' + item.board_comments_seq + '">'
         a += '<i class="fas fa-tools"></i>'
         a += '</div>'
+		} else {
+		}
 
         a += '</div>'
       });
@@ -115,7 +120,6 @@
 
 
     function deleteComment() {
-      alert("삭제");
       var board_comments_seq = $(this).attr("data-value");
 
       $.ajax({
@@ -125,7 +129,9 @@
           board_comments_seq: board_comments_seq
         },
         success: selectComment
-
+        , failure : function() {
+        	alert('본인의 글만 삭제할 수 있습니다.');
+        }
       });
     }
 
@@ -133,9 +139,7 @@
 
     function updateComment() {
       var board_comments_seq = $(this).attr("d-value");
-      var board_seq = $ {
-        board.board_seq
-      };
+      var board_seq = ${board.board_seq};
 
       $.ajax({
         method: 'post',
@@ -185,17 +189,13 @@
         url: "updateComment",
         method: "POST",
         data: d,
-        success: function(resp) {
-          if (resp == 1) {
-            alert('성공');
+        success: function() {
             $('#comment_box').empty();
             selectComment();
-          } else {
-            alert('실패');
-            return;
           }
-        }
-
+      , failure: function() {
+            alert('실패');
+      }
       });
     }
 
@@ -243,36 +243,34 @@
                 </div>
               </div>
               <hr>
-              <div class="card-body" style="height:520px">
-                <div class="">
+              <div class="card-body" style="height:400px">
+                <div class="row">
                   <div class="board_title">
                     <h3 style="margin:0px;">
                       <span>${board.board_title}</span>
                     </h3><br>
+                    </div>
+                </div>
+                   <div class="row">
                     <span>${id}</span>
                     <span> | </span>
                     <span>${board.board_regdate}</span>
                     <span> | </span>
                     <span>조회수 ${board.board_hitcount}</span>
+                    <div id="reportlink">
+                      <!-- if users agree share reports, button will be placed here -->
+                    </div>
                   </div>
-                </div>
                 <hr>
-
-
                 <div class="board_content">
-
-                  ${board.board_content}
+                 <div style="white-space: pre; word-spacing: pre;"><c:out value="${board.board_content}" /></div>
                 </div>
-
               </div><!-- card-body 끝-->
               <hr>
               <div class="card-footer" style="float:right;">
-                <%-- <c:if test="${sessionScope.emp_seq }  "> --%>
                 <input id="board_update" value="글수정" onclick="boardUpdate();" />
                 <input id="board_delete" value="글삭제" onclick="boardDelete();" />
-                <%-- 	</c:if> --%>
-                <a id="returnBoard" href="board">목록으로</a>
-
+                <a id="returnBoard" href="javascript:history.back();">목록으로</a>
               </div>
 
               <hr>

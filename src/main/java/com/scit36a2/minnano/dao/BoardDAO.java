@@ -33,13 +33,13 @@ public interface BoardDAO {
 
 	public int boardUpdate(Board board);
 
-
 	public int inputComment(Board_comments board_comments);
 
 	public int deleteComment(Board_comments board_comments);
 
 	public int updateComment(Board_comments board_comments);
 
+	public Board_comments selectCmtOne(Board_comments board_comments);
 	public ArrayList<Object> insertReport(HashMap<String, Object> map);
 
 	public ArrayList<Object> nsertMenuReport(HashMap<String, Object> map);

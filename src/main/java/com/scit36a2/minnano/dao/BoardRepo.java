@@ -102,6 +102,11 @@ public class BoardRepo {
 		return result;
 	}
 
+	public Board_comments selectCmtOne(Board_comments board_comments) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		Board_comments result = dao.selectCmtOne(board_comments);
+		return result;
+	}
 	public ArrayList<Object> insertReport(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		ArrayList<Object> list = dao.insertReport(map);

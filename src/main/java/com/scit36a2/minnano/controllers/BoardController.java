@@ -244,6 +244,8 @@ public class BoardController {
 		System.out.println("댓글 수정 result : " + result);
 		return result;
 	}
+
+	
 	
 	/**
 	 * 보고서 삽입기능-매출 3개월치
@@ -394,6 +396,7 @@ public class BoardController {
 		System.out.println("insertCardReport" + insertCardReport.toString());
 		return insertCardReport;
 	}
+	
 }
 
 

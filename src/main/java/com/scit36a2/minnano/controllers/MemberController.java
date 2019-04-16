@@ -152,20 +152,15 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "checkComp_id", method = RequestMethod.POST)
-	public @ResponseBody String checkComp_id(Company company) {
-
-		String id = company.getComp_id();
-
-		if (id.length() != 10) {
-			return "lengthFail";
-		}
-
-		Company c = repo.selectCompanyOneById(company);
+	public @ResponseBody String checkComp_id(String comp_id) {
+		System.out.println(comp_id);
+		Company c = repo.selectCompanyOneById(comp_id);
 
 		if (c != null)
 			return "fail";
 		else
 			return "success";
+		
 	}
 
 	// not checked yet above

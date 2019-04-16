@@ -32,6 +32,7 @@
 	<interceptors>
 		<interceptor>
 	 		<mapping path="/**" />
+	 		<exclude-mapping path="/checkComp_id" />
 			<exclude-mapping path="/login" />
 			<exclude-mapping path="/join" />
 			<exclude-mapping path="/find" />

@@ -29,7 +29,7 @@ public interface MemberDAO {
 	public Company selectCompanyOne(int comp_seq);
 
 	// 사업자등록번호 중복확인
-	public Company selectCompanyOneById(Company company);
+	public Company selectCompanyOneById(String id);
 
 	// 회사 정보 수정 처리
 	public int updateCompany(Company company);

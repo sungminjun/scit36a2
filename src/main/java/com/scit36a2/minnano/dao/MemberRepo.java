@@ -73,9 +73,9 @@ public class MemberRepo {
 		return c;
 	}
 
-	public Company selectCompanyOneById(Company company) {
+	public Company selectCompanyOneById(String id) {
 		MemberDAO dao = session.getMapper(MemberDAO.class);
-		Company c = dao.selectCompanyOneById(company);
+		Company c = dao.selectCompanyOneById(id);
 		return c;
 	}
 
@@ -108,5 +108,4 @@ public class MemberRepo {
 		ArrayList<Object> list = dao.findPW(map);
 		return list;
 	}
-
 }

@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,20 @@ public interface BoardDAO {
 	public int deleteComment(Board_comments board_comments);
 
 	public int updateComment(Board_comments board_comments);
+
+	public ArrayList<Object> insertReport(HashMap<String, Object> map);
+
+	public ArrayList<Object> nsertMenuReport(HashMap<String, Object> map);
+
+	public ArrayList<Object> insertGuestReport(HashMap<String, Object> map);
+
+	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map);
+
+	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map);
+
+	public ArrayList<Object> insertCardReportt(HashMap<String, Object> map);
+
+	public int selectCompseq(int emp_seq);
 
 //	public int deleteFile(int board_seq);
 }

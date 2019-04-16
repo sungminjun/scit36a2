@@ -176,7 +176,7 @@ public class ReportsController {
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		ArrayList<Object> card_Check = repo.selectCardPercent(map);
-//		System.out.println(card_Check);
+		System.out.println(card_Check);
 		return card_Check;
 	}
 
@@ -200,8 +200,8 @@ public class ReportsController {
 		ArrayList<HashMap<String, Object>> all_Payment = repo.selectAllPayment(map); // 일주일
 		ArrayList<HashMap<String, Object>> all_Expense = repo.selectAllExpense(map); // 일주일 일-월 표시
 
-//		System.out.println(all_Expense);
-//		System.out.println(all_Payment);
+		System.out.println(all_Expense);
+		System.out.println(all_Payment);
 
 		ArrayList<Object> result = new ArrayList<Object>();
 
@@ -215,7 +215,7 @@ public class ReportsController {
 				}
 			}
 		}
-//		System.out.println(result.toString());
+		System.out.println(result.toString());
 
 		return result;
 
@@ -231,9 +231,9 @@ public class ReportsController {
 		HashMap<String, Object> map = new HashMap<>();
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		map.put("comp_seq", comp_seq);
-		ArrayList<Object> total_expence = repo.selectTotalReport(map);
-//		System.out.println("total_expence" + total_expence.toString());
-		return total_expence;
+		ArrayList<Object> total_payment = repo.selectTotalReport(map);
+//		System.out.println("total_payment" + total_payment.toString());
+		return total_payment;
 	}
 
 	/**
@@ -319,7 +319,7 @@ public class ReportsController {
 		result4.put("ALLPAYMENT", three);
 		result4.put("EXPENSE_AMOUNT", three2);
 		result2.add(result4);
-	System.out.println(result2);
+		System.out.println(result2);
 		return result2;
 	}
 

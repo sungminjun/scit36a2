@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -127,6 +128,7 @@ public class MemberController {
 		map.put("emp_name", employee.getEmp_name());
 		map.put("emp_tel", employee.getEmp_tel());
 		map.put("emp_quiz", employee.getEmp_quiz());
+		
 		map.put("emp_quiz_answer", employee.getEmp_quiz_answer());
 
 		int result = repo.join(map);
@@ -147,12 +149,12 @@ public class MemberController {
 	 * 
 	 * @author 김유경
 	 */
-	@RequestMapping(value = "/checkComp_id", method = RequestMethod.POST)
+	@RequestMapping(value = "checkComp_id", method = RequestMethod.POST)
 	public @ResponseBody String checkComp_id(Company company) {
 
 		String id = company.getComp_id();
 
-		if (id.length() < 3 || id.length() > 10) {
+		if (id.length() != 10) {
 			return "lengthFail";
 		}
 
@@ -209,9 +211,20 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
-	public String findPw(String emp_id, long comp_id, String emp_name, String emp_quiz_answer, Model model) {
-
-		return null;
+	public @ResponseBody ArrayList<Object> findPw(String emp_id, long comp_id, String emp_name, String emp_quiz_answer, Model model) {
+		
+		HashMap<String,Object> map=new HashMap<>();
+		map.put("emp_id",emp_id);
+		map.put("comp_id", comp_id);
+		map.put("emp_name",emp_name);
+		ArrayList<Object> result=repo.findPW(map);
+		if(result!=null) {
+			System.out.println(result);
+			return result;
+		}else{
+			System.out.println("값없음");
+			return null;
+		}
 	}
 
 	/**

@@ -17,7 +17,7 @@
 <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
 <!-- CSS Files -->
 <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-<!--Ãß°¡ÇÑ ÆÄÀÏ jquery ui for chartjs  -->
+<!--ì¶”ê°€í•œ íŒŒì¼ jquery ui for chartjs  -->
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="assets/js/core/jquery.min.js"></script>
@@ -49,7 +49,7 @@
 			style="text-align: left; margin-left: 21px; border: 0; font-family: 'Nanum Gothic', sans-serif; text-decoration: overline; margin-top: 10px"></h4>
 	</div>
 	<div class="row">
-		<!-- Â÷Æ®ºÎºĞ -->
+		<!-- ì°¨íŠ¸ë¶€ë¶„ -->
 		<div class="col-md-11" style="margin: 0 auto;">
 			<div class="card" style="height: 120px">
 				<div class="card-body">
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<div class="col-md-5" style="margin: 0 auto; padding-right: 0px">
-			¸Ş´ºÅë°è(3°³¿ù)
+			ë©”ë‰´í†µê³„(3ê°œì›”)
 			<div class="card" style="height: 380px">
 				<div class="card-body">
 					<canvas id="myChart" style="height :200px;width :auto;"></canvas>
@@ -66,9 +66,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- Â÷Æ® ºÎºĞ -->
+		<!-- ì°¨íŠ¸ ë¶€ë¶„ -->
 		<div class="col-md-5" style="margin: 0 auto; padding-left: 0px">
-			Çö±İ/Ä«µå(3°³¿ù)
+			í˜„ê¸ˆ/ì¹´ë“œ(3ê°œì›”)
 			<div class="card" style="height: 380px">
 				<div class="card-body">
 					<canvas id="myChart2" style="height:200px"></canvas>
@@ -78,18 +78,18 @@
 		</div>
 	</div>
 	<div class="row">
-		<!-- Â÷Æ®ºÎºĞ -->
+		<!-- ì°¨íŠ¸ë¶€ë¶„ -->
 		<div class="col-md-11" style="margin: 0 auto;">
-			°í°´ Åë°è(3°³¿ù)
+			ê³ ê° í†µê³„(3ê°œì›”)
 			<div class="card">
 				<div class="card-body" style="height: 120px">
 					<div class="customerTable"></div>
 				</div>
 			</div>
 		</div>
-		<!-- Â÷Æ® ºÎºĞ -->
+		<!-- ì°¨íŠ¸ ë¶€ë¶„ -->
 		<div class="col-md-11" style="margin: 0 auto;">
-			¼öÁöÅë°è
+			ìˆ˜ì§€í†µê³„
 			<div class="card" style="height: 200px">
 				<div class="card-body">
 					<div class="tableMain2"></div>
@@ -100,14 +100,14 @@
 
 </body>
 <script>
-	// Àü¿ªº¯¼ö here
-	// ±×·¡ÇÁ Å×½ºÆ® (ÀÏÀÏ¸ÅÃâ  ÇöÀçÀÏºÎÅÍ 1ÀÏ±îÁöÀÇ ¸ÅÃâ)
+	// ì „ì—­ë³€ìˆ˜ here
+	// ê·¸ë˜í”„ í…ŒìŠ¤íŠ¸ (ì¼ì¼ë§¤ì¶œ  í˜„ì¬ì¼ë¶€í„° 1ì¼ê¹Œì§€ì˜ ë§¤ì¶œ)
 	var data = [];
 	var labels = [];
-	var label = "¸ÅÃâ¾×";
-	//map Çü½Ä index ¹øÈ£ ¼¼´Â¿ë
+	var label = "ë§¤ì¶œì•¡";
+	//map í˜•ì‹ index ë²ˆí˜¸ ì„¸ëŠ”ìš©
 	var temp = 0;
-	//±âº»°ª Å×ÀÌºí(Ç¥) ¸ÅÃâ Å×½ºÆ®
+	//ê¸°ë³¸ê°’ í…Œì´ë¸”(í‘œ) ë§¤ì¶œ í…ŒìŠ¤íŠ¸
 	var chart;
 	var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -122,7 +122,7 @@
 			url : 'selectOwner',
 			method : 'POST',
 			success : function(resp) {
-				owner += '´ëÇ¥ÀÚ  : ' + resp.emp_name;
+				owner += 'ëŒ€í‘œì  : ' + resp.emp_name;
 
 			}
 		})
@@ -130,7 +130,7 @@
 			url : 'selectCompanyOne',
 			method : 'POST',
 			success : function(resp) {
-				owner += '       /  ÀüÈ­¹øÈ£ : ' + resp.comp_tel;
+				owner += '       /  ì „í™”ë²ˆí˜¸ : ' + resp.comp_tel;
 				store = resp.comp_name;
 				$('.store').html(store);
 				$('.owner_and_phone').html(owner);
@@ -151,14 +151,14 @@
 
 	}
 	$(document).ready(function() {
-		//¸ÅÃâ
+		//ë§¤ì¶œ
 		$.ajax({
 			url : 'totalReport',
 			method : 'POST',
 			success : function(resp) {
 			}
 		});
-		//¸Ş´º¸Ş´º
+		//ë©”ë‰´ë©”ë‰´
 		$.ajax({
 			url : 'totalMenuReport',
 			method : 'POST',
@@ -167,7 +167,7 @@
 				firstshow();
 			}
 		});
-		//°í°´Åë°è
+		//ê³ ê°í†µê³„
 		$.ajax({
 			url : 'totalGuestReport',
 			method : 'POST',
@@ -175,7 +175,7 @@
 				customerTable(resp);
 			}
 		})
-		//¼öÁöº¸°í¼­
+		//ìˆ˜ì§€ë³´ê³ ì„œ
 		$.ajax({
 			url : 'totalIncomeReport',
 			method : 'POST',
@@ -184,7 +184,7 @@
 				MainTable2(resp);
 			}
 		})
-		//Çö±İ /Ä«µå
+		//í˜„ê¸ˆ /ì¹´ë“œ
 		$.ajax({
 			url : 'totalCardReport',
 			method : 'POST',
@@ -196,11 +196,11 @@
 	function MainTable(resp) {
 		var output = '';
 		output += '<table class="table table-hover" style="max-height: 150">';
-		output += '<thead><tr><th style="width :26%; text-align: center;">¸ÅÃâ(3°³¿ù)</th>'
-		output += '<th style="width :27%; text-align: center;">ÁöÃâ(3°³¿ù)</th>'
-		output += '<th style="width :27%; text-align: center;">ÀÌÀÍ·ü</th>'
-		output += '<th style="width :20%; text-align: center;">Á¾¾÷¿ø¼ö</th></tr></thead>'
-		//°ª
+		output += '<thead><tr><th style="width :26%; text-align: center;">ë§¤ì¶œ(3ê°œì›”)</th>'
+		output += '<th style="width :27%; text-align: center;">ì§€ì¶œ(3ê°œì›”)</th>'
+		output += '<th style="width :27%; text-align: center;">ì´ìµë¥ </th>'
+		output += '<th style="width :20%; text-align: center;">ì¢…ì—…ì›ìˆ˜</th></tr></thead>'
+		//ê°’
 		var mae;
 		var ji;
 		var ek;
@@ -219,12 +219,12 @@
 				member += resp.length+1;
 				ek = ((mae - ji) / mae) * 100;
 				output += '<tr><td style="width :25%; text-align: center;">' + mae
-						+ '¿ø</td>'
+						+ 'ì›</td>'
 				output += '<td style="text-align: center; width :25%;">' + ji
-						+ '¿ø</td>'
+						+ 'ì›</td>'
 				output += '<td style="text-align: center; width :25%;">'
 						+ ek.toFixed(1) + '%</td>'
-				output += '<td style="width :25%; text-align: center;">'+member+'¸í</td></tr>'
+				output += '<td style="width :25%; text-align: center;">'+member+'ëª…</td></tr>'
 				output += "</table>"
 				$('.tableMain').html(output);
 			}
@@ -241,12 +241,12 @@
 			sum += item.PAYMENT_AMOUNT;
 		})
 		newchart = new Chart(ctx, {
-			type : 'pie', //Â÷Æ®¸ğ¾ç
+			type : 'pie', //ì°¨íŠ¸ëª¨ì–‘
 			data : {
 				labels : labels,
 				datasets : [ {
 					type : "pie",
-					label : '¸ÅÃâ¾×',
+					label : 'ë§¤ì¶œì•¡',
 					backgroundColor : ['#30A9DE','#EFDC05','#E53A40'],
 					data : data,
 				}, ]
@@ -254,10 +254,10 @@
 		});
 		var output = '';
 		output += '<table class="table table-hover" style="max-height: 150">';
-		output += '<thead><tr><th style="width :30%; text-align: center;">Ä«Å×°í¸®</th>'
-		output += '<th style="width :30%; text-align: center;">ÆÇ¸Å±İ¾×</th>'
-		output += '<th style="width :40%; text-align: center;">ºñÀ²</th></tr></thead>'
-		//°ª
+		output += '<thead><tr><th style="width :30%; text-align: center;">ì¹´í…Œê³ ë¦¬</th>'
+		output += '<th style="width :30%; text-align: center;">íŒë§¤ê¸ˆì•¡</th>'
+		output += '<th style="width :40%; text-align: center;">ë¹„ìœ¨</th></tr></thead>'
+		//ê°’
 		$.each(resp, function(index, item) {
 			output += '<tr><td style="width :30%; text-align: center;">'
 					+ item.MENU_CATEGORY + '</td>'
@@ -279,12 +279,12 @@
 			data[index] = item.PAYMENT_AMOUNT;
 		})
 		newchart2 = new Chart(ctx2, {
-			type : 'pie', //Â÷Æ®¸ğ¾ç
+			type : 'pie', //ì°¨íŠ¸ëª¨ì–‘
 			data : {
-				labels : [ 'Ä«µå', 'Çö±İ' ],
+				labels : [ 'ì¹´ë“œ', 'í˜„ê¸ˆ' ],
 				datasets : [ {
 					type : "pie",
-					label : '¸ÅÃâ¾×',
+					label : 'ë§¤ì¶œì•¡',
 					backgroundColor :  ['#30A9DE','#EFDC05','#E53A40'],
 					data : data,
 				}, ]
@@ -292,17 +292,17 @@
 		});
 		var output = '';
 		output += '<table class="table table-hover">';
-		output += '<thead><tr><th style="width :30%; text-align: center;">±¸ºĞ</th>'
-		output += '<th style="width :40%; text-align: center;">¸ÅÃâ¾×</th>'
-		output += '<th style="width :30%; text-align: center;">ºñÀ²</th></tr></thead>'
-		//°ª
-		output += '<tr><td style="width :30%; text-align: center;">Ä«µå</td>'
+		output += '<thead><tr><th style="width :30%; text-align: center;">êµ¬ë¶„</th>'
+		output += '<th style="width :40%; text-align: center;">ë§¤ì¶œì•¡</th>'
+		output += '<th style="width :30%; text-align: center;">ë¹„ìœ¨</th></tr></thead>'
+		//ê°’
+		output += '<tr><td style="width :30%; text-align: center;">ì¹´ë“œ</td>'
 		output += '<td style="text-align: center; width :40%;">' + data[0]
 				+ '</td>'
 		output += '<td style="text-align: center; width :30%;">'
 				+ ((data[0] / (data[0] + data[1])) * 100).toFixed(1)
 				+ '%</td></tr>'
-		output += '<tr><td style="width :30%; text-align: center;">Çö±İ</td>'
+		output += '<tr><td style="width :30%; text-align: center;">í˜„ê¸ˆ</td>'
 		output += '<td style="text-align: center; width :40%;">' + data[1]
 				+ '</td>'
 		output += '<td style="text-align: center; width :30%;">'
@@ -318,58 +318,58 @@
 		var spin = 0;
 		var finalGeck = 0;
 		output += '<table class="table table-hover">';
-		output += '<thead><tr><th style="width :33%; text-align: center;">³»Á¡°´¼ö(3°³¿ù)</th>'
-		output += '<th style="width :33%; text-align: center;">°´´Ü°¡(3°³¿ù)</th>'
-		output += '<th style="width :33%; text-align: center;">È¸Àü</th></tr></thead>'
+		output += '<thead><tr><th style="width :33%; text-align: center;">ë‚´ì ê°ìˆ˜(3ê°œì›”)</th>'
+		output += '<th style="width :33%; text-align: center;">ê°ë‹¨ê°€(3ê°œì›”)</th>'
+		output += '<th style="width :33%; text-align: center;">íšŒì „</th></tr></thead>'
 		$.each(resp, function(index, item) {
 			nae += item.VISITORS;
 			geck += item.GECK;
 			spin += item.SPIN;
 		})
 		finalGeck = (geck / 3);
-		//°ª
+		//ê°’
 		output += '<tr><td style="width :33%; text-align: center;">' + nae
-				+ ' ¸í</td>'
+				+ ' ëª…</td>'
 		output += '<td style="text-align: center; width :33%;">'
-				+ finalGeck.toFixed(0) + ' ¿ø</td>'
+				+ finalGeck.toFixed(0) + ' ì›</td>'
 		output += '<td style="width :33%; text-align: center;">'
-				+ spin.toFixed(0) + ' È¸Àü</td></tr>'
+				+ spin.toFixed(0) + ' íšŒì „</td></tr>'
 		output += "</table>"
 		$('.customerTable').html(output);
 	}
-	//¼öÁö 1/3/6 °³¿ù
+	//ìˆ˜ì§€ 1/3/6 ê°œì›”
 	function MainTable2(resp) {
 		var output = '';
 		var payment = [];
 		var expense = [];
 		var iik = [];
 		output += '<table class="table table-hover">';
-		output += '<thead><tr><th style="width :25%; text-align: center;">±¸ºĞ</th>'
-		output += '<th style="width :25%; text-align: center;">1°³¿ù</th>'
-		output += '<th style="width :25%; text-align: center;">3°³¿ù</th>'
-		output += '<th style="width :25%; text-align: center;">6°³¿ù</th></tr></thead>'
+		output += '<thead><tr><th style="width :25%; text-align: center;">êµ¬ë¶„</th>'
+		output += '<th style="width :25%; text-align: center;">1ê°œì›”</th>'
+		output += '<th style="width :25%; text-align: center;">3ê°œì›”</th>'
+		output += '<th style="width :25%; text-align: center;">6ê°œì›”</th></tr></thead>'
 		$.each(resp, function(index, item) {
 			payment[index] = item.ALLPAYMENT;
 			expense[index] = item.EXPENSE_AMOUNT
 			iik[index] = (item.ALLPAYMENT - item.EXPENSE_AMOUNT)
 					/ item.ALLPAYMENT
 		})
-		//°ª
-		output += '<tr><td style="width :25%; text-align: center;">¸ÅÃâ¾×</td>'
+		//ê°’
+		output += '<tr><td style="width :25%; text-align: center;">ë§¤ì¶œì•¡</td>'
 		output += '<td style="text-align: center; width :25%;">' + payment[0]
 				+ '</td>'
 		output += '<td style="text-align: center; width :25%;">' + payment[1]
 				+ '</td>'
 		output += '<td style="width :25%; text-align: center;">' + payment[2]
 				+ '</td></tr>'
-		output += '<tr><td style="width :25%; text-align: center;">ÁöÃâ¾×</td>'
+		output += '<tr><td style="width :25%; text-align: center;">ì§€ì¶œì•¡</td>'
 		output += '<td style="text-align: center; width :25%;">' + expense[0]
 				+ '</td>'
 		output += '<td style="text-align: center; width :25%;">' + expense[1]
 				+ '</td>'
 		output += '<td style="width :25%; text-align: center;">' + expense[2]
 				+ '</td></tr>'
-		output += '<tr><td style="width :25%; text-align: center;">ÀÌÀÍ·ü</td>'
+		output += '<tr><td style="width :25%; text-align: center;">ì´ìµë¥ </td>'
 		output += '<td style="text-align: center; width :25%;">'
 				+ (iik[0] * 100).toFixed(1) + '%</td>'
 		output += '<td style="text-align: center; width :25%;">'

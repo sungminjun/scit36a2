@@ -131,6 +131,13 @@
     JOIN employee e ON c.comp_seq = e.comp_seq
     WHERE c.comp_id = #{comp_id} and e.emp_name = #{emp_name}
   </select>
+  
+  <select id="findPW" parameterType="HashMap" resultType="HashMap">
+  SELECT e.emp_id, e.emp_quiz, e.emp_quiz_answer
+    FROM company c
+    JOIN employee e ON c.comp_seq = e.comp_seq
+    WHERE e.emp_id=#{emp_id} and c.comp_id = #{comp_id} and e.emp_name = #{emp_name}
+  </select>
 
   <select id="employeeList" parameterType="int" resultType="emp">
     SELECT

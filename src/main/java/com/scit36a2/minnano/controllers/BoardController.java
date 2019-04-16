@@ -1,7 +1,10 @@
 package com.scit36a2.minnano.controllers;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -241,4 +244,159 @@ public class BoardController {
 		System.out.println("댓글 수정 result : " + result);
 		return result;
 	}
+
+	
+	
+	/**
+	 * 보고서 삽입기능-매출 3개월치
+	 * 
+	 * @author kyk
+	 */
+	@RequestMapping(value="insertReport",method=RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> insertReport(HashMap<String, Object> map){
+		// 맵 안에 내용물이 emp_seq, board_regdate
+		// map.put("comp_seq", repo.getCompseq(emp_seq)) 
+		// map.put("specificdate", repo.getDate(board_regdate));
+		
+		ArrayList<Object>insertReport=repo.insertReport(map);
+		System.out.println(insertReport);
+		
+		
+		
+		// param[=controller단에서 필요한 재료] board_seq [emp_seq랑, regdate]가 필요
+		// emp_seq 를 이용해서 sql을 param이 emp_seq고 result가 comp_seq 를 받는 sql문을 딸 수있죠\
+		// select comp_seq from emplyee where emp_seq=emp_seq
+		// 마찬가지로 regdate가 string으로 연월일롷 된 자료를
+		// map에다가 string으로 그냥 그대로 넣을거에요
+		// sysdate대신에 to_date(regdate의string, 'yyyy-mm-dd') 로 대체해서
+		// 작업을 하면 되지않을까..
+		
+		return insertReport;
+	}
+	
+	
+
+	/**
+	 * 보고서 삽입기능 - 메뉴 3개월치
+	 *
+	 * @author kyk
+	 */
+	@RequestMapping(value = "insertMenuReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalMenuReport(Board board) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		int board_seq=board.getBoard_seq();
+		int emp_seq=board.getEmp_seq();
+		int result=repo.selectCompseq(emp_seq);
+		String board_regdate=board.getBoard_regdate();
+		map.put("board_seq", board_seq);
+		map.put("emp_seq",emp_seq);
+		map.put("board_regdate",board_regdate);
+		ArrayList<Object> insertMenuReport = repo.insertMenuReport(map);
+//		System.out.println("total_Menu_Report" + total_Menu_Report.toString());
+		return insertMenuReport;
+	}
+
+	/**
+	 * 보고서 삽입기능-손님 3개월치
+	 *
+	 * @author kyk
+	 */
+	@RequestMapping(value = "insertGuestReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalGuestReport(Board board) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		int board_seq=board.getBoard_seq();
+		int emp_seq=board.getEmp_seq();
+		String board_regdate=board.getBoard_regdate();
+		map.put("board_seq", board_seq);
+		map.put("emp_seq",emp_seq);
+		map.put("board_regdate",board_regdate);
+		ArrayList<Object> insertGuestReport = repo.insertGuestReport(map);
+//		System.out.println("total_Guest_expence" + total_Guest_expence.toString());
+		return insertGuestReport;
+	}
+
+	/**
+	 * 보고서 삽입기능 - 수지 3개월치
+	 *
+	 * @author kyk
+	 */
+	@RequestMapping(value = "insertIncomeReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalIncome(Board board) {
+		HashMap<String, Object> map = new HashMap<>();
+		int board_seq=board.getBoard_seq();
+		int emp_seq=board.getEmp_seq();
+		String board_regdate=board.getBoard_regdate();
+		map.put("board_seq", board_seq);
+		map.put("emp_seq",emp_seq);
+		map.put("board_regdate",board_regdate);
+		
+
+		ArrayList<HashMap<String, Object>> month_Payment = repo.selectMonthPayment(map); // 한달
+		ArrayList<HashMap<String, Object>> month_Expense = repo.selectMonthExpense(map); // 한달
+		System.out.println(month_Expense);
+		System.out.println(month_Payment);
+		ArrayList<Object> result = new ArrayList<Object>();
+
+		for (int i = 0; i < month_Payment.size(); i++) {
+			for (int j = 0; j < month_Expense.size(); j++) {
+				if (i == j) {
+					HashMap<String, Object> weekHashMap = month_Expense.get(j);
+					HashMap<String, Object> dateHashMap = month_Payment.get(i);
+					weekHashMap.forEach((k, v) -> dateHashMap.put(k, v));
+					result.add(dateHashMap);
+				}
+			}
+		}
+		System.out.println(result.toString());
+
+		ArrayList<Object> result2 = new ArrayList<Object>();
+		result2.add(result.get(0));
+		int three = 0;
+		int three2 = 0;
+		for (int i = 0; i < 3; i++) {
+			Map<String, Object> a = (Map<String, Object>) result.get(i);
+			three += ((BigDecimal) (a.get("ALLPAYMENT"))).intValue();
+			three2 += ((BigDecimal) (a.get("EXPENSE_AMOUNT"))).intValue();
+		}
+		HashMap<String, Object> result3 = new HashMap<String, Object>();
+		result3.put("ALLPAYMENT", three);
+		result3.put("EXPENSE_AMOUNT", three2);
+		result2.add(result3);
+		for (int i = 0; i < 6; i++) {
+			Map<String, Object> a = (Map<String, Object>) result.get(i);
+			three += ((BigDecimal) (a.get("ALLPAYMENT"))).intValue();
+			three2 += ((BigDecimal) (a.get("EXPENSE_AMOUNT"))).intValue();
+		}
+		HashMap<String, Object> result4 = new HashMap<String, Object>();
+		result4.put("ALLPAYMENT", three);
+		result4.put("EXPENSE_AMOUNT", three2);
+		result2.add(result4);
+		System.out.println(result2);
+		return result2;
+	}
+
+	/**
+	 * 보고서 삽입기능-카드 3개월치
+	 *
+	 * @author kyk
+	 */
+	@RequestMapping(value = "insertCardReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalCardReport(Board board) {
+
+		HashMap<String, Object> map = new HashMap<>();
+		int board_seq=board.getBoard_seq();
+		int emp_seq=board.getEmp_seq();
+		String board_regdate=board.getBoard_regdate();
+		map.put("board_seq", board_seq);
+		map.put("emp_seq",emp_seq);
+		map.put("board_regdate",board_regdate);
+		ArrayList<Object> insertCardReport = repo.insertCardReport(map);
+		System.out.println("insertCardReport" + insertCardReport.toString());
+		return insertCardReport;
+	}
+	
 }
+
+

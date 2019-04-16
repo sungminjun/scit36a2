@@ -283,27 +283,31 @@
 			payment_type
 	</select>
 
-	<select id="selectAllPayment" resultType="HashMap" parameterType="HashMap">
-		SELECT
-			to_char(min(payment_time), 'YYYY-MM') as monthtime
-			, sum(payment_amount) as allpayment
-		FROM
-			(
-			SELECT
-				p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq
-			FROM
-				payment p
-				LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
-			ORDER BY payment_time
-			)
-		WHERE
-			comp_seq = #{comp_seq} 
-			and payment_time between to_timestamp(#{startDate},'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
-		GROUP BY
-			to_char(payment_time, 'YYYY-MM')
-		ORDER BY
-			monthtime
-	</select>
+<select id="selectAllPayment" resultType="HashMap" parameterType="HashMap">
+             SELECT
+         to_char(payment_time, 'YYYY-MM') as monthtime
+         , sum(payment_amount) as payment_amount_sum
+      
+      FROM
+         (
+         SELECT
+            p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as
+            comp_seq, d.sales_order as sales_order
+         FROM
+            payment p
+            LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+            LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+         ORDER BY payment_time
+         )
+      WHERE
+         comp_seq = #{comp_seq}
+         and payment_time between to_timestamp(#{startDate},'YYYY-MM-DD') and to_timestamp(#{endDate},'YYYY-MM-DD')+1
+      GROUP BY
+         to_char(payment_time, 'YYYY-MM')
+      ORDER BY
+         monthtime
+         
+   </select>
 
 	<select id="selectAllExpense" resultType="HashMap" parameterType="HashMap">
 		SELECT
@@ -347,7 +351,7 @@
 
 	<select id="selectTotalMenuReport" resultType="HashMap" parameterType="HashMap">
 		SELECT
-			d.menu_seq, m.menu_name,m.MENU_CATEGORY, sum(d.sales_order) as
+			m.MENU_CATEGORY, sum(d.sales_order) as
 			sales_Order_Sum,sum(p.PAYMENT_AMOUNT) as payment_amount
 		FROM
 			sales_detail d
@@ -355,10 +359,10 @@
 			left join menu m on d.menu_seq = m.menu_seq
 			left join payment p on d.SALES_STATE_SEQ = p.SALES_STATE_SEQ
 		WHERE
-			s.sales_end between trunc(add_months(sysdate,-3)+1) and trunc(add_months(sysdate,-1)+1)
+			s.sales_end between trunc(add_months(sysdate,-3)+1) and trunc(LAST_DAY(add_months(sysdate,-1))+1)
 			and m.comp_seq = 7
 		GROUP BY
-			d.menu_seq, m.menu_name, m.MENU_CATEGORY
+			m.MENU_CATEGORY
 		ORDER BY
 			payment_amount desc
 	</select>
@@ -384,7 +388,7 @@
 			)
 		WHERE
 			comp_seq =#{comp_seq} and payment_time between
-			trunc(add_months(sysdate,-3)+1)and trunc(add_months(sysdate,-1)+1)
+			trunc(add_months(sysdate,-3)+1)and trunc(LAST_DAY(add_months(sysdate,-1))+1)
 		GROUP BY
 			to_char(payment_time, 'YYYY-MM')
 		ORDER BY
@@ -402,10 +406,11 @@
 			FROM
 				payment p
 				LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+				LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
 			ORDER BY payment_time
 			)
 		WHERE
-			comp_seq = #{comp_seq}and payment_time between trunc(add_months(sysdate,-6)+1) and trunc(sysdate)
+			comp_seq = #{comp_seq}and payment_time between trunc(add_months(sysdate,-6)+1) and trunc(LAST_DAY(add_months(sysdate,-1))+1)
 		GROUP BY
 			to_char(payment_time, 'YYYY-MM')
 		ORDER BY
@@ -420,7 +425,7 @@
 			expense
 		WHERE
 			comp_seq = #{comp_seq} 
-			and expense_date between trunc(add_months(sysdate,-6)+1) and trunc(sysdate)
+			and expense_date between trunc(add_months(sysdate,-6)+1) and trunc(LAST_DAY(add_months(sysdate,-1))+1)
 		GROUP BY
 			to_char(expense_date, 'YYYY-MM')
 		ORDER BY
@@ -445,7 +450,7 @@
 			)
 		WHERE
 			comp_seq = #{comp_seq} and payment_time between
-			trunc(add_months(sysdate,-3)+1)and trunc(add_months(sysdate,-1)+1)
+			trunc(LAST_DAY(add_months(sysdate,-4))+1)and trunc(LAST_DAY(add_months(sysdate,-1))+1)
 		GROUP BY
 			payment_type
 	</select>

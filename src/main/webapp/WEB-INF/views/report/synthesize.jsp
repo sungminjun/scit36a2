@@ -1,346 +1,383 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ page import = "java.util.Calendar" %>
+<%Calendar cal = Calendar.getInstance();%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/png" href="imgs/favicon.png">
-  <title>MinnanoPOS</title>
-  <!--     Fonts and icons     -->
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <!-- Nucleo Icons -->
-  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
-  <!--Ãß°¡ÇÑ ÆÄÀÏ jquery ui for chartjs  -->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="assets/js/core/jquery.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
-  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="icon" type="image/png" href="imgs/favicon.png">
+<title>MinnanoPOS</title>
+<!--     Fonts and icons     -->
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+	rel="stylesheet">
+<!-- Nucleo Icons -->
+<link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+<!-- CSS Files -->
+<link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+<!--ì¶”ê°€í•œ íŒŒì¼ jquery ui for chartjs  -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="assets/js/core/jquery.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap.min.js"></script>
+<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<!-- Place this tag in your head or just before your close body tag. -->
+<!-- Chart JS -->
+<script src="assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="assets/js/black-dashboard.min.js?v=1.0.0"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Open+Sans|Poor+Story"
+	rel="stylesheet">
+<title>Insert title here</title>
 </head>
-
 <body class="white-content">
-  <br>
-  <div class="col-md-12">
-    <h1 class="store" style="text-align: center;"></h1>
-    <h2 style="text-align: center;">´ëÇ¥ÀÚ¸í : È«¼º¿ì &emsp;&emsp; ÀüÈ­¹øÈ£ :
-      010-3899-1389</h2>
-  </div>
-  <div class="row">
-    <!-- Â÷Æ®ºÎºĞ -->
-    <div class="col-md-11" style="margin: 0 auto;">
-      <div class="card" style="height: 120px">
-        <div class="card-body">
-          <div class="tableMain"></div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-5" style="margin: 0 auto; padding-right: 0px">
-      ¸Ş´ºÅë°è
-      <div class="card" style="height: 330px">
-        <div class="card-body">
-          <canvas id="myChart" style="height :200px;width :auto;"></canvas>
-          <div class="menuTable"></div>
-        </div>
-      </div>
-    </div>
-    <!-- Â÷Æ® ºÎºĞ -->
-    <div class="col-md-5" style="margin: 0 auto; padding-left: 0px">
-      Çö±İ/Ä«µå
-      <div class="card" style="height: 330px">
-        <div class="card-body">
-          <canvas id="myChart2" style="height:200px"></canvas>
-          <div class="cardTable"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <!-- Â÷Æ®ºÎºĞ -->
-    <div class="col-md-11" style="margin: 0 auto;">
-      °í°´ Åë°è
-      <div class="card">
-        <div class="card-body">
-          <div class="customerTable"></div>
-        </div>
-      </div>
-    </div>
-    <!-- Â÷Æ® ºÎºĞ -->
-    <div class="col-md-11" style="margin: 0 auto;">
-      ¼öÁöÅë°è
-      <div class="card" style="height: 200px">
-        <div class="card-body">
-          <div class="tableMain2"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<br>
+	<div class="col-md-12">
+
+		<h1 class="store"
+			style="text-align: left; margin-left: 21px; margin-bottom: 10px; border: 0; font-family: 'Nanum Gothic', sans-serif; text-decoration: none;"></h1>
+		<img class="main-junc" alt="main-pos-icon" src="imgs/main-pos.png" style="max-width: 8%; position: absolute;top: 0px;left: 777px">	
+		<h4 class="owner_and_phone"
+			style="text-align: left; margin-left: 21px; border: 0; font-family: 'Nanum Gothic', sans-serif; text-decoration: overline; margin-top: 10px"></h4>
+	</div>
+	<div class="row">
+		<!-- ì°¨íŠ¸ë¶€ë¶„ -->
+		<div class="col-md-11" style="margin: 0 auto;">
+			<div class="card" style="height: 120px">
+				<div class="card-body">
+					<div class="tableMain"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5" style="margin: 0 auto; padding-right: 0px">
+			ë©”ë‰´í†µê³„(3ê°œì›”)
+			<div class="card" style="height: 380px">
+				<div class="card-body">
+					<canvas id="myChart" style="height :200px;width :auto;"></canvas>
+					<div class="menuTable"></div>
+				</div>
+			</div>
+		</div>
+		<!-- ì°¨íŠ¸ ë¶€ë¶„ -->
+		<div class="col-md-5" style="margin: 0 auto; padding-left: 0px">
+			í˜„ê¸ˆ/ì¹´ë“œ(3ê°œì›”)
+			<div class="card" style="height: 380px">
+				<div class="card-body">
+					<canvas id="myChart2" style="height:200px"></canvas>
+					<div class="cardTable"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<!-- ì°¨íŠ¸ë¶€ë¶„ -->
+		<div class="col-md-11" style="margin: 0 auto;">
+			ê³ ê° í†µê³„(3ê°œì›”)
+			<div class="card">
+				<div class="card-body" style="height: 120px">
+					<div class="customerTable"></div>
+				</div>
+			</div>
+		</div>
+		<!-- ì°¨íŠ¸ ë¶€ë¶„ -->
+		<div class="col-md-11" style="margin: 0 auto;">
+			ìˆ˜ì§€í†µê³„
+			<div class="card" style="height: 200px">
+				<div class="card-body">
+					<div class="tableMain2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 <script>
-  // Àü¿ªº¯¼ö here
-  // ±×·¡ÇÁ Å×½ºÆ® (ÀÏÀÏ¸ÅÃâ  ÇöÀçÀÏºÎÅÍ 1ÀÏ±îÁöÀÇ ¸ÅÃâ)
-  var data = [];
-  var labels = [];
-  var label = "¸ÅÃâ¾×";
-  //map Çü½Ä index ¹øÈ£ ¼¼´Â¿ë
-  var temp = 0;
-  //±âº»°ª Å×ÀÌºí(Ç¥) ¸ÅÃâ Å×½ºÆ®
-  var chart;
-  var ctx = document.getElementById('myChart').getContext('2d');
+	// ì „ì—­ë³€ìˆ˜ here
+	// ê·¸ë˜í”„ í…ŒìŠ¤íŠ¸ (ì¼ì¼ë§¤ì¶œ  í˜„ì¬ì¼ë¶€í„° 1ì¼ê¹Œì§€ì˜ ë§¤ì¶œ)
+	var data = [];
+	var labels = [];
+	var label = "ë§¤ì¶œì•¡";
+	//map í˜•ì‹ index ë²ˆí˜¸ ì„¸ëŠ”ìš©
+	var temp = 0;
+	//ê¸°ë³¸ê°’ í…Œì´ë¸”(í‘œ) ë§¤ì¶œ í…ŒìŠ¤íŠ¸
+	var chart;
+	var ctx = document.getElementById('myChart').getContext('2d');
 
-  var newchart;
-  var newchart2;
-  // load company name
-  $(document).ready(function() {
-    $.ajax({
-      url: 'selectCompanyOne',
-      method: 'POST',
-      success: function(resp) {
-        var output = '';
-        output += resp.comp_name;
-        $('#company_name').val('¾÷Ã¼¸í : ' + resp.comp_name);
-        $('#name').val(resp.comp_name);
-        $('#company_phone').val('ÀüÈ­¹øÈ£ : ' + resp.comp_tel)
-        $('.store').html(output);
-      }
-    })
-    $.ajax({
-      url: 'selectOwner',
-      method: 'POST',
-      success: function(resp) {
-        $('#company_master').val('´ëÇ¥ÀÚ¸í : ' + resp.emp_name);
-      }
-    })
-  })
+	var newchart;
+	var newchart2;
+	// load company name
+	$(document).ready(function() {
+		var phone = '';
+		var store = '';
+		var owner = '';
+		$.ajax({
+			url : 'selectOwner',
+			method : 'POST',
+			success : function(resp) {
+				owner += 'ëŒ€í‘œì  : ' + resp.emp_name;
 
-  // call init onload
-  $(document).ready(function() {
-    //firstshow();
-    //MainTable();
-    //menuTable();
-    //cardTable();
-  })
+			}
+		})
+		$.ajax({
+			url : 'selectCompanyOne',
+			method : 'POST',
+			success : function(resp) {
+				owner += '       /  ì „í™”ë²ˆí˜¸ : ' + resp.comp_tel;
+				store = resp.comp_name;
+				$('.store').html(store);
+				$('.owner_and_phone').html(owner);
+			}
+		})
 
-  // initializing for output (first time output) 
-  function firstshow() {
+	})
+	// call init onload
+	$(document).ready(function() {
+		//firstshow();
+		//MainTable();
+		//menuTable();
+		//cardTable();
+	})
 
-  }
-  $(document).ready(function() {
-    //¸ÅÃâ
-    $.ajax({
-      url: 'totalReport',
-      method: 'POST',
-      success: function(resp) {}
-    });
-    //¸Ş´º¸Ş´º
-    $.ajax({
-      url: 'totalMenuReport',
-      method: 'POST',
-      success: function(resp) {
-        menuTable(resp);
-        firstshow();
-      }
-    });
-    //°í°´Åë°è
-    $.ajax({
-      url: 'totalGuestReport',
-      method: 'POST',
-      success: function(resp) {
-        customerTable(resp);
-      }
-    })
-    //¼öÁöº¸°í¼­
-    $.ajax({
-      url: 'totalIncomeReport',
-      method: 'POST',
-      success: function(resp) {
-        MainTable(resp);
-        MainTable2(resp);
-      }
-    })
-    //Çö±İ /Ä«µå
-    $.ajax({
-      url: 'totalCardReport',
-      method: 'POST',
-      success: function(resp) {
-        cardTable(resp)
-      }
-    })
-  });
+	// initializing for output (first time output) 
+	function firstshow() {
 
-  function MainTable(resp) {
-    var output = '';
-    output += '<table class="table table-hover">';
-    output += '<thead><tr><th style="width :26%; text-align: center;">¸ÅÃâ(3°³¿ù)</th>'
-    output += '<th style="width :27%; text-align: center;">ÁöÃâ(3°³¿ù)</th>'
-    output += '<th style="width :27%; text-align: center;">ÀÌÀÍ·ü</th>'
-    output += '<th style="width :20%; text-align: center;">Á¾¾÷¿ø¼ö</th></tr></thead>'
-    //°ª
-    var mae;
-    var ji;
-    var ek;
-    var employee;
-    $.each(resp, function(index, item) {
-      if (index == 1) {
-        mae = item.ALLPAYMENT;
-        ji = item.EXPENSE_AMOUNT;
-      }
-    })
-    ek = ((mae - ji) / mae) * 100;
-    output += '<tr><td style="width :25%; text-align: center;">' + mae +
-      '¿ø</td>'
-    output += '<td style="text-align: center; width :25%;">' + ji +
-      '¿ø</td>'
-    output += '<td style="text-align: center; width :25%;">' +
-      ek.toFixed(1) + '%</td>'
-    output += '<td style="width :25%; text-align: center;">7¸í</td></tr>'
-    output += "</table>"
-    $('.tableMain').html(output);
-  }
+	}
+	$(document).ready(function() {
+		//ë§¤ì¶œ
+		$.ajax({
+			url : 'totalReport',
+			method : 'POST',
+			success : function(resp) {
+			}
+		});
+		//ë©”ë‰´ë©”ë‰´
+		$.ajax({
+			url : 'totalMenuReport',
+			method : 'POST',
+			success : function(resp) {
+				menuTable(resp);
+				firstshow();
+			}
+		});
+		//ê³ ê°í†µê³„
+		$.ajax({
+			url : 'totalGuestReport',
+			method : 'POST',
+			success : function(resp) {
+				customerTable(resp);
+			}
+		})
+		//ìˆ˜ì§€ë³´ê³ ì„œ
+		$.ajax({
+			url : 'totalIncomeReport',
+			method : 'POST',
+			success : function(resp) {
+				MainTable(resp);
+				MainTable2(resp);
+			}
+		})
+		//í˜„ê¸ˆ /ì¹´ë“œ
+		$.ajax({
+			url : 'totalCardReport',
+			method : 'POST',
+			success : function(resp) {
+				cardTable(resp)
+			}
+		})
+	});
+	function MainTable(resp) {
+		var output = '';
+		output += '<table class="table table-hover" style="max-height: 150">';
+		output += '<thead><tr><th style="width :26%; text-align: center;">ë§¤ì¶œ(3ê°œì›”)</th>'
+		output += '<th style="width :27%; text-align: center;">ì§€ì¶œ(3ê°œì›”)</th>'
+		output += '<th style="width :27%; text-align: center;">ì´ìµë¥ </th>'
+		output += '<th style="width :20%; text-align: center;">ì¢…ì—…ì›ìˆ˜</th></tr></thead>'
+		//ê°’
+		var mae;
+		var ji;
+		var ek;
+		var employee;
+		$.each(resp, function(index, item) {
+			if (index == 1) {
+				mae = item.ALLPAYMENT;
+				ji = item.EXPENSE_AMOUNT;
+			}
+		})
+		var member=0;
+		$.ajax({
+			url : 'selectEmployeeList',
+			method : 'POST',
+			success : function(resp) {
+				member += resp.length+1;
+				ek = ((mae - ji) / mae) * 100;
+				output += '<tr><td style="width :25%; text-align: center;">' + mae
+						+ 'ì›</td>'
+				output += '<td style="text-align: center; width :25%;">' + ji
+						+ 'ì›</td>'
+				output += '<td style="text-align: center; width :25%;">'
+						+ ek.toFixed(1) + '%</td>'
+				output += '<td style="width :25%; text-align: center;">'+member+'ëª…</td></tr>'
+				output += "</table>"
+				$('.tableMain').html(output);
+			}
+		})
+	
+	}
+	function menuTable(resp) {
+		var data = [];
+		var labels = [];
+		var sum = 0;
+		$.each(resp, function(index, item) {
+			data[index] = item.PAYMENT_AMOUNT;
+			labels[index] = item.MENU_CATEGORY;
+			sum += item.PAYMENT_AMOUNT;
+		})
+		newchart = new Chart(ctx, {
+			type : 'pie', //ì°¨íŠ¸ëª¨ì–‘
+			data : {
+				labels : labels,
+				datasets : [ {
+					type : "pie",
+					label : 'ë§¤ì¶œì•¡',
+					backgroundColor : ['#30A9DE','#EFDC05','#E53A40'],
+					data : data,
+				}, ]
+			}
+		});
+		var output = '';
+		output += '<table class="table table-hover" style="max-height: 150">';
+		output += '<thead><tr><th style="width :30%; text-align: center;">ì¹´í…Œê³ ë¦¬</th>'
+		output += '<th style="width :30%; text-align: center;">íŒë§¤ê¸ˆì•¡</th>'
+		output += '<th style="width :40%; text-align: center;">ë¹„ìœ¨</th></tr></thead>'
+		//ê°’
+		$.each(resp, function(index, item) {
+			output += '<tr><td style="width :30%; text-align: center;">'
+					+ item.MENU_CATEGORY + '</td>'
+			output += '<td style="text-align: center; width :30%;">'
+					+ item.PAYMENT_AMOUNT + '</td>'
+			output += '<td style="width :40%; text-align: center;">'
+					+ ((item.PAYMENT_AMOUNT / sum) * 100).toFixed(1)
+					+ '%</td></tr>'
+		})
 
-  function menuTable(resp) {
-    newchart = new Chart(ctx, {
-      type: 'bar', //Â÷Æ®¸ğ¾ç
-      data: {
-        labels: ['1¿ù', '2¿ù', '3¿ù'],
-        datasets: [{
-          type: "bar",
-          label: '¸ÅÃâ¾×',
-          backgroundColor: '#3e95cd',
-          borderColor: 'rgb(111, 111, 102),rgb(102, 255, 153)',
-          data: [100, 200, 150],
-        }, ]
-      }
-    });
-    var output = '';
-    output += '<table class="table table-hover">';
-    output += '<thead><tr><th style="width :30%; text-align: center;">³»Á¡°´¼ö(3°³¿ù)</th>'
-    output += '<th style="width :30%; text-align: center;">°´´Ü°¡(3°³¿ù)</th>'
-    output += '<th style="width :40%; text-align: center;">È¸Àü</th></tr></thead>'
-    $.each(resp, function(index, item) {
-      if (index == 1) {
-        mae = item.ALLPAYMENT;
-        ji = item.EXPENSE_AMOUNT;
-      }
-    })
-    //°ª
-    output += '<tr><td style="width :30%; text-align: center;">1000000</td>'
-    output += '<td style="text-align: center; width :30%;">700000</td>'
-    output += '<td style="width :40%; text-align: center;">7¸í</td></tr>'
-    output += "</table>"
-    $('.menuTable').html(output);
+		output += "</table>"
+		$('.menuTable').html(output);
 
-  }
-
-  function cardTable(resp) {
-    var data = [];
-    var ctx2 = document.getElementById('myChart2').getContext('2d');
-    $.each(resp, function(index, item) {
-      data[index] = item.PAYMENT_AMOUNT;
-    })
-    newchart2 = new Chart(ctx2, {
-      type: 'pie', //Â÷Æ®¸ğ¾ç
-      data: {
-        labels: ['Ä«µå', 'Çö±İ'],
-        datasets: [{
-          type: "pie",
-          label: '¸ÅÃâ¾×',
-          backgroundColor: '#3e95cd',
-          borderColor: 'rgb(111, 111, 102)',
-          data: data,
-        }, ]
-      }
-    });
-    var output = '';
-    output += '<table class="table table-hover">';
-    output += '<thead><tr><th style="width :30%; text-align: center;">±¸ºĞ</th>'
-    output += '<th style="width :40%; text-align: center;">¸ÅÃâ¾×</th>'
-    output += '<th style="width :30%; text-align: center;">ºñÀ²</th></tr></thead>'
-    //°ª
-    output += '<tr><td style="width :30%; text-align: center;">Ä«µå</td>'
-    output += '<td style="text-align: center; width :40%;">' + data[0] +
-      '</td>'
-    output += '<td style="text-align: center; width :30%;">' +
-      ((data[0] / (data[0] + data[1])) * 100).toFixed(1) +
-      '%</td></tr>'
-    output += '<tr><td style="width :30%; text-align: center;">Çö±İ</td>'
-    output += '<td style="text-align: center; width :40%;">' + data[1] +
-      '</td>'
-    output += '<td style="text-align: center; width :30%;">' +
-      ((data[1] / (data[0] + data[1])) * 100).toFixed(1) +
-      '%</td></tr>'
-    output += "</table>"
-    $('.cardTable').html(output);
-  }
-
-  function customerTable(resp) {
-    var output = '';
-    var nae = 0;
-    var geck = 0;
-    var spin = 0;
-    var finalGeck = 0;
-    output += '<table class="table table-hover">';
-    output += '<thead><tr><th style="width :30%; text-align: center;">³»Á¡°´¼ö(3°³¿ù)</th>'
-    output += '<th style="width :30%; text-align: center;">°´´Ü°¡(3°³¿ù)</th>'
-    output += '<th style="width :40%; text-align: center;">È¸Àü</th></tr></thead>'
-    $.each(resp, function(index, item) {
-      nae += item.VISITORS;
-      geck += item.GECK;
-      spin += item.SPIN;
-    })
-    finalGeck = (geck / 3);
-    //°ª
-    output += '<tr><td style="width :30%; text-align: center;">' + nae +
-      ' ¸í</td>'
-    output += '<td style="text-align: center; width :30%;">' +
-      finalGeck.toFixed(0) + ' ¿ø</td>'
-    output += '<td style="width :40%; text-align: center;">' +
-      spin.toFixed(0) + ' È¸Àü</td></tr>'
-    output += "</table>"
-    $('.customerTable').html(output);
-  }
-  //¼öÁö 1/3/6 °³¿ù
-  function MainTable2(resp) {
-    var output = '';
-    var nae = 0;
-    var geck = 0;
-    var spin = 0;
-
-    var finalGeck = 0;
-    output += '<table class="table table-hover">';
-    output += '<thead><tr><th style="width :25%; text-align: center;">±¸ºĞ</th>'
-    output += '<th style="width :25%; text-align: center;">1°³¿ù</th>'
-    output += '<th style="width :25%; text-align: center;">3°³¿ù</th>'
-    output += '<th style="width :25%; text-align: center;">6°³¿ù</th></tr></thead>'
-    $.each(resp, function(index, item) {
-      nae += item.VISITORS;
-      geck += item.GECK;
-      spin += item.SPIN;
-    })
-    finalGeck = (geck / 3);
-    //°ª
-    output += '<tr><td style="width :25%; text-align: center;">¸ÅÃâ¾×</td>'
-    output += '<td style="text-align: center; width :25%;">ÁöÃâ¾×</td>'
-    output += '<td style="text-align: center; width :25%;">ÁöÃâ¾×</td>'
-    output += '<td style="width :25%; text-align: center;">' + spin.toFixed(0) + ' È¸Àü</td></tr>'
-    output += "</table>"
-    $('.tableMain2').html(output);
-  }
-
+	}
+	function cardTable(resp) {
+		var data = [];
+		var ctx2 = document.getElementById('myChart2').getContext('2d');
+		$.each(resp, function(index, item) {
+			data[index] = item.PAYMENT_AMOUNT;
+		})
+		newchart2 = new Chart(ctx2, {
+			type : 'pie', //ì°¨íŠ¸ëª¨ì–‘
+			data : {
+				labels : [ 'ì¹´ë“œ', 'í˜„ê¸ˆ' ],
+				datasets : [ {
+					type : "pie",
+					label : 'ë§¤ì¶œì•¡',
+					backgroundColor :  ['#30A9DE','#EFDC05','#E53A40'],
+					data : data,
+				}, ]
+			}
+		});
+		var output = '';
+		output += '<table class="table table-hover">';
+		output += '<thead><tr><th style="width :30%; text-align: center;">êµ¬ë¶„</th>'
+		output += '<th style="width :40%; text-align: center;">ë§¤ì¶œì•¡</th>'
+		output += '<th style="width :30%; text-align: center;">ë¹„ìœ¨</th></tr></thead>'
+		//ê°’
+		output += '<tr><td style="width :30%; text-align: center;">ì¹´ë“œ</td>'
+		output += '<td style="text-align: center; width :40%;">' + data[0]
+				+ '</td>'
+		output += '<td style="text-align: center; width :30%;">'
+				+ ((data[0] / (data[0] + data[1])) * 100).toFixed(1)
+				+ '%</td></tr>'
+		output += '<tr><td style="width :30%; text-align: center;">í˜„ê¸ˆ</td>'
+		output += '<td style="text-align: center; width :40%;">' + data[1]
+				+ '</td>'
+		output += '<td style="text-align: center; width :30%;">'
+				+ ((data[1] / (data[0] + data[1])) * 100).toFixed(1)
+				+ '%</td></tr>'
+		output += "</table>"
+		$('.cardTable').html(output);
+	}
+	function customerTable(resp) {
+		var output = '';
+		var nae = 0;
+		var geck = 0;
+		var spin = 0;
+		var finalGeck = 0;
+		output += '<table class="table table-hover">';
+		output += '<thead><tr><th style="width :33%; text-align: center;">ë‚´ì ê°ìˆ˜(3ê°œì›”)</th>'
+		output += '<th style="width :33%; text-align: center;">ê°ë‹¨ê°€(3ê°œì›”)</th>'
+		output += '<th style="width :33%; text-align: center;">íšŒì „</th></tr></thead>'
+		$.each(resp, function(index, item) {
+			nae += item.VISITORS;
+			geck += item.GECK;
+			spin += item.SPIN;
+		})
+		finalGeck = (geck / 3);
+		//ê°’
+		output += '<tr><td style="width :33%; text-align: center;">' + nae
+				+ ' ëª…</td>'
+		output += '<td style="text-align: center; width :33%;">'
+				+ finalGeck.toFixed(0) + ' ì›</td>'
+		output += '<td style="width :33%; text-align: center;">'
+				+ spin.toFixed(0) + ' íšŒì „</td></tr>'
+		output += "</table>"
+		$('.customerTable').html(output);
+	}
+	//ìˆ˜ì§€ 1/3/6 ê°œì›”
+	function MainTable2(resp) {
+		var output = '';
+		var payment = [];
+		var expense = [];
+		var iik = [];
+		output += '<table class="table table-hover">';
+		output += '<thead><tr><th style="width :25%; text-align: center;">êµ¬ë¶„</th>'
+		output += '<th style="width :25%; text-align: center;">1ê°œì›”</th>'
+		output += '<th style="width :25%; text-align: center;">3ê°œì›”</th>'
+		output += '<th style="width :25%; text-align: center;">6ê°œì›”</th></tr></thead>'
+		$.each(resp, function(index, item) {
+			payment[index] = item.ALLPAYMENT;
+			expense[index] = item.EXPENSE_AMOUNT
+			iik[index] = (item.ALLPAYMENT - item.EXPENSE_AMOUNT)
+					/ item.ALLPAYMENT
+		})
+		//ê°’
+		output += '<tr><td style="width :25%; text-align: center;">ë§¤ì¶œì•¡</td>'
+		output += '<td style="text-align: center; width :25%;">' + payment[0]
+				+ '</td>'
+		output += '<td style="text-align: center; width :25%;">' + payment[1]
+				+ '</td>'
+		output += '<td style="width :25%; text-align: center;">' + payment[2]
+				+ '</td></tr>'
+		output += '<tr><td style="width :25%; text-align: center;">ì§€ì¶œì•¡</td>'
+		output += '<td style="text-align: center; width :25%;">' + expense[0]
+				+ '</td>'
+		output += '<td style="text-align: center; width :25%;">' + expense[1]
+				+ '</td>'
+		output += '<td style="width :25%; text-align: center;">' + expense[2]
+				+ '</td></tr>'
+		output += '<tr><td style="width :25%; text-align: center;">ì´ìµë¥ </td>'
+		output += '<td style="text-align: center; width :25%;">'
+				+ (iik[0] * 100).toFixed(1) + '%</td>'
+		output += '<td style="text-align: center; width :25%;">'
+				+ (iik[1] * 100).toFixed(1) + '%</td>'
+		output += '<td style="width :25%; text-align: center;">'
+				+ (iik[2] * 100).toFixed(1) + '%</td></tr>'
+		output += "</table>"
+		$('.tableMain2').html(output);
+	}
 </script>
-
 </html>

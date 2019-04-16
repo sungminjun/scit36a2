@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +101,59 @@ public class BoardRepo {
 		int result = dao.updateComment(board_comments);
 		return result;
 	}
+
+	public Board_comments selectCmtOne(Board_comments board_comments) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		Board_comments result = dao.selectCmtOne(board_comments);
+		return result;
+	}
+	public ArrayList<Object> insertReport(HashMap<String, Object> map) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		ArrayList<Object> list = dao.insertReport(map);
+		return list;
+	}
+
+	public ArrayList<Object> insertMenuReport(HashMap<String, Object> map) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		ArrayList<Object> list = dao.nsertMenuReport(map);
+		return list;
+	}
+
+	public ArrayList<Object> insertGuestReport(HashMap<String, Object> map) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		ArrayList<Object> list = dao.insertGuestReport(map);
+		return list;
+	}
+
+	
+	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectMonthPayment(map);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		ArrayList<HashMap<String, Object>> list = dao.selectMonthExpense(map);
+		return list;
+	}
+	
+
+	public ArrayList<Object> insertCardReport(HashMap<String, Object> map) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		ArrayList<Object> list = dao.insertCardReportt(map);
+		return list;
+	}
+
+	public int selectCompseq(int emp_seq) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		int result = dao.selectCompseq(emp_seq);
+		return result;
+	}
+
+	
+
+	
 
 //	public int deleteFile(int board_seq) {
 //		BoardDAO dao = session.getMapper(BoardDAO.class);

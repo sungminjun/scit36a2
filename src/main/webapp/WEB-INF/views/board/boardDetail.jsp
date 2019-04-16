@@ -46,9 +46,7 @@
 
     function inputComment() {
       var board_comments_content = $("#board_comments_content").val();
-      var board_seq = $ {
-        board.board_seq
-      };
+      var board_seq = ${board.board_seq};
       if (board_comments_content.trim().length == 0) {
         alert("댓글입력할것");
         return;
@@ -71,9 +69,7 @@
     } /* inputComment */
 
     function selectComment() {
-      var board_seq = $ {
-        board.board_seq
-      };
+      var board_seq = ${board.board_seq};
       var d = {
         "board_seq": board_seq
       };
@@ -133,9 +129,7 @@
 
     function updateComment() {
       var board_comments_seq = $(this).attr("d-value");
-      var board_seq = $ {
-        board.board_seq
-      };
+      var board_seq = ${board.board_seq};
 
       $.ajax({
         method: 'post',
@@ -271,7 +265,7 @@
                 <input id="board_update" value="글수정" onclick="boardUpdate();" />
                 <input id="board_delete" value="글삭제" onclick="boardDelete();" />
                 <%-- 	</c:if> --%>
-                <a id="returnBoard" href="board">목록으로</a>
+                <a id="returnBoard" href="javascript:history.back();">목록으로</a>
 
               </div>
 

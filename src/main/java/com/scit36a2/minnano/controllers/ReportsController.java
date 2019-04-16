@@ -248,7 +248,7 @@ public class ReportsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		map.put("comp_seq", comp_seq);
 		ArrayList<Object> total_Menu_Report = repo.selectTotalMenuReport(map);
-//		System.out.println("total_Menu_Report" + total_Menu_Report.toString());
+ 		System.out.println("total_Menu_Report" + total_Menu_Report.toString());
 		return total_Menu_Report;
 	}
 

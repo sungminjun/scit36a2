@@ -109,9 +109,6 @@
                       <input type="radio" name="options" id="option13" value="month">
                       MONTH
                     </label>
-                    <div>
-                      <button class="testFinal">종합보고서</button>
-                    </div>
                   </div>
                   <div class="col-md-4" id="blank" style="display:none;">
                   </div>
@@ -466,7 +463,6 @@
         $('.tableTest').html(output);
         //@@@@@@@@@@@@@일 &고객@@@@@@@@@@@@@@   
       } else if ($('input[name=options]:checked').val() == 'day' && $('input[name=options2]:checked').val() == 'customer') {
-        alert('고객 데이')
         //그래프 값 넣기
         var data1 = [];
         var data2 = [];
@@ -496,7 +492,7 @@
               },  */
               {
                 label: label2,
-                borderColor: 'rgb(000, 111, 000)',
+                borderColor: "#30A9DE",
                 data: data2
               }
               /* , {
@@ -526,7 +522,6 @@
         $('.tableTest').html(output);
         //@@@@@@@@@@@@@주 &고객@@@@@@@@@@@@@@   
       } else if ($('input[name=options]:checked').val() == 'week' && $('input[name=options2]:checked').val() == 'customer') {
-        alert('고객 위크')
         //그래프 값 넣기
         var data1 = [];
         var data2 = [];
@@ -557,7 +552,7 @@
               },  */
               {
                 label: label2,
-                borderColor: 'rgb(000, 111, 000)',
+                borderColor: '#3e95cd',
                 data: data2
               }
               /* , {
@@ -587,7 +582,6 @@
         $('.tableTest').html(output);
         //@@@@@@@@@@@@@월 &고객@@@@@@@@@@@@@@   
       } else if ($('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'customer') {
-        alert('고객 먼쓰')
         //그래프 값 넣기
         var data1 = [];
         var data2 = [];
@@ -617,7 +611,7 @@
               },  */
               {
                 label: label2,
-                borderColor: 'rgb(000, 111, 000)',
+                borderColor: '#3e95cd',
                 data: data2
               }
               /* , {
@@ -638,7 +632,6 @@
         output += '<th style="width :30%; text-align: center;">회전(table TurnOver)</th></tr></thead></table>'
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
-          alert(item.MONTHTIME);
           output += '<tr><td style="width :20%;">' + item.MONTHTIME + '</td>'
           output += '<td style="text-align: center; width :25%;">' + item.VISITORS + '명</td>'
           output += '<td style="text-align: center; width :25%;">' + item.GECK + '원</td>'
@@ -650,7 +643,6 @@
         //@@@@@@@@@@@@@주 &메뉴@@@@@@@@@@@@@@
         //@@@@@@@@@@@@@월&메뉴@@@@@@@@@@@@@@
       } else if ($('input[name=options]:checked').val() == 'day' && $('input[name=options2]:checked').val() == 'menu' || $('input[name=options]:checked').val() == 'week' && $('input[name=options2]:checked').val() == 'menu' || $('input[name=options]:checked').val() == 'month' && $('input[name=options2]:checked').val() == 'menu') {
-        alert('메뉴 데이, 위크, 먼쓰 없고 기간만 정해서 통계내줌')
         //그래프 값 넣기
         $.each(updateData, function(index, item) {
           labels[temp] = item.MENU_NAME;
@@ -691,7 +683,6 @@
         $('.tableTest').html(output);
         //@@@@@@@@@@@@@일 &현금/카드@@@@@@@@@@@@@@
       } else if ($('input[name=options2]:checked').val() == 'card') {
-        alert('현금/카드 데이, 위크, 먼쓰 없고 기간만 정해서 통계내줌')
         //그래프 값 넣기
         var card = ['카드', '현금']
         //퍼센트 만들어주기
@@ -702,7 +693,6 @@
           percent += item.PAYMENT_AMOUNT;
           temp++;
         });
-        alert(percent);
         //그래프 업데이트
         newchart.destroy();
         newchart = new Chart(ctx, {
@@ -711,7 +701,7 @@
             labels: labels,
             datasets: [{
               label: label,
-              backgroundColor: ["#3e95cd", "#8e5ea2"],
+              backgroundColor: ["#30A9DE", "#EFDC05"],
               data: data,
             }, ]
           }
@@ -750,20 +740,19 @@
             datasets: [{
               type: 'bar',
               label: '매출액',
-              backgroundColor: ["#3e95cd", "#8e5ea2"],
+              backgroundColor: "#82ccdd",
               data: data,
               yAxisID: 'A'
             }, {
               type: 'bar',
               label: '지출액',
-              backgroundColor: ["#3e95cd", "#8e5ea2"],
+              backgroundColor: "#4141ea",
               data: data2,
               yAxisID: 'A'
 
             }, {
               type: 'line',
               label: '이익률',
-              backgroundColor: 'rgba(0, 0, 0, 0.1)',
               data: data3,
               yAxisID: 'B'
             }]
@@ -794,9 +783,9 @@
         output += '</div><div class="tableTest2" style="overflow: auto;width:auto; height:500px;" ><table class="table table-hover">';
         $.each(updateData, function(index, item) {
           output += '<tr><td style="width :20%;">' + item.MONTHTIME + '</td>'
-          output += '<td style="text-align: center; width :30%;">' + item.EXPENSE_AMOUNT + '</td>'
-          output += '<td style="text-align: center; width :30%;">' + item.ALLPAYMENT + ' 건</td>'
-          output += '<td style="width :20%;text-align: center;">' + (((item.ALLPAYMENT - item.EXPENSE_AMOUNT) / item.ALLPAYMENT) * 100).toFixed(2) + "%" + '</td></tr>'
+          output += '<td style="text-align: center; width :30%;">' + item.PAYMENT_AMOUNT_SUM + '</td>'
+          output += '<td style="text-align: center; width :30%;">' + item.EXPENSE_AMOUNT + ' </td>'
+          output += '<td style="width :20%;text-align: center;">' + (((item.PAYMENT_AMOUNT_SUM - item.EXPENSE_AMOUNT) / item.PAYMENT_AMOUNT_SUM) * 100).toFixed(2) + "%" + '</td></tr>'
         })
         output += "</table>"
         $('.tableTest').html(output);

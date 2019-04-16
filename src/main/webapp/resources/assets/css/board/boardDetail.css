@@ -5,6 +5,31 @@
 	text-align: center;
 }
 
+/* 통계보기 버튼 */
+#board_report{
+	float: right;
+	background: none;
+	display: inline-block;
+	text-align: center;
+	color: #000000;
+	border: 2px solid #3498db;
+	padding: 2px 5px;
+	margin: 0px 3px;
+	width: 90px;
+	height: 30px;
+	outline: none;
+	border-radius: 10px;
+ 	transition: 0.25s;
+	cursor: pointer;
+}
+
+#board_report:hover {
+	background: #3498db;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
+
 /* 본문 버튼 모음 */
 #board_update {
 	float: right;

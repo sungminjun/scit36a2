@@ -32,12 +32,13 @@ public interface BoardDAO {
 
 	public int boardUpdate(Board board);
 
-
 	public int inputComment(Board_comments board_comments);
 
 	public int deleteComment(Board_comments board_comments);
 
 	public int updateComment(Board_comments board_comments);
+
+	public Board_comments selectCmtOne(Board_comments board_comments);
 
 //	public int deleteFile(int board_seq);
 }

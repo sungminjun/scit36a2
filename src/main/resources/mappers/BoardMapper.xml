@@ -72,8 +72,7 @@
 		, board_category
 		, board_title
 		, board_content
-		,
-		board_hitcount
+		, board_hitcount
 		, to_char(board_regdate, 'YYYY-MM-DD') as board_regdate
 		, board_orgname
 		, board_savname
@@ -87,14 +86,12 @@
 	<!-- boardDetail에서 id를 뽑아주기 위한 것. -->
 	<select id="getEmpId" resultType="String" parameterType="int">
 		select
-		distinct
-		e.emp_id
+			distinct e.emp_name
 		from
-		board b
-		left join employee e on b.emp_seq =
-		e.emp_seq
+			board b
+			left join employee e on b.emp_seq = e.emp_seq
 		where
-		board_seq = #{board_seq}
+			board_seq = #{board_seq}
 	</select>
 
 	<select id="selectComment" resultType="cmt" parameterType="cmt">
@@ -171,6 +168,15 @@
 		board_comments_seq = #{board_comments_seq}
 	</update>
 
+	<select id="selectCmtOne" parameterType="cmt" resultType="cmt">
+		SELECT
+			*
+		FROM
+			board_comments
+		WHERE
+			board_comments_seq = #{board_comments_seq}
+	</select>
+	
 	<update id="deleteFile" parameterType="int">
 		UPDATE board
 		SET

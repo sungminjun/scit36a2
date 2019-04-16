@@ -101,6 +101,12 @@ public class BoardRepo {
 		return result;
 	}
 
+	public Board_comments selectCmtOne(Board_comments board_comments) {
+		BoardDAO dao = session.getMapper(BoardDAO.class);
+		Board_comments result = dao.selectCmtOne(board_comments);
+		return result;
+	}
+
 //	public int deleteFile(int board_seq) {
 //		BoardDAO dao = session.getMapper(BoardDAO.class);
 //		int result = dao.deleteFile(board_seq);

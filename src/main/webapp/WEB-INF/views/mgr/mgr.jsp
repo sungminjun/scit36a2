@@ -211,7 +211,7 @@
                           <input type="text" class="form-control" id="mgr-2-1" name="menu_category" placeholder="e.g. 식사, 주류, 요리">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" id="mgr-2-1-1">
                         길이제한 유효성검사 _js_ will be placed here.
                       </div>
 
@@ -1208,7 +1208,22 @@
         location.href = "report"
       }
     });
-
+    
+    /* 유효성 검사
+    
+    $(document).ready(function() {
+    	$('#mgr-2-1').on('change', chk1)
+    })
+    
+    function chk1() {
+    	var str = $('#mgr-2-1').val();
+    	if (str.length > 10) {
+    		$('#mgr-2-1-1').html('으아아아').css('color', 'red');
+    	} else {
+    		$('#mgr-2-1-1').html('OK').css('color', 'green');
+    	}
+    }
+ */
   </script>
 </body>
 

@@ -82,7 +82,9 @@ public class BoardController {
 	public int insertBoard(Board board, HttpSession session) {
 		int emp_seq = (Integer) session.getAttribute("emp_seq");
 		board.setEmp_seq(emp_seq);
-		board.setBoard_orgname("");
+		if ( board.getBoard_orgname() == null) {
+			board.setBoard_orgname("");
+		}
 		board.setBoard_savname("");
 		int result = repo.insertBoard(board);
 		return result;
@@ -210,35 +212,62 @@ public class BoardController {
 	/**
 	 * 리플삭제
 	 * 
-	 * 보완점: 본인 글에 대해서만 수정/삭제 등 권한 부여할것
-	 * 
 	 * @author cck, lyc
 	 */
 	@RequestMapping(value = "deleteComment", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteComment(Board_comments board_comments, HttpSession session, int board_comments_seq) {
-		// String emp_id = (String)session.getAttribute("emp_id");
-		// board_comments.setBoard_comments_writer(emp_id);
-		board_comments.setBoard_comments_seq(board_comments_seq);
-
-		System.out.println("컨트롤러 삭제 board_comments : " + board_comments);
-
-		int result = repo.deleteComment(board_comments);
-		return "success";
+	public String deleteComment(Board_comments board_comments, HttpSession session, Employee writer) {
+		int emp_seq = (Integer) session.getAttribute("emp_seq");
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		writer.setComp_seq(comp_seq);
+		writer.setEmp_seq(emp_seq);
+		writer = membrepo.selectEmployee(writer);
+		board_comments = repo.selectCmtOne(board_comments);
+		
+		if ( writer.getEmp_name().equals(board_comments.getBoard_comments_writer()) ) {
+			System.out.println("조건에 맞으면 삭제합니다." + board_comments);
+			int result = repo.deleteComment(board_comments);
+			if ( result == 1 ) {
+				return "success";
+			}
+		} 
+		return "failure";
 	}
 
 	/**
 	 * 리플수정
 	 * 
-	 * 보완점: 본인 글에 대해서만 수정/삭제 등 권한 부여할것
-	 * 
 	 * @author cck, lyc
 	 */
 	@RequestMapping(value = "updateComment", method = RequestMethod.POST)
 	@ResponseBody
-	public int updateComment(HttpSession session, Board_comments board_comments) {
-		int result = repo.updateComment(board_comments);
-		System.out.println("댓글 수정 result : " + result);
-		return result;
+	public String updateComment(HttpSession session, Board_comments board_comments, Employee writer) {
+		int emp_seq = (Integer) session.getAttribute("emp_seq");
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		writer.setComp_seq(comp_seq);
+		writer.setEmp_seq(emp_seq);
+		writer = membrepo.selectEmployee(writer);
+		board_comments = repo.selectCmtOne(board_comments);
+		
+		if ( writer.getEmp_name().equals(board_comments.getBoard_comments_writer()) ) {
+			System.out.println("조건에 맞으면 수정합니다." + board_comments);
+			int result = repo.updateComment(board_comments);
+			if ( result == 1 ) {
+				return "success";
+			}
+		} 
+		return "failure";
 	}
+	
+	/**
+	 * 통계보기 연결해주기
+	 * 
+	 * @author cck, lyc
+	 */
+	@RequestMapping(value = "showreport", method = RequestMethod.GET)
+	public String showreport(HttpSession session, Board board) {
+		return "report/synthesize";
+	}
+
+	
 }

@@ -68,16 +68,23 @@ public class PosController {
 	 * @author jsm, cck
 	 */
 	@RequestMapping(value = "makeorder", method = RequestMethod.POST)
-	public @ResponseBody String makeorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod) {
-//		System.out.println(sas + ", " + sad + ", " + ppod);
+	public @ResponseBody String makeorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod, @RequestBody HashMap<String, Object> senddata_new) {
+		System.out.println(sas + ", " + sad + ", " + ppod + ", " + senddata_new);
 		String result = "";
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		int seqno = repo.chksasseqs();
 		sas.setSales_state_seq(seqno);
 		sas.setComp_seq(comp_seq);
+		sas.setSeat_seq(Integer.parseInt((String)senddata_new.get("seat_seq")));
+		sas.setSales_visitors(Integer.parseInt((String)senddata_new.get("sales_visitors")));
+		if ( ((String)senddata_new.get("sales_memo")) == null || ((String)senddata_new.get("sales_memo")).length() == 0 ) {
+			sas.setSales_memo("");
+		} else {
+			sas.setSales_memo((String)senddata_new.get("sales_memo"));
+		}
 		int resultSas = repo.insertSas(sas);
 		int resultSad = 0;
-		String ppods[] = ppod.split("\\|");
+		String ppods[] = ((String)senddata_new.get("ppod")).split("\\|");
 		int chker = 0;
 		for (int i = 0; i < ppods.length - 3; i += 4) {
 			chker++;
@@ -91,6 +98,7 @@ public class PosController {
 			sad.setSales_state_seq(seqno);
 			resultSad += repo.insertSad(sad);
 		}
+		System.out.println("makeorder@ resultSas:" + resultSas + ", resultSad:" + resultSad + ", chker:" + chker);
 		if (resultSas == 1 && resultSad == chker) {
 			result = "success";
 		} else {
@@ -105,17 +113,26 @@ public class PosController {
 	 * @author jsm, cck
 	 */
 	@RequestMapping(value = "replaceorder", method = RequestMethod.POST)
-	public @ResponseBody String replaceorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod) {
+	public @ResponseBody String replaceorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod, @RequestBody HashMap<String, Object> senddata_replace) {
 		String result = "";
-		System.out.println(sas + ", " + sad + ", " + ppod);
+		System.out.println(sas + ", " + sad + ", " + ppod + ", " + senddata_replace);
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		int sas_seq = sas.getSales_state_seq();
+		int sas_seq = Integer.parseInt((String)senddata_replace.get("sales_state_seq"));
 		sas.setComp_seq(comp_seq);
 		sas.setSales_state_seq(sas_seq);
+		sas.setSeat_seq(Integer.parseInt((String)senddata_replace.get("seat_seq")));
+//		sas.setSales_visitors((Integer) senddata_replace.get("sales_visitors"));
+		if ( ((String)senddata_replace.get("sales_memo")) == null || ((String)senddata_replace.get("sales_memo")).length() == 0 ) {
+			sas.setSales_memo("");
+		} else {
+			sas.setSales_memo((String)senddata_replace.get("sales_memo"));
+		}
+		System.out.println(sas);
+//		int resultSas = repo.insertSas(sas);
 		int deleteOld = repo.deleteoldorder(sas_seq);
 
-		String ppods[] = ppod.split("\\|");
-		int newodsize = ppod.length();
+		String ppods[] = ((String)senddata_replace.get("ppod")).split("\\|");
+		int newodsize = ((String)senddata_replace.get("ppod")).length();
 
 		int resultreplaceorder = 0;
 		int chker = 0;
@@ -132,6 +149,7 @@ public class PosController {
 			resultreplaceorder += repo.insertSad(sad);
 		}
 
+		System.out.println("replace order@ resultreplaceorder:" + resultreplaceorder + ", chker:" + chker);
 		if (resultreplaceorder == chker) {
 			result = "success";
 		} else {

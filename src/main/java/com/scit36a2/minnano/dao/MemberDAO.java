@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +39,16 @@ public interface MemberDAO {
 
 	// 회사(사장) 아이디 찾기
 	public Employee findId(Map<String, Object> map);
+	
+	//회사(사장) 비밀번호 찾기
+	public ArrayList<Object> findPW(HashMap<String, Object> map);
 
 	// 현재 등록된 전체 직원 목록 불러오기
 	public List<Employee> employeeList(int comp_seq);
 
 	// 직원정보 수정을 위한 특정 직원정보 호출
 	public Employee selectEmployee(Employee emp);
+
+	
 
 }

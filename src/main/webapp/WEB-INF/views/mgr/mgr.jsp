@@ -125,7 +125,7 @@
                           <input type="date" class="form-control" id="mgr-1-2" name="expense_date">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" id="mgr-1-2-1">
                         난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
@@ -134,7 +134,7 @@
                           <input type="text" class="form-control" id="mgr-1-3" name="expense_description">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" id="mgr-1-3-1">
                         난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
@@ -143,7 +143,7 @@
                           <input type="text" class="form-control" id="mgr-1-4" name="expense_amount">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" id="mgr-1-4-1">
                         난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
@@ -211,7 +211,7 @@
                           <input type="text" class="form-control" id="mgr-2-1" name="menu_category" placeholder="e.g. 식사, 주류, 요리">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" id="mgr-2-1-1">
                         길이제한 유효성검사 _js_ will be placed here.
                       </div>
 
@@ -221,7 +221,7 @@
                           <input type="text" class="form-control" id="mgr-2-2" name="menu_name" placeholder="e.g. 짜장면, 짬뽕, 탕수육">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" id="mgr2-2-1">
                         길이제한 유효성검사 _js_ will be placed here.
                       </div>
 
@@ -231,7 +231,7 @@
                           <input type="text" class="form-control" id="mgr-2-3" name="menu_price" placeholder="가격을 입력하세요.">
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" id="mgr-2-3-1">
                         길이제한 유효성검사 _js_ will be placed here.
                       </div>
 
@@ -595,6 +595,19 @@
 
 
   <script>
+  
+ /*  $(function()	{
+	   $("#mgr-2-1").on("change",function()	{
+		   menuClassify();
+	   })
+  })  */
+   
+   
+    
+  
+  
+  
+  
     $(document).ready(function() {
       $("button[id=mgr-btn-1]").on('click', function() {
         mgrshow('1')
@@ -635,7 +648,7 @@
       $("button[id=mgr-btn-5]").on('click', function() {
         cancel_close();
       });
-    })
+     })
 
     function setdatepicker() {
       $("#datepicker_exp").datepicker({
@@ -741,7 +754,41 @@
       var expense_date = $('#mgr-1-2').val()
       var expense_description = $('#mgr-1-3').val()
       var expense_amount = $('#mgr-1-4').val()
+	/////////////////////최철규
+  // 날짜 유효성검사?
 
+		var today = new Date();
+		var d = "";
+		d += today.getFullYear();
+		d += (today.getMonth() + 1);
+		d += today.getDate();
+	alert(expense_date);
+	alert(d);
+
+	if (d < expense_date) {
+		 $('#mgr-1-2-1').html('날짜 잘못 입력함').css('color', 'red');
+	}	if (d >= expense_date) {
+		$('#mgr-1-2-1').html('OK').css('color', 'blue');
+	}
+		  
+	  if (expense_description.length > 20) {
+		  $('#mgr-1-3-1').html('너무많이 입력함').css('color', 'red');
+	}	else if (expense_description.trim().length == 0) {
+		$('#mgr-1-3-1').html('입력해주세요').css('color', 'red');
+	}	
+	else	{
+		   $('#mgr-1-3-1').html('OK').css('color', 'blue');
+	}
+      if (isNaN(expense_amount)) {
+    	  $('#mgr-1-4-1').html('금액은 숫자로 입력할것').css('color', 'red');
+	}	else if (expense_amount.trim().length == 0) {
+		 $('#mgr-1-4-1').html('입력해주세요').css('color', 'red');
+	}    else	{
+		$('#mgr-1-4-1').html('OK').css('color', 'blue');
+	}
+      
+      
+      
       var senddata = {
         expense_type: expense_type,
         expense_date: expense_date,
@@ -864,10 +911,35 @@
 
     function addmenu() {
       var menu_category = $('#mgr-2-1').val();
-      var menu_name = $('#mgr-2-2').val()
-      var menu_price = $('#mgr-2-3').val()
-      var menu_sellFlag = $('#mgr-2-4').val()
-
+      var menu_name = $('#mgr-2-2').val();
+      var menu_price = $('#mgr-2-3').val();
+      var menu_sellFlag = $('#mgr-2-4').val();
+	//////////////////////////////최철규
+  
+if (menu_category.length > 10) {
+    	  $('#mgr-2-1-1').html('10글자 이하로').css('color','red');
+  }	else if (menu_category.trim().length == 0) {
+	  $('#mgr-2-1-1').html('입력해주세요').css('color','red');
+}  else	{
+	  $('#mgr-2-1-1').html('성공').css('color','blue');
+  }
+if (menu_name.length > 10) {
+    	  $('#mgr2-2-1').html('10글자 이하로입력할것').css('color','red');
+	}	else if (menu_name.trim().length == 0) {
+		 $('#mgr2-2-1').html('값을 입력하세요').css('color','red');
+	}	
+	else	{
+		$('#mgr2-2-1').html('성공').css('color','blue');
+	}
+if (isNaN(menu_price)) {
+    	  $('#mgr-2-3-1').html('숫자로입력할것').css('color','red');
+	}	else if (menu_price.trim().length == 0) {
+		$('#mgr-2-3-1').html('입력해주세요').css('color','red');
+	}	
+	else	{
+		$('#mgr-2-3-1').html('성공').css('color','blue');
+	}
+      
       $.ajax({
         url: 'insertMenu',
         method: 'POST',
@@ -1208,6 +1280,22 @@
         location.href = "report"
       }
     });
+    
+    /* 유효성 검사
+    
+    $(document).ready(function() {
+    	$('#mgr-2-1').on('change', chk1)
+    })
+    
+    function chk1() {
+    	var str = $('#mgr-2-1').val();
+    	if (str.length > 10) {
+    		$('#mgr-2-1-1').html('으아아아').css('color', 'red');
+    	} else {
+    		$('#mgr-2-1-1').html('OK').css('color', 'green');
+    	}
+    }
+ */
 
   </script>
 </body>

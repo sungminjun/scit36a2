@@ -1029,7 +1029,7 @@
       }
       for (i = 0; i <= temp_arr.length; i += 4) {
         if (temp_arr[i] == '-1') {
-          temp_arr[i + 2] = discount;
+          temp_arr[i + 2] = (-1 * discount);
           break;
         }
       }
@@ -1087,26 +1087,36 @@
         $.ajax({
           url: 'replaceorder',
           method: 'POST',
-          data: senddata_replace,
+          data: JSON.stringify(senddata_replace),
+          dataType: 'text',
+          contentType: 'application/json; charset=UTF-8',
           success: function() {
             alert('!');
             document.location.reload();
           }
         });
-
       }
+      
       if (ordertype == 'new') {
         $.ajax({
           url: 'makeorder',
           method: 'POST',
-          data: senddata_new,
+          data: JSON.stringify(senddata_new),
+          dataType: 'text',
+          contentType: 'application/json; charset=UTF-8',
           success: function() {
             alert('!');
             document.location.reload();
           }
+          , error : function(a,b,c) {
+        	  console.log(a);
+        	  console.log(b);
+        	  console.log(c);
+        	  alert('error');
+          }
         });
-
       }
+      
     }
 
     function jobdone() {
@@ -1505,7 +1515,7 @@
           console.log(resp);
           var output = '<table><tbody>';
           $.each(resp, function(idx, obj) {
-            output += '<tr>'
+            output += '<tr s-pmtseq="' + obj.payment_seq + '">'
             output += '   <td class="text-center" style="width: 30%;">' + obj.payment_time + '</td>'
             output += '   <td class="text-center" style="width: 30%;">' + obj.payment_clerk + '</td>'
             if (obj.payment_type == 1) {
@@ -1518,9 +1528,20 @@
           })
           output += '</tbody></table>'
           $('#pos-1-6').html(output);
+          $.each(resp, function(idx, obj) {
+              var temp = 'tr[s-pmtseq=' + obj.payment_time + ']';
+              $(temp).on('click', callpmts);
+            })
         }
       })
     }
+
+    function callpmts() {
+      payment_seq = $(this).attr('s-pmtseq');
+
+	  alerT(payment_seq);
+    }
+    
 
     function setdatepicker() {
       $("#datepicker_pmtlist").datepicker({

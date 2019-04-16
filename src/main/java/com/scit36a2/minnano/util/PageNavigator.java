@@ -2,8 +2,8 @@ package com.scit36a2.minnano.util;
 
 public class PageNavigator {
 	// 멤버
-	private final int countPerPage = 10; // 한 페이지당 글개수
-	private final int pagePerGroup = 5; // 페이지 그룹
+	private final int countPerPage = 4; // 한 페이지당 글개수
+	private final int pagePerGroup = 3; // 페이지 그룹
 	private int currentPage; // 현재 페이지
 	private int totalRecordCount; // 전체 글 개수
 	private int totalPageCount; // 총 페이지수

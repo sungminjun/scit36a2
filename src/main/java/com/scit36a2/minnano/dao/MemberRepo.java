@@ -103,6 +103,9 @@ public class MemberRepo {
 		return result;
 	}
 
-	
-
+	public ArrayList<Object> findPW(HashMap<String, Object> map) {
+		MemberDAO dao = session.getMapper(MemberDAO.class);
+		ArrayList<Object> list = dao.findPW(map);
+		return list;
+	}
 }

@@ -72,8 +72,7 @@
 		, board_category
 		, board_title
 		, board_content
-		,
-		board_hitcount
+		, board_hitcount
 		, to_char(board_regdate, 'YYYY-MM-DD') as board_regdate
 		, board_orgname
 		, board_savname
@@ -87,14 +86,12 @@
 	<!-- boardDetail에서 id를 뽑아주기 위한 것. -->
 	<select id="getEmpId" resultType="String" parameterType="int">
 		select
-		distinct
-		e.emp_id
+			distinct e.emp_name
 		from
-		board b
-		left join employee e on b.emp_seq =
-		e.emp_seq
+			board b
+			left join employee e on b.emp_seq = e.emp_seq
 		where
-		board_seq = #{board_seq}
+			board_seq = #{board_seq}
 	</select>
 
 	<select id="selectComment" resultType="cmt" parameterType="cmt">
@@ -171,6 +168,15 @@
 		board_comments_seq = #{board_comments_seq}
 	</update>
 
+	<select id="selectCmtOne" parameterType="cmt" resultType="cmt">
+		SELECT
+			*
+		FROM
+			board_comments
+		WHERE
+			board_comments_seq = #{board_comments_seq}
+	</select>
+	
 	<update id="deleteFile" parameterType="int">
 		UPDATE board
 		SET
@@ -179,4 +185,34 @@
 		WHERE
 		board_seq=#{board_seq}
 	</update>
+	
+	<select id="selectCompseq" parameterType="HashMap" resultType="HashMap">
+	 select e.comp_seq 
+	 from employee e,board b 
+	 where e.emp_seq=#{emp_seq} 
+	</select>
+	<select id="insertReport" parameterType="HashMap" resultType="HashMap">
+		      SELECT
+			to_char(min(payment_time), 'YYYY-MM') as monthtime
+			, sum(payment_amount) as payment_amount_sum
+			, sum(sales_order) as sales_order_sum
+		FROM
+			(
+			SELECT
+				p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as
+				comp_seq, d.sales_order as sales_order
+			FROM
+				payment p
+				LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+				LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+			ORDER BY payment_time
+			)
+		WHERE
+			comp_seq = #{comp_seq}
+			and payment_time between trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-4))+1) and trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-1))+1)
+         GROUP BY
+			to_char(payment_time, 'YYYY-MM')
+		ORDER BY
+			monthtime
+	</select>
 </mapper>

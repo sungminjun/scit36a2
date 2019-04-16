@@ -1,5 +1,6 @@
 package com.scit36a2.minnano.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,23 +49,25 @@ public class MemberController {
 		Employee e = repo.selectOne(employee);
 
 		String message = "";
-		int comp_seq = e.getComp_seq();
 		String emp_id = employee.getEmp_id();
 		String emp_pw = employee.getEmp_pw();
-		int emp_seq = e.getEmp_seq();// 추가-최철규
-		int emp_auth_level = e.getEmp_auth_level();
 
 		if (e != null) {
 			if (emp_id.equals(e.getEmp_id()) && emp_pw.equals(e.getEmp_pw())) {
-
+				int comp_seq = e.getComp_seq();
+				int emp_seq = e.getEmp_seq();// 추가-최철규
+				int emp_auth_level = e.getEmp_auth_level();
+				String emp_name = e.getEmp_name();
+				
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
 				session.setAttribute("emp_seq", emp_seq);// 추가 최철규
 				session.setAttribute("emp_auth_level", emp_auth_level);// add for interceptor, 190406 jsm
-				System.out.println(session.getAttribute("emp_id"));
-				System.out.println(session.getAttribute("comp_seq"));
-				System.out.println(session.getAttribute("emp_seq"));
-				System.out.println(session.getAttribute("emp_auth_level"));
+				session.setAttribute("emp_name", emp_name);// 추가 전성민
+//				System.out.println(session.getAttribute("emp_id"));
+//				System.out.println(session.getAttribute("comp_seq"));
+//				System.out.println(session.getAttribute("emp_seq"));
+//				System.out.println(session.getAttribute("emp_auth_level"));
 				return "redirect:/";
 			} else {
 				message = "로그인에 실패하셨습니다.";
@@ -127,6 +130,7 @@ public class MemberController {
 		map.put("emp_name", employee.getEmp_name());
 		map.put("emp_tel", employee.getEmp_tel());
 		map.put("emp_quiz", employee.getEmp_quiz());
+		
 		map.put("emp_quiz_answer", employee.getEmp_quiz_answer());
 
 		int result = repo.join(map);
@@ -204,9 +208,20 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
-	public String findPw(String emp_id, long comp_id, String emp_name, String emp_quiz_answer, Model model) {
-
-		return null;
+	public @ResponseBody ArrayList<Object> findPw(String emp_id, long comp_id, String emp_name, String emp_quiz_answer, Model model) {
+		
+		HashMap<String,Object> map=new HashMap<>();
+		map.put("emp_id",emp_id);
+		map.put("comp_id", comp_id);
+		map.put("emp_name",emp_name);
+		ArrayList<Object> result=repo.findPW(map);
+		if(result!=null) {
+			System.out.println(result);
+			return result;
+		}else{
+			System.out.println("값없음");
+			return null;
+		}
 	}
 
 	/**

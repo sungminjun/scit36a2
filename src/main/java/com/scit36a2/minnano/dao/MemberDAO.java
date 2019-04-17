@@ -49,6 +49,8 @@ public interface MemberDAO {
 	// 직원정보 수정을 위한 특정 직원정보 호출
 	public Employee selectEmployee(Employee emp);
 
+	public String findQuiz(HashMap<String, Object> map);
+
 	
 
 }

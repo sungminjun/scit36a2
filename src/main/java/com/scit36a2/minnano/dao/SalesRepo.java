@@ -28,11 +28,24 @@ public class SalesRepo {
 	}
 
 	public int deleteseat(Seat seat) {
-		SalesDAO mapper = session.getMapper(SalesDAO.class);
-		int result = mapper.deleteseat(seat);
-
+		int result = 0;
+		try {
+			SalesDAO mapper = session.getMapper(SalesDAO.class);
+			result = mapper.deleteseat(seat);
+		} catch (Exception e) {
+//			e.printStackTrace();
+			System.out.println("err on deleteseat");
+		}
 		return result;
 	}
+	
+
+	public int stopseat(Seat seat) {
+		SalesDAO mapper = session.getMapper(SalesDAO.class);
+		int result = mapper.stopseat(seat);
+		return result;
+	}
+
 
 	public int updateseat(Seat seat) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);

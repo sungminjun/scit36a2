@@ -139,6 +139,12 @@
     WHERE e.emp_id=#{emp_id} and c.comp_id = #{comp_id} and e.emp_name = #{emp_name}
   </select>
 
+  <select id="findQuiz" parameterType="HashMap" resultType="String">
+  SELECT emp_pw
+    FROM employee
+    WHERE emp_id=#{emp_id} and emp_name = #{emp_name} and emp_quiz_answer = #{emp_quiz_answer}
+  </select>
+
   <select id="employeeList" parameterType="int" resultType="emp">
     SELECT
     *

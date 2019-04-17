@@ -35,13 +35,13 @@
       var board_content = $("#board_content").val();
       var board_orgname = 'yes';
       var board = {};
-      if ( $('#share_report').is(':checked') ) {
+      if ($('#share_report').is(':checked')) {
         board = {
-      	        "board_title" : board_title,
-      	        "board_category" : board_category,
-      	        "board_content" : board_content,
-      	        "board_orgname" : board_orgname
-      	      }
+          "board_title": board_title,
+          "board_category": board_category,
+          "board_content": board_content,
+          "board_orgname": board_orgname
+        }
       } else {
         board = {
           "board_title": board_title,
@@ -137,29 +137,29 @@
               <div class="card-header">
                 <h5 class="title">[게시판 글쓰기]</h5>
               </div>
-              
+
               <div class="card-body">
                 <div class="row">
-                <div class="col-md-3">
-                  <label>글쓴이</label><br>
-                  ${sessionScope.emp_id}
-                </div>
-                <hr>
-                <div class="col-md-5">
-                  <label>카테고리 선택</label><br>
-                  <div id="category-choice">
-                    <select id="board_category" name="board_category">
-                      <option value="삽니다">삽니다</option>
-                      <option value="팝니다">팝니다</option>
-                      <option value="조언 부탁드립니다">조언 부탁드립니다</option>
-                      <option value="기타">기타</option>
-                    </select>
-                  </div><br>
-                </div>
-                <div class="col-md-4">
-                  <label>통계자료를 공유하시겠습니까?</label><br>
-                  예<input type="checkbox" value="share_report" id="share_report">
-                </div>
+                  <div class="col-md-3">
+                    <label>글쓴이</label><br>
+                    ${sessionScope.emp_id}
+                  </div>
+                  <hr>
+                  <div class="col-md-5">
+                    <label>카테고리 선택</label><br>
+                    <div id="category-choice">
+                      <select id="board_category" name="board_category">
+                        <option value="삽니다">삽니다</option>
+                        <option value="팝니다">팝니다</option>
+                        <option value="조언 부탁드립니다">조언 부탁드립니다</option>
+                        <option value="기타">기타</option>
+                      </select>
+                    </div><br>
+                  </div>
+                  <div class="col-md-4">
+                    <label>통계자료를 공유하시겠습니까?</label><br>
+                    예<input type="checkbox" value="share_report" id="share_report">
+                  </div>
                 </div>
                 <hr>
                 <div class="row">

@@ -518,6 +518,19 @@
         url: 'selectseat',
         method: 'POST',
         success: function(resp) {
+
+          var rmbr = [];
+          $.each(resp, function(idx, obj) {
+            if (obj.seat_id.substr(0, 3) == '[X]') {
+              rmbr.push(idx);
+            }
+          })
+          console.log(rmbr);
+          for (i = rmbr.length - 1; i >= 0; i--) {
+            resp.splice(rmbr[i], 1);
+          }
+          console.log(resp);
+
           $.ajax({
             url: 'seatsavailable',
             method: 'POST',
@@ -855,12 +868,14 @@
             var chker = 0;
             $.each(resp, function(idx, obj2) {
               if (obj == obj2.menu_category) {
-                if (chker % 3 === 0) output2 += '<div class="row">';
-                output2 += '<div class="col-md-4"><button class="menu_select_button" s-menuseq="' + obj2.menu_seq + '" s-menu-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br>' + obj2.menu_price + '<br>' + obj2.menu_sellFlag + '</button></div>';
-                if (chker % 3 === 2) output2 += '</div>';
-                // 이거 의미 없고 그냥 i끝나는 시점에 div한번 더 닫음
-                // if ( chker-1 === resp.length ) output2 += '</div>'; 
-                chker++;
+                if (obj2.menu_sellFlag == '0') {} else {
+                  if (chker % 3 === 0) output2 += '<div class="row">';
+                  output2 += '<div class="col-md-4"><button class="menu_select_button" s-menuseq="' + obj2.menu_seq + '" s-menu-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br><br>' + obj2.menu_price + '</button></div>';
+                  if (chker % 3 === 2) output2 += '</div>';
+                  // 이거 의미 없고 그냥 i끝나는 시점에 div한번 더 닫음
+                  // if ( chker-1 === resp.length ) output2 += '</div>'; 
+                  chker++;
+                }
               }
             })
 
@@ -1096,7 +1111,7 @@
           }
         });
       }
-      
+
       if (ordertype == 'new') {
         $.ajax({
           url: 'makeorder',
@@ -1107,16 +1122,16 @@
           success: function() {
             alert('!');
             document.location.reload();
-          }
-          , error : function(a,b,c) {
-        	  console.log(a);
-        	  console.log(b);
-        	  console.log(c);
-        	  alert('error');
+          },
+          error: function(a, b, c) {
+            console.log(a);
+            console.log(b);
+            console.log(c);
+            alert('error');
           }
         });
       }
-      
+
     }
 
     function jobdone() {
@@ -1529,9 +1544,9 @@
           output += '</tbody></table>'
           $('#pos-1-6').html(output);
           $.each(resp, function(idx, obj) {
-              var temp = 'tr[s-pmtseq=' + obj.payment_time + ']';
-              $(temp).on('click', callpmts);
-            })
+            var temp = 'tr[s-pmtseq=' + obj.payment_time + ']';
+            $(temp).on('click', callpmts);
+          })
         }
       })
     }
@@ -1539,9 +1554,9 @@
     function callpmts() {
       payment_seq = $(this).attr('s-pmtseq');
 
-	  alerT(payment_seq);
+      alerT(payment_seq);
     }
-    
+
 
     function setdatepicker() {
       $("#datepicker_pmtlist").datepicker({
@@ -1656,6 +1671,7 @@
         }
       })
     }
+
     $(document).keydown(function(event) {
       if (event.keyCode == '37') {
         location.href = "pos"

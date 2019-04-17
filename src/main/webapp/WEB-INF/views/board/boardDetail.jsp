@@ -28,20 +28,24 @@
     $(function() {
       selectComment();
       $("#comButton").on("click", inputComment)
-      if ( ${sessionScope.emp_seq} != ${board.emp_seq} ) {
-    	  $('#board_update').css('display', 'none');
-    	  $('#board_delete').css('display', 'none');
+      if ($ {
+          sessionScope.emp_seq
+        } != $ {
+          board.emp_seq
+        }) {
+        $('#board_update').css('display', 'none');
+        $('#board_delete').css('display', 'none');
       }
-      if ( '${board.board_orgname}' == 'yes' ) {
-    	  var addlink = '<input id="board_report" value="통계보기"/>';
-    	  $('#reportlink').html(addlink);
-    	  $('#board_report').on('click', showreport)
+      if ('${board.board_orgname}' == 'yes') {
+        var addlink = '<input id="board_report" value="통계보기"/>';
+        $('#reportlink').html(addlink);
+        $('#board_report').on('click', showreport)
       }
     });
 
     function showreport() {
-  	    var url = 'showreport';
-  	    window.open(url,'popupView','width=900,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200');  
+      var url = 'showreport';
+      window.open(url, 'popupView', 'width=900,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200');
     }
 
     function boardDelete() {
@@ -55,7 +59,9 @@
 
     function inputComment() {
       var board_comments_content = $("#board_comments_content").val();
-      var board_seq = ${board.board_seq};
+      var board_seq = $ {
+        board.board_seq
+      };
       if (board_comments_content.trim().length == 0) {
         alert("댓글입력할것");
         return;
@@ -78,7 +84,9 @@
     } /* inputComment */
 
     function selectComment() {
-      var board_seq = ${board.board_seq};
+      var board_seq = $ {
+        board.board_seq
+      };
       var d = {
         "board_seq": board_seq
       };
@@ -101,15 +109,14 @@
         a += '<div class="comments_writer">' + item.board_comments_writer + '</div>';
         a += '<div class="comments_content" id="' + item.board_comments_content + '">' + item.board_comments_content + '</div>';
         a += '<div class="comments_regdate">' + item.board_comments_regdate + '</div>';
-		if (item.board_comments_writer == '${sessionScope.emp_name}') {
-        a += '<div class="comments_delete" data-value="' + item.board_comments_seq + '">'
-        a += '<i class="far fa-trash-alt"></i>'
-        a += '</div>'
-        a += '<div class="comments_update" d-value="' + item.board_comments_seq + '">'
-        a += '<i class="fas fa-tools"></i>'
-        a += '</div>'
-		} else {
-		}
+        if (item.board_comments_writer == '${sessionScope.emp_name}') {
+          a += '<div class="comments_delete" data-value="' + item.board_comments_seq + '">'
+          a += '<i class="far fa-trash-alt"></i>'
+          a += '</div>'
+          a += '<div class="comments_update" d-value="' + item.board_comments_seq + '">'
+          a += '<i class="fas fa-tools"></i>'
+          a += '</div>'
+        } else {}
 
         a += '</div>'
       });
@@ -128,9 +135,9 @@
         data: {
           board_comments_seq: board_comments_seq
         },
-        success: selectComment
-        , failure : function() {
-        	alert('본인의 글만 삭제할 수 있습니다.');
+        success: selectComment,
+        failure: function() {
+          alert('본인의 글만 삭제할 수 있습니다.');
         }
       });
     }
@@ -139,7 +146,9 @@
 
     function updateComment() {
       var board_comments_seq = $(this).attr("d-value");
-      var board_seq = ${board.board_seq};
+      var board_seq = $ {
+        board.board_seq
+      };
 
       $.ajax({
         method: 'post',
@@ -190,12 +199,12 @@
         method: "POST",
         data: d,
         success: function() {
-            $('#comment_box').empty();
-            selectComment();
-          }
-      , failure: function() {
-            alert('실패');
-      }
+          $('#comment_box').empty();
+          selectComment();
+        },
+        failure: function() {
+          alert('실패');
+        }
       });
     }
 
@@ -249,21 +258,23 @@
                     <h3 style="margin:0px;">
                       <span>${board.board_title}</span>
                     </h3><br>
-                    </div>
-                </div>
-                   <div class="row">
-                    <span>${id}</span>
-                    <span> | </span>
-                    <span>${board.board_regdate}</span>
-                    <span> | </span>
-                    <span>조회수 ${board.board_hitcount}</span>
-                    <div id="reportlink">
-                      <!-- if users agree share reports, button will be placed here -->
-                    </div>
                   </div>
+                </div>
+                <div class="row">
+                  <span>${id}</span>
+                  <span> | </span>
+                  <span>${board.board_regdate}</span>
+                  <span> | </span>
+                  <span>조회수 ${board.board_hitcount}</span>
+                  <div id="reportlink">
+                    <!-- if users agree share reports, button will be placed here -->
+                  </div>
+                </div>
                 <hr>
                 <div class="board_content">
-                 <div style="white-space: pre; word-spacing: pre;"><c:out value="${board.board_content}" /></div>
+                  <div style="white-space: pre; word-spacing: pre;">
+                    <c:out value="${board.board_content}" />
+                  </div>
                 </div>
               </div><!-- card-body 끝-->
               <hr>

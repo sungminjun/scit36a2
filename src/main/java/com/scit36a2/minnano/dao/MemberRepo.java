@@ -108,4 +108,10 @@ public class MemberRepo {
 		ArrayList<Object> list = dao.findPW(map);
 		return list;
 	}
+
+	public String findQuiz(HashMap<String, Object> map) {
+		MemberDAO dao = session.getMapper(MemberDAO.class);
+		String str = dao.findQuiz(map);
+		return str;
+	}
 }

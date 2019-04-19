@@ -14,6 +14,8 @@ public interface SalesDAO {
 
 	public int deleteseat(Seat seat);
 
+	public int stopseat(Seat seat);
+
 	public int updateseat(Seat seat);
 
 	public int insertMenu(Menu menu);// 메뉴등록

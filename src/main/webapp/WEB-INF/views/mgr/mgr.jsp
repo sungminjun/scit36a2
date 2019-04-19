@@ -17,6 +17,9 @@
   <link href="./assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!--추가한 파일 jquery ui for chartjs  -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- CSS~tab관련  Files -->
+  <link href="assets/css/test.css" rel="stylesheet" />
+  <link href="assets/css/posMain.css" rel="stylesheet" />
   <!--  style for monthpicker show -->
   <style>
     .ui-datepicker-calendar {
@@ -24,6 +27,7 @@
     }
 
   </style>
+
 </head>
 
 <body class="white-content">
@@ -83,7 +87,7 @@
                   <button class="btn ml-auto mr-auto" id="mgr-btn-1">지출내역 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-2">판매메뉴 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-3">점내좌석 관리</button>
-                  <button class="btn ml-auto mr-auto" id="mgr-btn-4">업체정보 관리</button>
+                  <button class="btn ml-auto mr-auto" id="mgr-btn-4">기본정보 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-5">영업마감 취소</button>
                 </div>
               </div>
@@ -126,7 +130,6 @@
                         </div>
                       </div>
                       <div class="col-md-4" id="mgr-1-2-1">
-                        난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
                         <div class="form-group">
@@ -135,7 +138,6 @@
                         </div>
                       </div>
                       <div class="col-md-4" id="mgr-1-3-1">
-                        난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
                         <div class="form-group">
@@ -144,7 +146,6 @@
                         </div>
                       </div>
                       <div class="col-md-4" id="mgr-1-4-1">
-                        난까노 유효성검사 _js_ will be placed here.
                       </div>
                       <div class="col-md-8">
                         <div class="form-group">
@@ -212,7 +213,6 @@
                         </div>
                       </div>
                       <div class="col-md-4" id="mgr-2-1-1">
-                        길이제한 유효성검사 _js_ will be placed here.
                       </div>
 
                       <div class="col-md-8">
@@ -221,8 +221,7 @@
                           <input type="text" class="form-control" id="mgr-2-2" name="menu_name" placeholder="e.g. 짜장면, 짬뽕, 탕수육">
                         </div>
                       </div>
-                      <div class="col-md-4" id="mgr2-2-1">
-                        길이제한 유효성검사 _js_ will be placed here.
+                      <div class="col-md-4" id="mgr-2-2-1">
                       </div>
 
                       <div class="col-md-8">
@@ -232,7 +231,6 @@
                         </div>
                       </div>
                       <div class="col-md-4" id="mgr-2-3-1">
-                        길이제한 유효성검사 _js_ will be placed here.
                       </div>
 
                       <div class="col-md-8">
@@ -244,6 +242,7 @@
                           </select>
                         </div>
                       </div>
+
                       <div class="col-md-8">
                         <div class="form-group">
                           <button class="btn-default pull-right justify-content-end" id="mgr-btn-2-5" style="display: flex;">등록</button>
@@ -289,18 +288,21 @@
                       <input type="text" class="form-control" id="mgr-3-2" value="" disabled="disabled">
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div class="form-group">
-                      <input type="text" class="form-control" id="mgr-3-3" placeholder="등록할 테이블 이름" name="seat_id">
+                      <input type="text" class="form-control" id="mgr-3-3" placeholder="테이블 이름" name="seat_id">
                     </div>
                   </div>
                   <div class="col-md-2">
+                    <p id="mgr-3-3-1"></p>
+                  </div>
+                  <div class="col-md-1">
                     <div class="form-group">
                       <button class="btn-default" id="mgr-btn-3-4">등록</button>
                       <button class="btn-default" id="mgr-btn-3-5" style="display: none;">수정</button>
                     </div>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-1">
                     <div class="form-group">
                       <button class="btn-default" id="mgr-btn-3-6" style="display: none;">삭제</button>
                     </div>
@@ -361,8 +363,7 @@
                             <input type="text" class="form-control" id="mgr-4-1-comp_name" name="comp_name">
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          길이제한 유효성검사 _js_ will be placed here.
+                        <div class="col-md-4" id="mgr-4-1-comp_name_chk">
                         </div>
 
                         <div class="col-md-8">
@@ -371,8 +372,7 @@
                             <input type="text" class="form-control" id="mgr-4-1-comp_tel" name="comp_tel">
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          길이제한 유효성검사 _js_ will be placed here.
+                        <div class="col-md-4" id="mgr-4-1-comp_tel_chk">
                         </div>
 
                         <div class="col-md-8">
@@ -380,10 +380,14 @@
                             <label>가게주소</label>
                             <input type="text" class="form-control" id="mgr-4-1-comp_address" name="comp_address">
                             <input type="hidden" class="form-control" id="mgr-4-1-comp_address2" name="comp_address2" value="test">
+
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          도로명주소API will be placed here.
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label for="comp_address">세부주소</label>
+                            <input type="text" class="form-control" name="comp_address2">
+                          </div>
                         </div>
 
                         <div class="col-md-8">
@@ -405,7 +409,7 @@
                       <div class="row">
                         <div class="col-md-8">
                           <div class="form-group">
-                            <label>사장ID</label>
+                            <label>대표자ID</label>
                             <input type="text" class="form-control" id="mgr-4-2-emp_id" name="emp_id" readonly="readonly">
                           </div>
                         </div>
@@ -415,8 +419,7 @@
                             <input type="text" class="form-control" id="mgr-4-2-emp_name" name="emp_name">
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          난또까노 유효성검사 _js_ will be placed here.
+                        <div class="col-md-4" id="mgr-4-2-emp_name_chk">
                         </div>
 
                         <div class="col-md-8">
@@ -425,9 +428,8 @@
                             <input type="password" class="form-control" id="mgr-4-2-emp_pw" name="emp_pw">
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          *정보수정을 위해서는 최소한 비밀번호가 입력되어야 한다.
-                          난또까노 유효성검사 _js_ will be placed here.
+                        <div class="col-md-4" id="mgr-4-2-emp_pw_chk">
+                          정보를 수정하시려면 이전 비밀번호를 꼭 입력하십시오.
                         </div>
 
                         <div class="col-md-8">
@@ -436,9 +438,7 @@
                             <input type="password" class="form-control" id="mgr-4-2-emp_new_pw" name="emp_new_pw">
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          *비밀번호 변경을 위해서는 검사를 거쳐야 한다.
-                          비밀번호 doublecheck _js_ will be placed here.
+                        <div class="col-md-4" id="mgr-4-2-emp_new_pw_chk">
                         </div>
 
                         <div class="col-md-8">
@@ -447,9 +447,7 @@
                             <input type="password" class="form-control" id="mgr-4-2-emp_new_pw2" name="emp_new_pw2">
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          *비밀번호 변경을 위해서는 검사를 거쳐야 한다.
-                          비밀번호 doublecheck _js_ will be placed here.
+                        <div class="col-md-4" id="mgr-4-2-emp_new_pw2_chk">
                         </div>
 
                         <div class="col-md-8">
@@ -458,8 +456,7 @@
                             <input type="text" class="form-control" id="mgr-4-2-emp_tel" name="emp_tel">
                           </div>
                         </div>
-                        <div class="col-md-4">
-                          난또까노 유효성검사 _js_ will be placed here.
+                        <div class="col-md-4" id="mgr-4-2-emp_tel_chk">
                         </div>
 
                         <div class="col-md-8">
@@ -507,6 +504,9 @@
                               <input type="text" class="form-control" id="mgr-4-3-emp_id" name="emp_id">
                             </div>
                           </div>
+                          <div class="col-md-4" id="mgr-4-3-emp_id_chk">
+                          </div>
+
 
                           <div class="col-md-8">
                             <div class="form-group">
@@ -514,8 +514,7 @@
                               <input type="password" class="form-control" id="mgr-4-3-emp_pw" name="emp_pw">
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            난또까노 유효성검사 _js_ will be placed here.
+                          <div class="col-md-4" id="mgr-4-3-emp_pw_chk">
                           </div>
 
                           <div class="col-md-8">
@@ -524,8 +523,7 @@
                               <input type="password" class="form-control" id="mgr-4-3-emp_pw2" name="emp_pw2">
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            비밀번호 doublecheck _js_ will be placed here.
+                          <div class="col-md-4" id="mgr-4-3-emp_pw2_chk">
                           </div>
 
                           <div class="col-md-8">
@@ -534,8 +532,7 @@
                               <input type="text" class="form-control" id="mgr-4-3-emp_name" name="emp_name">
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            난또까노 유효성검사 _js_ will be placed here.
+                          <div class="col-md-4" id="mgr-4-3-emp_name_chk">
                           </div>
 
                           <div class="col-md-8">
@@ -544,8 +541,7 @@
                               <input type="text" class="form-control" id="mgr-4-3-emp_tel" name="emp_tel">
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            난또까노 유효성검사 _js_ will be placed here.
+                          <div class="col-md-4" id="mgr-4-3-emp_tel_chk">
                           </div>
 
                           <div class="col-md-8">
@@ -592,25 +588,20 @@
   <script src="./assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <!--추가한 파일 jquery ui for chartjs  -->
   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> -->
+  <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+  <script>
+    $("#postcodify").postcodify();
+    $("#mgr-4-1-comp_address").postcodifyPopUp({
+      insertAddress: "#mgr-4-1-comp_address"
+    })
 
+  </script>
 
   <script>
-  
- /*  $(function()	{
-	   $("#mgr-2-1").on("change",function()	{
-		   menuClassify();
-	   })
-  })  */
-   
-   
-    
-  
-  
-  
-  
     $(document).ready(function() {
       $("button[id=mgr-btn-1]").on('click', function() {
-        mgrshow('1')
+        mgrshow('1');
       });
       $("button[id=search_exp]").on('click', function() {
         loadexps()
@@ -648,7 +639,7 @@
       $("button[id=mgr-btn-5]").on('click', function() {
         cancel_close();
       });
-     })
+    })
 
     function setdatepicker() {
       $("#datepicker_exp").datepicker({
@@ -667,6 +658,8 @@
       if (param == 1) {
         $('.mgr-1').css('display', 'flex');
         setdatepicker();
+        setdatetodaydefault();
+        loadexps();
       } else {
         $('.mgr-1').css('display', 'none');
       }
@@ -704,12 +697,12 @@
           $('#mgr-1-8-2').html('');
           var output = '';
           var output2 = '';
-          output += '<thead class=" text-primary" style="table-layout:fixed;"><tr><th class="text-center">일시</th><th class="text-center">명세</th><th class="text-center">금액</th></tr></thead>';
+          output += '<thead class=" text-primary" style="table-layout:fixed;"><tr><th class="text-center" style="width: 30%;">일시</th><th class="text-center" style="width: 45%;">명세</th><th class="text-center" style="width: 25%;">금액</th></tr></thead>';
           $('#mgr-1-8').html(output);
           output2 += '<tbody>'
           $.each(resp, function(idx, obj) {
             output2 += '<tr s-expseq="' + obj.expense_seq + '" s-exptype="' + obj.expense_type + '" s-exp-regex="' + obj.expense_date + '|' + obj.expense_description + '|' + obj.expense_amount + '">';
-            output2 += '<td>' + obj.expense_date + '</td><td>' + obj.expense_description + '</td><td>' + obj.expense_amount + '</td>';
+            output2 += '<td style="width: 30%;">' + obj.expense_date + '</td><td style="width: 45%;">' + obj.expense_description + '</td><td style="width: 25%;">' + obj.expense_amount + '</td>';
             output2 += '</tr>';
           })
           output2 += '</tbody>'
@@ -719,8 +712,8 @@
             $(temp).on('click', callexps);
           })
 
-          $('#mgr-1-1').val('고정지출');
-          /* setdatetodaydefault(); */
+          $('#mgr-1-1').val('0');
+          setdatetodaydefault();
           $('#mgr-1-3').val('');
           $('#mgr-1-4').val('');
 
@@ -750,45 +743,13 @@
     }
 
     function addexps() {
+      if (chk_exp() == 'dont') {
+        return false;
+      }
       var expense_type = $('#mgr-1-1').val();
       var expense_date = $('#mgr-1-2').val()
       var expense_description = $('#mgr-1-3').val()
       var expense_amount = $('#mgr-1-4').val()
-	/////////////////////최철규
-  // 날짜 유효성검사?
-
-		var today = new Date();
-		var d = "";
-		d += today.getFullYear();
-		d += (today.getMonth() + 1);
-		d += today.getDate();
-	alert(expense_date);
-	alert(d);
-
-	if (d < expense_date) {
-		 $('#mgr-1-2-1').html('날짜 잘못 입력함').css('color', 'red');
-	}	if (d >= expense_date) {
-		$('#mgr-1-2-1').html('OK').css('color', 'blue');
-	}
-		  
-	  if (expense_description.length > 20) {
-		  $('#mgr-1-3-1').html('너무많이 입력함').css('color', 'red');
-	}	else if (expense_description.trim().length == 0) {
-		$('#mgr-1-3-1').html('입력해주세요').css('color', 'red');
-	}	
-	else	{
-		   $('#mgr-1-3-1').html('OK').css('color', 'blue');
-	}
-      if (isNaN(expense_amount)) {
-    	  $('#mgr-1-4-1').html('금액은 숫자로 입력할것').css('color', 'red');
-	}	else if (expense_amount.trim().length == 0) {
-		 $('#mgr-1-4-1').html('입력해주세요').css('color', 'red');
-	}    else	{
-		$('#mgr-1-4-1').html('OK').css('color', 'blue');
-	}
-      
-      
-      
       var senddata = {
         expense_type: expense_type,
         expense_date: expense_date,
@@ -811,6 +772,9 @@
     }
 
     function modifyexps() {
+      if (chk_exp() == 'dont') {
+        return false;
+      }
       var expense_type = $('#mgr-1-1').val();
       var expense_date = $('#mgr-1-2').val()
       var expense_description = $('#mgr-1-3').val()
@@ -864,39 +828,47 @@
               cat.push(obj.menu_category)
             }
           })
-          console.log(cat);
 
           // 여기부터 tab부분 
           var output = '';
           $.each(cat, function(i, obj) {
+            output += ''
             if (i == 0) {
               output += '<li class="active">'
             } else {
               output += '<li>'
             }
-            output += '<a data-toggle="tab" href="#' + obj + '">' + obj + '</a>'
-            output += '<li>'
+            output += '<a data-toggle="tab" href="#' + obj + '">' + obj + '</a></li>'
+            output += '</li>'
           })
           $('#mgr-2-8').html(output);
 
           // 여기부터 탭 밑의 tab-pane
           var output2 = '';
           $.each(cat, function(i, obj) {
-            if (i == 0) {
+            if (i === 0) {
               output2 += '<div id="' + obj + '" class="tab-pane active">';
             } else {
               output2 += '<div id="' + obj + '" class="tab-pane fade">';
             }
-            output2 += '<h3>' + obj + '</h3>';
+            // output2 += '<h3>' + obj + '</h3>';
             // 여기까지 카테고리를 기준으로 뿌린다
 
             // 이중포문, 여기부터 카테고리와 같은 속성일 때 목록에 올린다.
+            var chker = 0;
             $.each(resp, function(idx, obj2) {
               if (obj == obj2.menu_category) {
-                output2 += '<button class="btn-secondary" s-menuseq="' + obj2.menu_seq + '" s-menu-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br>' + obj2.menu_price + '<br>' + obj2.menu_sellFlag + '</button>';
+                var sellstat = (obj2.menu_sellFlag == 0) ? '*판매중단*' : '판매중';
+                if (chker % 3 === 0) output2 += '<div class="row">';
+                output2 += '<div class="col-md-4"><button class="menu_select_button" s-menuseq="' + obj2.menu_seq + '" s-menu-regex="' + obj + '|' + obj2.menu_name + '|' + obj2.menu_price + '|' + obj2.menu_sellFlag + '">' + obj2.menu_name + '<br>' + obj2.menu_price + '<br>' + sellstat + '</button></div>';
+                if (chker % 3 === 2) output2 += '</div>';
+                // 이거 의미 없고 그냥 i끝나는 시점에 div한번 더 닫음
+                // if ( chker-1 === resp.length ) output2 += '</div>'; 
+                chker++;
               }
             })
-            output2 += '</div>';
+
+            output2 += '</div></div>';
           });
 
           $('#mgr-2-9').html(output2);
@@ -914,32 +886,7 @@
       var menu_name = $('#mgr-2-2').val();
       var menu_price = $('#mgr-2-3').val();
       var menu_sellFlag = $('#mgr-2-4').val();
-	//////////////////////////////최철규
-  
-if (menu_category.length > 10) {
-    	  $('#mgr-2-1-1').html('10글자 이하로').css('color','red');
-  }	else if (menu_category.trim().length == 0) {
-	  $('#mgr-2-1-1').html('입력해주세요').css('color','red');
-}  else	{
-	  $('#mgr-2-1-1').html('성공').css('color','blue');
-  }
-if (menu_name.length > 10) {
-    	  $('#mgr2-2-1').html('10글자 이하로입력할것').css('color','red');
-	}	else if (menu_name.trim().length == 0) {
-		 $('#mgr2-2-1').html('값을 입력하세요').css('color','red');
-	}	
-	else	{
-		$('#mgr2-2-1').html('성공').css('color','blue');
-	}
-if (isNaN(menu_price)) {
-    	  $('#mgr-2-3-1').html('숫자로입력할것').css('color','red');
-	}	else if (menu_price.trim().length == 0) {
-		$('#mgr-2-3-1').html('입력해주세요').css('color','red');
-	}	
-	else	{
-		$('#mgr-2-3-1').html('성공').css('color','blue');
-	}
-      
+
       $.ajax({
         url: 'insertMenu',
         method: 'POST',
@@ -957,6 +904,7 @@ if (isNaN(menu_price)) {
       $('#mgr-2-3').val('');
       $('#mgr-2-4').val('1');
     }
+
     var menu_seq;
     // 일단 점내 좌석관리에서 선택한 seat_seq를 공유하기 위해 이렇게 전역변수로 넣었지만,
     // class에 selected같이 보이지 않는 임의의 속성을 부여해서 선택자로 가져오는 방법도 있을 듯 하다.
@@ -1025,6 +973,19 @@ if (isNaN(menu_price)) {
         url: 'selectseat',
         method: 'POST',
         success: function(resp) {
+          var rmbr = [];
+          $.each(resp, function(idx, obj) {
+            if (obj.seat_id.substr(0, 3) == '[X]') {
+              rmbr.push(idx);
+            }
+          })
+          console.log(rmbr);
+          for (i = rmbr.length - 1; i >= 0; i--) {
+            resp.splice(rmbr[i], 1);
+          }
+          console.log(resp);
+
+          $('#mgr-3-3').val('');
           var totalSeats = Object.keys(resp).length;
           $('#mgr-3-2').val('총 좌석 수 : ' + totalSeats);
 
@@ -1078,6 +1039,10 @@ if (isNaN(menu_price)) {
     }
 
     function addseat() {
+      if (chk_seat() == 'dont') {
+        return false;
+      }
+
       var seat_id = $('#mgr-3-3').val();
       $.ajax({
         url: 'addtable',
@@ -1104,6 +1069,9 @@ if (isNaN(menu_price)) {
     }
 
     function modifyseat() {
+      if (chk_seat() == 'dont') {
+        return false;
+      }
       var seat_id = $('#mgr-3-3').val();
       $.ajax({
         url: 'updateseat',
@@ -1240,34 +1208,41 @@ if (isNaN(menu_price)) {
     function cancel_close() {
       var str = '';
       var senddata = '';
+      var chker = 0;
       $.ajax({
-        url: 'selectCashonhand',
-        method: 'post',
-        success: function(resp) {
-          console.log(resp);
-          $.each(resp, function(idx, obj) {
-            console.log(obj)
-            if (obj.cashonhand_type == 4)
-              str = obj.cashonhand_register + '님이 ' + obj.cashonhand_regdate + '에 등록한 마감정보(마감금액: ' + obj.cashonhand_cash + ', 오차금액' + obj.cashonhand_error + ')를 삭제하시고 마감을 취소하시겠습니까?';
-            senddata = {
-              "cashonhand_seq": obj.cashonhand_seq
-            }
-          })
-          console.log(senddata);
-          var conf = confirm(str);
-          if (conf == true) {
-            $.ajax({
-              url: 'deleteCashonhand',
-              method: 'post',
-              data: senddata,
-              success: function(resp) {
-                alert('영업 마감정보를 삭제하고 마감을 취소합니다.');
+          url: 'selectCashonhand',
+          method: 'post',
+          success: function(resp) {
+            console.log(resp)
+            $.each(resp, function(idx, obj) {
+              if (obj.cashonhand_type == 4) {
+                str = obj.cashonhand_register + '님이 ' + obj.cashonhand_regdate + '에 등록한 마감정보(마감금액: ' + obj.cashonhand_cash + ', 오차금액' + obj.cashonhand_error + ')를 삭제하시고 마감을 취소하시겠습니까?';
+                senddata = {
+                  "cashonhand_seq": obj.cashonhand_seq
+                }
+                var conf = confirm(str);
+                if (conf == true) {
+                  $.ajax({
+                    url: 'deleteCashonhand',
+                    method: 'post',
+                    data: senddata,
+                    success: function(resp) {
+                      alert('영업 마감정보를 삭제하고 마감을 취소합니다.');
+                    }
+                  })
+                } else {
+                  alert('영업마감 요청을 취소합니다.');
+                  return false;
+                }
+                chker++;
+              } else if ( idx == resp.length -1 && chker == 0 ) {
+            	  alert('영업 마감정보가 존재하지 않습니다.');
+            	  return false;
               }
             })
           }
-        }
-      })
-    }
+        })
+      }
 
     $(document).keydown(function(event) {
       if (event.keyCode == '37') {
@@ -1280,22 +1255,379 @@ if (isNaN(menu_price)) {
         location.href = "report"
       }
     });
-    
-    /* 유효성 검사
-    
+
+    //최철규 지출관련 유효성검사
     $(document).ready(function() {
-    	$('#mgr-2-1').on('change', chk1)
+      // addexp/modifyexp 에 넣어둠 chk_exp 연결해둠
+      // 지출관련 2 
+      $("#mgr-1-3").keyup(chk_exp_desc);
+      $("#mgr-1-4").keyup(chk_exp_amount);
+      // 메뉴관련 3
+      $("#mgr-2-1").keyup(chk_menu_cate);
+      $("#mgr-2-2").keyup(chk_menu_name);
+      $("#mgr-2-3").keyup(chk_menu_price);
+      // 좌석관련 1
+      $("#mgr-3-3").keyup(chk_seat_id);
+      // 업체정보관련 2
+      $("#mgr-4-1-comp_name").keyup(comp_name_chk);
+      $("#mgr-4-1-comp_tel").keyup(comp_tel_chk);
+      // 사장정보관련
+      $("#mgr-4-2-emp_name").keyup(repr_name_chk);
+      $("#mgr-4-2-emp_new_pw").keyup(repr_new_pw_chk);
+      $("#mgr-4-2-emp_new_pw2").keyup(repr_new_pw2_chk);
+      $("#mgr-4-2-emp_tel").keyup(repr_tel_chk);
+      // 사장정보 submit 방지
+      $("#mgr-4-2-form").on("submit", function(event) {
+        event.preventDefault();
+        repr_submit_chk();
+      })
+
+      $("#mgr-4-3-emp_id").keyup(emp_id_chk);
+      $("#mgr-4-3-emp_pw").keyup(emp_pw_chk);
+      $("#mgr-4-3-emp_pw2").keyup(emp_pw2_chk);
+      $("#mgr-4-3-emp_name").keyup(emp_name_chk);
+      $("#mgr-4-3-emp_tel").keyup(emp_tel_chk);
+
+      $("#mgr-4-3-form").on("submit", function(event) {
+        event.preventDefault();
+        emp_submit_chk();
+      })
+
     })
-    
-    function chk1() {
-    	var str = $('#mgr-2-1').val();
-    	if (str.length > 10) {
-    		$('#mgr-2-1-1').html('으아아아').css('color', 'red');
-    	} else {
-    		$('#mgr-2-1-1').html('OK').css('color', 'green');
-    	}
+
+    function chk_exp() {
+      var exp_desc = $('#mgr-1-3').val();
+      var exp_amount = $('#mgr-1-4').val()
+      var regexp = /^[0-9]+$/;
+      if (exp_desc.length > 25 || exp_desc.trim().length == 0 || !regexp.test(exp_amount) || exp_amount.trim().length == 0) {
+        return 'dont';
+      }
+      return 'do';
     }
- */
+
+    function chk_exp_desc() {
+      var exp_desc = $('#mgr-1-3').val();
+      if (exp_desc.length > 25) {
+        $('#mgr-1-3-1').html('내용이 너무 깁니다.').css('color', 'red');
+      } else if (exp_desc.length < 3) {
+        $('#mgr-1-3-1').html('내용이 너무 짧습니다. 3글자 이상 입력해주세요.').css('color', 'red');
+      } else if (exp_desc.trim().length == 0) {
+        $('#mgr-1-3-1').html('내용을 입력해주세요').css('color', 'red');
+      } else {
+        $('#mgr-1-3-1').html('').css('color', 'blue');
+      }
+    }
+
+    function chk_exp_amount() {
+      var exp_amount = $('#mgr-1-4').val()
+      console.log(exp_amount)
+      var regexp = /^[0-9]+$/g;
+      if (!regexp.test(exp_amount)) {
+        $('#mgr-1-4-1').html('금액은 숫자만 입력가능합니다.').css('color', 'red');
+        var new_amount = exp_amount.replace(/[^0-9]+$/g, '')
+        $('#mgr-1-4').val(new_amount);
+        return false;
+      } else if (exp_amount.trim().length == 0) {
+        $('#mgr-1-4-1').html('금액을 입력해주세요').css('color', 'red');
+        return false;
+      } else {
+        $('#mgr-1-4-1').html('').css('color', 'blue');
+      }
+    }
+
+    function chk_menu_cate() {
+      var menu_cate = $('#mgr-2-1').val();
+      if (menu_cate.length > 25) {
+        $('#mgr-2-1-1').html('내용이 너무 깁니다.').css('color', 'red');
+      } else if (menu_cate.length < 3) {
+        $('#mgr-2-1-1').html('내용이 너무 짧습니다. 3글자 이상 입력해주세요.').css('color', 'red');
+      } else if (menu_cate.trim().length == 0) {
+        $('#mgr-2-1-1').html('내용을 입력해주세요').css('color', 'red');
+      } else {
+        $('#mgr-2-1-1').html('').css('color', 'blue');
+      }
+    }
+
+    function chk_menu_name() {
+      var menu_name = $('#mgr-2-2').val();
+      if (menu_name.length > 25) {
+        $('#mgr-2-2-1').html('내용이 너무 깁니다.').css('color', 'red');
+      } else if (menu_name.length < 3) {
+        $('#mgr-2-2-1').html('내용이 너무 짧습니다. 3글자 이상 입력해주세요.').css('color', 'red');
+      } else if (menu_name.trim().length == 0) {
+        $('#mgr-2-2-1').html('내용을 입력해주세요').css('color', 'red');
+      } else {
+        $('#mgr-2-2-1').html('').css('color', 'blue');
+      }
+    }
+
+    function chk_menu_price() {
+      var menu_price = $('#mgr-2-3').val()
+      console.log(menu_price)
+      var regexp = /^[0-9]+$/g;
+      if (!regexp.test(menu_price)) {
+        $('#mgr-2-3-1').html('금액은 숫자만 입력가능합니다.').css('color', 'red');
+        var replac = menu_price.replace(/[^0-9]+$/g, '')
+        $('#mgr-2-3').val(replac);
+        return false;
+      } else if (menu_price.trim().length == 0) {
+        $('#mgr-2-3-1').html('금액을 입력해주세요').css('color', 'red');
+        return false;
+      } else {
+        $('#mgr-2-3-1').html('').css('color', 'blue');
+      }
+    }
+
+    function chk_seat() {
+      var seat_id = $('#mgr-3-3').val();
+      if (seat_id.length < 2 || seat_id.trim().length == 0 || seat_id.length > 10) {
+        return 'dont';
+      }
+      return 'do';
+    }
+
+    function chk_seat_id() {
+      var seat_id = $('#mgr-3-3').val();
+      if (seat_id.length > 10) {
+        $('#mgr-3-3-1').html('좌석 이름이 너무 깁니다.').css('color', 'red');
+      } else if (seat_id.length < 2) {
+        $('#mgr-3-3-1').html('너무 짧습니다. 2글자 이상 입력해주세요.').css('color', 'red');
+      } else if (seat_id.trim().length == 0) {
+        $('#mgr-3-3-1').html('내용을 입력해주세요').css('color', 'red');
+      } else {
+        $('#mgr-3-3-1').html('').css('color', 'blue');
+      }
+    }
+
+    function comp_name_chk() {
+      var comp_name = $('#mgr-4-1-comp_name').val();
+      if (comp_name.length > 10) {
+        $('#mgr-4-1-comp_name_chk').html('좌석 이름이 너무 깁니다.').css('color', 'red');
+      } else if (comp_name.length < 2) {
+        $('#mgr-4-1-comp_name_chk').html('너무 짧습니다. 2글자 이상 입력해주세요.').css('color', 'red');
+      } else if (comp_name.trim().length == 0) {
+        $('#mgr-4-1-comp_name_chk').html('내용을 입력해주세요').css('color', 'red');
+      } else {
+        $('#mgr-4-1-comp_name_chk').html('').css('color', 'blue');
+      }
+    }
+
+    function comp_tel_chk() {
+      var comp_tel = $('#mgr-4-1-comp_tel').val();
+      var regexp = /^[0-9-]+$/g;
+      if (!regexp.test(comp_tel)) {
+        $('#mgr-4-1-comp_tel_chk').html('숫자만 입력하세요.').css('color', 'red');
+        var replac = comp_tel.replace(/[^0-9]+$/g, '')
+        $('#mgr-4-1-comp_tel').val(replac);
+        return false;
+      } else if (comp_tel.trim().length == 0) {
+        $('#mgr-4-1-comp_tel_chk').html('전화번호를 입력해주세요').css('color', 'red');
+        return false;
+      } else {
+        $('#mgr-4-1-comp_tel_chk').html('').css('color', 'blue');
+      }
+    }
+
+    function repr_name_chk() {
+      var emp_name = $('#mgr-4-2-emp_name').val();
+      var regexp = /^[가-힣]*$/g;
+      if (!regexp.test(emp_name)) {
+        $('#mgr-4-2-emp_name_chk').html('한글만 입력하세요.').css('color', 'red');
+        var replac = emp_name.replace(/[^가-힣]*$/g, '')
+        console.log(replac)
+        $('#mgr-4-2-emp_name').val(replac);
+        return false;
+      } else if (emp_name.trim().length == 0) {
+        $('#mgr-4-2-emp_name_chk').html('대표자 이름을 입력해주세요').css('color', 'red');
+        return false;
+      } else {
+        $('#mgr-4-2-emp_name_chk').html('').css('color', 'blue');
+      }
+    }
+
+    function repr_new_pw_chk() {
+      var pw1 = $("#mgr-4-2-emp_new_pw").val();
+      if (pw1.length < 4 || pw1.length > 20) {
+        $("#mgr-4-2-emp_new_pw_chk").text("비밀번호는 최소 4자, 최대 20자입니다").css('color', 'red');
+      } else {
+        $("#mgr-4-2-emp_new_pw_chk").text("이 비밀번호를 사용하셔도 좋습니다.").css('color', 'green');
+      }
+    }
+
+    function repr_new_pw2_chk() {
+      var pw1 = $("#mgr-4-2-emp_new_pw").val();
+      var pw2 = $("#mgr-4-2-emp_new_pw2").val();
+
+      if (pw1 == pw2) {
+        if (pw1.length < 4 || pw1.length > 20 || pw2.length < 4 || pw2.length > 20) {
+          $("#mgr-4-2-emp_new_pw2_chk").text("비밀번호를 다시한번 확인해주세요.").css("color", "red");
+        } else {
+          $("#mgr-4-2-emp_new_pw2_chk").text("비밀번호 확인이 완료되었습니다.").css("color", "green");
+        }
+      } else {
+        $("#mgr-4-2-emp_new_pw2_chk").text("비밀번호를 다시한번 확인해주세요.").css("color", "red");
+      }
+    }
+
+    function repr_tel_chk() {
+      var emp_tel = $('#mgr-4-2-emp_tel').val();
+      var regexp = /^[0-9-]+$/g;
+      if (!regexp.test(emp_tel)) {
+        $('#mgr-4-2-emp_tel_chk').html('숫자만 입력하세요.').css('color', 'red');
+        var replac = emp_tel.replace(/[^0-9]+$/g, '')
+        $('#mgr-4-2-emp_tel').val(replac);
+        return false;
+      } else if (emp_tel.trim().length == 0) {
+        $('#mgr-4-2-emp_tel_chk').html('전화번호를 입력해주세요').css('color', 'red');
+        return false;
+      } else {
+        $('#mgr-4-2-emp_tel_chk').html('').css('color', 'blue');
+      }
+    }
+
+    function repr_submit_chk() {
+      var emp_pw = $("#mgr-4-2-emp_pw").val();
+      var emp_name = $('#mgr-4-2-emp_name').val();
+      var emp_tel = $('#mgr-4-2-emp_tel').val();
+      var emp_new_pw = $("#mgr-4-2-emp_new_pw").val();
+      var pw2 = $("#mgr-4-2-emp_new_pw2").val();
+
+      if (emp_pw.length == 0) {
+        alert("먼저 이전 비밀번호를 입력하고 정보를 수정하십시오.");
+        return false;
+      }
+      if (emp_new_pw.length < 4 || emp_new_pw.length > 20 || pw2.length < 4 || pw2.length > 20 || emp_new_pw != pw2) {
+        alert("변경하려는 비밀번호를 다시 한번 확인해주십시오.");
+        return false;
+      } else {
+
+        var map = {
+          "emp_name": emp_name,
+          "emp_pw": emp_pw,
+          "emp_tel": emp_tel,
+          "emp_new_pw": emp_new_pw
+        }
+
+        $.ajax({
+          url: 'updateOwner',
+          type: 'POST',
+          data: JSON.stringify(map),
+          dataType: 'text',
+          contentType: 'application/json; charset=UTF-8',
+          success: function(resp) {
+            if (resp == 'success') {
+              document.location.reload();
+            } else {
+              $('#mgr-4-2-emp_pw_chk').text('비밀번호가 틀렸습니다. 정보를 수정할 수 없습니다.').css('color', 'red');
+            }
+          }
+        })
+      }
+    }
+
+    function emp_id_chk() {
+      var emp_id = $("#mgr-4-3-emp_id").val();
+
+      if (emp_id.length < 4 || emp_id.length > 10) {
+        $("#mgr-4-3-emp_id_chk").text("id는 4자 이상, 10자 이하만 가능합니다.").css('color', 'red');
+      } else {
+        $.ajax({
+          url: 'chk_emp_id',
+          data: {
+            emp_id: emp_id
+          },
+          method: 'POST',
+          success: function(resp) {
+            if (resp == 'success') {
+              $("#mgr-4-3-emp_id_chk").text("사용 가능한 아이디 입니다.").css("color", "green");
+            } else {
+              $("#mgr-4-3-emp_id_chk").text("이미 사용중인 아이디입니다.").css("color", "red");
+            }
+          }
+        })
+      }
+    }
+
+    function emp_pw_chk() {
+      var emp_pw = $("#mgr-4-3-emp_pw").val();
+      if (emp_pw.length < 4 || emp_pw.length > 20) {
+        $("#mgr-4-3-emp_pw_chk").text("비밀번호는 최소 4자, 최대 20자입니다").css('color', 'red');
+      } else {
+        $("#mgr-4-3-emp_pw_chk").text("이 비밀번호를 사용하셔도 좋습니다.").css('color', 'green');
+      }
+    }
+
+    function emp_pw2_chk() {
+      var emp_pw = $("#mgr-4-3-emp_pw").val();
+      var emp_pw2 = $("#mgr-4-3-emp_pw2").val();
+
+      if (emp_pw == emp_pw2) {
+        if (emp_pw.length < 4 || emp_pw.length > 20 || emp_pw2.length < 4 || emp_pw2.length > 20) {
+          $("#mgr-4-3-emp_pw2_chk").text("비밀번호를 다시한번 확인해주세요.").css("color", "red");
+        } else {
+          $("#mgr-4-3-emp_pw2_chk").text("비밀번호 확인이 완료되었습니다.").css("color", "green");
+        }
+      } else {
+        $("#mgr-4-3-emp_pw2_chk").text("비밀번호를 다시한번 확인해주세요.").css("color", "red");
+      }
+    }
+
+    function emp_name_chk() {
+      var emp_name = $("#mgr-4-3-emp_name").val();
+      var regexp = /^[가-힣]*$/g;
+      if (!regexp.test(emp_name)) {
+        $('#mgr-4-3-emp_name_chk').html('한글만 입력하세요.').css('color', 'red');
+        var replac = emp_name.replace(/[^가-힣]*$/g, '')
+        console.log(replac)
+        $('#mgr-4-3-emp_name').val(replac);
+        return false;
+      } else if (emp_name.trim().length == 0) {
+        $('#mgr-4-3-emp_name_chk').html('이름을 한글로 입력해주세요').css('color', 'red');
+        return false;
+      } else {
+        $('#mgr-4-3-emp_name_chk').html('').css('color', 'blue');
+      }
+
+    }
+
+    function emp_tel_chk() {
+      var emp_tel = $("#mgr-4-3-emp_tel").val();
+      var regexp = /^[0-9-]+$/g;
+      if (!regexp.test(emp_tel)) {
+        $('#mgr-4-3-emp_tel_chk').html('숫자만 입력하세요.').css('color', 'red');
+        var replac = emp_tel.replace(/[^0-9]+$/g, '')
+        $('#mgr-4-3-emp_tel').val(replac);
+        return false;
+      } else if (emp_tel.trim().length == 0) {
+        $('#mgr-4-3-emp_tel_chk').html('전화번호를 입력해주세요').css('color', 'red');
+        return false;
+      } else {
+        $('#mgr-4-3-emp_tel_chk').html('').css('color', 'blue');
+      }
+    }
+
+    function emp_submit_chk() {
+      var emp_id = $("#mgr-4-3-emp_id").val();
+      var emp_pw = $("#mgr-4-3-emp_pw").val();
+      var emp_pw2 = $("#mgr-4-3-emp_pw2").val();
+      var emp_name = $("#mgr-4-3-emp_name").val();
+      var emp_tel = $("#mgr-4-3-emp_tel").val();
+      var senddata = {
+        emp_id: emp_id,
+        emp_pw: emp_pw,
+        emp_name: emp_name,
+        emp_tel: emp_tel
+      };
+
+      $.ajax({
+        url: 'registMember',
+        method: 'POST',
+        data: senddata,
+        success: function(resp) {
+          document.location.reload();
+        }
+      })
+    }
 
   </script>
 </body>

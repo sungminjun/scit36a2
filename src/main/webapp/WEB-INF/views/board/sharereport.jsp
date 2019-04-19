@@ -119,20 +119,26 @@
 		var store = '';
 		var owner = '';
 		$.ajax({
-			url : 'selectOwner',
+			url : 'shareOwner',
 			method : 'POST',
+			data : JSON.stringify({ emp_seq : ${map.emp_seq} }),
+			dataType: 'json',
+	        contentType:'application/json; charset=utf-8',
 			success : function(resp) {
 				owner += '대표자  : ' + resp.emp_name;
-			}
-		})
 		$.ajax({
-			url : 'selectCompanyOne',
+			url : 'shareCompanyOne',
 			method : 'POST',
+			data : JSON.stringify({ emp_seq : ${map.emp_seq} }),
+			dataType: 'json',
+	        contentType:'application/json; charset=utf-8',
 			success : function(resp) {
 				owner += '       /  전화번호 : ' + resp.comp_tel;
 				store = resp.comp_name;
 				$('.store').html(store);
 				$('.owner_and_phone').html(owner);
+			}
+		})
 			}
 		})
 	})
@@ -145,19 +151,33 @@
 	})
 	// initializing for output (first time output) 
 	function firstshow() {
+		
 	}
+	
 	$(document).ready(function() {
+		var board_regdate = '${map.regdate}';
+		var emp_seq = ${map.emp_seq}; 
+		var map = { board_regdate : board_regdate, emp_seq : emp_seq };
+		console.log('${map}')
+		console.log('${map.regdate}')
+		
 		//매출
 		$.ajax({
-			url : 'totalReport',
-			method : 'POST',
+			url : 'shareReport' ,
+			method : 'POST' ,
+			data : JSON.stringify(map) ,
+			dataType: 'json',
+	        contentType:'application/json; charset=utf-8',
 			success : function(resp) {
 			}
 		});
 		//메뉴메뉴
 		$.ajax({
-			url : 'totalMenuReport',
+			url : 'shareMenuReport',
 			method : 'POST',
+			data : JSON.stringify(map) ,
+			dataType: 'json',
+	        contentType:'application/json; charset=utf-8',
 			success : function(resp) {
 				menuTable(resp);
 				firstshow();
@@ -165,16 +185,23 @@
 		});
 		//고객통계
 		$.ajax({
-			url : 'totalGuestReport',
+			url : 'shareGuestReport',
 			method : 'POST',
+			data : JSON.stringify(map) ,
+			dataType: 'json',
+	        contentType:'application/json; charset=utf-8',
 			success : function(resp) {
+				console.log('고객' + JSON.stringify(resp));
 				customerTable(resp);
 			}
 		})
 		//수지보고서
 		$.ajax({
-			url : 'totalIncomeReport',
+			url : 'shareIncomeReport',
 			method : 'POST',
+			data : JSON.stringify(map) ,
+			dataType: 'json',
+	        contentType:'application/json; charset=utf-8',
 			success : function(resp) {
 				MainTable(resp);
 				MainTable2(resp);
@@ -182,13 +209,17 @@
 		})
 		//현금 /카드
 		$.ajax({
-			url : 'totalCardReport',
+			url : 'shareCardReport',
 			method : 'POST',
+			data : JSON.stringify(map) ,
+			dataType: 'json',
+	        contentType:'application/json; charset=utf-8',
 			success : function(resp) {
 				cardTable(resp)
 			}
 		})
 	});
+	
 	function MainTable(resp) {
 		var output = '';
 		output += '<table class="table table-hover" style="max-height: 150">';
@@ -305,6 +336,7 @@
 		output += "</table>"
 		$('.cardTable').html(output);
 	}
+	
 	function customerTable(resp) {
 		var output = '';
 		var nae = 0;
@@ -316,9 +348,9 @@
 		output += '<th style="width :33%; text-align: center;">객단가(3개월)</th>'
 		output += '<th style="width :33%; text-align: center;">회전</th></tr></thead>'
 		$.each(resp, function(index, item) {
-			nae += item.VISITORS;
-			geck += item.GECK;
-			spin += item.SPIN;
+			nae += item.VISITORS * 1;
+			geck += item.GECK * 1;
+			spin += item.SPIN * 1;
 		})
 		finalGeck = (geck / 3);
 		//값
@@ -331,6 +363,7 @@
 		output += "</table>"
 		$('.customerTable').html(output);
 	}
+	
 	//수지 1/3/6 개월
 	function MainTable2(resp) {
 		var output = '';

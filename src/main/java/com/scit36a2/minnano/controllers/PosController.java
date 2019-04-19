@@ -128,7 +128,7 @@ public class PosController {
 			sas.setSales_memo((String)senddata_replace.get("sales_memo"));
 		}
 		System.out.println(sas);
-//		int resultSas = repo.insertSas(sas);
+		int resultSas = repo.updateSasmemo(sas);
 		int deleteOld = repo.deleteoldorder(sas_seq);
 
 		String ppods[] = ((String)senddata_replace.get("ppod")).split("\\|");
@@ -139,7 +139,8 @@ public class PosController {
 		for (int i = 0; i < ppods.length - 3; i += 4) {
 			chker++;
 			if (ppods[i].equals("-1")) {
-				sad.setSales_discount(Integer.parseInt(ppods[i + 2]));
+				int thisdiscount = Integer.parseInt(ppods[i + 2]);
+				sad.setSales_discount(thisdiscount);
 				sad.setMenu_seq(-1);
 			} else {
 				sad.setMenu_seq(Integer.parseInt(ppods[i]));
@@ -342,6 +343,37 @@ public class PosController {
 			return "fail";
 	}
 
+	/**
+	 * 원하는 타입의 현금시재 정보 하나를 선택
+	 * 
+	 * @author jsm
+	 */
+ 	@RequestMapping(value = "selectCashOne", method = RequestMethod.POST)	
+	@ResponseBody	
+	public List<Cashonhand> selectCashOne(HttpSession session, Cashonhand cashonhand) {	
+		int comp_seq = (Integer) session.getAttribute("comp_seq");	
+		cashonhand.setComp_seq(comp_seq);	
+		List<Cashonhand> result = repo.selectCashOne(cashonhand);	
+
+ 		return result;	
+	}	
+
+ 	/**
+	 * 현금시재 정보를 삭제
+	 * 
+	 * @author jsm
+	 */
+ 	@RequestMapping(value = "deleteCashonhand", method = RequestMethod.POST)	
+	@ResponseBody	
+	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand) {	
+		int comp_seq = (Integer) session.getAttribute("comp_seq");	
+		cashonhand.setComp_seq(comp_seq);	
+		System.out.println("cashonhand 컨트롤러 삭제 : " + cashonhand);	
+		int result = repo.deleteCashonhand(cashonhand);	
+		System.out.println("result 컨트롤러 삭제  : " + result);	
+		return "success";	
+ 	}
+ 	
 	//
 	// cashonhand 관련 내용 above here
 	//
@@ -396,10 +428,12 @@ public class PosController {
 
 		sas.setSales_state_seq(map.get("from_sasseq"));
 		System.out.println(sas.getSales_state_seq());
-		int mergeResult = repo.mergetable(map);
+		int mergeResult = repo.mergetable(map); 
 		int delResult = repo.deleteSas(sas);
 		System.out.println("merge : " + mergeResult + ", delR : " + delResult);
-
+		if (mergeResult != 0 && delResult != 0 ) {
+			result = "success";
+		}
 		return result;
 	}
 

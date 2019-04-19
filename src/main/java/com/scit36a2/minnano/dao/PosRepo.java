@@ -158,4 +158,10 @@ public class PosRepo {
 		return result;
 	}
 
+	public int updateSasmemo(Sales_state sas) {
+		PosDAO mapper = session.getMapper(PosDAO.class);
+		int result = mapper.updateSasmemo(sas);
+		return result;
+	}
+
 }

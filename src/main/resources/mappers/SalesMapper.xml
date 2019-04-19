@@ -33,6 +33,15 @@
     seat_seq = #{seat_seq}
   </delete>
 
+  <update id="stopseat" parameterType="sea">
+    update
+    	SEAT
+    set
+    	seat_id = '[X]' || (select seat_id from seat where seat_seq = ${seat_seq}) 
+    where
+    	seat_seq = #{seat_seq}
+  </update>
+  
   <update id="updateseat" parameterType="sea">
     update
     SEAT
@@ -99,9 +108,6 @@
     expense_seqs.nextval
     , #{comp_seq}
     , #{expense_type}
-    <!-- <if test="expense_type=='고정'">,#{expense_type}=1</if>
-				<if test="expense_type=='변동'">,#{expense_type}=2</if>
-				<if test="expense_type=='기타'">,#{expense_type}=3</if> -->
     , to_date(#{expense_date}, 'YYYY-MM-DD')
     , #{expense_description}
     , #{expense_amount}
@@ -109,17 +115,18 @@
   </insert>
 
   <select id="selectExpense" parameterType="HashMap" resultType="exp">
-    select
-    expense_seq
-    , comp_seq
-    , expense_type
-    , to_char(expense_date, 'YYYY-MM-DD') expense_date
-    , expense_description
-    , expense_amount
-    from
-    EXPENSE
-    where
-    comp_seq = #{comp_seq} and expense_date like to_date(#{month}, 'yyyy-mm')
+    SELECT
+	    expense_seq
+	    , comp_seq
+	    , expense_type
+	    , to_char(expense_date, 'yyyy-mm-dd') as expense_date
+	    , expense_description
+	    , expense_amount
+    FROM
+    	expense
+    WHERE
+    	comp_seq = #{comp_seq} 
+    	and expense_date between to_date(#{month} || '-01', 'yyyy-mm-dd') and last_day(to_date(#{month}, 'yyyy-mm')) 
   </select>
 
   <delete id="deleteExpense" parameterType="exp">

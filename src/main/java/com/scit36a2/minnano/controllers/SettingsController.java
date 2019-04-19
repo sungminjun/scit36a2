@@ -89,11 +89,16 @@ public class SettingsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		seat.setComp_seq(comp_seq);
 		int result = repo.deleteseat(seat);
+		System.out.println(result);
 		if (result == 1) {
 			return "success";
 		} else {
-			return "fail";
+			result = repo.stopseat(seat);
+			if ( result != 0 ) {
+				return "success";
+			}
 		}
+		return "fail";
 	}
 
 	/**

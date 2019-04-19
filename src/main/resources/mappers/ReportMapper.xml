@@ -360,7 +360,7 @@
 			left join payment p on d.SALES_STATE_SEQ = p.SALES_STATE_SEQ
 		WHERE
 			s.sales_end between trunc(add_months(sysdate,-3)+1) and trunc(LAST_DAY(add_months(sysdate,-1))+1)
-			and m.comp_seq = 7
+			and m.comp_seq = #{comp_seq}
 		GROUP BY
 			m.MENU_CATEGORY
 		ORDER BY
@@ -410,7 +410,7 @@
 			ORDER BY payment_time
 			)
 		WHERE
-			comp_seq = #{comp_seq}and payment_time between trunc(add_months(sysdate,-6)+1) and trunc(LAST_DAY(add_months(sysdate,-1))+1)
+			comp_seq = #{comp_seq} and payment_time between trunc(add_months(sysdate,-6)+1) and trunc(LAST_DAY(add_months(sysdate,-1))+1)
 		GROUP BY
 			to_char(payment_time, 'YYYY-MM')
 		ORDER BY

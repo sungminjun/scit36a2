@@ -30,59 +30,106 @@
         $('.tabcontent').removeClass('current');
         $(this).addClass('current');
         $('#' + activeTab).addClass('current');
-
-
-        /*     $('#findId').on('click',function(){
-            	var comp_id=$('#comp_id').val();
-            	var emp_name=$('#emp_name').val();
-            	var postData={'comp_id':comp_id,'emp_name':emp_name};
-            	alert(postData);
-   					
-            	
-            	$.ajax({
-            		url:'findId'
-            		,type:'POST'
-            		,data: postData
-            		,success:function(resp) {
-            				alert(resp.emp_id);
-            			}
-            	
-            	})
-            	
-        })   */
-
-
       })
 
       $("#findIdForm").on("submit", function(event) {
         event.preventDefault();
         var comp_id = $('#comp_id').val();
         var emp_name = $('#emp_name').val();
-        var postData = {
-          'comp_id': comp_id,
-          'emp_name': emp_name
-        };
-
-        $.ajax({
-          url: 'findId',
-          type: 'POST',
-          data: postData,
-          success: function(resp) {
-            alert("id는" + resp.emp_id + "입니다.");
-          }
-        })
+        if (comp_id.length == 0 || emp_name.length == 0) {
+          alert("먼저 사업자등록번호와 이름을 입력하십시오.");
+        } else {
+          var postData = {
+            'comp_id': comp_id,
+            'emp_name': emp_name
+          };
+          $.ajax({
+            url: 'findId',
+            type: 'POST',
+            data: postData,
+            success: function(resp) {
+              console.log(resp)
+              console.log(resp.emp_id)
+              if ($.type(resp.emp_id) == 'undefined') {
+                alert('해당하는 정보가 존재하지 않습니다.');
+              } else {
+                alert("id는" + resp.emp_id + "입니다.");
+              }
+            }
+          })
+        }
       })
+
+      $("#findPwForm").on("submit", function(event) {
+        event.preventDefault();
+        var emp_id = $('#emp_id_4pw').val();
+        var comp_id = $('#comp_id_4pw').val();
+        var emp_name = $('#emp_name_4pw').val();
+        if (emp_id.length == 0 || comp_id.length == 0 || emp_name.length == 0) {
+          alert("먼저 조회하고자 하는 정보를 입력하십시오.");
+        } else {
+          var postData = {
+            'emp_id': emp_id,
+            'comp_id': comp_id,
+            'emp_name': emp_name
+          };
+          $.ajax({
+            url: 'findPw',
+            type: 'POST',
+            data: JSON.stringify(postData),
+            dataType: 'json',
+            contentType: 'application/json; charset=UTF-8',
+            success: function(resp) {
+              console.log(resp);
+              console.log(resp[0].EMP_QUIZ_ANSWER);
+              if ($.type(resp[0].EMP_QUIZ) == 'undefined') {
+                alert('해당하는 정보가 없습니다.')
+              } else {
+                $('#findQuizForm').css('display', 'block');
+                $('#emp_quiz').html(resp[0].EMP_QUIZ);
+              }
+            },
+            failure: function() {
+              alert('fail');
+            }
+          })
+        }
+      })
+
+      $("#findQuizForm").on("submit", function(event) {
+        event.preventDefault();
+        alert('!');
+        var emp_id = $('#emp_id_4pw').val();
+        var emp_name = $('#emp_name_4pw').val();
+        var emp_quiz_answer = $('#emp_quiz_answer').val();
+        if (emp_id.length == 0 || emp_quiz_answer.length == 0 || emp_name.length == 0) {
+          alert("먼저 조회하고자 하는 정보를 입력하십시오.");
+        } else {
+          var map = {
+            'emp_id': emp_id,
+            'emp_name': emp_name,
+            'emp_quiz_answer': emp_quiz_answer
+          };
+          console.log(map);
+          $.ajax({
+            url: 'findQuiz',
+            type: 'POST',
+            data: JSON.stringify(map),
+            dataType: 'text',
+            contentType: 'application/json; charset=UTF-8',
+            success: function(resp) {
+              console.log(resp);
+              if (resp.length == 0) {
+                alert('해당하는 정보가 없습니다.')
+              } else {
+                alert('비밀번호는 ' + resp + ' 입니다.')
+              }
+            }
+          })
+        }
+      })
+
     });
-    /*
-        $("#findId").on('click', function() {
-        	return false;
-        })
-        
-        $("")
-        <c:if test="${findResult != null}" >
-          alert('id 찾기 결과: ' + $ {findResult}); 
-          </c:if>
-          */
 
   </script>
 
@@ -140,13 +187,11 @@
             <ul class="tab">
               <li class="current rounded-top" data-tab="tab1"><a href="#">ID 찾기</a></li>
               <li class="rounded-top" data-tab="tab2"><a href="#">PW 찾기</a></li>
-              <!-- <li data-tab="tab3"><a href="#">Contact</a></li>
-					<li data-tab="tab4"><a href="#">Travel</a></li> -->
             </ul>
 
             <div id="tab1" class="tabcontent current rounded-bottom rounded-right">
               <form class="box" id="findIdForm" action="findId" method="POST">
-                <h1>ID찾기</h1>
+                <h1></h1>
                 <p><input type="text" name="comp_id" id="comp_id" placeholder="사업자 등록번호"></p>
                 <p><input type="text" name="emp_name" id="emp_name" placeholder="회원이름"></p>
                 <p><input type="submit" id="findId" name="idSearch" value="ID찾기"></p>
@@ -155,16 +200,16 @@
 
             <div id="tab2" class="tabcontent rounded">
               <form class="box" id="findPwForm" action="findPw" method="POST">
-                <h1>PW찾기</h1>
-                <p><input type="text" name="emp_id" placeholder="ID입력"></p>
-                <p><input type="text" name="comp_id" placeholder="사업자 등록번호"></p>
-                <div><input type="text" name="emp_name" placeholder="회원이름">
-                  <input type="submit" name="quizSearch" value="입력"></div>
-                <p class="instant_text">${data.EMP_QUIZ}</p>
-                <p><input type="text" name="emp_quiz_answer" placeholder="질문에 대한 답을 넣어주세요"></p>
-
-
-                <p><input type="submit" name="pwSearch" value="PW찾기"></p>
+                <h1></h1>
+                <p><input type="text" name="emp_id_4pw" id="emp_id_4pw" placeholder="ID입력"></p>
+                <p><input type="text" name="comp_id_4pw" id="comp_id_4pw" placeholder="사업자 등록번호"></p>
+                <input type="text" name="emp_name_4pw" id="emp_name_4pw" placeholder="회원이름">
+                <input type="submit" name="quizSearch" value="입력">
+              </form>
+              <form class="box" id="findQuizForm" action="findQuiz" method="POST" style="display: none;">
+                <p class="instant_text" id="emp_quiz"></p>
+                <p><input type="text" name="emp_quiz_answer" id="emp_quiz_answer" placeholder="질문에 대한 답을 넣어주세요"></p>
+                <p><input type="submit" name="pwSearch" value="PW찾기" id="pwSearch"></p>
                 <!-- data를 전송해서, ok면(quiz정답이 들어오면) 새로운 비밀번호를 입력받아서 (2번입력받아야함) 전송한다. -->
                 <!-- 전송한 data를 update해서 pw를 덮어씌운다. -->
               </form>

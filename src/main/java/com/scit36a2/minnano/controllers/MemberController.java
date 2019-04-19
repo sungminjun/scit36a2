@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,7 +59,7 @@ public class MemberController {
 				int emp_seq = e.getEmp_seq();// 추가-최철규
 				int emp_auth_level = e.getEmp_auth_level();
 				String emp_name = e.getEmp_name();
-				
+
 				session.setAttribute("emp_id", emp_id);
 				session.setAttribute("comp_seq", comp_seq);
 				session.setAttribute("emp_seq", emp_seq);// 추가 최철규
@@ -130,7 +131,7 @@ public class MemberController {
 		map.put("emp_name", employee.getEmp_name());
 		map.put("emp_tel", employee.getEmp_tel());
 		map.put("emp_quiz", employee.getEmp_quiz());
-		
+
 		map.put("emp_quiz_answer", employee.getEmp_quiz_answer());
 
 		int result = repo.join(map);
@@ -143,9 +144,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	//
-	// not checked yet below
-
 	/**
 	 * 회원가입 페이지 기능 -사업자 등록번호 중복 체크
 	 * 
@@ -155,16 +153,24 @@ public class MemberController {
 	public @ResponseBody String checkComp_id(String comp_id) {
 		System.out.println(comp_id);
 		Company c = repo.selectCompanyOneById(comp_id);
-
 		if (c != null)
 			return "fail";
 		else
 			return "success";
-		
 	}
 
-	// not checked yet above
-	//
+	/**
+	 * 회원가입 페이지 기능 emp_id 중복체크
+	 * 
+	 * @author 김유경
+	 */
+	@RequestMapping(value = "chk_emp_id", method = RequestMethod.POST)
+	public @ResponseBody String chk_emp_id(Employee emp) {
+		System.out.println(emp);
+		Employee e = repo.selectOne(emp);
+		if (e != null)	return "fail";
+		else			return "success";
+	}
 
 	/**
 	 * id/pw찾기 페이지이동
@@ -186,8 +192,6 @@ public class MemberController {
 	public @ResponseBody Employee findId(String comp_id, String emp_name) {
 		System.out.println(comp_id);
 		HashMap<String, Object> map = new HashMap<>();
-
-		System.out.println("여기들름");
 		map.put("comp_id", comp_id);
 		map.put("emp_name", emp_name);
 		logger.info("map: " + map);
@@ -197,7 +201,6 @@ public class MemberController {
 			System.out.println(result);
 			return result;
 		} else {
-			System.out.println("else다");
 			return null;
 		}
 	}
@@ -208,20 +211,31 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> findPw(String emp_id, long comp_id, String emp_name, String emp_quiz_answer, Model model) {
-		
-		HashMap<String,Object> map=new HashMap<>();
-		map.put("emp_id",emp_id);
-		map.put("comp_id", comp_id);
-		map.put("emp_name",emp_name);
-		ArrayList<Object> result=repo.findPW(map);
-		if(result!=null) {
+	public @ResponseBody ArrayList<Object> findPw(@RequestBody HashMap<String, Object> postData) {
+		System.out.println(postData);
+		ArrayList<Object> result = repo.findPW(postData);
+		if (result != null) {
 			System.out.println(result);
 			return result;
-		}else{
-			System.out.println("값없음");
+		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * 비밀번호 퀴즈 점검
+	 * 
+	 * @author 김유경
+	 */
+	@RequestMapping(value = "/findQuiz", method = RequestMethod.POST)
+	public @ResponseBody String findQuiz(@RequestBody HashMap<String, Object> map) {
+		System.out.println("quiz: " + map);
+		String result = "";
+		result = repo.findQuiz(map);
+		if (result == null || result.length() == 0) {
+			return null;
+		}
+		return result;
 	}
 
 	/**
@@ -311,31 +325,31 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "updateOwner", method = RequestMethod.POST)
-	public String updateOwner(Employee employee, String emp_new_pw, HttpSession session) {
+	public @ResponseBody String updateOwner(@RequestBody HashMap<String, Object> map, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		String emp_id = (String) session.getAttribute("emp_id");
-
 		// 세션의 emp_id와 보내온 객체 emplyoee가 같은 아이디인지 검증하고,
 		// 입력받은 비밀번호가 같을때만 변경처리를 허가해야한다.
 		Employee emp = new Employee();
 		emp.setEmp_id(emp_id);
 		Employee chkEmp = repo.selectOne(emp);
+		String emp_new_pw = (String)map.get("emp_new_pw");
 		int result = 0;
-		if (chkEmp != null && chkEmp.getEmp_id().equals(emp_id) && employee.getEmp_pw().equals(chkEmp.getEmp_pw())) {
+		if (chkEmp != null && chkEmp.getEmp_id().equals(emp_id) && ((String)map.get("emp_pw")).equals(chkEmp.getEmp_pw())) {
 			// 만약 새로운 비밀번호를 입력받았다면, 비밀번호를 새로 설정한다.
 			if (emp_new_pw != null && !emp_new_pw.equals("")) {
-				employee.setEmp_pw(emp_new_pw);
+				emp.setEmp_pw(emp_new_pw);
 			}
-			employee.setComp_seq(comp_seq);
-			result = repo.updateMember(employee);
+			emp.setComp_seq(comp_seq);
+			emp.setEmp_tel((String)map.get("emp_tel"));
+			emp.setEmp_name((String)map.get("emp_name"));
+			result = repo.updateMember(emp);
 		}
-		logger.info("updateOnwer result: " + result);
+		System.out.println("updateOnwer result: " + result);
 
 		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)
-			return "redirect:/mgr";
-		else
-			return "redirect:/mgr";
+		if (result == 1)	return "success";
+		else				return "fail";
 	}
 
 	/**
@@ -371,7 +385,7 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "registMember", method = RequestMethod.POST)
-	public String registMember(Employee employee, HttpSession session) {
+	public @ResponseBody String registMember(Employee employee, HttpSession session) {
 		// employee.setEmp_auth_level(1); mapper에서 처리할까..
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("emp: " + employee);
@@ -382,10 +396,8 @@ public class MemberController {
 		int result = repo.joinMember(employee);
 
 		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)
-			return "redirect:/mgr";
-		else
-			return "redirect:/mgr";
+		if (result == 1)	return "success";
+		else				return "fail";
 	}
 
 	/**

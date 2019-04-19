@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.scit36a2.minnano.vo.Board;
 import com.scit36a2.minnano.vo.Board_comments;
+import com.scit36a2.minnano.vo.Company;
 
 @Repository
 public class BoardRepo {
@@ -107,6 +108,8 @@ public class BoardRepo {
 		Board_comments result = dao.selectCmtOne(board_comments);
 		return result;
 	}
+	
+	
 	public ArrayList<Object> insertReport(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		ArrayList<Object> list = dao.insertReport(map);
@@ -115,7 +118,7 @@ public class BoardRepo {
 
 	public ArrayList<Object> insertMenuReport(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		ArrayList<Object> list = dao.nsertMenuReport(map);
+		ArrayList<Object> list = dao.insertMenuReport(map);
 		return list;
 	}
 
@@ -126,22 +129,22 @@ public class BoardRepo {
 	}
 
 	
-	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map) {
+	public ArrayList<HashMap<String, Object>> selectshareMonthPayment(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectMonthPayment(map);
+		ArrayList<HashMap<String, Object>> list = dao.selectshareMonthPayment(map);
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map) {
+	public ArrayList<HashMap<String, Object>> selectshareMonthExpense(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		ArrayList<HashMap<String, Object>> list = dao.selectMonthExpense(map);
+		ArrayList<HashMap<String, Object>> list = dao.selectshareMonthExpense(map);
 		return list;
 	}
 	
 
 	public ArrayList<Object> insertCardReport(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
-		ArrayList<Object> list = dao.insertCardReportt(map);
+		ArrayList<Object> list = dao.insertCardReport(map);
 		return list;
 	}
 
@@ -150,8 +153,6 @@ public class BoardRepo {
 		int result = dao.selectCompseq(emp_seq);
 		return result;
 	}
-
-	
 
 	
 

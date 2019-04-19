@@ -5976,6 +5976,7 @@ button.close {
   border-radius: 0.2857rem;
   box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.5);
   outline: 0;
+  padding: 24px 24px 24px 24px;
 }
 
 .modal-backdrop {
@@ -5985,7 +5986,7 @@ button.close {
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #0a0a0a;
+/*   background-color: #0a0a0a; */
 }
 
 .modal-backdrop.fade {

@@ -168,10 +168,8 @@ public class MemberController {
 	public @ResponseBody String chk_emp_id(Employee emp) {
 		System.out.println(emp);
 		Employee e = repo.selectOne(emp);
-		if (e != null)
-			return "fail";
-		else
-			return "success";
+		if (e != null)	return "fail";
+		else			return "success";
 	}
 
 	/**
@@ -327,31 +325,31 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "updateOwner", method = RequestMethod.POST)
-	public String updateOwner(Employee employee, String emp_new_pw, HttpSession session) {
+	public @ResponseBody String updateOwner(@RequestBody HashMap<String, Object> map, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		String emp_id = (String) session.getAttribute("emp_id");
-
 		// 세션의 emp_id와 보내온 객체 emplyoee가 같은 아이디인지 검증하고,
 		// 입력받은 비밀번호가 같을때만 변경처리를 허가해야한다.
 		Employee emp = new Employee();
 		emp.setEmp_id(emp_id);
 		Employee chkEmp = repo.selectOne(emp);
+		String emp_new_pw = (String)map.get("emp_new_pw");
 		int result = 0;
-		if (chkEmp != null && chkEmp.getEmp_id().equals(emp_id) && employee.getEmp_pw().equals(chkEmp.getEmp_pw())) {
+		if (chkEmp != null && chkEmp.getEmp_id().equals(emp_id) && ((String)map.get("emp_pw")).equals(chkEmp.getEmp_pw())) {
 			// 만약 새로운 비밀번호를 입력받았다면, 비밀번호를 새로 설정한다.
 			if (emp_new_pw != null && !emp_new_pw.equals("")) {
-				employee.setEmp_pw(emp_new_pw);
+				emp.setEmp_pw(emp_new_pw);
 			}
-			employee.setComp_seq(comp_seq);
-			result = repo.updateMember(employee);
+			emp.setComp_seq(comp_seq);
+			emp.setEmp_tel((String)map.get("emp_tel"));
+			emp.setEmp_name((String)map.get("emp_name"));
+			result = repo.updateMember(emp);
 		}
-		logger.info("updateOnwer result: " + result);
+		System.out.println("updateOnwer result: " + result);
 
 		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)
-			return "redirect:/mgr";
-		else
-			return "redirect:/mgr";
+		if (result == 1)	return "success";
+		else				return "fail";
 	}
 
 	/**
@@ -387,7 +385,7 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "registMember", method = RequestMethod.POST)
-	public String registMember(Employee employee, HttpSession session) {
+	public @ResponseBody String registMember(Employee employee, HttpSession session) {
 		// employee.setEmp_auth_level(1); mapper에서 처리할까..
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		System.out.println("emp: " + employee);
@@ -398,10 +396,8 @@ public class MemberController {
 		int result = repo.joinMember(employee);
 
 		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)
-			return "redirect:/mgr";
-		else
-			return "redirect:/mgr";
+		if (result == 1)	return "success";
+		else				return "fail";
 	}
 
 	/**

@@ -279,15 +279,14 @@
         url: "checkComp_id",
         method: "POST",
         success: function(data) {
-          $("#company_Id").css("background-color", "#B0F6AC").attr(
-            'readonly', 'readonly');
-          $("#company_IdResult").text("사용 가능한 아이디 입니다.").attr("style",
-            "color:#00f");
-        },
-        error: function() {
-          $("#company_Id").css("background-color", "#FFCECE");
-          $("#company_IdResult").text("중복되는 ID 입니다");
-          $("#company_Id").attr("style", "color:#f00");
+        	console.log(data);
+        	if (data == 'fail') {
+        		$("#company_Id").css("background-color", "#FFCECE")/* .css("color", "red") */;
+                $("#company_IdResult").text("중복되는 ID 입니다").css("color", "red");
+        	} else {
+          $("#company_Id").css("background-color", "#B0F6AC").css("color", "black")/* .attr('readonly', 'readonly') */;
+          $("#company_IdResult").text("사용 가능한 아이디 입니다.").attr("style","color:#00f");
+        	}
         }
       });
     }
@@ -305,11 +304,9 @@
           },
           method: 'POST',
           success: function() {
-            alert('ok');
             $("#chkidresult").text("사용 가능한 아이디 입니다.").css("color", "green");
           },
           failure: function() {
-            alert('fail');
             $("#chkidresult").text("이미 사용중인 아이디입니다.").css("color", "red");
           }
         })

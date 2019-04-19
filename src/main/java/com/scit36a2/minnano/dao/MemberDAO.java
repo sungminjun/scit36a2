@@ -51,6 +51,10 @@ public interface MemberDAO {
 
 	public String findQuiz(HashMap<String, Object> map);
 
+	public Employee selectOnebyseq(int emp_seq);
+
+	public Company shareCompanyOne(int emp_seq);
+
 	
 
 }

@@ -200,4 +200,9 @@
 		where sales_state_seq = #{sales_state_seq}
 	</delete>
 
+	<update id="updateSasmemo" parameterType="sas">
+		UPDATE sales_state 
+		SET sales_memo = #{sales_memo}
+		WHERE sales_state_seq = #{sales_state_seq}
+	</update>
 </mapper>

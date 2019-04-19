@@ -191,8 +191,9 @@
 	 from employee e,board b 
 	 where e.emp_seq=#{emp_seq} 
 	</select>
+	
 	<select id="insertReport" parameterType="HashMap" resultType="HashMap">
-		      SELECT
+		SELECT
 			to_char(min(payment_time), 'YYYY-MM') as monthtime
 			, sum(payment_amount) as payment_amount_sum
 			, sum(sales_order) as sales_order_sum
@@ -208,11 +209,119 @@
 			ORDER BY payment_time
 			)
 		WHERE
-			comp_seq = #{comp_seq}
+			comp_seq = (SELECT c.comp_seq FROM company c LEFT JOIN employee e ON c.comp_seq = e.comp_seq WHERE e.emp_seq = #{emp_seq})
 			and payment_time between trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-4))+1) and trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-1))+1)
          GROUP BY
 			to_char(payment_time, 'YYYY-MM')
 		ORDER BY
 			monthtime
+	</select>
+	
+	
+	<select id="insertMenuReport" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			m.MENU_CATEGORY, sum(d.sales_order) as
+			sales_Order_Sum,sum(p.PAYMENT_AMOUNT) as payment_amount
+		FROM
+			sales_detail d
+			left join sales_state s on d.sales_state_seq = s.sales_state_seq
+			left join menu m on d.menu_seq = m.menu_seq
+			left join payment p on d.SALES_STATE_SEQ = p.SALES_STATE_SEQ
+		WHERE
+			s.sales_end between trunc(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-3)+1) and trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-1))+1)
+			and m.comp_seq = (SELECT c.comp_seq FROM company c LEFT JOIN employee e ON c.comp_seq = e.comp_seq WHERE e.emp_seq = #{emp_seq})
+		GROUP BY
+			m.MENU_CATEGORY
+		ORDER BY
+			payment_amount desc
+	</select>
+	
+	<select id="insertGuestReport" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			to_char(min(payment_time), 'YYYY-MM') as monthtime
+			, round(sum(payment_amount)/sum(sales_visitors))as geck
+			, round(sum(payment_amount) / ((select count(seat_seq) from seat where
+			comp_seq = (SELECT c.comp_seq FROM company c LEFT JOIN employee e ON c.comp_seq = e.comp_seq WHERE e.emp_seq = #{emp_seq}) )*3.2*sum(payment_amount)/sum(sales_visitors)),1) as spin
+			, sum(sales_visitors) as visitors
+		FROM
+			(
+			SELECT
+				p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as
+				comp_seq, d.sales_order as sales_order,s.sales_visitors as
+				sales_visitors
+			FROM
+				payment p
+				LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+				LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+			ORDER BY payment_time
+			)
+		WHERE
+			comp_seq = (SELECT c.comp_seq FROM company c LEFT JOIN employee e ON c.comp_seq = e.comp_seq WHERE e.emp_seq = #{emp_seq}) 
+			and payment_time between trunc(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-3)+1)and trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-1))+1)
+		GROUP BY
+			to_char(payment_time, 'YYYY-MM')
+		ORDER BY
+			monthtime
+	</select>
+	
+	<select id="selectshareMonthPayment" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			to_char(min(payment_time), 'YYYY-MM') as monthtime
+			, sum(payment_amount) as allpayment
+		FROM
+			(
+			SELECT
+				p.payment_time as payment_time, p.payment_amount as payment_amount, s.comp_seq as comp_seq
+			FROM
+				payment p
+				LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+				LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+			ORDER BY payment_time
+			)
+		WHERE
+			comp_seq = (SELECT c.comp_seq FROM company c LEFT JOIN employee e ON c.comp_seq = e.comp_seq WHERE e.emp_seq = #{emp_seq})
+			and payment_time between trunc(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-6)+1) and trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-1))+1)
+		GROUP BY
+			to_char(payment_time, 'YYYY-MM')
+		ORDER BY
+			monthtime desc
+	</select>
+
+	<select id="selectshareMonthExpense" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			to_char(expense_date, 'YYYY-MM') as monthtime,
+			sum(EXPENSE_AMOUNT) as EXPENSE_AMOUNT
+		FROM
+			expense
+		WHERE
+			comp_seq = (SELECT c.comp_seq FROM company c LEFT JOIN employee e ON c.comp_seq = e.comp_seq WHERE e.emp_seq = #{emp_seq})
+			and expense_date between trunc(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-6)+1) and trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-1))+1)
+		GROUP BY
+			to_char(expense_date, 'YYYY-MM')
+		ORDER BY
+			monthtime desc
+	</select>
+	
+	<select id="insertCardReport" resultType="HashMap" parameterType="HashMap">
+		SELECT
+			payment_type
+			,sum(payment_amount) as payment_amount
+		FROM
+			(
+			SELECT
+				p.payment_type as payment_type, p.payment_amount as payment_amount, s.comp_seq as
+				comp_seq, d.sales_order as sales_order,s.sales_visitors as
+				sales_visitors,p.payment_time as payment_time
+			FROM
+				payment p
+				LEFT JOIN sales_detail d ON p.sales_state_seq = d.sales_state_seq
+				LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+			ORDER BY payment_time
+			)
+		WHERE
+			comp_seq = (SELECT c.comp_seq FROM company c LEFT JOIN employee e ON c.comp_seq = e.comp_seq WHERE e.emp_seq = #{emp_seq}) 
+			and payment_time between trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-4))+1)and trunc(LAST_DAY(add_months(to_timestamp(#{board_regdate},'YYYY-MM-DD'),-1))+1)
+		GROUP BY
+			payment_type
 	</select>
 </mapper>

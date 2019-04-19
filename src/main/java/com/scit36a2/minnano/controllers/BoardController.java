@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import com.scit36a2.minnano.util.FileService;
 import com.scit36a2.minnano.util.PageNavigator;
 import com.scit36a2.minnano.vo.Board;
 import com.scit36a2.minnano.vo.Board_comments;
+import com.scit36a2.minnano.vo.Company;
 import com.scit36a2.minnano.vo.Employee;
 
 // 커뮤니티 기능
@@ -85,7 +87,9 @@ public class BoardController {
 	public int insertBoard(Board board, HttpSession session) {
 		int emp_seq = (Integer) session.getAttribute("emp_seq");
 		board.setEmp_seq(emp_seq);
-		board.setBoard_orgname("");
+		if (board.getBoard_orgname() == null) {
+			board.setBoard_orgname("");
+		}
 		board.setBoard_savname("");
 		int result = repo.insertBoard(board);
 		return result;
@@ -219,50 +223,104 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "deleteComment", method = RequestMethod.POST)
 	@ResponseBody
-	public String deleteComment(Board_comments board_comments, HttpSession session, int board_comments_seq) {
-		// String emp_id = (String)session.getAttribute("emp_id");
-		// board_comments.setBoard_comments_writer(emp_id);
-		board_comments.setBoard_comments_seq(board_comments_seq);
+	public String deleteComment(Board_comments board_comments, HttpSession session, Employee writer) {
+		int emp_seq = (Integer) session.getAttribute("emp_seq");
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		writer.setComp_seq(comp_seq);
+		writer.setEmp_seq(emp_seq);
+		writer = membrepo.selectEmployee(writer);
 
-		System.out.println("컨트롤러 삭제 board_comments : " + board_comments);
-
-		int result = repo.deleteComment(board_comments);
-		return "success";
+		board_comments = repo.selectCmtOne(board_comments);
+		if (writer.getEmp_name().equals(board_comments.getBoard_comments_writer())) {
+			System.out.println("조건에 맞으면 삭제합니다." + board_comments);
+			int result = repo.deleteComment(board_comments);
+			if (result == 1) {
+				return "success";
+			}
+		}
+		return "failure";
 	}
 
 	/**
 	 * 리플수정
 	 * 
-	 * 보완점: 본인 글에 대해서만 수정/삭제 등 권한 부여할것
-	 * 
 	 * @author cck, lyc
 	 */
 	@RequestMapping(value = "updateComment", method = RequestMethod.POST)
 	@ResponseBody
-	public int updateComment(HttpSession session, Board_comments board_comments) {
-		int result = repo.updateComment(board_comments);
-		System.out.println("댓글 수정 result : " + result);
-		return result;
+	public String updateComment(HttpSession session, Board_comments board_comments, Employee writer) {
+		int emp_seq = (Integer) session.getAttribute("emp_seq");
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		writer.setComp_seq(comp_seq);
+		writer.setEmp_seq(emp_seq);
+		writer = membrepo.selectEmployee(writer);
+		board_comments = repo.selectCmtOne(board_comments);
+
+		if (writer.getEmp_name().equals(board_comments.getBoard_comments_writer())) {
+			System.out.println("조건에 맞으면 수정합니다." + board_comments);
+			int result = repo.updateComment(board_comments);
+			if (result == 1) {
+				return "success";
+			}
+		}
+		return "failure";
 	}
 
+	/**
+	 * 통계보기 연결해주기
+	 * 
+	 * @author cck, lyc
+	 */
+	@RequestMapping(value = "showreport", method = RequestMethod.POST)
+	public String showreport(HttpSession session, Model model, String regdate, int emp_seq, HashMap<String, Object> map) {
+		System.out.println(regdate + ", " + emp_seq);
+		map.put("regdate", regdate);
+		map.put("emp_seq", emp_seq);
+		model.addAttribute("map", map);
+		System.out.println(map);
+		return "board/sharereport";
+	}
 	
+
+	/**
+	 * mgr의 사장 회원정보 조회(수정요청을 위한 데이터)
+	 * 
+	 * @author 김유경
+	 */
+	@RequestMapping(value = "shareOwner", method = RequestMethod.POST)
+	public @ResponseBody Employee shareOwner(@RequestBody HashMap<String, Object> map) {
+		System.out.println("@shareOnwer: map=" + map);
+		int emp_seq = (int)map.get("emp_seq");
+		Employee emp = membrepo.selectOnebyseq(emp_seq);
+		System.out.println("@shareOnwer: emp" + emp);
+		return emp;
+	}
+	
+	/**
+	 * mgr의 가게정보 조회(수정요청을 위한 데이터)
+	 * 
+	 * @author 김유경
+	 */
+	@RequestMapping(value = "shareCompanyOne", method = RequestMethod.POST)
+	public @ResponseBody Company selectCompanyOne(@RequestBody HashMap<String, Object> map) {
+		int emp_seq = (int)map.get("emp_seq");
+		Company comp = membrepo.shareCompanyOne(emp_seq);
+		System.out.println("@shareCompanyOne: " + comp);
+		return comp;
+	}
 	
 	/**
 	 * 보고서 삽입기능-매출 3개월치
 	 * 
 	 * @author kyk
 	 */
-	@RequestMapping(value="insertReport",method=RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> insertReport(HashMap<String, Object> map){
+	@RequestMapping(value = "shareReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> shareReport(@RequestBody HashMap<String, Object> map) {
 		// 맵 안에 내용물이 emp_seq, board_regdate
-		// map.put("comp_seq", repo.getCompseq(emp_seq)) 
-		// map.put("specificdate", repo.getDate(board_regdate));
-		
-		ArrayList<Object>insertReport=repo.insertReport(map);
-		System.out.println(insertReport);
-		
-		
-		
+		System.out.println("@shareReport: map = " + map);
+		ArrayList<Object> insertReport = repo.insertReport(map);
+		System.out.println("@shareReport: result = " + insertReport);
+
 		// param[=controller단에서 필요한 재료] board_seq [emp_seq랑, regdate]가 필요
 		// emp_seq 를 이용해서 sql을 param이 emp_seq고 result가 comp_seq 를 받는 sql문을 딸 수있죠\
 		// select comp_seq from emplyee where emp_seq=emp_seq
@@ -270,30 +328,20 @@ public class BoardController {
 		// map에다가 string으로 그냥 그대로 넣을거에요
 		// sysdate대신에 to_date(regdate의string, 'yyyy-mm-dd') 로 대체해서
 		// 작업을 하면 되지않을까..
-		
+
 		return insertReport;
 	}
-	
-	
 
 	/**
 	 * 보고서 삽입기능 - 메뉴 3개월치
 	 *
 	 * @author kyk
 	 */
-	@RequestMapping(value = "insertMenuReport", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> totalMenuReport(Board board) {
-
-		HashMap<String, Object> map = new HashMap<>();
-		int board_seq=board.getBoard_seq();
-		int emp_seq=board.getEmp_seq();
-		int result=repo.selectCompseq(emp_seq);
-		String board_regdate=board.getBoard_regdate();
-		map.put("board_seq", board_seq);
-		map.put("emp_seq",emp_seq);
-		map.put("board_regdate",board_regdate);
+	@RequestMapping(value = "shareMenuReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalMenuReport(@RequestBody HashMap<String, Object> map) {
+		System.out.println("@shareMenuR: map = " + map);
 		ArrayList<Object> insertMenuReport = repo.insertMenuReport(map);
-//		System.out.println("total_Menu_Report" + total_Menu_Report.toString());
+		System.out.println("@shareMenuR: result = " + insertMenuReport);
 		return insertMenuReport;
 	}
 
@@ -302,18 +350,11 @@ public class BoardController {
 	 *
 	 * @author kyk
 	 */
-	@RequestMapping(value = "insertGuestReport", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> totalGuestReport(Board board) {
-
-		HashMap<String, Object> map = new HashMap<>();
-		int board_seq=board.getBoard_seq();
-		int emp_seq=board.getEmp_seq();
-		String board_regdate=board.getBoard_regdate();
-		map.put("board_seq", board_seq);
-		map.put("emp_seq",emp_seq);
-		map.put("board_regdate",board_regdate);
+	@RequestMapping(value = "shareGuestReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalGuestReport(@RequestBody HashMap<String, Object> map) {
+		System.out.println("@shareGuestR: map = " + map);
 		ArrayList<Object> insertGuestReport = repo.insertGuestReport(map);
-//		System.out.println("total_Guest_expence" + total_Guest_expence.toString());
+		System.out.println("@shareGuestR: result = " + insertGuestReport);
 		return insertGuestReport;
 	}
 
@@ -322,19 +363,12 @@ public class BoardController {
 	 *
 	 * @author kyk
 	 */
-	@RequestMapping(value = "insertIncomeReport", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> totalIncome(Board board) {
-		HashMap<String, Object> map = new HashMap<>();
-		int board_seq=board.getBoard_seq();
-		int emp_seq=board.getEmp_seq();
-		String board_regdate=board.getBoard_regdate();
-		map.put("board_seq", board_seq);
-		map.put("emp_seq",emp_seq);
-		map.put("board_regdate",board_regdate);
-		
+	@RequestMapping(value = "shareIncomeReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalIncome(@RequestBody HashMap<String, Object> map) {
+		System.out.println("@shareIncomeR: map = " + map);
 
-		ArrayList<HashMap<String, Object>> month_Payment = repo.selectMonthPayment(map); // 한달
-		ArrayList<HashMap<String, Object>> month_Expense = repo.selectMonthExpense(map); // 한달
+		ArrayList<HashMap<String, Object>> month_Payment = repo.selectshareMonthPayment(map); // 한달
+		ArrayList<HashMap<String, Object>> month_Expense = repo.selectshareMonthExpense(map); // 한달
 		System.out.println(month_Expense);
 		System.out.println(month_Payment);
 		ArrayList<Object> result = new ArrayList<Object>();
@@ -370,10 +404,12 @@ public class BoardController {
 			three2 += ((BigDecimal) (a.get("EXPENSE_AMOUNT"))).intValue();
 		}
 		HashMap<String, Object> result4 = new HashMap<String, Object>();
+
 		result4.put("ALLPAYMENT", three);
 		result4.put("EXPENSE_AMOUNT", three2);
 		result2.add(result4);
 		System.out.println(result2);
+
 		return result2;
 	}
 
@@ -382,21 +418,13 @@ public class BoardController {
 	 *
 	 * @author kyk
 	 */
-	@RequestMapping(value = "insertCardReport", method = RequestMethod.POST)
-	public @ResponseBody ArrayList<Object> totalCardReport(Board board) {
-
-		HashMap<String, Object> map = new HashMap<>();
-		int board_seq=board.getBoard_seq();
-		int emp_seq=board.getEmp_seq();
-		String board_regdate=board.getBoard_regdate();
-		map.put("board_seq", board_seq);
-		map.put("emp_seq",emp_seq);
-		map.put("board_regdate",board_regdate);
+	@RequestMapping(value = "shareCardReport", method = RequestMethod.POST)
+	public @ResponseBody ArrayList<Object> totalCardReport(@RequestBody HashMap<String, Object> map) {
+		System.out.println("@shareCardR: map = " + map);
+		
 		ArrayList<Object> insertCardReport = repo.insertCardReport(map);
 		System.out.println("insertCardReport" + insertCardReport.toString());
 		return insertCardReport;
 	}
-	
+
 }
-
-

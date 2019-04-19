@@ -40,17 +40,18 @@ public interface BoardDAO {
 	public int updateComment(Board_comments board_comments);
 
 	public Board_comments selectCmtOne(Board_comments board_comments);
+	
 	public ArrayList<Object> insertReport(HashMap<String, Object> map);
 
-	public ArrayList<Object> nsertMenuReport(HashMap<String, Object> map);
+	public ArrayList<Object> insertMenuReport(HashMap<String, Object> map);
 
 	public ArrayList<Object> insertGuestReport(HashMap<String, Object> map);
 
-	public ArrayList<HashMap<String, Object>> selectMonthPayment(HashMap<String, Object> map);
+	public ArrayList<HashMap<String, Object>> selectshareMonthPayment(HashMap<String, Object> map);
 
-	public ArrayList<HashMap<String, Object>> selectMonthExpense(HashMap<String, Object> map);
+	public ArrayList<HashMap<String, Object>> selectshareMonthExpense(HashMap<String, Object> map);
 
-	public ArrayList<Object> insertCardReportt(HashMap<String, Object> map);
+	public ArrayList<Object> insertCardReport(HashMap<String, Object> map);
 
 	public int selectCompseq(int emp_seq);
 

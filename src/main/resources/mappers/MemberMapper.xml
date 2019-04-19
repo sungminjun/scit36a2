@@ -10,6 +10,15 @@
     emp_id=#{emp_id}
   </select>
 
+  <select id="selectOnebyseq" parameterType="int" resultType="emp">
+    SELECT
+    *
+    FROM
+    employee
+    WHERE
+    emp_seq=#{param}
+  </select>
+
   <select id="selectCompanyOne" parameterType="int" resultType="com">
     SELECT
     *
@@ -17,6 +26,17 @@
     company
     WHERE
     comp_seq=#{comp_seq}
+  </select>
+
+  <select id="shareCompanyOne" parameterType="int" resultType="com">
+    SELECT
+    	c.comp_name
+    	, c.comp_tel
+    FROM
+	    company c 
+	    LEFT JOIN employee e ON c.comp_seq = e.comp_seq 
+    WHERE
+	    e.emp_seq = #{param}
   </select>
 
   <select id="selectCompanyOneById" parameterType="String" resultType="com">
@@ -164,6 +184,5 @@
     WHERE
     comp_seq = #{comp_seq} and emp_seq = #{emp_seq}
   </select>
-
 
 </mapper>

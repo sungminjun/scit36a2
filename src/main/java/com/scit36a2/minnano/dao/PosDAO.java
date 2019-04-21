@@ -14,7 +14,7 @@ public interface PosDAO {
 	//
 	// 여기부터 order 관련
 
-	public ArrayList<HashMap<String, Object>> seatsavailable(int comp_seq);
+	public ArrayList<Object> seatsavailable(int comp_seq);
 
 	public int chksasseqs();
 

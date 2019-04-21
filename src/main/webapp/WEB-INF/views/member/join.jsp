@@ -257,7 +257,7 @@
       var regexp = /^[0-9]+$/;
 
       if (!regexp.test(comp_id)) {
-        $("#company_IdResult").text("아이디는 숫자만 입력가능합니다.");
+        $("#company_IdResult").text("사업자등록번호는 숫자만 입력가능합니다.");
         /* $("#company_IdResult").attr("style","color:#f00; position: relative; vertical-align: middle;  background: #f9f28e"); */
         $("#company_Id").css("background-color", "#FFCECE");
         var replac = exp_amount.replace(/[^0-9]+$/g, '')
@@ -282,10 +282,10 @@
         	console.log(data);
         	if (data == 'fail') {
         		$("#company_Id").css("background-color", "#FFCECE")/* .css("color", "red") */;
-                $("#company_IdResult").text("중복되는 ID 입니다").css("color", "red");
+                $("#company_IdResult").text("중복되는 사업자등록번호 입니다").css("color", "red");
         	} else {
           $("#company_Id").css("background-color", "#B0F6AC").css("color", "black")/* .attr('readonly', 'readonly') */;
-          $("#company_IdResult").text("사용 가능한 아이디 입니다.").attr("style","color:#00f");
+          $("#company_IdResult").text("사용 가능한 사업자등록번호 입니다.").attr("style","color:#00f");
         	}
         }
       });
@@ -295,7 +295,7 @@
       var emp_id = $("#emp_id").val();
 
       if (emp_id.length < 4 || emp_id.length > 10) {
-        $("#chkidresult").text("id는 4자 이상, 10자 이하만 가능합니다.").css('color', 'red');
+        $("#chkidresult").text("ID는 4자 이상, 10자 이하만 가능합니다.").css('color', 'red');
       } else {
         $.ajax({
           url: 'chk_emp_id',
@@ -303,11 +303,12 @@
             emp_id: emp_id
           },
           method: 'POST',
-          success: function() {
-            $("#chkidresult").text("사용 가능한 아이디 입니다.").css("color", "green");
-          },
-          failure: function() {
-            $("#chkidresult").text("이미 사용중인 아이디입니다.").css("color", "red");
+          success: function(resp) {
+        	  if (resp == 'success') {
+	            $("#chkidresult").text("사용 가능한 ID입니다.").css("color", "green");
+        	  } else {
+	            $("#chkidresult").text("이미 사용중인 ID입니다.").css("color", "red");
+        	  }
           }
         })
       }

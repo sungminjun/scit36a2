@@ -49,17 +49,18 @@ public class PosController {
 	 * @author jsm, cck
 	 */
 	@RequestMapping(value = "/seatsavailable", method = RequestMethod.POST)
-	public @ResponseBody String show(HttpSession session) {
+	public @ResponseBody ArrayList<Object> show(HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		ArrayList<HashMap<String, Object>> seats = repo.seatsavailable(comp_seq);
-		ObjectMapper objmap = new ObjectMapper();
-		String result = "";
-		try {
-			result = objmap.writeValueAsString(seats);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return result;
+		ArrayList<Object> seats = repo.seatsavailable(comp_seq);
+//		ObjectMapper objmap = new ObjectMapper();
+//		String result = "";
+//		System.out.println(seats);
+//		try {
+//			result = objmap.writeValueAsString(seats);
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+		return seats;
 	}
 
 	/**

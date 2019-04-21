@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.scit36a2.minnano.vo.Expense;
 import com.scit36a2.minnano.vo.Menu;
+import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Seat;
 
 public interface SalesDAO {
@@ -33,5 +34,7 @@ public interface SalesDAO {
 	public int deleteExpense(Expense expense);
 
 	public int updateExpense(Expense expense);
+
+	public List<HashMap<String, Object>> selectCVTdata(HashMap<String, Object> map);
 
 }

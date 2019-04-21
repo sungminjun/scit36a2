@@ -19,7 +19,7 @@ public class PosInterceptor extends HandlerInterceptorAdapter {
 		String uri = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
 		String posfunc = "pos logout selectseat selectCompanyOne selectMenu seatsavailable makeorder replaceorder alOrderList";
 		posfunc += " makepayment makepaymentcomplex predicCash cumulatepaymenttoday selectCashonhand";
-		posfunc += " insertCashonhand movetable swaptable mergetable";
+		posfunc += " insertCashonhand movetable swaptable mergetable selectpayments";
 //		System.out.println(uri + " contains posfunc : " + posfunc.contains(uri) );
 		if (chk == null) {
 			response.sendRedirect(root + "/login");

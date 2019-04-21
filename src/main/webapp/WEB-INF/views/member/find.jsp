@@ -90,7 +90,7 @@
               }
             },
             failure: function() {
-              alert('fail');
+              /* alert('fail'); */
             }
           })
         }
@@ -98,7 +98,7 @@
 
       $("#findQuizForm").on("submit", function(event) {
         event.preventDefault();
-        alert('!');
+        /* alert('!'); */
         var emp_id = $('#emp_id_4pw').val();
         var emp_name = $('#emp_name_4pw').val();
         var emp_quiz_answer = $('#emp_quiz_answer').val();

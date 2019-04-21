@@ -88,6 +88,7 @@
                   <button class="btn ml-auto mr-auto" id="mgr-btn-2">판매메뉴 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-3">점내좌석 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-4">기본정보 관리</button>
+                  <button class="btn ml-auto mr-auto" id="mgr-btn-6">카드매출검증</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-5">영업마감 취소</button>
                 </div>
               </div>
@@ -638,6 +639,9 @@
       });
       $("button[id=mgr-btn-5]").on('click', function() {
         cancel_close();
+      });
+      $("button[id=mgr-btn-6]").on('click', function() {
+        document.location.href = 'cardverify';
       });
     })
 
@@ -1339,8 +1343,8 @@
       var menu_cate = $('#mgr-2-1').val();
       if (menu_cate.length > 25) {
         $('#mgr-2-1-1').html('내용이 너무 깁니다.').css('color', 'red');
-      } else if (menu_cate.length < 3) {
-        $('#mgr-2-1-1').html('내용이 너무 짧습니다. 3글자 이상 입력해주세요.').css('color', 'red');
+      } else if (menu_cate.length < 2) {
+        $('#mgr-2-1-1').html('내용이 너무 짧습니다. 2글자 이상 입력해주세요.').css('color', 'red');
       } else if (menu_cate.trim().length == 0) {
         $('#mgr-2-1-1').html('내용을 입력해주세요').css('color', 'red');
       } else {
@@ -1352,8 +1356,8 @@
       var menu_name = $('#mgr-2-2').val();
       if (menu_name.length > 25) {
         $('#mgr-2-2-1').html('내용이 너무 깁니다.').css('color', 'red');
-      } else if (menu_name.length < 3) {
-        $('#mgr-2-2-1').html('내용이 너무 짧습니다. 3글자 이상 입력해주세요.').css('color', 'red');
+      } else if (menu_name.length < 2) {
+        $('#mgr-2-2-1').html('내용이 너무 짧습니다. 2글자 이상 입력해주세요.').css('color', 'red');
       } else if (menu_name.trim().length == 0) {
         $('#mgr-2-2-1').html('내용을 입력해주세요').css('color', 'red');
       } else {

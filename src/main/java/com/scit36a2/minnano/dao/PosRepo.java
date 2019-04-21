@@ -23,9 +23,9 @@ public class PosRepo {
 	//
 	// 여기부터 주문관련
 
-	public ArrayList<HashMap<String, Object>> seatsavailable(int comp_seq) {
+	public ArrayList<Object> seatsavailable(int comp_seq) {
 		PosDAO mapper = session.getMapper(PosDAO.class);
-		ArrayList<HashMap<String, Object>> result = mapper.seatsavailable(comp_seq);
+		ArrayList<Object> result = mapper.seatsavailable(comp_seq);
 		return result;
 	}
 

@@ -23,7 +23,7 @@ public class ReportsController {
 
 	@Autowired
 	ReportRepo repo;
-
+	
 	// 보고서 페이지 이동
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
 	public String report() {

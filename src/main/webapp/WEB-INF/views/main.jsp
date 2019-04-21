@@ -74,12 +74,10 @@
           </div>
           <div class="col-md-6 mx-auto">
             <div class="card">
-              <h1> NOTICE </h1>
-              <h3> !! 사용자 매뉴얼 링크입니다. [아직]</h3>
-              <h3> !! 키보드의 화살표 버튼 <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd>을 눌러서 페이지를 이동할 수 있습니다. </h3>
+              <h2> NOTICE </h2>
+              <h3> <span style="text-decoration: underline;">사용자 매뉴얼</span> 링크입니다. </h3>
+              <h3> 키보드의 화살표 버튼 <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd>을 눌러서 페이지를 이동할 수 있습니다. </h3>
               <hr>
-              <h1>for 0416 shiage</h1>
-              shiage 작업을 위해 사용하지 않는 front단과 back단 파일들을 정리했습니다.
             </div>
           </div>
         </div>

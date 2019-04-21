@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -227,7 +226,7 @@
                             <input type="number" class="form-control text-primary" id="coh_error" placeholder="오류금액의 총액(원단위)을 입력하세요." style="display: none;">
                           </div>
                           <div class="col-md-7 text-primary mx-auto">
-                            <h2 id="coh_listtotal">총액: </h2>
+                            <h2 id="coh_listtotal">total: </h2>
                           </div>
                           <div class="col-md-5 text-primary mx-auto">
                             <input type="button" value="영업개시" id="pos-btn-2-9-1"> 
@@ -364,13 +363,9 @@
                     <hr>
                     <table class="box col-lg-12">
                       <tr>
-                        <td><input type="button" value="카드결제"
-                          data-toggle="modal" data-target="#pos_payment"></td>
-                        <td><input type="button" value="현금결제"
-                          data-toggle="modal" data-target="#pos_payment"></td>
-                        <td><input type="button" value="복합결제"
-                          data-toggle="modal"
-                          data-target="#pos_payment_complex"></td>
+                        <td><input type="button" value="카드결제" id="modal-cash" data-toggle="modal" data-target="#pos_payment"></td>
+                        <td><input type="button" value="현금결제" id="modal-card" data-toggle="modal" data-target="#pos_payment"></td>
+                        <td><input type="button" value="복합결제" data-toggle="modal" data-target="#pos_payment_complex"></td>
                       </tr>
                     </table>
 
@@ -385,19 +380,12 @@
                             </div>
                           </div>
                           <div class="row box">
-                            <div
-                              class="col-md-4 form-group text-primary mx-auto">
-                              <input type="button" id="pos-btn-4-3"
-                                value="카드결제">
-                            </div>
-                            <div
-                              class="col-md-4 form-group text-primary mx-auto">
-                              <input type="button" id="pos-btn-4-4"
-                                value="현금결제">
+                            <div class="col-md-4 form-group text-primary mx-auto">
+                              <input type="button" id="pos-btn-4-3" value="카드결제">
+                              <input type="button" id="pos-btn-4-4" value="현금결제">
                             </div>
                             <div class="col-md-4 text-primary">
-                              <input type="button" data-dismiss="modal"
-                                value="취소">
+                              <input type="button" data-dismiss="modal" value="취소">
                             </div>
                           </div>
                         </div>
@@ -528,28 +516,28 @@
 			});
 
 			function pos_loadseat() {
-				$
-						.ajax({
-							url : 'selectseat',
-							method : 'POST',
-							success : function(resp) {
-
-								var rmbr = [];
-								$.each(resp, function(idx, obj) {
-									if (obj.seat_id.substr(0, 3) == '[X]') {
-										rmbr.push(idx);
-									}
-								})
-								console.log(rmbr);
-								for (i = rmbr.length - 1; i >= 0; i--) {
-									resp.splice(rmbr[i], 1);
+				$.ajax({
+					url : 'selectseat',
+					method : 'POST',
+					success : function(resp) {
+						var rmbr = [];
+						$.each(resp, function(idx, obj) {
+							if (obj.seat_id.substr(0, 3) == '[X]') {
+								rmbr.push(idx);
 								}
-								console.log(resp);
-
+							})
+							console.log(rmbr);
+						for (i = rmbr.length - 1; i >= 0; i--) {
+							resp.splice(rmbr[i], 1);
+							}
+						console.log(resp);
+						
 								$
 										.ajax({
 											url : 'seatsavailable',
 											method : 'POST',
+											dataType: 'text',
+									        contentType: 'application/json; charset=UTF-8',
 											success : function(resp2) {
 												resp2 = JSON.parse(resp2);
 												var totalSeats = Object
@@ -630,39 +618,10 @@
 																});
 												$('#pos-1-5').html(output);
 
-												$
-														.each(
-																resp,
-																function(idx,
-																		obj) {
-																	var temp = 'div[s-seatseq='
-																			+ obj.seat_seq
-																			+ ']';
-																	$(temp)
-																			.on(
-																					'click',
-																					function() {
-																						pos_selectseat(
-																								$(
-																										'#funcFlag')
-																										.val(),
-																								$(
-																										this)
-																										.attr(
-																												's-seatseq'),
-																								$(
-																										this)
-																										.children(
-																												'span:eq(0)')
-																										.html(),
-																								$(
-																										this)
-																										.attr(
-																												's-sasseq'),
-																								$(
-																										this)
-																										.attr(
-																												's-sasmemo'));
+												$.each(resp, function(idx, obj) {
+													var temp = 'div[s-seatseq='+ obj.seat_seq + ']';
+													$(temp).on('click', function() { 
+														pos_selectseat( $('#funcFlag').val(), $(this).attr('s-seatseq'), $(this).children('span:eq(0)').html(),$(this).attr('s-sasseq'),$(this).attr('s-sasmemo'));
 																					});
 																});
 											}
@@ -779,7 +738,11 @@
 						param3 = param3.substr(0, param3.indexOf('<'));
 						$('#ppodseatno').val('현재 선택한 테이블: ' + param3);
 						$('#alodsasseq').val(param4)
-						$('#preparedOrderMemo').val(param5);
+						if (param5 == 'null') {
+							$('#preparedOrderMemo').val('');
+						} else {
+							$('#preparedOrderMemo').val(param5);
+						}
 						$('#tempordertype').val('replace');
 						pos_alOrderList(param4);
 					} else if (param1 == 1 || param1 == 2) {
@@ -844,6 +807,14 @@
 				});
 
 				btn_pmt_cmp_addline();
+				$('#modal-cash').on('click', function() {
+					$('#pos-btn-4-3').css('display','block');
+					$('#pos-btn-4-4').css('display','none');
+				})
+				$('#modal-card').on('click', function() {
+					$('#pos-btn-4-3').css('display','none');
+					$('#pos-btn-4-4').css('display','block');
+				})
 
 				$('#pos-btn-3-1').on('click', pos_order_discount);
 				$('#pos-btn-3-2').on('click', pos_order_service);
@@ -853,6 +824,7 @@
 				$('#pos-btn-4-3').on('click', pos_payment_card);
 				$('#pos-btn-4-4').on('click', pos_payment_cash);
 				$('#pos-btn-4-5').on('click', pos_payment_complex);
+				
 			}
 
 			function btn_pmt_cmp_addline() {
@@ -1106,21 +1078,22 @@
 					}
 				}
 
-				if (temp_arr_chk == 1) {
+				if (temp_arr_chk == 1) { // 여기는 이미 할인금액이 있을 때
 					var prpt = prompt('할인할 총 금액을 "양수"로 입력하십시오.');
 					console.log(prpt);
 					if ( prpt == null || prpt.length == 0 ) {
 					} else {
 						discount = -1 * Math.abs(prpt);
 					} 
-				} else {
+				} else {	// 여기는 처음 할인입력할 때
 					var prpt = prompt('할인할 총 금액을 "양수"로 입력하십시오.');
 					console.log(prpt);
 					if ( prpt == null || prpt.length == 0 ) {
 					} else {
-						discount = -1 * Math.abs(prpt);
+						discount = 1 * Math.abs(prpt);
 					}
 				}
+				
 				for (i = 0; i <= temp_arr.length; i += 4) {
 					if (temp_arr[i] == '-1') {
 						temp_arr[i + 2] = -1 * Math.abs(discount);
@@ -1304,8 +1277,7 @@
 			function pos_payment(param) {
 				var sales_state_seq = $('#alodsasseq').val();
 				var payment_type = param // 1카드 2현금
-				var payment_amount = $('td.td-total').text().substr(6,
-						$('td.td-total').text().length);
+				var payment_amount = $('td.td-total').text().substr(6,$('td.td-total').text().length);
 				console.log(payment_amount);
 
 				var senddata = {

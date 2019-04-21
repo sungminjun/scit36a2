@@ -67,13 +67,12 @@
           <div class="col-md-12">
             <div class="row">
               <div class="card">
-                <div class="col-md-12">
-                  <a href="https://www.cardsales.or.kr/">여신금융협회 홈페이지</a>에서
+                <div class="col-md-12" style="font-size: 1.3em;">
+                  <a href="https://www.cardsales.or.kr/" style="color: indigo; font-weight: 900;">여신금융협회 홈페이지</a>에서
                   <br>"기간별 승인내역(세부내역)"을 다운로드 받아 파일을 업로드 하시기 바랍니다.
-                  <br>*업데이트를 위해 전송된 자료는 분석 후 바로 삭제되며, 보관하지 않습니다.
+                  <br>*전송된 자료는 분석 후 바로 삭제되며, 보관하지 않습니다.
                   <form id="multiform" action="cvtupload" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file" /> <br />
-                    <input type="submit" id="btnSubmit" value="전송" /><br />
+                    <input type="file" name="file" /> <input type="submit" id="btnSubmit" value="전송" /><br />
                   </form>
                 </div>
               </div>
@@ -132,6 +131,8 @@
     $(document).ready(function() {
       $("#multiform").on('submit', function(event) {
         event.preventDefault();
+        $('#cvtdetail1').css('display', 'none');
+        $('#cvtdetail2').css('display', 'none');
         var formObj = $(this);
         var formURL = formObj.attr("action");
         var formData = new FormData(this);
@@ -171,7 +172,7 @@
       console.log(resp.matome.errCntXls === 0 )
       console.log(resp.matome.errCntDb === 0)
       if ( resp.matome.errCntXls !== 0 || resp.matome.dbCntXls !== 0 ) {
-	      prout += '자세한 내역은 <span id="showdetail" style="font-style: oblique; color: red;">이곳</span>에서 확인하시기 바랍니다.<br>';
+	      prout += '자세한 내역은 <span id="showdetail" style="color: red;">여기를 클릭</span>하여 확인하시기 바랍니다.<br>';
       }
       prout += '감사합니다.';
 

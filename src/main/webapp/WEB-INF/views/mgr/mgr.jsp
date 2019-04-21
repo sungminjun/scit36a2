@@ -88,6 +88,7 @@
                   <button class="btn ml-auto mr-auto" id="mgr-btn-2">판매메뉴 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-3">점내좌석 관리</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-4">기본정보 관리</button>
+                  <button class="btn ml-auto mr-auto" id="mgr-btn-6">카드매출검증</button>
                   <button class="btn ml-auto mr-auto" id="mgr-btn-5">영업마감 취소</button>
                 </div>
               </div>
@@ -638,6 +639,9 @@
       });
       $("button[id=mgr-btn-5]").on('click', function() {
         cancel_close();
+      });
+      $("button[id=mgr-btn-6]").on('click', function() {
+        document.location.href = 'cardverify';
       });
     })
 

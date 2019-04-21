@@ -146,4 +146,22 @@
     where
     expense_seq = #{expense_seq}
   </update>
+
+  <select id="selectCVTdata" parameterType="hashmap" resultType="hashmap">
+    SELECT 
+	    to_char(payment_time, 'yyyy-mm-dd') as pmt_date
+	    , to_char(payment_time, 'hh24:mi:ss') as pmt_time
+	    , payment_amount as pmt_amount
+	    , rownum
+	FROM 
+	    payment p 
+	    LEFT JOIN sales_state s ON p.sales_state_seq = s.sales_state_seq
+	WHERE
+	    s.comp_seq = #{comp_seq}
+	    and payment_time like to_date(#{inqdate}, 'yyyy-mm-dd')
+	    and payment_type = 1
+	ORDER BY 
+	    pmt_time asc
+  </select>  
+  
 </mapper>

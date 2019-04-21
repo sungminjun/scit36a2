@@ -2,11 +2,14 @@ package com.scit36a2.minnano.dao;
 
 import java.util.HashMap;
 import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.scit36a2.minnano.vo.Expense;
 import com.scit36a2.minnano.vo.Menu;
+import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Seat;
 
 @Repository
@@ -106,6 +109,13 @@ public class SalesRepo {
 	public int updateExpense(Expense expense) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
 		int result = mapper.updateExpense(expense);
+
+		return result;
+	}
+
+	public List<HashMap<String, Object>> selectCVTdata(HashMap<String, Object> map) {
+		SalesDAO mapper = session.getMapper(SalesDAO.class);
+		List<HashMap<String, Object>> result = mapper.selectCVTdata(map);
 
 		return result;
 	}

@@ -395,7 +395,6 @@ public class MemberController {
 		employee.setEmp_quiz_answer("no_quiz");
 		int result = repo.joinMember(employee);
 
-		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
 		if (result == 1)	return "success";
 		else				return "fail";
 	}
@@ -406,16 +405,13 @@ public class MemberController {
 	 * @author 김유경
 	 */
 	@RequestMapping(value = "updateEmployee", method = RequestMethod.POST)
-	public String updateEmployee(Employee employee, HttpSession session) {
+	public @ResponseBody String updateEmployee(Employee employee, HttpSession session) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		employee.setComp_seq(comp_seq);
 		int result = repo.updateMember(employee);
 
-		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)
-			return "redirect:/mgr";
-		else
-			return "redirect:/mgr";
+		if (result == 1)	return "success";
+		else				return "fail";
 	}
 
 	//

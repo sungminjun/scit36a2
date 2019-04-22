@@ -202,12 +202,12 @@
                   </div>
 
                   <div class="row justify-content-center" id="join_footer">
-                    <div class="col-md-4">
+                    
                       <input type="reset" id="join_cancel_btn" value="취소">
-                    </div>
-                    <div class="col-md-4">
+                    
+                    
                       <input type="submit" id="join_enroll_button" value="회원가입">
-                    </div>
+                   
                   </div>
 
                 </div>

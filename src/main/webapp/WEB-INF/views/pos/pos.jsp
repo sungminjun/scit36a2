@@ -194,7 +194,7 @@
                   <div class="modal modal-default" id="pos_cash_open">
                     <div class="modal-dialog">
                       <div class="modal-header"></div>
-                      <div class="modal-content bg-gray">
+                      <div class="modal-content bg-white">
                         <div class="row">
                           <div class="col-md-12 text-darker text-center">
                             <h2 class="title" id="coh_title_1">[영업개시금]을 입력하십시오.</h2>
@@ -204,26 +204,26 @@
                           </div>
                         </div>
                         <div class="row text-">
-                          <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" id="coh_50k" placeholder="5만원권">
+                          <div class="col-md-7 form-group modal-text mx-auto">
+                            <input type="number" class="form-control text-primary" id="coh_50k" placeholder="5만원권" style="border:2px solid #3498db !important; color: #000000 !important;">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" id="coh_10k" placeholder="1만원권">
+                            <input type="number" class="form-control text-primary" id="coh_10k" placeholder="1만원권" style="border:2px solid #3498db !important; color: #000000 !important;">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" id="coh_5k" placeholder="5천원권">
+                            <input type="number" class="form-control text-primary" id="coh_5k" placeholder="5천원권" style="border:2px solid #3498db !important; color: #000000 !important;">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" id="coh_1k" placeholder="1천원권">
+                            <input type="number" class="form-control text-primary" id="coh_1k" placeholder="1천원권" style="border:2px solid #3498db !important; color: #000000 !important;">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" id="coh_5c" placeholder="5백원동전">
+                            <input type="number" class="form-control text-primary" id="coh_5c" placeholder="5백원동전" style="border:2px solid #3498db !important; color: #000000 !important;">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" id="coh_1c" placeholder="1백원동전">
+                            <input type="number" class="form-control text-primary" id="coh_1c" placeholder="1백원동전" style="border:2px solid #3498db !important; color: #000000 !important;">
                           </div>
                           <div class="col-md-7 form-group text-primary mx-auto">
-                            <input type="number" class="form-control text-primary" id="coh_error" placeholder="오류금액의 총액(원단위)을 입력하세요." style="display: none;">
+                            <input type="number" class="form-control text-primary" id="coh_error" placeholder="오류금액의 총액(원단위)을 입력하세요." style="display: none; border:2px solid #3498db !important; color: #000000 !important;">
                           </div>
                           <div class="col-md-7 text-primary mx-auto">
                             <h2 id="coh_listtotal">total: </h2>
@@ -440,11 +440,6 @@
                                 class="tim-icons icon-simple-add text-warning"></i>한줄추가</a>
                             </div>
                           </div>
-                        </div>
-
-                        <div class="row box">
-                          <div class="col-md-12 mx-auto">총액검증관련
-                            유효성검사 _js_ will be placed here</div>
                         </div>
 
                         <div class="row box">
@@ -1500,9 +1495,11 @@
 
 				var cashonhand_type = 4;
 				var cashonhand_error = $('#coh_error').val();
+				cashonhand_cash = cashonhand_cash - cashonhand_error;
 				var senddata = {
 					cashonhand_type : cashonhand_type,
-					cashonhand_cash : cashonhand_cash
+					cashonhand_cash : cashonhand_cash,
+					cashonhand_error : cashonhand_error 
 				}
 				$.ajax({
 					url : 'insertCashonhand',

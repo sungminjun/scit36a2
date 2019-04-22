@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+/* #company_IdResult{
+	vertical-align: middle;
+	background: yellow !important;
+} */
+
+#join_footer{
+	margin: 5px 5px;
+	
+}
+
+/* 취소버튼 */
+#join_cancel_btn{
+	background: none;
+	display: inline-block;
+	text-align: center;
+	color: #000000;
+	border: 2px solid #3498db;
+	padding: 2px 5px;
+	margin: 10px 3px;
+	height: 40px !important;
+	width: 100px;
+/* 	height: 40px; */
+	outline: none;
+	border-radius: 10px;
+	transition: 0.25s;
+	cursor: pointer;
+	/* position: center relative; */
+	
+}
+
+#join_cancel_btn:hover {
+	background: #3498db;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+
+#join_enroll_button{
+	background: none;
+	display: inline-block;
+	text-align: center;
+	color: #000000;
+	border: 2px solid #3498db;
+	padding: 2px 5px;
+	margin: 10px 3px;
+	width: 100px;
+	height: 40px;
+	outline: none;
+	border-radius: 10px;
+	transition: 0.25s;
+	cursor: pointer;
+}
+
+#join_enroll_button:hover {
+	background: #3498db;
+	text-transform: uppercase;
+	color: #ffffff;
+}
+

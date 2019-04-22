@@ -83,7 +83,7 @@
       var board_comments_content = $("#board_comments_content").val();
       var board_seq = ${board.board_seq};
       if (board_comments_content.trim().length == 0) {
-        alert("댓글입력할것");
+        /* alert("댓글입력할것"); */
         return;
       }
 
@@ -133,7 +133,7 @@
           a += '</div>'
           a += '<div class="comments_update" d-value="' + item.board_comments_seq + '">'
           a += '<i class="fas fa-tools"></i>'
-          a += '</div>'
+          a += '</div></div>'
         } else {
 	      a += '</div>'
         }

@@ -380,14 +380,14 @@
                           <div class="form-group">
                             <label>가게주소</label>
                             <input type="text" class="form-control" id="mgr-4-1-comp_address" name="comp_address">
-                            <input type="hidden" class="form-control" id="mgr-4-1-comp_address2" name="comp_address2" value="test">
+                            <!-- <input type="hidden" class="form-control" id="mgr-4-1-comp_address2" name="comp_address2" value="test"> -->
 
                           </div>
                         </div>
                         <div class="col-md-8">
                           <div class="form-group">
                             <label for="comp_address">세부주소</label>
-                            <input type="text" class="form-control" name="comp_address2">
+                            <input type="text" class="form-control" id="mgr-4-1-comp_address2" name="comp_address2">
                           </div>
                         </div>
 
@@ -518,14 +518,14 @@
                           <div class="col-md-4" id="mgr-4-3-emp_pw_chk">
                           </div>
 
-                          <div class="col-md-8">
+                          <!-- <div class="col-md-8">
                             <div class="form-group">
                               <label>비밀번호 확인</label>
                               <input type="password" class="form-control" id="mgr-4-3-emp_pw2" name="emp_pw2">
                             </div>
                           </div>
                           <div class="col-md-4" id="mgr-4-3-emp_pw2_chk">
-                          </div>
+                          </div> -->
 
                           <div class="col-md-8">
                             <div class="form-group">
@@ -1294,7 +1294,10 @@
 
       $("#mgr-4-3-form").on("submit", function(event) {
         event.preventDefault();
-        emp_submit_chk();
+        if ($("#mgr-4-3-form").attr('action') == 'registMember') {
+        	emp_submit_chk(1);
+        } else if ($("#mgr-4-3-form").attr('action') == 'updateEmployee')
+        	emp_submit_chk(2);
       })
 
     })
@@ -1610,7 +1613,7 @@
       }
     }
 
-    function emp_submit_chk() {
+    function emp_submit_chk(param) {
       var emp_id = $("#mgr-4-3-emp_id").val();
       var emp_pw = $("#mgr-4-3-emp_pw").val();
       var emp_pw2 = $("#mgr-4-3-emp_pw2").val();
@@ -1623,14 +1626,33 @@
         emp_tel: emp_tel
       };
 
-      $.ajax({
-        url: 'registMember',
-        method: 'POST',
-        data: senddata,
-        success: function(resp) {
-          document.location.reload();
-        }
-      })
+      if (param == 1 ) {
+        $.ajax({
+          url: 'registMember',
+          method: 'POST',
+          data: senddata,
+          success: function(resp) {
+        	  if ( resp == 'success') {
+		        document.location.reload();
+        	  } else {
+        		  alert('가입이 정상적으로 진행되지 않았습니다. 확인하고 다시 시도하여 주십시오.')
+        	  }
+          }
+        })
+      } else {
+    	  $.ajax({
+              url: 'updateEmployee',
+              method: 'POST',
+              data: senddata,
+              success: function(resp) {
+            	  if ( resp == 'success') {
+      		        document.location.reload();
+              	  } else {
+              		  alert('정보수정이 정상적으로 처리되지 않았습니다. 확인하고 다시 시도하여 주십시오.')
+              	  }
+              }
+            })  
+      }
     }
 
   </script>

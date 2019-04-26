@@ -15,6 +15,27 @@
   <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <style>
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+</style>
 </head>
 
 <body class="white-content">
@@ -70,9 +91,14 @@
                 <div class="col-md-12" style="font-size: 1.3em;">
                   <a href="https://www.cardsales.or.kr/" style="color: indigo; font-weight: 900;">여신금융협회 홈페이지</a>에서
                   <br>"기간별 승인내역(세부내역)"을 다운로드 받아 파일을 업로드 하시기 바랍니다.
-                  <br>*전송된 자료는 분석 후 바로 삭제되며, 보관하지 않습니다.
-                  <form id="multiform" action="cvtupload" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file" /> <input type="submit" id="btnSubmit" value="전송" /><br />
+                  <br>* 전송된 자료는 분석 후 바로 삭제되며, 보관하지 않습니다.
+                  <br>
+                  <form id="multiform" action="cvtupload" method="POST" enctype="multipart/form-data" style="display: inline-block;">
+                     <label class="input-group-btn" style="display: block;">
+                     <span class="btn btn-default btn-file"  style="display: inline-block;">파일찾기<input type="file" name="file" data-display-target="attachFile"></span>
+                     <input type="text" class="form-control" readonly="" id="attachFile" placeholder="엑셀 파일을 첨부하십시오." style="display: inline-block;">
+                     <label class="input-group-btn"><button type="submit" class="btn btn-default" id="search">전송</button></label><br />
+                     </label>
                   </form>
                 </div>
               </div>
@@ -205,6 +231,15 @@
 
     }
 
+  </script>
+  <script>
+  $(document).ready(function() {
+	  $("input[type='file']").on('change', function() {
+	   var input = $(this);
+	   var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');  
+	   $("#" + input.data("display-target")).val(label);
+	  });
+	 });
   </script>
 </body>
 

@@ -39,8 +39,8 @@ public interface MemberDAO {
 
 	// 회사(사장) 아이디 찾기
 	public Employee findId(Map<String, Object> map);
-	
-	//회사(사장) 비밀번호 찾기
+
+	// 회사(사장) 비밀번호 찾기
 	public ArrayList<Object> findPW(HashMap<String, Object> map);
 
 	// 현재 등록된 전체 직원 목록 불러오기
@@ -54,7 +54,5 @@ public interface MemberDAO {
 	public Employee selectOnebyseq(int emp_seq);
 
 	public Company shareCompanyOne(int emp_seq);
-
-	
 
 }

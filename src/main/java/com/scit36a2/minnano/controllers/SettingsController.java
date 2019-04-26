@@ -99,7 +99,7 @@ public class SettingsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		seat.setComp_seq(comp_seq);
 		int result = repo.deleteseat(seat);
-		System.out.println(result);
+//		System.out.println(result);
 		if (result == 1) {
 			return "success";
 		} else {
@@ -147,7 +147,7 @@ public class SettingsController {
 	public String insertMenu(Menu menu, HttpSession session) {
 //		수정사항 개별 var를 string으로 받던것을 vo로 묶어서 받도록 변경
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		System.out.println(menu);
+//		System.out.println(menu);
 		menu.setComp_seq(comp_seq);
 		int result = repo.insertMenu(menu);
 		// System.out.println("컨트롤러 result : " + result);
@@ -204,9 +204,9 @@ public class SettingsController {
 	public String updateMenu(HttpSession session, Menu menu) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		menu.setComp_seq(comp_seq);
-		System.out.println(menu);
-		System.out.println(menu.getMenu_name());
-		System.out.println(menu.getMenu_name().getClass());
+//		System.out.println(menu);
+//		System.out.println(menu.getMenu_name());
+//		System.out.println(menu.getMenu_name().getClass());
 
 		int result = repo.updateMenu(menu);
 		/*
@@ -231,7 +231,7 @@ public class SettingsController {
 	@RequestMapping(value = "insertExpense", method = RequestMethod.POST)
 	public @ResponseBody String insertExpense(HttpSession session, Expense expense) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		System.out.println(expense);
+//		System.out.println(expense);
 		expense.setComp_seq(comp_seq);
 		int result = repo.insertExpense(expense);
 
@@ -298,7 +298,7 @@ public class SettingsController {
 		// DB에서 엑셀의 날짜와 동일한 날#{inqdate}의 회사#{comp_seq}데이터를 가져온다
 		map.put("inqdate", xlsList.get(0).getCvt_date());
 		map.put("comp_seq", comp_seq);
-		System.out.println("rcvmap: " + map);
+//		System.out.println("rcvmap: " + map);
 		List<HashMap<String, Object>> pmtList = repo.selectCVTdata(map);
 
 		// 두개의 list형 자료를 비교하기 시작
@@ -325,7 +325,7 @@ public class SettingsController {
 			try {
 				cvt_time_parsed = dateform.parse(temp_cvt_time);
 			} catch (ParseException e) {
-				System.out.println("parseException");
+				System.out.println("parseException occurs @ cvtupload");
 			}
 			Date add1 = new Date(cvt_time_parsed.getTime() + (1 * ONE_MINUTE));
 			String cvt_time_add1 = add1.getHours() + ":"
@@ -390,7 +390,7 @@ public class SettingsController {
 
 		int idx = 0;
 		for (CardVeriTool cvt : xlsList) {
-			System.out.println(cvt);
+//			System.out.println(cvt);
 			if (!cvt.getGubun().equals("ok")) {
 				errCntXls++;
 				HashMap<String, Object> xlserrobj = new HashMap<String, Object>();
@@ -399,12 +399,12 @@ public class SettingsController {
 				xlserr.put(idx++, xlserrobj);
 			}
 		}
-		System.out.println(xlserr);
-		
+//		System.out.println(xlserr);
+
 		idx = 0;
-		
+
 		for (HashMap<String, Object> pmt : pmtList) {
-			System.out.println(pmt);
+//			System.out.println(pmt);
 			sumDb += ((BigDecimal) pmt.get("PMT_AMOUNT")).intValue();
 			countDb++;
 			if (pmt.get("ok") == null) {
@@ -415,9 +415,10 @@ public class SettingsController {
 				dberr.put(idx++, dberrobj);
 			}
 		}
-		System.out.println(dberr);
+//		System.out.println(dberr);
 
 		// 비교를 마치고 자료를 삭제한다.
+		System.out.print("cvt done, delete file: ");
 		System.out.println(FileService.deleteFile(UPLOADPATH + path));
 
 		// 자료를 돌려보내기 위해 map을 비우고 새로운 자료를 집어넣는다.
@@ -431,7 +432,7 @@ public class SettingsController {
 		matome.put("countDb", countDb);
 		matome.put("errCntDb", errCntDb);
 		matome.put("eqCnt", eqCnt);
-		
+
 		resultMap.put("matome", matome);
 		resultMap.put("dberr", dberr);
 		resultMap.put("xlserr", xlserr);

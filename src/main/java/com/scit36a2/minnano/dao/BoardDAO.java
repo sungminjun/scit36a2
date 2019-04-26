@@ -40,7 +40,7 @@ public interface BoardDAO {
 	public int updateComment(Board_comments board_comments);
 
 	public Board_comments selectCmtOne(Board_comments board_comments);
-	
+
 	public ArrayList<Object> insertReport(HashMap<String, Object> map);
 
 	public ArrayList<Object> insertMenuReport(HashMap<String, Object> map);

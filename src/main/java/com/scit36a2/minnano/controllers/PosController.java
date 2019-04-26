@@ -15,27 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scit36a2.minnano.dao.PosRepo;
 import com.scit36a2.minnano.vo.Cashonhand;
 import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Sales_detail;
 import com.scit36a2.minnano.vo.Sales_state;
 
-// POS기능 - 메인화면에서 일어나는 기능들 
-// 영업개시(시재관리), 테이블 조회, 판매전표 조회, 
-// 테이블 이동(=판매조회 전표에 저장된 데이터 수정), 영업마감...
-// POS 기능 - 주문화면에서 일어나는 기능들
-// 테이블 번호와 
-// 
 @Controller
 public class PosController {
+	private static final Logger logger = LoggerFactory.getLogger(PosController.class);
 
 	@Autowired
 	PosRepo repo;
-
-	private static final Logger logger = LoggerFactory.getLogger(PosController.class);
 
 	@RequestMapping(value = "/pos", method = RequestMethod.GET)
 	public String pos() {
@@ -69,23 +60,25 @@ public class PosController {
 	 * @author jsm, cck
 	 */
 	@RequestMapping(value = "makeorder", method = RequestMethod.POST)
-	public @ResponseBody String makeorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod, @RequestBody HashMap<String, Object> senddata_new) {
-		System.out.println(sas + ", " + sad + ", " + ppod + ", " + senddata_new);
+	public @ResponseBody String makeorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod,
+			@RequestBody HashMap<String, Object> senddata_new) {
+//		System.out.println(sas + ", " + sad + ", " + ppod + ", " + senddata_new);
 		String result = "";
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		int seqno = repo.chksasseqs();
 		sas.setSales_state_seq(seqno);
 		sas.setComp_seq(comp_seq);
-		sas.setSeat_seq(Integer.parseInt((String)senddata_new.get("seat_seq")));
-		sas.setSales_visitors(Integer.parseInt((String)senddata_new.get("sales_visitors")));
-		if ( ((String)senddata_new.get("sales_memo")) == null || ((String)senddata_new.get("sales_memo")).length() == 0 ) {
+		sas.setSeat_seq(Integer.parseInt((String) senddata_new.get("seat_seq")));
+		sas.setSales_visitors(Integer.parseInt((String) senddata_new.get("sales_visitors")));
+		if (((String) senddata_new.get("sales_memo")) == null
+				|| ((String) senddata_new.get("sales_memo")).length() == 0) {
 			sas.setSales_memo("");
 		} else {
-			sas.setSales_memo((String)senddata_new.get("sales_memo"));
+			sas.setSales_memo((String) senddata_new.get("sales_memo"));
 		}
 		int resultSas = repo.insertSas(sas);
 		int resultSad = 0;
-		String ppods[] = ((String)senddata_new.get("ppod")).split("\\|");
+		String ppods[] = ((String) senddata_new.get("ppod")).split("\\|");
 		int chker = 0;
 		for (int i = 0; i < ppods.length - 3; i += 4) {
 			chker++;
@@ -99,7 +92,7 @@ public class PosController {
 			sad.setSales_state_seq(seqno);
 			resultSad += repo.insertSad(sad);
 		}
-		System.out.println("makeorder@ resultSas:" + resultSas + ", resultSad:" + resultSad + ", chker:" + chker);
+//		System.out.println("makeorder@ resultSas:" + resultSas + ", resultSad:" + resultSad + ", chker:" + chker);
 		if (resultSas == 1 && resultSad == chker) {
 			result = "success";
 		} else {
@@ -114,26 +107,31 @@ public class PosController {
 	 * @author jsm, cck
 	 */
 	@RequestMapping(value = "replaceorder", method = RequestMethod.POST)
-	public @ResponseBody String replaceorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod, @RequestBody HashMap<String, Object> senddata_replace) {
+	public @ResponseBody String replaceorder(HttpSession session, Sales_state sas, Sales_detail sad, String ppod,
+			@RequestBody HashMap<String, Object> senddata_replace) {
 		String result = "";
-		System.out.println(sas + ", " + sad + ", " + ppod + ", " + senddata_replace);
+//		System.out.println(sas + ", " + sad + ", " + ppod + ", " + senddata_replace);
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		int sas_seq = Integer.parseInt((String)senddata_replace.get("sales_state_seq"));
+		int sas_seq = Integer.parseInt((String) senddata_replace.get("sales_state_seq"));
 		sas.setComp_seq(comp_seq);
 		sas.setSales_state_seq(sas_seq);
-		sas.setSeat_seq(Integer.parseInt((String)senddata_replace.get("seat_seq")));
+		sas.setSeat_seq(Integer.parseInt((String) senddata_replace.get("seat_seq")));
 //		sas.setSales_visitors((Integer) senddata_replace.get("sales_visitors"));
-		if ( ((String)senddata_replace.get("sales_memo")) == null || ((String)senddata_replace.get("sales_memo")).length() == 0 ) {
+		if (((String) senddata_replace.get("sales_memo")) == null
+				|| ((String) senddata_replace.get("sales_memo")).length() == 0) {
 			sas.setSales_memo("");
 		} else {
-			sas.setSales_memo((String)senddata_replace.get("sales_memo"));
+			sas.setSales_memo((String) senddata_replace.get("sales_memo"));
 		}
-		System.out.println(sas);
+//		System.out.println(sas);
 		int resultSas = repo.updateSasmemo(sas);
+		logger.info("replaceorder, resultSas: " + resultSas);
 		int deleteOld = repo.deleteoldorder(sas_seq);
+		logger.info("replaceorder, deleteOld: " + deleteOld);
 
-		String ppods[] = ((String)senddata_replace.get("ppod")).split("\\|");
-		int newodsize = ((String)senddata_replace.get("ppod")).length();
+		String ppods[] = ((String) senddata_replace.get("ppod")).split("\\|");
+		int newodsize = ((String) senddata_replace.get("ppod")).length();
+		logger.info("replaceorder, newodsize: " + newodsize);
 
 		int resultreplaceorder = 0;
 		int chker = 0;
@@ -151,7 +149,7 @@ public class PosController {
 			resultreplaceorder += repo.insertSad(sad);
 		}
 
-		System.out.println("replace order@ resultreplaceorder:" + resultreplaceorder + ", chker:" + chker);
+//		System.out.println("replace order@ resultreplaceorder:" + resultreplaceorder + ", chker:" + chker);
 		if (resultreplaceorder == chker) {
 			result = "success";
 		} else {
@@ -196,9 +194,10 @@ public class PosController {
 		int sas_seq = pmt.getSales_state_seq();
 		int sasupdateresult = repo.updatesasdone(sas_seq);
 		int makepmtresult = repo.makepayment(pmt);
-
+		logger.info("makepayment, sas_seq: " + sas_seq + ", sasupdateresult" + sasupdateresult + ", makepmtresult"
+				+ makepmtresult);
 		// if 문으로 result 판별해서 처리해야함
-		
+
 		return result;
 	}
 
@@ -217,7 +216,7 @@ public class PosController {
 		int chker = 0;
 
 		int sasupdateresult = repo.updatesasdone(sas_seq);
-
+		logger.info("makepaymentcomplex, chker: " + chker + ", sasupdateresult" + sasupdateresult);
 		pmt.setSales_state_seq(sas_seq);
 		pmt.setPayment_clerk(emp_id);
 
@@ -231,6 +230,7 @@ public class PosController {
 			pmt.setPayment_type(0);
 			pmt.setPayment_type(0);
 		}
+		logger.info("makepaymentcomplex, makepmtresult: " + makepmtresult);
 
 		return result;
 	}
@@ -262,7 +262,7 @@ public class PosController {
 	public ArrayList<Payment> selectpayments(HttpSession session, @RequestBody HashMap<String, Object> map) {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		map.put("comp_seq", comp_seq);
-		System.out.println(map);
+//		System.out.println(map);
 		ArrayList<Payment> result = repo.selectpayments(map);
 		if (result == null) {
 			return null;
@@ -349,41 +349,41 @@ public class PosController {
 	 * 
 	 * @author jsm
 	 */
- 	@RequestMapping(value = "selectCashOne", method = RequestMethod.POST)	
-	@ResponseBody	
-	public List<Cashonhand> selectCashOne(HttpSession session, Cashonhand cashonhand) {	
-		int comp_seq = (Integer) session.getAttribute("comp_seq");	
-		cashonhand.setComp_seq(comp_seq);	
-		List<Cashonhand> result = repo.selectCashOne(cashonhand);	
+	@RequestMapping(value = "selectCashOne", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Cashonhand> selectCashOne(HttpSession session, Cashonhand cashonhand) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		cashonhand.setComp_seq(comp_seq);
+		List<Cashonhand> result = repo.selectCashOne(cashonhand);
 
- 		return result;	
-	}	
+		return result;
+	}
 
- 	/**
+	/**
 	 * 현금시재 정보를 삭제
 	 * 
 	 * @author jsm
 	 */
- 	@RequestMapping(value = "deleteCashonhand", method = RequestMethod.POST)	
-	@ResponseBody	
-	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand) {	
-		int comp_seq = (Integer) session.getAttribute("comp_seq");	
-		cashonhand.setComp_seq(comp_seq);	
-		System.out.println("cashonhand 컨트롤러 삭제 : " + cashonhand);	
-		int result = repo.deleteCashonhand(cashonhand);	
-		System.out.println("result 컨트롤러 삭제  : " + result);	
-		return "success";	
- 	}
- 	
+	@RequestMapping(value = "deleteCashonhand", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteCashonhand(HttpSession session, Cashonhand cashonhand) {
+		int comp_seq = (Integer) session.getAttribute("comp_seq");
+		cashonhand.setComp_seq(comp_seq);
+//		System.out.println("cashonhand 컨트롤러 삭제 : " + cashonhand);
+		int result = repo.deleteCashonhand(cashonhand);
+//		System.out.println("result 컨트롤러 삭제  : " + result);
+		return "success";
+	}
+
 	//
 	// cashonhand 관련 내용 above here
 	//
 	//////
 	//////
 	//
-	// table 관련(좌석관련) 관리method below here 
+	// table 관련(좌석관련) 관리method below here
 	//
-	
+
 	/**
 	 * 테이블을 이동시킨다.
 	 * 
@@ -395,7 +395,7 @@ public class PosController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		int result = 0;
 		result = repo.movetable(map);
-		System.out.println(result);
+		logger.info("movetable, comp_seq: " + comp_seq + ", result: " + result);
 		return result;
 	}
 
@@ -410,7 +410,7 @@ public class PosController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		int result = 0;
 		result = repo.swaptable(map);
-		System.out.println(result);
+		logger.info("swaptable, comp_seq: " + comp_seq + ", result: " + result);
 		return result;
 	}
 
@@ -428,19 +428,14 @@ public class PosController {
 		String result = "fail";
 
 		sas.setSales_state_seq(map.get("from_sasseq"));
-		System.out.println(sas.getSales_state_seq());
-		int mergeResult = repo.mergetable(map); 
+//		System.out.println(sas.getSales_state_seq());
+		int mergeResult = repo.mergetable(map);
 		int delResult = repo.deleteSas(sas);
-		System.out.println("merge : " + mergeResult + ", delR : " + delResult);
-		if (mergeResult != 0 && delResult != 0 ) {
+//		System.out.println("merge : " + mergeResult + ", delR : " + delResult);
+		if (mergeResult != 0 && delResult != 0) {
 			result = "success";
 		}
 		return result;
 	}
-
-	//
-	// table 관련(좌석관련) 관리method above here
-	//
-	//////
 
 }

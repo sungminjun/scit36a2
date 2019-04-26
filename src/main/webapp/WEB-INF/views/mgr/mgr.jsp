@@ -1214,39 +1214,39 @@
       var senddata = '';
       var chker = 0;
       $.ajax({
-          url: 'selectCashonhand',
-          method: 'post',
-          success: function(resp) {
-            console.log(resp)
-            $.each(resp, function(idx, obj) {
-              if (obj.cashonhand_type == 4) {
-                str = obj.cashonhand_register + '님이 ' + obj.cashonhand_regdate + '에 등록한 마감정보(마감금액: ' + obj.cashonhand_cash + ', 오차금액' + obj.cashonhand_error + ')를 삭제하시고 마감을 취소하시겠습니까?';
-                senddata = {
-                  "cashonhand_seq": obj.cashonhand_seq
-                }
-                var conf = confirm(str);
-                if (conf == true) {
-                  $.ajax({
-                    url: 'deleteCashonhand',
-                    method: 'post',
-                    data: senddata,
-                    success: function(resp) {
-                      alert('영업 마감정보를 삭제하고 마감을 취소합니다.');
-                    }
-                  })
-                } else {
-                  alert('영업마감 요청을 취소합니다.');
-                  return false;
-                }
-                chker++;
-              } else if ( idx == resp.length -1 && chker == 0 ) {
-            	  alert('영업 마감정보가 존재하지 않습니다.');
-            	  return false;
+        url: 'selectCashonhand',
+        method: 'post',
+        success: function(resp) {
+          console.log(resp)
+          $.each(resp, function(idx, obj) {
+            if (obj.cashonhand_type == 4) {
+              str = obj.cashonhand_register + '님이 ' + obj.cashonhand_regdate + '에 등록한 마감정보(마감금액: ' + obj.cashonhand_cash + ', 오차금액' + obj.cashonhand_error + ')를 삭제하시고 마감을 취소하시겠습니까?';
+              senddata = {
+                "cashonhand_seq": obj.cashonhand_seq
               }
-            })
-          }
-        })
-      }
+              var conf = confirm(str);
+              if (conf == true) {
+                $.ajax({
+                  url: 'deleteCashonhand',
+                  method: 'post',
+                  data: senddata,
+                  success: function(resp) {
+                    alert('영업 마감정보를 삭제하고 마감을 취소합니다.');
+                  }
+                })
+              } else {
+                alert('영업마감 요청을 취소합니다.');
+                return false;
+              }
+              chker++;
+            } else if (idx == resp.length - 1 && chker == 0) {
+              alert('영업 마감정보가 존재하지 않습니다.');
+              return false;
+            }
+          })
+        }
+      })
+    }
 
     $(document).keydown(function(event) {
       if (event.keyCode == '37') {
@@ -1295,9 +1295,9 @@
       $("#mgr-4-3-form").on("submit", function(event) {
         event.preventDefault();
         if ($("#mgr-4-3-form").attr('action') == 'registMember') {
-        	emp_submit_chk(1);
+          emp_submit_chk(1);
         } else if ($("#mgr-4-3-form").attr('action') == 'updateEmployee')
-        	emp_submit_chk(2);
+          emp_submit_chk(2);
       })
 
     })
@@ -1626,32 +1626,32 @@
         emp_tel: emp_tel
       };
 
-      if (param == 1 ) {
+      if (param == 1) {
         $.ajax({
           url: 'registMember',
           method: 'POST',
           data: senddata,
           success: function(resp) {
-        	  if ( resp == 'success') {
-		        document.location.reload();
-        	  } else {
-        		  alert('가입이 정상적으로 진행되지 않았습니다. 확인하고 다시 시도하여 주십시오.')
-        	  }
+            if (resp == 'success') {
+              document.location.reload();
+            } else {
+              alert('가입이 정상적으로 진행되지 않았습니다. 확인하고 다시 시도하여 주십시오.')
+            }
           }
         })
       } else {
-    	  $.ajax({
-              url: 'updateEmployee',
-              method: 'POST',
-              data: senddata,
-              success: function(resp) {
-            	  if ( resp == 'success') {
-      		        document.location.reload();
-              	  } else {
-              		  alert('정보수정이 정상적으로 처리되지 않았습니다. 확인하고 다시 시도하여 주십시오.')
-              	  }
-              }
-            })  
+        $.ajax({
+          url: 'updateEmployee',
+          method: 'POST',
+          data: senddata,
+          success: function(resp) {
+            if (resp == 'success') {
+              document.location.reload();
+            } else {
+              alert('정보수정이 정상적으로 처리되지 않았습니다. 확인하고 다시 시도하여 주십시오.')
+            }
+          }
+        })
       }
     }
 

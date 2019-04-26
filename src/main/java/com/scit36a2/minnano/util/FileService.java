@@ -1,7 +1,6 @@
 package com.scit36a2.minnano.util;
 
 import java.io.File;
-import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -60,7 +59,7 @@ public class FileService {
 
 		filename = filename + "_" + sdf; // 확장명이 안붙은
 		savedFilename = filename + ext; // 확장명이 붙은
-		System.out.println("File : " + savedFilename);
+//		System.out.println("File : " + savedFilename);
 
 		// 저장할 전체 경로를 포함한 File 객체
 		File serverFile = null;

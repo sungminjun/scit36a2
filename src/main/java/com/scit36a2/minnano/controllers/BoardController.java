@@ -56,7 +56,6 @@ public class BoardController {
 		// DB 접속 코드
 		int totalRecoundCount = repo.totalBoardCount(searchItem, searchWord); // search한것의 전체 게시글 수
 		PageNavigator navi = new PageNavigator(currentPage, totalRecoundCount);
-		Employee employee = new Employee();
 		List<HashMap<String, Object>> boardList = repo.boardList(searchItem, searchWord, navi.getStartRecord(),
 				navi.getCountPerPage());
 
@@ -147,7 +146,6 @@ public class BoardController {
 	 * 
 	 * @author cck, lyc
 	 */
-
 	@RequestMapping(value = "/boardDelete", method = RequestMethod.GET)
 	public String boardDelete(int board_seq, HttpSession session, Board board) {
 		Board oldBoard = repo.selectOne(board_seq);
@@ -158,6 +156,7 @@ public class BoardController {
 		if (savedfile != null) {
 			String fullPath = uploadPath + "/" + savedfile;
 			boolean result = FileService.deleteFile(fullPath);
+			logger.info("boardDelete result :" + result);
 		}
 		// DB에 저장된 글 삭제
 		repo.boardDelete(board);
@@ -187,6 +186,7 @@ public class BoardController {
 		board.setEmp_seq(emp_seq);
 		Board oldBoard = repo.selectOne(board.getBoard_seq());
 		// System.out.println("수정 board : " + board);
+		logger.info("boardUpdate, oldBoard: " + oldBoard);
 		repo.boardUpdate(board);
 		return "redirect:/board";
 	}
@@ -210,7 +210,7 @@ public class BoardController {
 		board_comments.setBoard_comments_writer(writer.getEmp_name());
 		// System.out.println("board_comments : " + board_comments);
 		int result = repo.inputComment(board_comments);
-
+		logger.info("board-inputComment result: " + result);
 		return "success";
 	}
 
@@ -232,7 +232,7 @@ public class BoardController {
 
 		board_comments = repo.selectCmtOne(board_comments);
 		if (writer.getEmp_name().equals(board_comments.getBoard_comments_writer())) {
-			System.out.println("조건에 맞으면 삭제합니다." + board_comments);
+//			System.out.println("조건에 맞으면 삭제합니다." + board_comments);
 			int result = repo.deleteComment(board_comments);
 			if (result == 1) {
 				return "success";
@@ -257,7 +257,7 @@ public class BoardController {
 		board_comments = repo.selectCmtOne(board_comments);
 
 		if (writer.getEmp_name().equals(board_comments.getBoard_comments_writer())) {
-			System.out.println("조건에 맞으면 수정합니다." + board_comments);
+//			System.out.println("조건에 맞으면 수정합니다." + board_comments);
 			int result = repo.updateComment(board_comments);
 			if (result == 1) {
 				return "success";
@@ -272,15 +272,15 @@ public class BoardController {
 	 * @author cck, lyc
 	 */
 	@RequestMapping(value = "showreport", method = RequestMethod.POST)
-	public String showreport(HttpSession session, Model model, String regdate, int emp_seq, HashMap<String, Object> map) {
-		System.out.println(regdate + ", " + emp_seq);
+	public String showreport(HttpSession session, Model model, String regdate, int emp_seq,
+			HashMap<String, Object> map) {
+//		System.out.println(regdate + ", " + emp_seq);
 		map.put("regdate", regdate);
 		map.put("emp_seq", emp_seq);
 		model.addAttribute("map", map);
-		System.out.println(map);
+//		System.out.println(map);
 		return "board/sharereport";
 	}
-	
 
 	/**
 	 * mgr의 사장 회원정보 조회(수정요청을 위한 데이터)
@@ -289,13 +289,13 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "shareOwner", method = RequestMethod.POST)
 	public @ResponseBody Employee shareOwner(@RequestBody HashMap<String, Object> map) {
-		System.out.println("@shareOnwer: map=" + map);
-		int emp_seq = (int)map.get("emp_seq");
+//		System.out.println("@shareOnwer: map=" + map);
+		int emp_seq = (int) map.get("emp_seq");
 		Employee emp = membrepo.selectOnebyseq(emp_seq);
-		System.out.println("@shareOnwer: emp" + emp);
+//		System.out.println("@shareOnwer: emp" + emp);
 		return emp;
 	}
-	
+
 	/**
 	 * mgr의 가게정보 조회(수정요청을 위한 데이터)
 	 * 
@@ -303,12 +303,12 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "shareCompanyOne", method = RequestMethod.POST)
 	public @ResponseBody Company selectCompanyOne(@RequestBody HashMap<String, Object> map) {
-		int emp_seq = (int)map.get("emp_seq");
+		int emp_seq = (int) map.get("emp_seq");
 		Company comp = membrepo.shareCompanyOne(emp_seq);
-		System.out.println("@shareCompanyOne: " + comp);
+//		System.out.println("@shareCompanyOne: " + comp);
 		return comp;
 	}
-	
+
 	/**
 	 * 보고서 삽입기능-매출 3개월치
 	 * 
@@ -317,9 +317,9 @@ public class BoardController {
 	@RequestMapping(value = "shareReport", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Object> shareReport(@RequestBody HashMap<String, Object> map) {
 		// 맵 안에 내용물이 emp_seq, board_regdate
-		System.out.println("@shareReport: map = " + map);
+//		System.out.println("@shareReport: map = " + map);
 		ArrayList<Object> insertReport = repo.insertReport(map);
-		System.out.println("@shareReport: result = " + insertReport);
+//		System.out.println("@shareReport: result = " + insertReport);
 
 		// param[=controller단에서 필요한 재료] board_seq [emp_seq랑, regdate]가 필요
 		// emp_seq 를 이용해서 sql을 param이 emp_seq고 result가 comp_seq 를 받는 sql문을 딸 수있죠\
@@ -339,9 +339,9 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "shareMenuReport", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Object> totalMenuReport(@RequestBody HashMap<String, Object> map) {
-		System.out.println("@shareMenuR: map = " + map);
+//		System.out.println("@shareMenuR: map = " + map);
 		ArrayList<Object> insertMenuReport = repo.insertMenuReport(map);
-		System.out.println("@shareMenuR: result = " + insertMenuReport);
+//		System.out.println("@shareMenuR: result = " + insertMenuReport);
 		return insertMenuReport;
 	}
 
@@ -352,9 +352,9 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "shareGuestReport", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Object> totalGuestReport(@RequestBody HashMap<String, Object> map) {
-		System.out.println("@shareGuestR: map = " + map);
+//		System.out.println("@shareGuestR: map = " + map);
 		ArrayList<Object> insertGuestReport = repo.insertGuestReport(map);
-		System.out.println("@shareGuestR: result = " + insertGuestReport);
+//		System.out.println("@shareGuestR: result = " + insertGuestReport);
 		return insertGuestReport;
 	}
 
@@ -365,12 +365,12 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "shareIncomeReport", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Object> totalIncome(@RequestBody HashMap<String, Object> map) {
-		System.out.println("@shareIncomeR: map = " + map);
+//		System.out.println("@shareIncomeR: map = " + map);
 
 		ArrayList<HashMap<String, Object>> month_Payment = repo.selectshareMonthPayment(map); // 한달
 		ArrayList<HashMap<String, Object>> month_Expense = repo.selectshareMonthExpense(map); // 한달
-		System.out.println(month_Expense);
-		System.out.println(month_Payment);
+//		System.out.println(month_Expense);
+//		System.out.println(month_Payment);
 		ArrayList<Object> result = new ArrayList<Object>();
 
 		for (int i = 0; i < month_Payment.size(); i++) {
@@ -383,7 +383,7 @@ public class BoardController {
 				}
 			}
 		}
-		System.out.println(result.toString());
+//		System.out.println(result.toString());
 
 		ArrayList<Object> result2 = new ArrayList<Object>();
 		result2.add(result.get(0));
@@ -408,7 +408,7 @@ public class BoardController {
 		result4.put("ALLPAYMENT", three);
 		result4.put("EXPENSE_AMOUNT", three2);
 		result2.add(result4);
-		System.out.println(result2);
+//		System.out.println(result2);
 
 		return result2;
 	}
@@ -420,10 +420,10 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "shareCardReport", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Object> totalCardReport(@RequestBody HashMap<String, Object> map) {
-		System.out.println("@shareCardR: map = " + map);
-		
+//		System.out.println("@shareCardR: map = " + map);
+
 		ArrayList<Object> insertCardReport = repo.insertCardReport(map);
-		System.out.println("insertCardReport" + insertCardReport.toString());
+//		System.out.println("insertCardReport" + insertCardReport.toString());
 		return insertCardReport;
 	}
 

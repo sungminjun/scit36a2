@@ -15,7 +15,6 @@ import com.scit36a2.minnano.vo.CardVeriTool;
 
 public class CVTExcelReader {
 
-	@SuppressWarnings("resource")
 	public List<CardVeriTool> xls2cvtVO(String filePath) {
 		List<CardVeriTool> result = new ArrayList<CardVeriTool>();
 
@@ -94,7 +93,7 @@ public class CVTExcelReader {
 									case 3: // 거래시간
 										vo.setCvt_time(value);
 										break;
-										
+
 									case 4: // 카드사
 										vo.setCvt_cardtype1(value);
 										break;
@@ -112,9 +111,9 @@ public class CVTExcelReader {
 										break;
 
 									case 8: // 승인금액
-										vo.setCvt_amount((int)(Double.parseDouble(value)));
+										vo.setCvt_amount((int) (Double.parseDouble(value)));
 										break;
-										
+
 									case 9: // 할부기간
 										vo.setCvt_instperiod(value);
 										break;

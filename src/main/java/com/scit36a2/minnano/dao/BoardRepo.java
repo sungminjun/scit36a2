@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.scit36a2.minnano.vo.Board;
 import com.scit36a2.minnano.vo.Board_comments;
-import com.scit36a2.minnano.vo.Company;
 
 @Repository
 public class BoardRepo {
@@ -108,8 +107,7 @@ public class BoardRepo {
 		Board_comments result = dao.selectCmtOne(board_comments);
 		return result;
 	}
-	
-	
+
 	public ArrayList<Object> insertReport(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		ArrayList<Object> list = dao.insertReport(map);
@@ -128,7 +126,6 @@ public class BoardRepo {
 		return list;
 	}
 
-	
 	public ArrayList<HashMap<String, Object>> selectshareMonthPayment(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
 		ArrayList<HashMap<String, Object>> list = dao.selectshareMonthPayment(map);
@@ -140,7 +137,6 @@ public class BoardRepo {
 		ArrayList<HashMap<String, Object>> list = dao.selectshareMonthExpense(map);
 		return list;
 	}
-	
 
 	public ArrayList<Object> insertCardReport(HashMap<String, Object> map) {
 		BoardDAO dao = session.getMapper(BoardDAO.class);
@@ -153,8 +149,6 @@ public class BoardRepo {
 		int result = dao.selectCompseq(emp_seq);
 		return result;
 	}
-
-	
 
 //	public int deleteFile(int board_seq) {
 //		BoardDAO dao = session.getMapper(BoardDAO.class);

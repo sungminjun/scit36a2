@@ -1,12 +1,26 @@
-/**	리드미	**/
+// Team MANEKINEKO from SCIT 36A2, KITA-SES@Coex, Seoul
+Choi, Chulkyu __ 최철규 (autumnsky1014@naver.com) __ server-side/ board and POS
+Jun, Sungmin __ 전성민 (sungminjunkr@gmail.com) __ leader, front-side/ POS and server-side/ member, board, POS 
+Kim, Yookyeong __ 김유경 (madamnurse43@gmail.com) __ server-side/ member and report
+Lee, Yeongchang __ 이영창 (clvh753@naver.com) __ front-side/ POS, board, member
+Lee, Hojung __ 이호정 (jos5050@naver.com) __ front-side/ report and server-side/ report
+
 // speical thanks to : Jung 'kokoronotomo' JaeSung for fix on-delete-cascade happening.
 
-// create-pos-account-on-oracle11g
-conn system/oracle
+// 팀원들을 위한 readme file입니다. 간략설명
+먼저 DB세팅을 진행하고, 이후에 sample data를 입력하시기 바랍니다.
+sample 계정은 hong/123 으로 6개월간의 매출, 판매내역, 지출 관련 정보가 있습니다.
+sample_xls_datas.zip 에는 카드매출 누락관련 기능에 대한 검증용 샘플데이터가 있습니다.
 
+// sample data 입력순서 
+(1) minnano_pos_rev190401v6.sql
+(2) payment-sample-data_v4_6months.sql
+(3) sample_xls_datas.zip
+
+// DB settings -- create-pos-account-on-oracle11g
+conn system/oracle
 show user
 create user pos identified by pos default tablespace system
--- 수정?할까 검토중 19.03.28. 전성민
 -- drop user pos cascade
 -- create user pos identified by pos;
 -- grant connect, resource, dba to pos;
@@ -14,7 +28,7 @@ create user pos identified by pos default tablespace system
 disconn
 conn pos/pos
 
-기본설정해둔 project default set
+// 기본설정해둔 project default set
 (1)pom.xml
 	버전설정
 		java-version	1.8
@@ -43,7 +57,3 @@ Board > Board, Board_comments 접근 : 게시판 관리
 Member > Seat, Menu, Company, Employee 접근 : 멤버별 정보 관리
 Sales >	Cashonhand, Payment, Sales_detail, Sales_state, Expense : 매출, 수입과 지출에 대한 정보관리
 (13) interceptor bean 설정 및 prehandle 오버라이드
-
-to-do
-(14) 프론트단 파일명과 이름, 기능 작성해서 devhome에 list화 시키고
-(15) devhome 관리용 db/페이지 작성할것인지 검토할 것

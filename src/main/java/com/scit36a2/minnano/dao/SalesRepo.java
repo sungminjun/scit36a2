@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.scit36a2.minnano.vo.Expense;
 import com.scit36a2.minnano.vo.Menu;
-import com.scit36a2.minnano.vo.Payment;
 import com.scit36a2.minnano.vo.Seat;
 
 @Repository
@@ -41,14 +40,12 @@ public class SalesRepo {
 		}
 		return result;
 	}
-	
 
 	public int stopseat(Seat seat) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);
 		int result = mapper.stopseat(seat);
 		return result;
 	}
-
 
 	public int updateseat(Seat seat) {
 		SalesDAO mapper = session.getMapper(SalesDAO.class);

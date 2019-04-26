@@ -23,11 +23,10 @@ import com.scit36a2.minnano.vo.Employee;
 // 로그인, 회원가입, id/pw찾기, 회원정보 수정, 회원사의 종업원id 등록등..
 @Controller
 public class MemberController {
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	@Autowired
 	MemberRepo repo;
-
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
 	/**
 	 * 로그인 페이지이동
@@ -151,7 +150,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "checkComp_id", method = RequestMethod.POST)
 	public @ResponseBody String checkComp_id(String comp_id) {
-		System.out.println(comp_id);
+//		System.out.println(comp_id);
 		Company c = repo.selectCompanyOneById(comp_id);
 		if (c != null)
 			return "fail";
@@ -166,10 +165,12 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "chk_emp_id", method = RequestMethod.POST)
 	public @ResponseBody String chk_emp_id(Employee emp) {
-		System.out.println(emp);
+//		System.out.println(emp);
 		Employee e = repo.selectOne(emp);
-		if (e != null)	return "fail";
-		else			return "success";
+		if (e != null)
+			return "fail";
+		else
+			return "success";
 	}
 
 	/**
@@ -190,7 +191,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "/findId", method = RequestMethod.POST)
 	public @ResponseBody Employee findId(String comp_id, String emp_name) {
-		System.out.println(comp_id);
+//		System.out.println(comp_id);
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("comp_id", comp_id);
 		map.put("emp_name", emp_name);
@@ -198,7 +199,7 @@ public class MemberController {
 		Employee result = repo.findId(map);
 		if (result != null) {
 			logger.info(result.toString());
-			System.out.println(result);
+//			System.out.println(result);
 			return result;
 		} else {
 			return null;
@@ -212,10 +213,10 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
 	public @ResponseBody ArrayList<Object> findPw(@RequestBody HashMap<String, Object> postData) {
-		System.out.println(postData);
+//		System.out.println(postData);
 		ArrayList<Object> result = repo.findPW(postData);
 		if (result != null) {
-			System.out.println(result);
+//			System.out.println(result);
 			return result;
 		} else {
 			return null;
@@ -229,7 +230,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "/findQuiz", method = RequestMethod.POST)
 	public @ResponseBody String findQuiz(@RequestBody HashMap<String, Object> map) {
-		System.out.println("quiz: " + map);
+//		System.out.println("quiz: " + map);
 		String result = "";
 		result = repo.findQuiz(map);
 		if (result == null || result.length() == 0) {
@@ -282,8 +283,8 @@ public class MemberController {
 		// 수정사항) session comp_seq사용
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		Company chkComp = repo.selectCompanyOne(comp_seq);
-		System.out.println("company: " + company);
-		System.out.println("chkComp: " + chkComp);
+//		System.out.println("company: " + company);
+//		System.out.println("chkComp: " + chkComp);
 
 		// session의 comp_seq로 selectCompanyOne해서 사업자등록번호를 점검한다.
 		int result = 0;
@@ -333,23 +334,26 @@ public class MemberController {
 		Employee emp = new Employee();
 		emp.setEmp_id(emp_id);
 		Employee chkEmp = repo.selectOne(emp);
-		String emp_new_pw = (String)map.get("emp_new_pw");
+		String emp_new_pw = (String) map.get("emp_new_pw");
 		int result = 0;
-		if (chkEmp != null && chkEmp.getEmp_id().equals(emp_id) && ((String)map.get("emp_pw")).equals(chkEmp.getEmp_pw())) {
+		if (chkEmp != null && chkEmp.getEmp_id().equals(emp_id)
+				&& ((String) map.get("emp_pw")).equals(chkEmp.getEmp_pw())) {
 			// 만약 새로운 비밀번호를 입력받았다면, 비밀번호를 새로 설정한다.
 			if (emp_new_pw != null && !emp_new_pw.equals("")) {
 				emp.setEmp_pw(emp_new_pw);
 			}
 			emp.setComp_seq(comp_seq);
-			emp.setEmp_tel((String)map.get("emp_tel"));
-			emp.setEmp_name((String)map.get("emp_name"));
+			emp.setEmp_tel((String) map.get("emp_tel"));
+			emp.setEmp_name((String) map.get("emp_name"));
 			result = repo.updateMember(emp);
 		}
-		System.out.println("updateOnwer result: " + result);
+//		System.out.println("updateOnwer result: " + result);
 
 		// 추후 ajax에 맞게 조정하거나, 다른 방법 검토할 것..
-		if (result == 1)	return "success";
-		else				return "fail";
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
 	/**
@@ -388,15 +392,17 @@ public class MemberController {
 	public @ResponseBody String registMember(Employee employee, HttpSession session) {
 		// employee.setEmp_auth_level(1); mapper에서 처리할까..
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
-		System.out.println("emp: " + employee);
+//		System.out.println("emp: " + employee);
 		employee.setComp_seq(comp_seq);
 		// 직원은 사장권한으로 로그인하면 그냥 다 보이게 할게요
 		employee.setEmp_quiz("no_quiz");
 		employee.setEmp_quiz_answer("no_quiz");
 		int result = repo.joinMember(employee);
 
-		if (result == 1)	return "success";
-		else				return "fail";
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
 	/**
@@ -410,35 +416,10 @@ public class MemberController {
 		employee.setComp_seq(comp_seq);
 		int result = repo.updateMember(employee);
 
-		if (result == 1)	return "success";
-		else				return "fail";
-	}
-
-	//
-	//
-	//
-	// will be removed below
-
-	// 삭제예정 -- 해당 페이지 기능 mgr페이지로 통합됨
-	@RequestMapping(value = "/registMember", method = RequestMethod.GET)
-	public String registMember() {
-		return "mgr/member";
-	}
-
-	// 삭제예정 -- find로 신설
-	// 아이디/패스워드찾기
-	@RequestMapping(value = "findLogin", method = RequestMethod.POST)
-	public String find(Employee emp, Company com) {
-
-		return "";
-	}
-
-	// 삭제예정 -- main 화면 삭제 검토중
-	// 메인 화면으로 이동
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main() {
-		logger.info("welcome login.");
-		return "main";
+		if (result == 1)
+			return "success";
+		else
+			return "fail";
 	}
 
 }

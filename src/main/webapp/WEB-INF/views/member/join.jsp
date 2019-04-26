@@ -202,12 +202,12 @@
                   </div>
 
                   <div class="row justify-content-center" id="join_footer">
-                    
-                      <input type="reset" id="join_cancel_btn" value="취소">
-                    
-                    
-                      <input type="submit" id="join_enroll_button" value="회원가입">
-                   
+
+                    <input type="reset" id="join_cancel_btn" value="취소">
+
+
+                    <input type="submit" id="join_enroll_button" value="회원가입">
+
                   </div>
 
                 </div>
@@ -279,14 +279,14 @@
         url: "checkComp_id",
         method: "POST",
         success: function(data) {
-        	console.log(data);
-        	if (data == 'fail') {
-        		$("#company_Id").css("background-color", "#FFCECE")/* .css("color", "red") */;
-                $("#company_IdResult").text("중복되는 사업자등록번호 입니다").css("color", "red");
-        	} else {
-          $("#company_Id").css("background-color", "#B0F6AC").css("color", "black")/* .attr('readonly', 'readonly') */;
-          $("#company_IdResult").text("사용 가능한 사업자등록번호 입니다.").attr("style","color:#00f");
-        	}
+          console.log(data);
+          if (data == 'fail') {
+            $("#company_Id").css("background-color", "#FFCECE") /* .css("color", "red") */ ;
+            $("#company_IdResult").text("중복되는 사업자등록번호 입니다").css("color", "red");
+          } else {
+            $("#company_Id").css("background-color", "#B0F6AC").css("color", "black") /* .attr('readonly', 'readonly') */ ;
+            $("#company_IdResult").text("사용 가능한 사업자등록번호 입니다.").attr("style", "color:#00f");
+          }
         }
       });
     }
@@ -304,11 +304,11 @@
           },
           method: 'POST',
           success: function(resp) {
-        	  if (resp == 'success') {
-	            $("#chkidresult").text("사용 가능한 ID입니다.").css("color", "green");
-        	  } else {
-	            $("#chkidresult").text("이미 사용중인 ID입니다.").css("color", "red");
-        	  }
+            if (resp == 'success') {
+              $("#chkidresult").text("사용 가능한 ID입니다.").css("color", "green");
+            } else {
+              $("#chkidresult").text("이미 사용중인 ID입니다.").css("color", "red");
+            }
           }
         })
       }

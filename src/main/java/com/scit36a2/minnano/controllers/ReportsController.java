@@ -7,8 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scit36a2.minnano.dao.ReportRepo;
 
-// 보고서 기능
 @Controller
 public class ReportsController {
 
 	@Autowired
 	ReportRepo repo;
-	
+
 	// 보고서 페이지 이동
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
 	public String report() {
@@ -176,7 +173,7 @@ public class ReportsController {
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		ArrayList<Object> card_Check = repo.selectCardPercent(map);
-		System.out.println(card_Check);
+//		System.out.println(card_Check);
 		return card_Check;
 	}
 
@@ -200,8 +197,8 @@ public class ReportsController {
 		ArrayList<HashMap<String, Object>> all_Payment = repo.selectAllPayment(map); // 일주일
 		ArrayList<HashMap<String, Object>> all_Expense = repo.selectAllExpense(map); // 일주일 일-월 표시
 
-		System.out.println(all_Expense);
-		System.out.println(all_Payment);
+//		System.out.println(all_Expense);
+//		System.out.println(all_Payment);
 
 		ArrayList<Object> result = new ArrayList<Object>();
 
@@ -215,7 +212,7 @@ public class ReportsController {
 				}
 			}
 		}
-		System.out.println(result.toString());
+//		System.out.println(result.toString());
 
 		return result;
 
@@ -248,7 +245,7 @@ public class ReportsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		map.put("comp_seq", comp_seq);
 		ArrayList<Object> total_Menu_Report = repo.selectTotalMenuReport(map);
- 		System.out.println("total_Menu_Report" + total_Menu_Report.toString());
+//		System.out.println("total_Menu_Report" + total_Menu_Report.toString());
 		return total_Menu_Report;
 	}
 
@@ -281,8 +278,8 @@ public class ReportsController {
 
 		ArrayList<HashMap<String, Object>> month_Payment = repo.selectMonthPayment(map); // 한달
 		ArrayList<HashMap<String, Object>> month_Expense = repo.selectMonthExpense(map); // 한달
-		System.out.println(month_Expense);
-		System.out.println(month_Payment);
+//		System.out.println(month_Expense);
+//		System.out.println(month_Payment);
 		ArrayList<Object> result = new ArrayList<Object>();
 
 		for (int i = 0; i < month_Payment.size(); i++) {
@@ -295,7 +292,7 @@ public class ReportsController {
 				}
 			}
 		}
-		System.out.println(result.toString());
+//		System.out.println(result.toString());
 
 		ArrayList<Object> result2 = new ArrayList<Object>();
 		result2.add(result.get(0));
@@ -319,7 +316,7 @@ public class ReportsController {
 		result4.put("ALLPAYMENT", three);
 		result4.put("EXPENSE_AMOUNT", three2);
 		result2.add(result4);
-		System.out.println(result2);
+//		System.out.println(result2);
 		return result2;
 	}
 
@@ -335,7 +332,7 @@ public class ReportsController {
 		int comp_seq = (Integer) session.getAttribute("comp_seq");
 		map.put("comp_seq", comp_seq);
 		ArrayList<Object> total_Card_Report = repo.selectTotalCardReport(map);
-		System.out.println("total_Card_Report" + total_Card_Report.toString());
+//		System.out.println("total_Card_Report" + total_Card_Report.toString());
 		return total_Card_Report;
 	}
 }

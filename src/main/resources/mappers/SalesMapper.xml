@@ -3,115 +3,122 @@
 <mapper namespace="com.scit36a2.minnano.dao.SalesDAO">
 
   <insert id="insertseat" parameterType="sea">
-    insert into seat (
-    seat_seq,
-    comp_seq,
-    seat_id
-    ) values (
-    seat_seqs.nextval,
-    #{comp_seq},
-    #{seat_id}
-    )
+    INSERT INTO 
+    	seat (
+	    seat_seq
+	    , comp_seq
+	    , seat_id
+	    ) VALUES (
+	    seat_seqs.nextval
+	    , #{comp_seq}
+	    , #{seat_id}
+	    )
   </insert>
 
   <select id="selectseat" resultType="sea" parameterType="int">
     <!-- select b.seat_id from employee a,seat b where a.comp_seq = b.comp_seq -->
-    select
-    *
-    from
-    seat
-    where
-    comp_seq = #{param}
-    order by
-    seat_seq
+    SELECT
+    	*
+    FROM
+    	seat
+    WHERE
+    	comp_seq = #{param}
+    ORDER BY
+   		seat_seq
   </select>
 
   <delete id="deleteseat" parameterType="sea">
-    delete from
-    SEAT
-    where
-    seat_seq = #{seat_seq}
+    DELETE FROM
+    	SEAT
+    WHERE
+    	seat_seq = #{seat_seq}
   </delete>
 
   <update id="stopseat" parameterType="sea">
-    update
+    UPDATE
     	SEAT
-    set
+    SET
     	seat_id = '[X]' || (select seat_id from seat where seat_seq = ${seat_seq}) 
-    where
+    WHERE
     	seat_seq = #{seat_seq}
   </update>
   
   <update id="updateseat" parameterType="sea">
-    update
-    SEAT
-    set
-    seat_id = #{seat_id}
-    where
-    seat_seq = #{seat_seq}
+    UPDATE
+    	SEAT
+    SET
+    	seat_id = #{seat_id}
+    WHERE
+    	seat_seq = #{seat_seq}
   </update>
 
   <insert id="insertMenu" parameterType="me">
-    insert into MENU (
-    menu_seq,
-    comp_seq,
-    menu_sellFlag,
-    menu_name,
-    menu_price,
-    menu_category
-    ) values (
-    menu_seqs.nextval,
-    #{comp_seq},
-    #{menu_sellFlag},
-    #{menu_name},
-    #{menu_price},
-    #{menu_category}
-    )
+    INSERT INTO 
+    	MENU 
+    	(
+	    menu_seq,
+	    , comp_seq
+	    , menu_sellFlag
+	    , menu_name
+	    , menu_price
+	    , menu_category
+	    )
+    	VALUES (
+	    menu_seqs.nextval
+	    , #{comp_seq}
+	    , #{menu_sellFlag}
+	    , #{menu_name}
+	    , #{menu_price}
+	    , #{menu_category}
+	    )
   </insert>
+  
   <select id="selectMenu" parameterType="me" resultType="me">
-    select
-    menu_seq,
-    comp_seq,
-    menu_sellFlag,
-    menu_name,
-    menu_price,
-    menu_category
-    from
-    MENU
-    where
-    comp_seq = #{comp_seq}
+    SELECT
+	    menu_seq
+	    , comp_seq
+	    , menu_sellFlag
+	    , menu_name
+	    , menu_price
+	    , menu_category
+    FROM
+    	MENU
+    WHERE
+    	comp_seq = #{comp_seq}
   </select>
 
   <delete id="deleteMenu" parameterType="me">
-    delete from MENU
-    where menu_seq = #{menu_seq} and comp_seq = #{comp_seq}
+    DELETE FROM 
+    	MENU
+    WHERE 
+    	menu_seq = #{menu_seq} 
+    	and comp_seq = #{comp_seq}
   </delete>
 
   <update id="updateMenu" parameterType="me">
-    update
-    MENU
-    set
-    menu_sellFlag = #{menu_sellFlag},
-    menu_name = #{menu_name},
-    menu_price = #{menu_price},
-    menu_category = #{menu_category}
-    where
-    menu_seq = #{menu_seq} and comp_seq = #{comp_seq}
+    UPDATE
+    	MENU
+    SET
+	    menu_sellFlag = #{menu_sellFlag}
+	    , menu_name = #{menu_name}
+	    , menu_price = #{menu_price}
+	    , menu_category = #{menu_category}
+    WHERE
+    	menu_seq = #{menu_seq} 
+    	and comp_seq = #{comp_seq}
   </update>
 
-
-
-
   <insert id="insertExpense" parameterType="exp">
-    insert into EXPENSE
-    values(
-    expense_seqs.nextval
-    , #{comp_seq}
-    , #{expense_type}
-    , to_date(#{expense_date}, 'YYYY-MM-DD')
-    , #{expense_description}
-    , #{expense_amount}
-    )
+    INSERT INTO 
+    	EXPENSE
+    	values(
+	    expense_seqs.nextval
+	    , #{comp_seq}
+	    , #{expense_type}
+	    , to_date(#{expense_date}, 'YYYY-MM-DD')
+	    , #{expense_description}
+	    , #{expense_amount}
+	    )
   </insert>
 
   <select id="selectExpense" parameterType="HashMap" resultType="exp">
@@ -130,21 +137,22 @@
   </select>
 
   <delete id="deleteExpense" parameterType="exp">
-    delete from EXPENSE
-    where
-    expense_seq = #{expense_seq}
+    DELETE FROM 
+    	EXPENSE
+    WHERE
+    	expense_seq = #{expense_seq}
   </delete>
 
   <update id="updateExpense" parameterType="exp">
-    update
-    EXPENSE
-    set
-    expense_date = #{expense_date},
-    expense_type = #{expense_type},
-    expense_description = #{expense_description},
-    expense_amount = #{expense_amount}
-    where
-    expense_seq = #{expense_seq}
+    UPDATE
+    	EXPENSE
+    SET
+	    expense_date = #{expense_date}
+	    , expense_type = #{expense_type}
+	    , expense_description = #{expense_description}
+	    , expense_amount = #{expense_amount}
+    WHERE
+    	expense_seq = #{expense_seq}
   </update>
 
   <select id="selectCVTdata" parameterType="hashmap" resultType="hashmap">

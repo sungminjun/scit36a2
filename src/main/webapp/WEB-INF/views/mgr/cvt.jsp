@@ -158,7 +158,7 @@
       var prout = '';
       var prout_detail_1 = '';
       var prout_detail_2 = '';
-      
+
 
       prout += '업로드한 엑셀파일 내의 카드승인 건수는 <strong>' + resp.matome.countXls + '</strong>건 이며, 합계금액은 <strong>' + resp.matome.sumXls + '</strong>원 입니다.<br>';
       prout += 'POS기의 카드매출 내역에 저장된 카드승인 건수는 <strong>' + resp.matome.countDb + '</strong>건 이며, 합계금액은 <strong>' + resp.matome.sumDb + '</strong>원 입니다.<br>';
@@ -169,33 +169,33 @@
       prout += '<br>';
       console.log(resp.matome.errCntXls)
       console.log(resp.matome.errCntDb)
-      console.log(resp.matome.errCntXls === 0 )
+      console.log(resp.matome.errCntXls === 0)
       console.log(resp.matome.errCntDb === 0)
-      if ( resp.matome.errCntXls !== 0 || resp.matome.dbCntXls !== 0 ) {
-	      prout += '자세한 내역은 <span id="showdetail" style="color: red;">여기를 클릭</span>하여 확인하시기 바랍니다.<br>';
+      if (resp.matome.errCntXls !== 0 || resp.matome.dbCntXls !== 0) {
+        prout += '자세한 내역은 <span id="showdetail" style="color: red;">여기를 클릭</span>하여 확인하시기 바랍니다.<br>';
       }
       prout += '감사합니다.';
 
       $('#cvtresult').html(prout);
-      
+
       if (Object.keys(resp.xlserr).length != 0) {
         prout_detail_1 += '카드승인 내역에는 있으나, POS기 자료에서 확인되지 않는 경우: <br>';
         prout_detail_1 += '[POS기에서 카드매출을 현금매출로 잘못 입력한 경우가 많습니다.]<br>';
         $.each(resp.xlserr, function(xlsidx, xlsobj) {
-          prout_detail_1 += '<br>승인내역: 시간:' + xlsobj.dtime + ', 금액: ' + xlsobj.amount +'원';
+          prout_detail_1 += '<br>승인내역: 시간:' + xlsobj.dtime + ', 금액: ' + xlsobj.amount + '원';
         })
       }
 
       $('#cvtdetail1').html(prout_detail_1);
-      
+
       if (Object.keys(resp.dberr).length != 0) {
         prout_detail_2 += 'POS기 자료에 있지만, 카드승인내역이 확인되지 않는 경우: <br>';
         prout_detail_2 += '[카드단말기 이상으로 인해 승인이 나지 않았을 가능성, 또는 승인취소 되었을 가능성이 있습니다.]<br>';
         $.each(resp.dberr, function(dbidx, dbobj) {
-          prout_detail_2 += '<br>POS기 내 카드매출: 시간:' + dbobj.dtime + ', 금액: ' + dbobj.amount +'원';
+          prout_detail_2 += '<br>POS기 내 카드매출: 시간:' + dbobj.dtime + ', 금액: ' + dbobj.amount + '원';
         })
       }
-      
+
       $('#cvtdetail2').html(prout_detail_2);
 
       $('#showdetail').on('click', function() {

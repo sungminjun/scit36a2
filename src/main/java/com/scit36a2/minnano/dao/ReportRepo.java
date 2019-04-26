@@ -82,7 +82,7 @@ public class ReportRepo {
 		ArrayList<Object> list = dao.selectMenu(map);
 		return list;
 	}
-	
+
 	//
 	// methods for cashflow and profit (card-cash ration, expense-payment amount)
 
@@ -103,7 +103,7 @@ public class ReportRepo {
 		ArrayList<HashMap<String, Object>> list = dao.selectAllExpense(map);
 		return list;
 	}
-	
+
 	//
 	// methods for total report
 

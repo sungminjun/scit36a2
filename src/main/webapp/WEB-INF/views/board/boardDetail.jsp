@@ -28,7 +28,11 @@
     $(function() {
       selectComment();
       $("#comButton").on("click", inputComment)
-      if (${sessionScope.emp_seq} != ${board.emp_seq}) {
+      if ($ {
+          sessionScope.emp_seq
+        } != $ {
+          board.emp_seq
+        }) {
         $('#board_update').css('display', 'none');
         $('#board_delete').css('display', 'none');
       }
@@ -36,8 +40,8 @@
         var addlink = '<form id="opensharereport" action="showreport" target="popupView" method="POST"><input type="submit" id="board_report" value="통계보기"/><input type="hidden" name="emp_seq" id="emp_seq" value="${board.emp_seq}"><input type="hidden" name="regdate" id="regdate" value="${board.board_regdate}"></form>';
         $('#reportlink').html(addlink);
         $('#opensharereport').on('submit', function(event) {
-        	var popup = window.open('', 'popupView', 'width=900,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200');
-			/*          
+          var popup = window.open('', 'popupView', 'width=900,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200');
+          /*          
 			event.preventDefault();
             event.stopPropagation();
             var targetattr = $(this).attr('target');
@@ -45,28 +49,31 @@
             console.log(targetattr + ', ' + linkhref);
             showreport(); 
             */
-          })
+        })
       }
     });
 
     function showreport() {
       var regdate = $('#regdate').val();
       var emp_seq = $('#emp_seq').val();
-   	  var senddata = { regdate : regdate, emp_seq : emp_seq };
+      var senddata = {
+        regdate: regdate,
+        emp_seq: emp_seq
+      };
       console.log(senddata);
       alert('!');
       var popup = window.open('', 'popupView', 'width=900,height=1000,location=no,status=no,scrollbars=yes,top=50,left=200');
       $.ajax({
-    	  url : 'showreport'
-    	  , method : 'POST'
-    	  , data : senddata
-    	  , dataType : 'html'
-    	  , success : function(resp) {
-    		  /* $(this).attr('href', resp);
-    		  $(this).attr('target', 'popupView'); */
-    		  popup.location.href = 'showreport';
-    		  console.log(resp);
-    	  }
+        url: 'showreport',
+        method: 'POST',
+        data: senddata,
+        dataType: 'html',
+        success: function(resp) {
+          /* $(this).attr('href', resp);
+          $(this).attr('target', 'popupView'); */
+          popup.location.href = 'showreport';
+          console.log(resp);
+        }
       })
     }
 
@@ -81,7 +88,9 @@
 
     function inputComment() {
       var board_comments_content = $("#board_comments_content").val();
-      var board_seq = ${board.board_seq};
+      var board_seq = $ {
+        board.board_seq
+      };
       if (board_comments_content.trim().length == 0) {
         /* alert("댓글입력할것"); */
         return;
@@ -104,7 +113,9 @@
     } /* inputComment */
 
     function selectComment() {
-      var board_seq = ${board.board_seq};
+      var board_seq = $ {
+        board.board_seq
+      };
       var d = {
         "board_seq": board_seq
       };
@@ -135,7 +146,7 @@
           a += '<i class="fas fa-tools"></i>'
           a += '</div></div>'
         } else {
-	      a += '</div>'
+          a += '</div>'
         }
       });
       $("#comment_box").html(a);
@@ -164,7 +175,9 @@
 
     function updateComment() {
       var board_comments_seq = $(this).attr("d-value");
-      var board_seq = ${board.board_seq};
+      var board_seq = $ {
+        board.board_seq
+      };
 
       $.ajax({
         method: 'post',
@@ -288,7 +301,9 @@
                 </div>
                 <hr>
                 <div class="board_content">
-                  <div style="white-space: pre; word-spacing: pre;"><c:out value="${board.board_content}" /></div>
+                  <div style="white-space: pre; word-spacing: pre;">
+                    <c:out value="${board.board_content}" />
+                  </div>
                 </div>
               </div><!-- card-body 끝-->
               <hr>

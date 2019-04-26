@@ -283,8 +283,8 @@
 			payment_type
 	</select>
 
-<select id="selectAllPayment" resultType="HashMap" parameterType="HashMap">
-             SELECT
+	<select id="selectAllPayment" resultType="HashMap" parameterType="HashMap">
+      SELECT
          to_char(payment_time, 'YYYY-MM') as monthtime
          , sum(payment_amount) as payment_amount_sum
       
@@ -306,7 +306,6 @@
          to_char(payment_time, 'YYYY-MM')
       ORDER BY
          monthtime
-         
    </select>
 
 	<select id="selectAllExpense" resultType="HashMap" parameterType="HashMap">
